@@ -1,0 +1,22 @@
+CRITICAL - 2022-07-14 01:35:17 --> Undefined property: stdClass::$peserta
+#0 /Users/mac/Work/Web/new-intranet/app/Views/meeting-room/schedule.php(67): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', '/Users/mac/Work...', 67, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(210): include('/Users/mac/Work...')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('meeting-room/sc...', Array, true)
+#4 /Users/mac/Work/Web/new-intranet/app/Controllers/MeetingSchedule.php(37): view('meeting-room/sc...', Array)
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\MeetingSchedule->schedule()
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\MeetingSchedule))
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#10 {main}
+CRITICAL - 2022-07-14 03:13:59 --> Invalid file: meeting-room/booking.php
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(198): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('meeting-room/bo...')
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('meeting-room/bo...', Array, true)
+#2 /Users/mac/Work/Web/new-intranet/app/Controllers/MeetingSchedule.php(56): view('meeting-room/bo...', Array)
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\MeetingSchedule->booking()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\MeetingSchedule))
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#8 {main}

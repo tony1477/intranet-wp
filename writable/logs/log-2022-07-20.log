@@ -1,0 +1,166 @@
+CRITICAL - 2022-07-20 02:51:53 --> Undefined variable: getRoom
+#0 /Users/mac/Work/Web/new-intranet/app/Controllers/Meeting/MeetingSchedule.php(49): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Users/mac/Work...', 49, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Meeting\MeetingSchedule->booking()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Meeting\MeetingSchedule))
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#6 {main}
+CRITICAL - 2022-07-20 03:12:22 --> You do not have sufficient permissions to access that page.
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(173): Myth\Auth\Filters\PermissionFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('department', 'before')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-07-20 03:14:57 --> You do not have sufficient permissions to access that page.
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(173): Myth\Auth\Filters\PermissionFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('department', 'before')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-07-20 03:16:56 --> You do not have sufficient permissions to access that page.
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(173): Myth\Auth\Filters\PermissionFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('department', 'before')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-07-20 03:17:02 --> You do not have sufficient permissions to access that page.
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(173): Myth\Auth\Filters\PermissionFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('department', 'before')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-07-20 03:31:56 --> syntax error, unexpected '}', expecting ';'
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Users/mac/Work...')
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('Myth\\Auth\\Filte...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('Myth\\Auth\\Filte...')
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(166): spl_autoload_call('Myth\\Auth\\Filte...')
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('department', 'before')
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#8 {main}
+CRITICAL - 2022-07-20 03:32:00 --> Undefined variable: config
+#0 /Users/mac/Work/Web/new-intranet/app/Views/Auth/login.php(14): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Users/mac/Work...', 14, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(210): include('/Users/mac/Work...')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('App\\Views\\Auth\\...', Array, true)
+#4 /Users/mac/Work/Web/new-intranet/vendor/myth/auth/src/Filters/PermissionFilter.php(47): view('App\\Views\\Auth\\...')
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(173): Myth\Auth\Filters\PermissionFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), Array)
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('department', 'before')
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#10 {main}
+CRITICAL - 2022-07-20 03:33:03 --> You do not have sufficient permissions to access that page.
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(173): Myth\Auth\Filters\PermissionFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('department', 'before')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-07-20 03:35:12 --> Invalid file: \App\Views\login.php
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(198): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('\\App\\Views\\logi...')
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('\\App\\Views\\logi...', Array, true)
+#2 /Users/mac/Work/Web/new-intranet/vendor/myth/auth/src/Filters/PermissionFilter.php(48): view('\\App\\Views\\logi...')
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(173): Myth\Auth\Filters\PermissionFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), Array)
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('department', 'before')
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#8 {main}
+CRITICAL - 2022-07-20 03:35:21 --> Invalid file: App\Views\login.php
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(198): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('App\\Views\\login...')
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('App\\Views\\login', Array, true)
+#2 /Users/mac/Work/Web/new-intranet/vendor/myth/auth/src/Filters/PermissionFilter.php(48): view('App\\Views\\login')
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(173): Myth\Auth\Filters\PermissionFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), Array)
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('department', 'before')
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#8 {main}
+CRITICAL - 2022-07-20 03:35:29 --> Invalid file: /App/Views/login.php
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(198): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('/App/Views/logi...')
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('/App/Views/logi...', Array, true)
+#2 /Users/mac/Work/Web/new-intranet/vendor/myth/auth/src/Filters/PermissionFilter.php(48): view('/App/Views/logi...')
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(173): Myth\Auth\Filters\PermissionFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), Array)
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('department', 'before')
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#8 {main}
+CRITICAL - 2022-07-20 03:35:40 --> Undefined variable: config
+#0 /Users/mac/Work/Web/new-intranet/app/Views/Auth/login.php(14): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Users/mac/Work...', 14, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(210): include('/Users/mac/Work...')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('\\App\\Views\\Auth...', Array, true)
+#4 /Users/mac/Work/Web/new-intranet/vendor/myth/auth/src/Filters/PermissionFilter.php(48): view('\\App\\Views\\Auth...')
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(173): Myth\Auth\Filters\PermissionFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), Array)
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('department', 'before')
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#10 {main}
+CRITICAL - 2022-07-20 03:37:12 --> You do not have sufficient permissions to access that page.
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(173): Myth\Auth\Filters\PermissionFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('department', 'before')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-07-20 03:37:48 --> Call to undefined method CodeIgniter\HTTP\RedirectResponse::router()
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(173): Myth\Auth\Filters\PermissionFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('department', 'before')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-07-20 03:37:49 --> Call to undefined method CodeIgniter\HTTP\RedirectResponse::router()
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(173): Myth\Auth\Filters\PermissionFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('department', 'before')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-07-20 03:39:30 --> You do not have sufficient permissions to access that page.
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(173): Myth\Auth\Filters\PermissionFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('divisi', 'before')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-07-20 03:42:15 --> You do not have sufficient permissions to access that page.
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Filters/Filters.php(173): Myth\Auth\Filters\PermissionFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(393): CodeIgniter\Filters\Filters->run('divisi', 'before')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-07-20 03:44:08 --> Undefined variable: msg
+#0 /Users/mac/Work/Web/new-intranet/app/Views/pages-500.php(20): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Users/mac/Work...', 20, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(210): include('/Users/mac/Work...')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('pages-500', Array, true)
+#4 /Users/mac/Work/Web/new-intranet/app/Controllers/Home.php(403): view('pages-500', Array)
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Home->show_pages_500()
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#10 {main}
+CRITICAL - 2022-07-20 03:45:54 --> Array to string conversion
+#0 /Users/mac/Work/Web/new-intranet/app/Views/pages-500.php(20): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Array to string...', '/Users/mac/Work...', 20, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(210): include('/Users/mac/Work...')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('pages-500', Array, true)
+#4 /Users/mac/Work/Web/new-intranet/app/Controllers/Home.php(403): view('pages-500', Array)
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Home->show_pages_500()
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#10 {main}

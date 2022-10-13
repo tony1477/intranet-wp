@@ -1,0 +1,366 @@
+CRITICAL - 2022-10-13 03:18:57 --> syntax error, unexpected '}'
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('master/w_view', Array, true)
+#2 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/Info/Career.php(98): view('master/w_view', Array)
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\Info\Career->index()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\Info\Career))
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#8 {main}
+CRITICAL - 2022-10-13 03:24:28 --> Undefined variable: modal
+#0 /Users/mac/Work/Web/new-intranet/app/Views/master/w_view.php(68): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Users/mac/Work...', 68, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(210): include('/Users/mac/Work...')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('master/w_view', Array, true)
+#4 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/Info/Career.php(98): view('master/w_view', Array)
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\Info\Career->index()
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\Info\Career))
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#10 {main}
+CRITICAL - 2022-10-13 04:02:31 --> Undefined index: Id
+#0 /Users/mac/Work/Web/new-intranet/app/Controllers/Master/Divisi.php(77): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Users/mac/Work...', 77, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Master\Divisi->index()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Master\Divisi))
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#6 {main}
+CRITICAL - 2022-10-13 04:02:37 --> syntax error, unexpected ']', expecting ')'
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Users/mac/Work...')
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(797): class_exists('\\App\\Controller...', true)
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(406): CodeIgniter\CodeIgniter->startController()
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#9 {main}
+CRITICAL - 2022-10-13 04:02:41 --> Trying to get property 'Id' of non-object
+#0 /Users/mac/Work/Web/new-intranet/app/Controllers/Master/Divisi.php(77): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', '/Users/mac/Work...', 77, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Master\Divisi->index()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Master\Divisi))
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#6 {main}
+CRITICAL - 2022-10-13 04:08:02 --> syntax error, unexpected '$data' (T_VARIABLE)
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Users/mac/Work...')
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(797): class_exists('\\App\\Controller...', true)
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(406): CodeIgniter\CodeIgniter->startController()
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#9 {main}
+CRITICAL - 2022-10-13 04:08:21 --> syntax error, unexpected '...' (T_ELLIPSIS)
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Users/mac/Work...')
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(797): class_exists('\\App\\Controller...', true)
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(406): CodeIgniter\CodeIgniter->startController()
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#9 {main}
+CRITICAL - 2022-10-13 04:08:31 --> Class 'App\Controllers\Website\Info\stdClass' not found
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\Info\Career->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\Info\Career))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-10-13 04:09:48 --> Class 'App\Controllers\Website\Info\stdClass' not found
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\Info\Career->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\Info\Career))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-10-13 04:09:48 --> Class 'App\Controllers\Website\Info\stdClass' not found
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\Info\Career->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\Info\Career))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-10-13 04:09:49 --> Class 'App\Controllers\Website\Info\stdClass' not found
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\Info\Career->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\Info\Career))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-10-13 04:09:51 --> Class 'App\Controllers\Website\Info\stdClass' not found
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\Info\Career->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\Info\Career))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-10-13 04:09:51 --> Class 'App\Controllers\Website\Info\stdClass' not found
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\Info\Career->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\Info\Career))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-10-13 04:10:46 --> Invalid argument supplied for foreach()
+#0 /Users/mac/Work/Web/new-intranet/app/Views/master/w_view.php(89): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Invalid argumen...', '/Users/mac/Work...', 89, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(210): include('/Users/mac/Work...')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('master/w_view', Array, true)
+#4 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/Info/Career.php(105): view('master/w_view', Array)
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\Info\Career->index()
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\Info\Career))
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#10 {main}
+CRITICAL - 2022-10-13 04:11:44 --> Trying to get property 'Id' of non-object
+#0 /Users/mac/Work/Web/new-intranet/app/Views/master/w_view.php(90): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', '/Users/mac/Work...', 90, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(210): include('/Users/mac/Work...')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('master/w_view', Array, true)
+#4 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/Info/Career.php(108): view('master/w_view', Array)
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\Info\Career->index()
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\Info\Career))
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#10 {main}
+CRITICAL - 2022-10-13 04:21:39 --> Object of class App\Entities\PageWebsite could not be converted to string
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(210): include()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('master/w_view', Array, true)
+#3 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/About/Profile.php(79): view('master/w_view', Array)
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#9 {main}
+CRITICAL - 2022-10-13 04:22:51 --> Trying to get property 'Id' of non-object
+#0 /Users/mac/Work/Web/new-intranet/app/Views/master/w_view.php(83): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', '/Users/mac/Work...', 83, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(210): include('/Users/mac/Work...')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('master/w_view', Array, true)
+#4 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/About/Profile.php(79): view('master/w_view', Array)
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#10 {main}
+CRITICAL - 2022-10-13 04:23:27 --> Trying to get property 'Id' of non-object
+#0 /Users/mac/Work/Web/new-intranet/app/Views/master/w_view.php(83): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', '/Users/mac/Work...', 83, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(210): include('/Users/mac/Work...')
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('master/w_view', Array, true)
+#4 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/About/Profile.php(79): view('master/w_view', Array)
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#7 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#10 {main}
+CRITICAL - 2022-10-13 04:24:37 --> Cannot use object of type App\Entities\PageWebsite as array
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(210): include()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('master/w_view', Array, true)
+#3 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/About/Profile.php(79): view('master/w_view', Array)
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#9 {main}
+CRITICAL - 2022-10-13 04:24:48 --> Function name must be a string
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(210): include()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render('master/w_view', Array, true)
+#3 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/About/Profile.php(79): view('master/w_view', Array)
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#9 {main}
+CRITICAL - 2022-10-13 04:27:00 --> Trying to get property 'Id' of non-object
+#0 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/About/Profile.php(80): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', '/Users/mac/Work...', 80, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#6 {main}
+CRITICAL - 2022-10-13 04:27:48 --> Trying to get property 'pageid' of non-object
+#0 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/About/Profile.php(80): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', '/Users/mac/Work...', 80, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#6 {main}
+CRITICAL - 2022-10-13 04:27:48 --> Trying to get property 'pageid' of non-object
+#0 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/About/Profile.php(80): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', '/Users/mac/Work...', 80, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#6 {main}
+CRITICAL - 2022-10-13 04:27:52 --> Trying to get property 'Id' of non-object
+#0 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/About/Profile.php(80): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', '/Users/mac/Work...', 80, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#6 {main}
+CRITICAL - 2022-10-13 04:31:02 --> Cannot use object of type App\Entities\PageWebsite as array
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-10-13 04:41:32 --> Trying to get property 'Id' of non-object
+#0 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/About/Profile.php(81): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', '/Users/mac/Work...', 81, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#6 {main}
+CRITICAL - 2022-10-13 04:41:32 --> Trying to get property 'Id' of non-object
+#0 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/About/Profile.php(81): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', '/Users/mac/Work...', 81, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#6 {main}
+CRITICAL - 2022-10-13 04:41:41 --> Trying to get property 'Page' of non-object
+#0 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/About/Profile.php(81): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', '/Users/mac/Work...', 81, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#6 {main}
+CRITICAL - 2022-10-13 04:42:04 --> Object of class App\Entities\PageWebsite could not be converted to string
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-10-13 04:42:29 --> Call to undefined method App\Entities\PageWebsite::findAll()
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-10-13 04:42:42 --> Call to undefined method App\Entities\PageWebsite::find()
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-10-13 04:46:04 --> Object of class App\Entities\PageWebsite could not be converted to string
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-10-13 04:51:59 --> Object of class App\Entities\PageWebsite could not be converted to string
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-10-13 04:52:00 --> Object of class App\Entities\PageWebsite could not be converted to string
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-10-13 04:53:31 --> syntax error, unexpected 'print_r' (T_STRING), expecting ';' or ','
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Users/mac/Work...')
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(797): class_exists('\\App\\Controller...', true)
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(406): CodeIgniter\CodeIgniter->startController()
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#9 {main}
+CRITICAL - 2022-10-13 04:54:32 --> syntax error, unexpected '->' (T_OBJECT_OPERATOR)
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Users/mac/Work...')
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(797): class_exists('\\App\\Controller...', true)
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(406): CodeIgniter\CodeIgniter->startController()
+#6 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#9 {main}
+CRITICAL - 2022-10-13 04:54:51 --> Call to undefined method App\Entities\PageWebsite::findAll()
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-10-13 05:09:02 --> Undefined variable: p
+#0 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/About/Profile.php(80): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Users/mac/Work...', 80, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#6 {main}
+CRITICAL - 2022-10-13 05:09:13 --> Undefined variable: p
+#0 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/About/Profile.php(83): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Users/mac/Work...', 83, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#6 {main}
+CRITICAL - 2022-10-13 05:11:20 --> Class 'App\Controllers\Website\About\App\Entities\PageWebsite' not found
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
+CRITICAL - 2022-10-13 05:11:25 --> Undefined property: App\Controllers\Website\About\Profile::$p
+#0 /Users/mac/Work/Web/new-intranet/app/Controllers/Website/About/Profile.php(83): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', '/Users/mac/Work...', 83, Array)
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#3 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#6 {main}
+CRITICAL - 2022-10-13 05:12:12 --> Call to undefined method App\Entities\PageWebsite::pagename()
+#0 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Website\About\Profile->index()
+#1 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Website\About\Profile))
+#2 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/mac/Work/Web/new-intranet/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Users/mac/Work/Web/new-intranet/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/Users/mac/Work...')
+#5 {main}
