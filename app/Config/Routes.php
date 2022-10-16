@@ -198,7 +198,7 @@ $routes->get('group-user', 'Master/GroupUser::index', ['filter' => 'permission:m
 $routes->post('group-user/delete', 'Master/GroupUser::delete', ['filter' => 'permission:master-data']);
 $routes->post('group-user/post', 'Master/GroupUser::save', ['filter' => 'permission:master-data']);
 
-## Position
+## User
 $routes->get('users', 'Master/User::index');
 $routes->post('users/delete', 'Master/User::delete');
 $routes->post('users/post', 'Master/User::save');
@@ -217,6 +217,9 @@ $routes->get('meeting-schedule/:any','Meeting/MeetingSchedule::schedule');
 
 ## Website
 $routes->get('tentang/profil','Website/About/Profile::index');
+$routes->post('tentang/profil/post', 'Website/About/Profile::save');
+$routes->post('tentang/profil/delete', 'Website/About/Profile::delete');
+
 $routes->get('informasi/karir','Website/Info/Career::index');
 // RESOURCE
 //$routes->resource('grupdivisi', ['controller' => 'Api\Grupdivisi']);

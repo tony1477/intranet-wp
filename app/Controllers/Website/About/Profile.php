@@ -34,7 +34,7 @@ class Profile extends BaseController
             'modal' => 'modal-lg',
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
-            'columns' => array('Action','Id','Title','Content','Page'),
+            'columns' => array('Action','Id','Title','Content','Pagename','Order'),
             //'crudScript' => view('partials/script/department',['menuname' => 'Department']),
             'forms' => [
                 # rule
@@ -69,6 +69,14 @@ class Profile extends BaseController
                         'value' => 'Page',
                     ),
                 ),
+                'position' => array(
+                    'label' => 'Order',
+                    'field' => 'position',
+                    'type' => 'number',
+                    'idform' => 'urutan',
+                    'form-class' => 'form-control',
+                    'style' => 'col-md-8 col-xl-8',
+                )
             ]
 		];
 		
@@ -86,7 +94,7 @@ class Profile extends BaseController
         if($this->request->isAJAX()) {
             try {
                 $id = $this->request->getVar('id');
-                $this->model->where('iddepartment',$id)->delete();
+                $this->model->where('articleid',$id)->delete();
                 if($this->model->find($id)) {
                     $arr = array(
                         'status' => 'warning',
@@ -128,13 +136,14 @@ class Profile extends BaseController
                     $datas = (array) $datas;
                 }
                 $data = [
-                    'iddivisi' => $datas['id_divisi'],
-                    'dep_kode' => $datas['kode'],
-                    'dep_nama' => $datas['namadepartment'],
-                    'dep_nama2' => $datas['namadepartment2'],
+                    'articleid' => $datas['id'],
+                    'title' => $datas['judul'],
+                    'pageid' => $datas['page_id'],
+                    'order' => $datas['urutan'],
+                    'content' => $datas['isi'],
                     // 'user_m' => $this->session->user_kode,
-                    'tgl_m'=>date('Y-m-d'),
-                    'time_m'=>date("h:i:s a")
+                    // 'tgl_m'=>date('Y-m-d'),
+                    // 'time_m'=>date("h:i:s a")
                 ];
                 if($datas['id']!=='') {
                     $this->model->update($datas['id'],$data);

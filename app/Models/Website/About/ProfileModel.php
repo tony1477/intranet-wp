@@ -42,7 +42,7 @@ class ProfileModel extends Model
 
     public function getDataProfile() {
         $query = $this->db->table('article a')
-            ->select("a.*, a.pageid as Id, concat(b.pagename,' urutan ',position) as page, a.creatorid, a.updaterid")
+            ->select("a.*, a.articleid  as Id, concat(b.pagename,' urutan ',position) as page, b.pagename, a.creatorid, a.updaterid")
             ->join('webpage b','b.pageid = a.pageid')
             ->get();
 

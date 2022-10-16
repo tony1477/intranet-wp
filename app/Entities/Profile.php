@@ -10,6 +10,8 @@ class Profile extends Entity
         'Title' => 'title',
         'Content' => 'content',
         'Page' => 'page',
+        'Pagename' => 'pagename',
+        'Order' => 'order',
         'User_Created' => 'creatorid',
         'User_Modified' => 'updaterid',
     ];

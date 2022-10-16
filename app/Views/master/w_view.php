@@ -102,6 +102,14 @@
                                                         </div>
                                                     </div>
                                                     <?php }
+                                                    if($form['type']=='number') { ?>
+                                                    <div class="<?=$form['style']?>">
+                                                        <div class="form-group mb-3">
+                                                            <label><?=lang('Files.'.$form['label'])?></label>
+                                                        <input type="number" name="<?=$form['idform']?>" id="<?=$form['idform']?>" class="<?=$form['form-class']?>" required value="" />
+                                                        </div>
+                                                    </div>
+                                                    <?php }
                                                     if($form['type']=='textarea') { ?>
                                                     <div class="<?=$form['style']?>">
                                                         <div class="form-group mb-3">
@@ -210,6 +218,9 @@
                     let str = document.querySelector('#static<?=$menuname?>Label')
                     str.innerHTML = '<?=  lang('Files.Add'),' ',lang('Files.'.$menuname)  ?>'
                     <?php foreach($forms as $form): ?>
+                        <?php if($form['type']=='textarea') : ?>
+                            CKEDITOR.instances.<?=$form['idform']?>.setData('');
+                        <?php endif; ?>
                         document.getElementById("<?=$form['idform']?>").value = '';
                     <?php endforeach;?>
                     $('#edit<?=$menuname?>').modal('show')
@@ -288,12 +299,13 @@
                     let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
                     selectedOpt<?=$form['idform']?>.selected = true;
                     
-                    // console.log(option<?=$form['idform']?>)    
+                    // console.log(<?=$form['idform']?>)
                     <?php } ?>
 
                 <?php if($form['type']=='textarea') { ?>
                     CKEDITOR.replace( '<?=$form['idform']?>')
-                    let <?=$form['idform']?>TextArea = document.querySelector('table.<?=$menuname?>').rows.item(j+1).cells.item(n).innerHTML;                    
+                    let <?=$form['idform']?>TextArea = document.querySelector('table.<?=$menuname?>').rows.item(j+1).cells.item(n).innerHTML;                  
+                    CKEDITOR.instances.<?=$form['idform']?>.setData(<?=$form['idform']?>TextArea);
                 <?php } ?>
                 n++;
             <?php endforeach;?>
@@ -305,7 +317,7 @@
                 if($form['type']=='textarea') { ?>
                     document.getElementById("<?=$form['idform']?>").value = <?=$form['idform']?>TextArea;
                 <?php } 
-                if($form['type']=='text') { ?>
+                if($form['type']=='text' || $form['type']=='number' || $form['type']=='hidden') { ?>
                     document.getElementById("<?=$form['idform']?>").value = <?=$form['idform']?>;
                 <?php } ?>
             <?php endforeach;?>
@@ -315,8 +327,8 @@
 
     for(let i=0; i< deleteButton.length; i++) {
         deleteButton[i].addEventListener("click", function() {
-        let id = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(1).innerHTML
-        Swal.fire({
+            let id = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(1).innerHTML
+            Swal.fire({
             title: "<?=lang('Files.Deleted_Confirm')?>",
             text: "",
             icon: "warning",
@@ -324,7 +336,7 @@
             confirmButtonColor: "#2ab57d",
             cancelButtonColor: "#fd625e",
             confirmButtonText: "<?=lang('Files.Yes')?>"
-        }).then(function (result) {
+            }).then(function (result) {
             // const reqbody = {'kode':kode}
             if (result.value) {
                 // console.log(id)
@@ -350,19 +362,24 @@
         const data = {}
         <?php foreach($forms as $form): ?>
             let <?=$form['field']?> = <?=$form['idform']?>;
+            <?php if($form['type']=='textarea'):?>
+                let value<?=$form['idform']?> = CKEDITOR.instances.<?=$form['idform']?>.getData()
+            <?php else:?>
             let value<?=$form['idform']?> = document.forms["<?=$menuname?>"]["<?=$form['idform']?>"].value;
+            <?php endif;?>
             //data[<?=$form['idform']?>] = value<?=$form['idform']?>;
             data.<?=$form['idform']?> = value<?=$form['idform']?>;
         <?php endforeach;?>
         // const id =  document.forms["<?=$menuname?>"]["id"].value;
         // const kode =  document.forms["<?=$menuname?>"]["kode"].value;
         // const nama =  document.forms["<?=$menuname?>"]["namadivisi"].value;
-        // data = [id, kode, nama]
+        // data = [id, kode, nama] 
         postData('<?=base_url()?>/<?=$route?>/post',{'data':data})
         .then(data => {
             if(data.code === 200) {
                 $('#editDivisi').modal('hide'); 
                 Swal.fire("Success!", data.message, data.status);
+                setTimeout(() => location.reload(), 1500)
             }
             // table.ajax.reload()
             // Swal.clickConfirm()
