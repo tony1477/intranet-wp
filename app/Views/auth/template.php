@@ -4,7 +4,7 @@
     <head>
 
         <meta charset="utf-8" />
-        <title>Register | Intranet Wilian Perkasa Group</title>
+        <title>Login | Intranet Wilian Perkasa Group</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Intranet Web for Wilian Perkasa Group" name="description" />
         <meta content="Themesbrand" name="author" />

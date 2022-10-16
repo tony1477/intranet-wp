@@ -104,7 +104,7 @@ class Career extends BaseController
                 // ),
             ]
 		];
-
+        // var_dump($location);
 		return view('master/w_view', $data);
     }
 

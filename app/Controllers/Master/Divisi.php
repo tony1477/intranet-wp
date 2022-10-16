@@ -74,8 +74,8 @@ class Divisi extends BaseController
                 ),
             ]
 		];
-		print_r($group);
-		// return view('master/m_view', $data);
+		// print_r($group);
+		return view('master/m_view', $data);
     }
 
     public function delete()
