@@ -220,6 +220,18 @@ $routes->get('tentang/profil','Website/About/Profile::index');
 $routes->post('tentang/profil/post', 'Website/About/Profile::save');
 $routes->post('tentang/profil/delete', 'Website/About/Profile::delete');
 
+$routes->get('tentang/strategi','Website/About/Strategi::index');
+$routes->post('tentang/strategi/post', 'Website/About/Strategi::save');
+$routes->post('tentang/strategi/delete', 'Website/About/Strategi::delete');
+
+$routes->get('bisnis/kebun','Website/Business/Kebun::index');
+$routes->post('bisnis/kebun/post', 'Website/Business/Kebun::save');
+$routes->post('bisnis/kebun/delete', 'Website/Business/Kebun::delete');
+
+$routes->get('bisnis/pabrik','Website/Business/Pabrik::index');
+$routes->post('bisnis/pabrik/post', 'Website/Business/Pabrik::save');
+$routes->post('bisnis/pabrik/delete', 'Website/Business/Pabrik::delete');
+
 $routes->get('informasi/karir','Website/Info/Career::index');
 // RESOURCE
 //$routes->resource('grupdivisi', ['controller' => 'Api\Grupdivisi']);

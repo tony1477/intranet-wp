@@ -219,9 +219,13 @@
                     str.innerHTML = '<?=  lang('Files.Add'),' ',lang('Files.'.$menuname)  ?>'
                     <?php foreach($forms as $form): ?>
                         <?php if($form['type']=='textarea') : ?>
+                            let instanceCKeditor = CKEDITOR.instances['<?=$form['idform']?>'];
+                            if(instanceCKeditor) CKEDITOR.remove(CKEDITOR.instances['<?=$form['idform']?>']);
+                            CKEDITOR.replace( '<?=$form['idform']?>')
                             CKEDITOR.instances.<?=$form['idform']?>.setData('');
-                        <?php endif; ?>
+                        <?php else: ?>
                         document.getElementById("<?=$form['idform']?>").value = '';
+                        <?php endif; ?>
                     <?php endforeach;?>
                     $('#edit<?=$menuname?>').modal('show')
                 }
@@ -303,7 +307,7 @@
                     <?php } ?>
 
                 <?php if($form['type']=='textarea') { ?>
-                    CKEDITOR.replace( '<?=$form['idform']?>')
+                    // CKEDITOR.replace( '<?=$form['idform']?>')
                     let <?=$form['idform']?>TextArea = document.querySelector('table.<?=$menuname?>').rows.item(j+1).cells.item(n).innerHTML;                  
                     CKEDITOR.instances.<?=$form['idform']?>.setData(<?=$form['idform']?>TextArea);
                 <?php } ?>
@@ -379,7 +383,7 @@
             if(data.code === 200) {
                 $('#editDivisi').modal('hide'); 
                 Swal.fire("Success!", data.message, data.status);
-                setTimeout(() => location.reload(), 1500)
+                // setTimeout(() => location.reload(), 1500)
             }
             // table.ajax.reload()
             // Swal.clickConfirm()

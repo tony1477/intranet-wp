@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models\Website\About;
+namespace App\Models\Website\Business;
 
 use CodeIgniter\Model;
 
-class ProfileModel extends Model
+class KebunModel extends Model
 {
     protected $DBGroup          = 'website';
     protected $table            = 'article';
     protected $primaryKey       = 'articleid';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
-    protected $returnType       = 'App\Entities\Profile';
+    protected $returnType       = 'App\Entities\Kebun';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = ['title','content','pageid','status','order','creatorid','updaterid'];
@@ -40,11 +40,11 @@ class ProfileModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getDataProfile() {
+    public function getData() {
         $query = $this->db->table('article a')
-            ->select("a.*, a.articleid  as Id, concat(b.pagename,' urutan ',position) as page, b.pagename, a.creatorid, a.updaterid")
+            ->select("a.*, a.articleid as Id, concat(b.pagename,' urutan ',position) as page, a.creatorid, a.updaterid")
             ->join('webpage b','b.pageid = a.pageid')
-            ->where('b.pagename','profile')
+            ->where('b.pagename','perkebunan')
             ->get();
 
         return $query;
