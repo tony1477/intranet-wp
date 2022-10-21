@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Models\Website\Info;
+namespace App\Models\Website\Business;
 
 use CodeIgniter\Model;
 
-class CareerModel extends Model
+class TradingModel extends Model
 {
     protected $DBGroup          = 'website';
-    protected $table            = 'career';
-    protected $primaryKey       = 'careerid';
+    protected $table            = 'article';
+    protected $primaryKey       = 'articleid';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
-    protected $returnType       = 'App\Entities\Career';
+    protected $returnType       = 'App\Entities\Trading';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['postdate','lastdate','title','position','location','requirement','jobdesc','notes','status'];
+    protected $allowedFields    = ['title','content','pageid','status','order','creatorid','updaterid'];
 
     // Dates
     protected $useTimestamps = false;
@@ -41,12 +41,12 @@ class CareerModel extends Model
     protected $afterDelete    = [];
 
     public function getData() {
-        $query = $this->db->table('career a')
-            ->select("a.*, a.careerid as Id, b.locationname as lokasi")
-            ->join('location b','b.locationid = a.locationid')
+        $query = $this->db->table('article a')
+            ->select("a.*, a.articleid as Id, concat(b.pagename,' urutan ',position) as page, a.creatorid, a.updaterid")
+            ->join('webpage b','b.pageid = a.pageid')
+            ->where('b.pagename','Trading')
             ->get();
 
         return $query;
     }
-    
 }

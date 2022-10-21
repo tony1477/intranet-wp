@@ -4,17 +4,17 @@ namespace App\Models\Website\Info;
 
 use CodeIgniter\Model;
 
-class CareerModel extends Model
+class LocationModel extends Model
 {
     protected $DBGroup          = 'website';
-    protected $table            = 'career';
-    protected $primaryKey       = 'careerid';
+    protected $table            = 'location';
+    protected $primaryKey       = 'locationid';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
-    protected $returnType       = 'App\Entities\Career';
+    protected $returnType       = 'App\Entities\Location';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['postdate','lastdate','title','position','location','requirement','jobdesc','notes','status'];
+    protected $allowedFields    = ['locationcode','locationname','status'];
 
     // Dates
     protected $useTimestamps = false;
@@ -40,13 +40,13 @@ class CareerModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getData() {
-        $query = $this->db->table('career a')
-            ->select("a.*, a.careerid as Id, b.locationname as lokasi")
-            ->join('location b','b.locationid = a.locationid')
-            ->get();
+    // public function getDataProfile() {
+    //     $query = $this->db->table('article a')
+    //         ->select("a.*, a.pageid as Id, concat(b.pagename,' urutan ',position) as page, a.creatorid, a.updaterid")
+    //         ->join('webpage b','b.pageid = a.pageid')
+    //         ->get();
 
-        return $query;
-    }
+    //     return $query;
+    // }
     
 }

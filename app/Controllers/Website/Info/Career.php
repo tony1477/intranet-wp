@@ -3,6 +3,7 @@
 namespace App\Controllers\Website\Info;
 
 use App\Controllers\BaseController;
+use App\Models\Website\Info\LocationModel as Location;
 
 class Career extends BaseController
 {
@@ -19,11 +20,9 @@ class Career extends BaseController
         helper(['admin_helper']);
         helper(['master_helper']);
         $menu = getMenu($user='Admin');
-        $career = $this->model->findAll();
-        $location = [
-            'Id' => 1,
-            'Location' => 'Test'
-        ];
+        $career = $this->model->getData()->getResult('App\Entities\Career');
+        $objlocation = new Location();
+        $location = $objlocation->findAll();
         // $profile = $this->model->getDataProfile()->getResult('\App\Entities\Profile');
         // $page = $pageModel->findAll();
         //$divisi = getDivisi();
@@ -32,13 +31,13 @@ class Career extends BaseController
 			'title_meta' => view('partials/title-meta', ['title' => 'Career']),
 			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Website', 'li_2' => 'Career']),
 			'modules' => $menu,
-            'route'=>'info/carrer',
+            'route'=>'informasi/karir',
             'menuname' => 'Career',
             'data' => $career,
-            'modal' => 'modal-xl',
+            'modal' => 'modal-lg',
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
-            'columns' => array('Action','Id','Title','Position','Location','Requirement','Jobdesc','Status','User_Created','User_Modified'),
+            'columns' => array('Action','Id','Title','Position','Lokasi','Requirement','Jobdesc','Catatan','User_Created','User_Modified'),
             //'crudScript' => view('partials/script/department',['menuname' => 'Department']),
             'forms' => [
                 # rule
@@ -70,7 +69,7 @@ class Career extends BaseController
                     'options' => array(
                         'list' => $location,
                         'id' => 'Id',
-                        'value' => 'Location',
+                        'value' => 'Name',
                     ),
                 ),
                 'requirement' => array(
@@ -79,7 +78,7 @@ class Career extends BaseController
                     'type'=>'textarea',
                     'idform'=>'kualifikasi',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-8 col-xl-8'
+                    'style' => 'col-md-12 col-xl-12'
                 ),
                 'jobdesc' => array(
                     'label'=>'Job_Description',
@@ -87,7 +86,15 @@ class Career extends BaseController
                     'type'=>'textarea',
                     'idform'=>'persyaratan',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-8 col-xl-8'
+                    'style' => 'col-md-12 col-xl-12'
+                ),
+                'notes' => array(
+                    'label'=>'Notes',
+                    'field'=>'notes',
+                    'type'=>'textarea',
+                    'idform'=>'catatan',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-12 col-xl-12'
                 ),
                 // 'location' => array(
                 //     'label'=>'Page',
@@ -161,13 +168,17 @@ class Career extends BaseController
                     $datas = (array) $datas;
                 }
                 $data = [
-                    'iddivisi' => $datas['id_divisi'],
-                    'dep_kode' => $datas['kode'],
-                    'dep_nama' => $datas['namadepartment'],
-                    'dep_nama2' => $datas['namadepartment2'],
+                    'careerid' => $datas['id'],
+                    'title' => $datas['judul'],
+                    'position' => $datas['jabatan'],
+                    'locationid' => $datas['lokasi'],
+                    'requirement' => $datas['kualifikasi'],
+                    'jobdesc' => $datas['persyaratan'],
+                    'notes' => $datas['catatan'],
+                    'status' => 1,
                     // 'user_m' => $this->session->user_kode,
-                    'tgl_m'=>date('Y-m-d'),
-                    'time_m'=>date("h:i:s a")
+                    // 'tgl_m'=>date('Y-m-d'),
+                    // 'time_m'=>date("h:i:s a")
                 ];
                 if($datas['id']!=='') {
                     $this->model->update($datas['id'],$data);
@@ -177,8 +188,8 @@ class Career extends BaseController
                 if($datas['id']==='') {
                     $newdata = [
                         // 'user_c' => $this->session->user_kode,
-                        'tgl_c'=>date('Y-m-d'),
-                        'time_c'=>date("h:i:s a")
+                        // 'tgl_c'=>date('Y-m-d'),
+                        // 'time_c'=>date("h:i:s a")
                     ];
                     $data = array_merge($data,$newdata);
                     $this->model->insert($data);

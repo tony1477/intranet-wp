@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Controllers\Website\About;
+namespace App\Controllers\Website\Sustainability;
 
 use App\Controllers\BaseController;
 use App\Models\Website\PageModel;
 
-class Strategi extends BaseController
+class Environment extends BaseController
 {
     private $model = null;
     public function __construct()
     {
-        $this->model = new \App\Models\Website\About\StrategiModel();
+        $this->model = new \App\Models\Website\Sustainability\EnvironmentModel();
+        // $this->profile = new \App\Entities\Profile;
     }
 
     public function index()
@@ -19,17 +20,17 @@ class Strategi extends BaseController
         helper(['master_helper']);
         // $pageModel = new PageModel;
         $menu = getMenu($user='Admin');
-        $strategi = $this->model->getData()->getResult('App\Entities\Strategi');
+        $environment = $this->model->getData()->getResult('\App\Entities\Environment');
         // $page = $pageModel->findAll();
         //$divisi = getDivisi();
         //$submenu = getSubmenu($moduleid=0);
 		$data = [
-			'title_meta' => view('partials/title-meta', ['title' => 'Strategi']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Website', 'li_2' => 'Strategi']),
+			'title_meta' => view('partials/title-meta', ['title' => 'Lingkungan']),
+			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Website', 'li_2' => 'Lingkungan']),
 			'modules' => $menu,
-            'route'=>'tentang/strategi',
-            'menuname' => 'Strategi',
-            'data' => $strategi,
+            'route'=>'keberlanjutan/lingkungan',
+            'menuname' => 'Lingkungan',
+            'data' => $environment,
             'modal' => 'modal-lg',
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
@@ -65,7 +66,7 @@ class Strategi extends BaseController
                 )
             ]
 		];
-		// var_dump($strategi);
+		
 		return view('master/w_view', $data);
     }
 
@@ -124,7 +125,7 @@ class Strategi extends BaseController
                 $data = [
                     'articleid' => $datas['id'],
                     'title' => $datas['judul'],
-                    'pageid' => 3,
+                    'pageid' => 14,
                     'order' => $datas['urutan'],
                     'content' => $datas['isi'],
                     // 'user_m' => $this->session->user_kode,
@@ -152,7 +153,8 @@ class Strategi extends BaseController
                     'code' => 200,
                     'message' => $message
                 );
-            }catch (\Exception $e) {
+            } 
+            catch (\Exception $e) {
                 $arr = array(
                     'status' => $e->getMessage(),
                     'code' => 400

@@ -6,10 +6,10 @@
     <?= $title_meta ?>
 
     <!-- DataTables -->
-    <link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Responsive datatable examples -->
-    <link href="assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
     <?= $this->include('partials/head-css') ?>
 
@@ -72,7 +72,7 @@
                                 <td><?=$row->idruangan?></td>
                                 <td>
                                     <a href="<?=base_url().'/room-meeting/detail/'.str_replace(' ','-',strtolower($row->nama_ruangan))?>" class="text-body">
-                                    <img src="assets/images/meeting-rooms/<?=$row->foto_ruangan?>" alt="" class="avatar-md rounded-circle me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Lihat Detail Ruangan">
+                                    <img src="<?=base_url()?>/assets/images/meeting-rooms/<?=$row->foto_ruangan?>" alt="" class="avatar-md rounded-circle me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Lihat Detail Ruangan">
                                     <?=$row->nama_ruangan?></a>
                                 </td>
                                 <td><?=$row->lokasi_ruangan?></td>
@@ -148,17 +148,17 @@
 <?= $this->include('partials/vendor-scripts') ?>
 
 <!-- Required datatable js -->
-<script src="assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 
 <!-- Responsive examples -->
-<script src="assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 <!-- init js -->
-<script src="assets/js/pages/datatable-pages.init.js"></script>
+<script src="<?=base_url()?>/assets/js/pages/datatable-pages.init.js"></script>
 
-<script src="assets/js/app.js"></script>
+<script src="<?=base_url()?>/assets/js/app.js"></script>
 
 </body>
 

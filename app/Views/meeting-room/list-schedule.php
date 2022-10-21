@@ -6,10 +6,10 @@
     <?= $title_meta ?>
 
     <!-- DataTables -->
-    <link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Responsive datatable examples -->
-    <link href="assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
     <?= $this->include('partials/head-css') ?>
 
@@ -88,7 +88,7 @@
                                     </div>
                                 </th>
                                 <td>
-                                    <img src="assets/images/meeting-rooms/<?=$list->foto_ruangan?>" alt="" class="avatar-sm rounded-circle me-2">
+                                    <img src="<?=base_url()?>/assets/images/meeting-rooms/<?=$list->foto_ruangan?>" alt="" class="avatar-sm rounded-circle me-2">
                                     <a href="#" class="text-body"><?=$list->nama_ruangan?></a>
                                 </td>
                                 <td><?=date('d F Y H:i', strtotime($list->tgl_mulai.' '.$list->jam_mulai))?></td>
@@ -163,17 +163,17 @@
 <?= $this->include('partials/vendor-scripts') ?>
 
 <!-- Required datatable js -->
-<script src="assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 
 <!-- Responsive examples -->
-<script src="assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 <!-- init js -->
-<script src="assets/js/pages/datatable-pages.init.js"></script>
+<script src="<?=base_url()?>/assets/js/pages/datatable-pages.init.js"></script>
 
-<script src="assets/js/app.js"></script>
+<script src="<?=base_url()?>/assets/js/app.js"></script>
 
 </body>
 

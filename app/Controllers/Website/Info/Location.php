@@ -1,71 +1,76 @@
 <?php
 
-namespace App\Controllers\Website\About;
+namespace App\Controllers\Website\Info;
 
 use App\Controllers\BaseController;
-use App\Models\Website\PageModel;
 
-class Strategi extends BaseController
+class Location extends BaseController
 {
-    private $model = null;
+    private $model;
+    // private $entities;
     public function __construct()
     {
-        $this->model = new \App\Models\Website\About\StrategiModel();
+        $this->model = new \App\Models\Website\Info\LocationModel();
+        // $this->entities = new \App\Entities\Career;
     }
 
     public function index()
     {
         helper(['admin_helper']);
         helper(['master_helper']);
-        // $pageModel = new PageModel;
         $menu = getMenu($user='Admin');
-        $strategi = $this->model->getData()->getResult('App\Entities\Strategi');
+        $location = $this->model->findAll();
         // $page = $pageModel->findAll();
         //$divisi = getDivisi();
         //$submenu = getSubmenu($moduleid=0);
 		$data = [
-			'title_meta' => view('partials/title-meta', ['title' => 'Strategi']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Website', 'li_2' => 'Strategi']),
+			'title_meta' => view('partials/title-meta', ['title' => 'Location']),
+			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Website', 'li_2' => 'Location']),
 			'modules' => $menu,
-            'route'=>'tentang/strategi',
-            'menuname' => 'Strategi',
-            'data' => $strategi,
-            'modal' => 'modal-lg',
+            'route'=>'informasi/lokasi',
+            'menuname' => 'Location',
+            'data' => $location,
+            // 'modal' => 'modal-sm',
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
-            'columns' => array('Action','Id','Title','Content','Order'),
+            'columns' => array('Action','Id','Code','Name','Status'),
             //'crudScript' => view('partials/script/department',['menuname' => 'Department']),
             'forms' => [
                 # rule
                 # column_name => array(type,'name and id','class','style')
-                'articleid' => array('type'=>'hidden','idform'=>'id','field'=>'articleid'), 
-                'title' => array(
-                    'label'=>'Title',
-                    'field'=>'title',
+                'locationid' => array('type'=>'hidden','idform'=>'id','field'=>'locationid'), 
+                'code' => array(
+                    'label'=>'Code',
+                    'field'=>'locationcode',
                     'type'=>'text',
-                    'idform'=>'judul',
+                    'idform'=>'kode',
                     'form-class'=>'form-control',
                     'style' => 'col-md-8 col-xl-8'
                 ),
-                'content' => array(
-                    'label'=>'Content',
-                    'field'=>'content',
-                    'type'=>'textarea',
-                    'idform'=>'isi',
+                'name' => array(
+                    'label'=>'Name',
+                    'field'=>'locationname',
+                    'type'=>'text',
+                    'idform'=>'nama',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-12 col-xl-12'
+                    'style' => 'col-md-8 col-xl-8'
                 ),
-                'position' => array(
-                    'label' => 'Order',
-                    'field' => 'position',
-                    'type' => 'number',
-                    'idform' => 'urutan',
-                    'form-class' => 'form-control',
-                    'style' => 'col-md-8 col-xl-8',
-                )
+                // 'location' => array(
+                //     'label'=>'Page',
+                //     'field'=>'pageid',
+                //     'type'=>'select',
+                //     'idform'=>'page_id',
+                //     'form-class'=>'form-select',
+                //     'style' => 'col-md-8 col-xl-8',
+                //     'options' => array(
+                //         'list' => $location,
+                //         'id' => 'Id',
+                //         'value' => 'Page',
+                //     ),
+                // ),
             ]
 		];
-		// var_dump($strategi);
+        // var_dump($location);
 		return view('master/w_view', $data);
     }
 
@@ -80,7 +85,7 @@ class Strategi extends BaseController
         if($this->request->isAJAX()) {
             try {
                 $id = $this->request->getVar('id');
-                $this->model->where('articleid',$id)->delete();
+                $this->model->where('locationid',$id)->delete();
                 if($this->model->find($id)) {
                     $arr = array(
                         'status' => 'warning',
@@ -122,11 +127,10 @@ class Strategi extends BaseController
                     $datas = (array) $datas;
                 }
                 $data = [
-                    'articleid' => $datas['id'],
-                    'title' => $datas['judul'],
-                    'pageid' => 3,
-                    'order' => $datas['urutan'],
-                    'content' => $datas['isi'],
+                    'locationid' => $datas['id'],
+                    'locationcode' => $datas['kode'],
+                    'locationname' => $datas['nama'],
+                    // 'dep_nama2' => $datas['namadepartment2'],
                     // 'user_m' => $this->session->user_kode,
                     // 'tgl_m'=>date('Y-m-d'),
                     // 'time_m'=>date("h:i:s a")

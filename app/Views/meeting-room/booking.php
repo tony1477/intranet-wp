@@ -6,8 +6,8 @@
     <?= $title_meta ?>
 
     <!-- twitter-bootstrap-wizard css -->
-    <link rel="stylesheet" href="/assets/libs/twitter-bootstrap-wizard/prettify.css">
-    <link href="/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="<?=base_url()?>/assets/libs/twitter-bootstrap-wizard/prettify.css">
+    <link href="<?=base_url()?>/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" />
     <!-- <link rel="stylesheet" href="/assets/libs/flatpickr/flatpickr.min.css"> -->
 
     <?= $this->include('partials/head-css') ?>
@@ -287,14 +287,14 @@
 <?= $this->include('partials/vendor-scripts') ?>
 
 <!-- twitter-bootstrap-wizard js -->
-<script src="/assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
-<script src="/assets/libs/twitter-bootstrap-wizard/prettify.js"></script>
+<script src="<?=base_url()?>/assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/twitter-bootstrap-wizard/prettify.js"></script>
 
 <!-- form wizard init -->
-<script src="/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
 <?= $this->include('partials/script/booking') ?>
 
-<script src="/assets/js/app.js"></script>
+<script src="<?=base_url()?>/assets/js/app.js"></script>
 
 </body>
 

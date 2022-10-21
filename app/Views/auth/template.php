@@ -10,9 +10,9 @@
         <meta content="Themesbrand" name="author" />
         <meta content="Martoni F" name="creator" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/logo.png">
+        <link rel="shortcut icon" href="<?=base_url()?>/assets/images/logo.png">
 
-            <?= $this->include('partials/head-css') ?>
+        <?= $this->include('partials/head-css') ?>
 
 </head>
 

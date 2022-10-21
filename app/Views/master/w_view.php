@@ -183,24 +183,24 @@
 <?= $this->include('partials/sweetalert') ?>
 
 <!-- Required datatable js -->
-<script src="/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
-<script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-<script src="/assets/libs/jszip/jszip.min.js"></script>
-<script src="/assets/libs/pdfmake/build/pdfmake.min.js"></script>
-<script src="/assets/libs/pdfmake/build/vfs_fonts.js"></script>
-<script src="/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/jszip/jszip.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
 <!-- Responsive examples -->
-<script src="/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
-<script src="/assets/js/app.js"></script>
-<script src="/assets/ckeditor/ckeditor.js"></script>
+<script src="<?=base_url()?>/assets/js/app.js"></script>
+<script src="<?=base_url()?>/assets/ckeditor/ckeditor.js"></script>
 <script>  
 </script>
 <?php //echo $crudScript;?>
@@ -215,19 +215,22 @@
             {
                 text: '<?= lang('Files.Add')?>',
                 action: function ( e, dt, node, config ) {
-                    let str = document.querySelector('#static<?=$menuname?>Label')
-                    str.innerHTML = '<?=  lang('Files.Add'),' ',lang('Files.'.$menuname)  ?>'
-                    <?php foreach($forms as $form): ?>
-                        <?php if($form['type']=='textarea') : ?>
-                            let instanceCKeditor = CKEDITOR.instances['<?=$form['idform']?>'];
-                            if(instanceCKeditor) CKEDITOR.remove(CKEDITOR.instances['<?=$form['idform']?>']);
-                            CKEDITOR.replace( '<?=$form['idform']?>')
-                            CKEDITOR.instances.<?=$form['idform']?>.setData('');
-                        <?php else: ?>
-                        document.getElementById("<?=$form['idform']?>").value = '';
-                        <?php endif; ?>
-                    <?php endforeach;?>
-                    $('#edit<?=$menuname?>').modal('show')
+                    if(e.type == 'click') {
+                        let str = document.querySelector('#static<?=$menuname?>Label')
+                        str.innerHTML = '<?=  lang('Files.Add'),' ',lang('Files.'.$menuname)  ?>'
+                        <?php foreach($forms as $form): ?>
+                            <?php if($form['type']=='textarea') : ?>
+                                let instanceCKeditor<?=$form['idform']?> = CKEDITOR.instances['<?=$form['idform']?>'];
+                                // if(instanceCKeditor) CKEDITOR.remove(CKEDITOR.instances['<?=$form['idform']?>']);
+                                if(instanceCKeditor<?=$form['idform']?>) CKEDITOR.instances.<?=$form['idform']?>.destroy();
+                                CKEDITOR.replace( '<?=$form['idform']?>')
+                                CKEDITOR.instances.<?=$form['idform']?>.setData('');
+                            <?php else: ?>
+                            document.getElementById("<?=$form['idform']?>").value = '';
+                            <?php endif; ?>
+                        <?php endforeach;?>
+                        $('#edit<?=$menuname?>').modal('show')
+                    }
                 }
             },
             'excel', 'pdf', 'colvis',
@@ -295,7 +298,7 @@
 
             <?php foreach($forms as $form): ?>
                 let <?=$form['idform']?> = document.querySelector('table.<?=$menuname?>').rows.item(j+1).cells.item(n).innerText;
-
+                // let <?=$form['idform']?> = $(this).closest('tr').find("td:eq(2)").text()
 
                 <?php if($form['type']=='select' ) { ?>
                     let select<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>');
@@ -303,19 +306,19 @@
                     let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
                     selectedOpt<?=$form['idform']?>.selected = true;
                     
-                    // console.log(<?=$form['idform']?>)
+                    // console.log(select<?=$form['idform']?>)
                     <?php } ?>
 
                 <?php if($form['type']=='textarea') { ?>
-                    // CKEDITOR.replace( '<?=$form['idform']?>')
-                    let <?=$form['idform']?>TextArea = document.querySelector('table.<?=$menuname?>').rows.item(j+1).cells.item(n).innerHTML;                  
+                    CKEDITOR.replace( '<?=$form['idform']?>')
+                    let <?=$form['idform']?>TextArea = document.querySelector('table.<?=$menuname?>').rows.item(j+1).cells.item(n).innerHTML;
                     CKEDITOR.instances.<?=$form['idform']?>.setData(<?=$form['idform']?>TextArea);
                 <?php } ?>
                 n++;
             <?php endforeach;?>
 
             let str = document.querySelector('#static<?=$menuname?>Label')
-                    // console.log(str.html)
+            // console.log(str.html)
             str.innerHTML = '<?=lang('Files.Edit'),' ',lang('Files.'.$menuname)?>'
             <?php foreach($forms as $form) :
                 if($form['type']=='textarea') { ?>

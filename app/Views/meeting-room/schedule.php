@@ -98,8 +98,8 @@
                                                                         <p class="mb-0 mt-2 pt-1 text-muted">Peserta: <?=$row->nama_peserta?><br />Jam Meeting : <?=date('H:i',strtotime($row->jam_mulai))?></p>
 
                                                                         <div class="d-flex flex-wrap align-items-start event-img mt-3 gap-2">
-                                                                            <img src="assets/images/small/img-2.jpg" alt="" class="img-fluid rounded" width="60">
-                                                                            <img src="assets/images/small/img-5.jpg" alt="" class="img-fluid rounded" width="60">
+                                                                            <img src="<?=base_url()?>/assets/images/small/img-2.jpg" alt="" class="img-fluid rounded" width="60">
+                                                                            <img src="<?=base_url()?>/assets/images/small/img-5.jpg" alt="" class="img-fluid rounded" width="60">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -149,7 +149,7 @@
 <!-- JAVASCRIPT -->
 <?= $this->include('partials/vendor-scripts') ?>
 
-<script src="/assets/js/app.js"></script>
+<script src="<?=base_url()?>/assets/js/app.js"></script>
 
 </body>
 

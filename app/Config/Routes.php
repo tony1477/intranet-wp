@@ -224,6 +224,10 @@ $routes->get('tentang/strategi','Website/About/Strategi::index');
 $routes->post('tentang/strategi/post', 'Website/About/Strategi::save');
 $routes->post('tentang/strategi/delete', 'Website/About/Strategi::delete');
 
+$routes->get('tentang/manajemen','Website/About/Strategi::index');
+$routes->post('tentang/manajemen/post', 'Website/About/Strategi::save');
+$routes->post('tentang/manajemen/delete', 'Website/About/Strategi::delete');
+
 $routes->get('bisnis/kebun','Website/Business/Kebun::index');
 $routes->post('bisnis/kebun/post', 'Website/Business/Kebun::save');
 $routes->post('bisnis/kebun/delete', 'Website/Business/Kebun::delete');
@@ -232,7 +236,42 @@ $routes->get('bisnis/pabrik','Website/Business/Pabrik::index');
 $routes->post('bisnis/pabrik/post', 'Website/Business/Pabrik::save');
 $routes->post('bisnis/pabrik/delete', 'Website/Business/Pabrik::delete');
 
+$routes->get('bisnis/trading','Website/Business/Trading::index');
+$routes->post('bisnis/trading/post', 'Website/Business/Trading::save');
+$routes->post('bisnis/trading/delete', 'Website/Business/Trading::delete');
+
+$routes->get('bisnis/fnb','Website/Business/Fnb::index');
+$routes->post('bisnis/fnb/post', 'Website/Business/Fnb::save');
+$routes->post('bisnis/fnb/delete', 'Website/Business/Fnb::delete');
+
+$routes->get('keberlanjutan/kebijakan','Website/Sustainability/Policy::index');
+$routes->post('keberlanjutan/kebijakan/post', 'Website/Sustainability/Policy::save');
+$routes->post('keberlanjutan/kebijakan/delete', 'Website/Sustainability/Policy::delete');
+
+$routes->get('keberlanjutan/sertifikasi','Website/Sustainability/Certification::index');
+$routes->post('keberlanjutan/sertifikasi/post', 'Website/Sustainability/Certification::save');
+$routes->post('keberlanjutan/sertifikasi/delete', 'Website/Sustainability/Certification::delete');
+
+$routes->get('keberlanjutan/lingkungan','Website/Sustainability/Environment::index');
+$routes->post('keberlanjutan/lingkungan/post', 'Website/Sustainability/Environment::save');
+$routes->post('keberlanjutan/lingkungan/delete', 'Website/Sustainability/Environment::delete');
+
+$routes->get('keberlanjutan/csr','Website/Sustainability/Csr::index');
+$routes->post('keberlanjutan/csr/post', 'Website/Sustainability/Csr::save');
+$routes->post('keberlanjutan/csr/delete', 'Website/Sustainability/Csr::delete');
+
+$routes->get('keberlanjutan/osh','Website/Sustainability/Osh::index');
+$routes->post('keberlanjutan/osh/post', 'Website/Sustainability/Osh::save');
+$routes->post('keberlanjutan/osh/delete', 'Website/Sustainability/Osh::delete');
+
+
 $routes->get('informasi/karir','Website/Info/Career::index');
+$routes->post('informasi/karir/post', 'Website/Info/Career::save');
+$routes->post('informasi/karir/delete', 'Website/Info/Career::delete');
+
+$routes->get('informasi/lokasi','Website/Info/Location::index');
+$routes->post('informasi/lokasi/post', 'Website/Info/Location::save');
+$routes->post('informasi/lokasi/delete', 'Website/Info/Location::delete');
 // RESOURCE
 //$routes->resource('grupdivisi', ['controller' => 'Api\Grupdivisi']);
 
