@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Bpo;
+namespace App\Controllers\Master\Bpo;
 
 use App\Controllers\BaseController;
 
@@ -27,6 +27,7 @@ class Strukturorg extends BaseController
             'route'=>'struktur-organisasi',
             'menuname' => 'Structure-Org',
             'data' => $structure,
+            'modal' => 'modal-lg',
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
             'columns' => array('Action','Id','Name_Department','Code_Structureorg','Name_Structureorg','Name_Structureorg2','Name_File','Cover','Publish','Status','Cover2'),
@@ -41,7 +42,7 @@ class Strukturorg extends BaseController
                     'type'=>'select',
                     'idform'=>'idgroup',
                     'form-class'=>'form-select',
-                    'style' => 'col-md-8 col-xl-8',
+                    'style' => 'col-md-10 col-xl-10',
                     'options' => array(
                         'list' => $group,
                         'id' => 'Id',
@@ -54,7 +55,7 @@ class Strukturorg extends BaseController
                     'type'=>'text',
                     'idform'=>'kode',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-8 col-xl-8'
+                    'style' => 'col-md-10 col-xl-10'
                 ),
                 'stg_nama' => array(
                     'label'=>'Name_Structureorg',
@@ -62,7 +63,7 @@ class Strukturorg extends BaseController
                     'type'=>'text',
                     'idform'=>'namastg',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-8 col-xl-8'
+                    'style' => 'col-md-10 col-xl-10'
                 ),
                 'stg_nama2' => array(
                     'label'=>'Name_Structureorg2',
@@ -70,15 +71,15 @@ class Strukturorg extends BaseController
                     'type'=>'text',
                     'idform'=>'namastg2',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-8 col-xl-8'
+                    'style' => 'col-md-10 col-xl-10'
                 ),
                 'stg_nmfile' => array(
                     'label'=>'Name_File',
                     'field'=>'stg_file',
-                    'type'=>'text',
+                    'type'=>'file',
                     'idform'=>'stgfile',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-8 col-xl-8'
+                    'style' => 'col-md-10 col-xl-10'
                 ),
                 'stg_cover' => array(
                     'label'=>'Cover',
@@ -86,7 +87,7 @@ class Strukturorg extends BaseController
                     'type'=>'text',
                     'idform'=>'stgcover',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-8 col-xl-8'
+                    'style' => 'col-md-10 col-xl-10'
                 ),
                 'stg_publish' => array(
                     'label'=>'Publish',
@@ -94,7 +95,7 @@ class Strukturorg extends BaseController
                     'type'=>'text',
                     'idform'=>'stgpublish',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-8 col-xl-8'
+                    'style' => 'col-md-10 col-xl-10'
                 ),
                 'stg_aktif' => array(
                     'label'=>'Status',
@@ -102,7 +103,7 @@ class Strukturorg extends BaseController
                     'type'=>'text',
                     'idform'=>'stgstatus',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-8 col-xl-8'
+                    'style' => 'col-md-10 col-xl-10'
                 ),
                 'stg_default' => array(
                     'label'=>'Cover2',
@@ -110,7 +111,7 @@ class Strukturorg extends BaseController
                     'type'=>'text',
                     'idform'=>'stgcover2',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-8 col-xl-8'
+                    'style' => 'col-md-10 col-xl-10'
                 ),
             ]
 		];
@@ -210,5 +211,111 @@ class Strukturorg extends BaseController
         }
         $response = json_encode($arr);
         return $response;
+    }
+
+    public function display()
+    {
+    }
+
+    public function view($code) 
+    {
+        // $uri = service('uri');
+        // echo $uri->getSegment(3);
+
+        // check param from db
+        
+        if($this->model->where('stg_kode',$code)->first()) {
+            helper(['admin_helper']);
+            helper(['master_helper']);
+            $menu = getMenu($user='Admin');
+            $data = [
+                'title_meta' => view('partials/title-meta', ['title' => 'Structure-Org']),
+                'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Structure-Org']),
+                'modules' => $menu,
+                'menuname' => 'Structure-Org',
+            ];
+            return view('master/bpo/view_struktur',$data);
+        }
+    }
+
+    public function viewbyfile($urlfile) 
+    {
+        // $uri = service('uri');
+        // echo $uri->getSegment(3);
+
+        // check param from db
+        
+        if($this->model->where('stg_nmfile',$urlfile)->first()) {
+            $data = [
+                'title_meta' => view('partials/title-meta', ['title' => 'Structure-Org']),                
+            ];
+            return view('master/bpo/view_struktur',$data);
+        }
+    }
+
+    public function uploadfile() {
+        header("Content-Type: application/json");
+        $arr = array(
+            'status' => 'failed',
+            'code' => 400,
+            'message' => 'Error'
+        );
+        // // if($_POST) {
+        // //     $arr = array(
+        // //         'status' => 'success',
+        // //         'code' => 200,
+        // //         'message' => $message
+        // //     );
+        // // }
+        // $response = json_encode($arr);
+        // echo $response;
+
+        $loc = getcwd().'/assets/protected/upload';
+        // var_dump($_FILES);
+        $filename = $_FILES['file']['name'];
+
+        /* Choose where to save the uploaded file */
+        $location = $loc.'/'.$filename;
+
+        /* Save the uploaded file to the local filesystem */
+        try {
+            if(move_uploaded_file($_FILES['file']['tmp_name'], $location)) {
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => 'Uploaded File!'
+                );
+            }
+        }
+        catch(Exception $e) {
+            $arr = array(
+                'status' => 'failed',
+                'code' => 400,
+                'message' => $e->getMessage(),
+            );
+        }
+        $response = json_encode($arr);
+        return json_encode($response);
+    }
+
+    public function tes() {
+        return view('master/bpo/tes');
+    }
+
+    public function upload() {
+
+        $loc = getcwd().'/assets/protected/upload';
+        // var_dump($_FILES);
+        $filename = $_FILES['namafile']['name'];
+
+        /* Choose where to save the uploaded file */
+        $location = $loc.'/'.$filename;
+
+        /* Save the uploaded file to the local filesystem */
+        if ( move_uploaded_file($_FILES['namafile']['tmp_name'], $location) ) { 
+        echo 'Success'; 
+        } else { 
+        echo 'Failure'; 
+        }
     }
 }

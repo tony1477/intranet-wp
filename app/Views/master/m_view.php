@@ -65,14 +65,14 @@
                                     </tbody>
                                 </table>
                                 <div class="modal fade" id="edit<?=$menuname?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="static<?=$menuname?>Label" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-dialog modal-dialog-centered <?php echo $modal=$modal??'';?>" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="static<?=$menuname?>Label"></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form novalidate method="post" name="<?=$menuname?>">
+                                                <form novalidate method="post" name="<?=$menuname?>" enctype="multipart/form-data">
                                                 <?php foreach($forms as $form):
                                                     if($form['type']=='hidden') { ?>
                                                         <input type="<?=$form['type']?>" name="<?=$form['idform']?>" id="<?=$form['idform']?>" value="" />
@@ -132,6 +132,15 @@
                                                         </div>
                                                     </div>
                                                     <?php }
+                                                    if($form['type']=='file') { ?>
+                                                        <div class="<?=$form['style']?>">
+                                                            <div class="form-group mb-3">
+                                                                <label><?=lang('Files.'.$form['label'])?></label>
+                                                            <input type="file" name="file<?=$form['idform']?>" id="file<?=$form['idform']?>" class="<?=$form['form-class']?>" />
+                                                            FILE : <span id="<?=$form['idform']?>"><a id="f<?=$form['idform']?>"></a></span>
+                                                            </div>
+                                                        </div>
+                                                        <?php }
                                                     endforeach; ?>
                                                 </form>
                                             </div>
@@ -247,6 +256,19 @@
 
         return response.json()
     }
+
+    async function uploadFile(url='',data={}) {
+        const response = await fetch(url, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            creadentials: 'same-origin',
+            body: data
+        })
+
+        return response.json()
+    }
+
     const editButton = document.querySelectorAll(".edit<?=$menuname?>");
     const deleteButton = document.querySelectorAll('.delete<?=$menuname?>')
     const saveButton = document.querySelector('.save');
@@ -266,19 +288,21 @@
             let j = i - (offset*ix);
             let n=1; 
     
-
             <?php foreach($forms as $form): ?>
                 let <?=$form['idform']?> = document.querySelector('table.<?=$menuname?>').rows.item(j+1).cells.item(n).innerText;
-
-
                 <?php if($form['type']=='select' ) { ?>
                     let select<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>');
                     let option<?=$form['idform']?> = Array.from(select<?=$form['idform']?>.options);
                     let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
                     selectedOpt<?=$form['idform']?>.selected = true;
-                    
                     // console.log(option<?=$form['idform']?>)    
-                    <?php } ?>
+                <?php } ?>
+                <?php if($form['type']=='file') { ?>
+                    document.getElementById("file<?=$form['idform']?>").value = '';
+                    document.getElementById("f<?=$form['idform']?>").innerHTML = <?=$form['idform']?>;
+                    document.getElementById("f<?=$form['idform']?>").setAttribute('target','_blank');
+                    document.getElementById("f<?=$form['idform']?>").href = "<?=base_url()?>/struktur-organisasi/viewbyfile/"+<?=$form['idform']?>;
+                <?php } ?>
                 n++;
             <?php endforeach;?>
 
@@ -286,7 +310,7 @@
                     // console.log(str.html)
             str.innerHTML = '<?=lang('Files.Edit'),' ',lang('Files.'.$menuname)?>'
             <?php foreach($forms as $form) :
-                if($form['type']!='select') { ?>
+                if($form['type']!='select' && $form['type']!='file') { ?>
                     document.getElementById("<?=$form['idform']?>").value = <?=$form['idform']?>;
                 <?php } ?>
             <?php endforeach;?>
@@ -329,26 +353,54 @@
 
     saveButton.addEventListener("click", function(){
         const data = {}
-        <?php foreach($forms as $form): ?>
-            let <?=$form['field']?> = <?=$form['idform']?>;
-            let value<?=$form['idform']?> = document.forms["<?=$menuname?>"]["<?=$form['idform']?>"].value;
-            //data[<?=$form['idform']?>] = value<?=$form['idform']?>;
-            data.<?=$form['idform']?> = value<?=$form['idform']?>;
+        <?php foreach($forms as $form):
+            if($form['type']!='file') { ?>
+                let <?=$form['field']?> = <?=$form['idform']?>;
+                let value<?=$form['idform']?> = document.forms["<?=$menuname?>"]["<?=$form['idform']?>"].value;
+                //data[<?=$form['idform']?>] = value<?=$form['idform']?>;
+                data.<?=$form['idform']?> = value<?=$form['idform']?>;
+            <?php }
+            if($form['type']=='file') { ?>
+                let datafile = document.getElementById('file<?=$form['idform']?>').files[0];
+                const formData = new FormData();
+                formData.append('file',datafile)
+                try {
+                    // uploadFile('<?=base_url()?>/<?=$route?>/uploadfile',{data:formData})
+                    // .then(data => {
+                    //     console.log(data)
+                    // });
+                    fetch('<?=base_url()?>/<?=$route?>/uploadfile', {
+                        method: 'POST',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => 
+                        console.log(data)
+                    )
+                    .catch(e => console.log(e))
+                }
+                // data. = datafile;
+                catch(e) {
+                    console.log('Error :',e)
+                }
+            <?php } ?>
         <?php endforeach;?>
         // const id =  document.forms["<?=$menuname?>"]["id"].value;
         // const kode =  document.forms["<?=$menuname?>"]["kode"].value;
         // const nama =  document.forms["<?=$menuname?>"]["namadivisi"].value;
         // data = [id, kode, nama]
-        postData('<?=base_url()?>/<?=$route?>/post',{'data':data})
-        .then(data => {
-            if(data.code === 200) {
-                $('#editDivisi').modal('hide'); 
-                Swal.fire("Success!", data.message, data.status);
-            }
-            // table.ajax.reload()
-            // Swal.clickConfirm()
-            //setTimeout(() => location.reload(), 1500)
-        })
+        // postData('<?=base_url()?>/<?=$route?>/post',{'data':data})
+        // .then(data => {
+        //     if(data.code === 200) {
+        //         $('#editDivisi').modal('hide'); 
+        //         Swal.fire("Success!", data.message, data.status);
+        //     }
+        //     // table.ajax.reload()
+        //     // Swal.clickConfirm()
+        //     //setTimeout(() => location.reload(), 1500)
+        // })
     })
 </script>
 </body>

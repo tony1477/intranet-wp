@@ -58,7 +58,9 @@
                                                 <td><?php if(isset($mark_column) && in_array($row,$mark_column)) {
                                                     echo '*****';
                                                 }
-                                                else {echo $list->$row; }?></td>
+                                                else {
+                                                    echo $list->$row;
+                                                }?></td>
                                                 <?php endforeach;?>
                                             </tr>
                                         <?php endforeach;?>
@@ -105,7 +107,7 @@
                                                     if($form['type']=='number') { ?>
                                                     <div class="<?=$form['style']?>">
                                                         <div class="form-group mb-3">
-                                                            <label><?=lang('Files.'.$form['label'])?></label>
+                                                            <label><?=lang('Files.'.$form['label'])?> </label>
                                                         <input type="number" name="<?=$form['idform']?>" id="<?=$form['idform']?>" class="<?=$form['form-class']?>" required value="" />
                                                         </div>
                                                     </div>
@@ -131,6 +133,14 @@
                                                             <div class="form-group mb-3">
                                                                 <label><?=lang('Files.'.$form['label'])?></label>
                                                             <input type="email" name="<?=$form['idform']?>" id="<?=$form['idform']?>" class="<?=$form['form-class']?>" required value="" />
+                                                            </div>
+                                                        </div>
+                                                        <?php }
+                                                    if($form['type']=='file') { ?>
+                                                        <div class="<?=$form['style']?>">
+                                                            <div class="form-group mb-3">
+                                                                <label><?=lang('Files.'.$form['label'])?></label>
+                                                            <input type="file" name="<?=$form['idform']?>" id="<?=$form['idform']?>" class="<?=$form['form-class']?>" required value="" />
                                                             </div>
                                                         </div>
                                                         <?php }

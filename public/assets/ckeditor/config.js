@@ -30,7 +30,8 @@ CKEDITOR.editorConfig = function( config ) {
 	];
 
 	config.removeButtons = 'ExportPdf,NewPage,Print,Scayt';
-    config.removePlugins = 'image';
+    // config.removePlugins = 'image';
 	config.height = 450;
 	config.width = 'auto';
+	config.extraPlugins = 'filebrowser';
 };

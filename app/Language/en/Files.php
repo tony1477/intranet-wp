@@ -219,5 +219,13 @@ return [
     "keberlanjutan" => "Sustainability",
     "informasi" => "Information",
     "kontak" => "Contact",
+    "bpo" => "BPO",
+    "visimisi" => "Vision-Mission",
+    "kebijakan" => "Kebijakan",
+    "manual" => "Policy",
+    "manual" => "Manual",
+    "sop" => "SOP",
+    "instruksi" => "Work Instruction",
+    "lain" => "Others",
 
 ];

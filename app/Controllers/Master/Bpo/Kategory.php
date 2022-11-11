@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Bpo;
+namespace App\Controllers\Master\Bpo;
 
 use App\Controllers\BaseController;
 

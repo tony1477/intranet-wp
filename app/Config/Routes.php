@@ -179,14 +179,20 @@ $routes->post('department/delete', 'Master/Department::delete', ['filter' => 'pe
 $routes->post('department/post', 'Master/Department::save', ['filter' => 'permission:master-data']);
 
 ## Struktur
-$routes->get('struktur-organisasi', 'Bpo/Strukturorg::index');
-$routes->post('struktur-organisasi/delete', 'Bpo/Strukturorg::delete');
-$routes->post('struktur-organisasi/post', 'Bpo/Strukturorg::save');
+$routes->get('struktur-organisasi', 'Master/Bpo/Strukturorg::index');
+$routes->post('struktur-organisasi/delete', 'Master/Bpo/Strukturorg::delete');
+$routes->post('struktur-organisasi/post', 'Master/Bpo/Strukturorg::save');
+$routes->get('struktur-organisasi/display', 'Master/Bpo/Strukturorg::display');
+$routes->add('struktur-organisasi/view/(:any)', 'Master\Bpo\Strukturorg::view/$1');
+$routes->add('struktur-organisasi/viewbyfile/(:any)', 'Master\Bpo\Strukturorg::viewbyfile/$1');
+$routes->post('struktur-organisasi/uploadfile', 'Master/Bpo/Strukturorg::uploadfile');
+// $routes->add('struktur-organisasi/tes', 'Master/Bpo/Strukturorg::tes');
+// $routes->add('struktur-organisasi/upload', 'Master/Bpo/Strukturorg::upload');
 
 ## Kategory
-$routes->get('kategory', 'Bpo/Kategory::index');
-$routes->post('kategory/delete', 'Bpo/Kategory::delete');
-$routes->post('kategory/post', 'Bpo/Kategory::save');
+$routes->get('kategory', 'Master/Bpo/Kategory::index');
+$routes->post('kategory/delete', 'Master/Bpo/Kategory::delete');
+$routes->post('kategory/post', 'Maser/Bpo/Kategory::save');
 
 ## Position
 $routes->get('jabatan', 'Master/Position::index',['filter' => 'permission:master-data']);
@@ -224,9 +230,9 @@ $routes->get('tentang/strategi','Website/About/Strategi::index');
 $routes->post('tentang/strategi/post', 'Website/About/Strategi::save');
 $routes->post('tentang/strategi/delete', 'Website/About/Strategi::delete');
 
-$routes->get('tentang/manajemen','Website/About/Strategi::index');
-$routes->post('tentang/manajemen/post', 'Website/About/Strategi::save');
-$routes->post('tentang/manajemen/delete', 'Website/About/Strategi::delete');
+$routes->get('tentang/manajemen','Website/About/Manajemen::index');
+$routes->post('tentang/manajemen/post', 'Website/About/Manajemen::save');
+$routes->post('tentang/manajemen/delete', 'Website/About/Manajemen::delete');
 
 $routes->get('bisnis/kebun','Website/Business/Kebun::index');
 $routes->post('bisnis/kebun/post', 'Website/Business/Kebun::save');
