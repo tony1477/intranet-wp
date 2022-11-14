@@ -58,6 +58,9 @@
                                                 <td><?php if(isset($mark_column) && in_array($row,$mark_column)) {
                                                     echo '*****';
                                                 }
+                                                elseif(isset($columns_link) && in_array($row,$columns_link)) {
+                                                    echo "<a href='".base_url()."/struktur-organisasi/viewbyfile/".$list->$row."' target='blank'>".$list->$row."</a>";
+                                                }
                                                 else {echo $list->$row; }?></td>
                                                 <?php endforeach;?>
                                             </tr>
@@ -207,7 +210,11 @@
                 action: function ( e, dt, node, config ) {
                     let str = document.querySelector('#static<?=$menuname?>Label')
                     str.innerHTML = '<?=  lang('Files.Add'),' ',lang('Files.'.$menuname)  ?>'
-                    <?php foreach($forms as $form): ?>
+                    <?php foreach($forms as $form): 
+                        if($form['type'] == 'file') { ?>
+                        document.getElementById("file<?=$form['idform']?>").value = '';
+                        document.getElementById("f<?=$form['idform']?>").innerHTML = '';
+                        <?php } ?>
                         document.getElementById("<?=$form['idform']?>").value = '';
                     <?php endforeach;?>
                     $('#edit<?=$menuname?>').modal('show')
@@ -279,6 +286,15 @@
     let ix; let offset=10;
     for (let i = 0; i < editButton.length; i++) {
         editButton[i].addEventListener("click", function() {
+    
+            // var table = $('#datatable-buttons').DataTable();
+ 
+            // $('#datatable-buttons tbody').on( 'click', 'td', function () {
+            //     var idx = table.cell( this ).index().column;
+            //     var title = table.column( idx ).header();
+            
+            //     alert( 'Column title clicked on: '+$(title).html() );
+            // } );
             
             // let id = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(1).innerHTML
             // let group = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(2).innerHTML
@@ -295,7 +311,7 @@
                     let option<?=$form['idform']?> = Array.from(select<?=$form['idform']?>.options);
                     let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
                     selectedOpt<?=$form['idform']?>.selected = true;
-                    // console.log(option<?=$form['idform']?>)    
+                    // console.log(option<?=$form['idform']?>)
                 <?php } ?>
                 <?php if($form['type']=='file') { ?>
                     document.getElementById("file<?=$form['idform']?>").value = '';
@@ -353,6 +369,7 @@
 
     saveButton.addEventListener("click", function(){
         const data = {}
+        let status = 1;
         <?php foreach($forms as $form):
             if($form['type']!='file') { ?>
                 let <?=$form['field']?> = <?=$form['idform']?>;
@@ -361,7 +378,10 @@
                 data.<?=$form['idform']?> = value<?=$form['idform']?>;
             <?php }
             if($form['type']=='file') { ?>
+                status=0;
                 let datafile = document.getElementById('file<?=$form['idform']?>').files[0];
+                let name<?=$form['idform']?> = datafile.name;
+                let <?=$form['field']?> = <?=$form['idform']?>;
                 const formData = new FormData();
                 formData.append('file',datafile)
                 try {
@@ -369,21 +389,58 @@
                     // .then(data => {
                     //     console.log(data)
                     // });
-                    fetch('<?=base_url()?>/<?=$route?>/uploadfile', {
-                        method: 'POST',
-                        mode: 'cors',
-                        cache: 'no-cache',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => 
-                        console.log(data)
-                    )
-                    .catch(e => console.log(e))
+                    // fetch('<?=base_url()?>/<?=$route?>/uploadfile', {
+                    //     method: 'POST',
+                    //     mode: 'cors',
+                    //     cache: 'no-cache',
+                    //     body: formData
+                    // })
+                    // .then(response => response.json())
+                    // .then(datas => {
+                    //         // console.log(data)
+                    //         if(datas.status == 'success') {
+                    //             data.<?=$form['idform']?> = datas.filename;
+                    //             postData('<?=base_url()?>/<?=$route?>/post',{'data':data})
+                    //             .then(data => {
+                    //                 if(data.code === 200) {
+                    //                     $('#editDivisi').modal('hide'); 
+                    //                     Swal.fire("Success!", data.message, data.status);
+                    //                 }
+                    //                 // table.ajax.reload()
+                    //                 // Swal.clickConfirm()
+                    //                 //setTimeout(() => location.reload(), 1500)
+                    //             })
+                    //         }
+                    //         if(data.status!='success') Swal.fire("Failed!", data.message, data.status)
+                    //     }
+                    // )
+                    // .catch(e => {
+                    //         console.log(e);
+                    //         Swal.fire("Failed!", e, 400);
+                    //     }
+                    // )
+
+                    $.ajax({
+                        url: "<?=base_url()?>/<?=$route?>/uploadfile",
+                        enctype: 'multipart/form-data',
+                        type: 'POST',
+                        data: formData,
+                        dataType: 'json',
+                        async: false,
+                        success: function (res) {
+                            data.<?=$form['idform']?> = res.filename;
+                            console.log(res.status)
+                            // $('.filesToUpload').empty();
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
                 }
                 // data. = datafile;
                 catch(e) {
-                    console.log('Error :',e)
+                    console.log('Error :',e);
+                    Swal.fire("Failed!", e, 400);
                 }
             <?php } ?>
         <?php endforeach;?>
@@ -391,16 +448,18 @@
         // const kode =  document.forms["<?=$menuname?>"]["kode"].value;
         // const nama =  document.forms["<?=$menuname?>"]["namadivisi"].value;
         // data = [id, kode, nama]
-        // postData('<?=base_url()?>/<?=$route?>/post',{'data':data})
-        // .then(data => {
-        //     if(data.code === 200) {
-        //         $('#editDivisi').modal('hide'); 
-        //         Swal.fire("Success!", data.message, data.status);
-        //     }
-        //     // table.ajax.reload()
-        //     // Swal.clickConfirm()
-        //     //setTimeout(() => location.reload(), 1500)
-        // })
+        // if(status == 1) {
+            postData('<?=base_url()?>/<?=$route?>/post',{'data':data})
+            .then(data => {
+                if(data.code === 200) {
+                    $('#editDivisi').modal('hide'); 
+                    Swal.fire("Success!", data.message, data.status);
+                }
+                // table.ajax.reload()
+                // Swal.clickConfirm()
+                //setTimeout(() => location.reload(), 1500)
+            })
+        // }
     })
 </script>
 </body>

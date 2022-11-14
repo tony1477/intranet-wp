@@ -186,13 +186,18 @@ $routes->get('struktur-organisasi/display', 'Master/Bpo/Strukturorg::display');
 $routes->add('struktur-organisasi/view/(:any)', 'Master\Bpo\Strukturorg::view/$1');
 $routes->add('struktur-organisasi/viewbyfile/(:any)', 'Master\Bpo\Strukturorg::viewbyfile/$1');
 $routes->post('struktur-organisasi/uploadfile', 'Master/Bpo/Strukturorg::uploadfile');
-// $routes->add('struktur-organisasi/tes', 'Master/Bpo/Strukturorg::tes');
-// $routes->add('struktur-organisasi/upload', 'Master/Bpo/Strukturorg::upload');
+$routes->add('struktur-organisasi/tes', 'Master/Bpo/Strukturorg::tes');
+$routes->add('struktur-organisasi/upload', 'Master/Bpo/Strukturorg::upload');
 
 ## Kategory
 $routes->get('kategory', 'Master/Bpo/Kategory::index');
 $routes->post('kategory/delete', 'Master/Bpo/Kategory::delete');
 $routes->post('kategory/post', 'Maser/Bpo/Kategory::save');
+
+## Dokumen
+$routes->get('dokumen-sop', 'Master/Bpo/Dokumen::index');
+$routes->post('dokumen-sop/delete', 'Master/Bpo/Dokumen::delete');
+$routes->post('dokumen-sop/post', 'Maser/Bpo/Dokumen::save');
 
 ## Position
 $routes->get('jabatan', 'Master/Position::index',['filter' => 'permission:master-data']);

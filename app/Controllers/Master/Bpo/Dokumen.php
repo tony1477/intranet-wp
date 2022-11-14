@@ -4,11 +4,11 @@ namespace App\Controllers\Master\Bpo;
 
 use App\Controllers\BaseController;
 
-class Strukturorg extends BaseController
+class Dokumen extends BaseController
 {
     public function __construct()
     {
-        $this->model = new \App\Models\StrukturorgModel();
+        $this->model = new \App\Models\DokumenModel();
     }
     
     public function index()
@@ -16,17 +16,17 @@ class Strukturorg extends BaseController
         helper(['admin_helper']);
         helper(['master_helper']);
         $menu = getMenu($user='Admin');
-        $structure = getStrukturOrg();
+        $document = getStrukturOrg();
         $group = getDepartment();
         //$submenu = getSubmenu($moduleid=0);
         
 		$data = [
-			'title_meta' => view('partials/title-meta', ['title' => 'Structure-Org']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Structure-Org']),
+			'title_meta' => view('partials/title-meta', ['title' => 'Document']),
+			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Document']),
 			'modules' => $menu,
-            'route'=>'struktur-organisasi',
-            'menuname' => 'Structure-Org',
-            'data' => $structure,
+            'route'=>'dokumen-sop',
+            'menuname' => 'Document',
+            'data' => $document,
             'modal' => 'modal-lg',
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
@@ -36,7 +36,7 @@ class Strukturorg extends BaseController
             'forms' => [
                 # rule
                 # column_name => array(type,'name and id','class','style')
-                'idstrukturorg' => array('type'=>'hidden','idform'=>'id','field'=>'idstrukturorg'), 
+                'iddokumen' => array('type'=>'hidden','idform'=>'id','field'=>'iddokumen'),
                 'iddepartment' => array(
                     'label'=>'Name_Department',
                     'field'=>'iddepartment',
@@ -50,43 +50,59 @@ class Strukturorg extends BaseController
                         'value' => 'Name_Department',
                     ),
                 ),
-                'stg_kode' => array(
-                    'label'=>'Code_Structureorg',
-                    'field'=>'stg_kode',
+                'dok_nosop' => array(
+                    'label'=>'No_SOP',
+                    'field'=>'dok_nosop',
                     'type'=>'text',
-                    'idform'=>'kode',
+                    'idform'=>'nosop',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10',
+                ),
+                'dok_nmsop' => array(
+                    'label'=>'Nama_SOP',
+                    'field'=>'dok_nmsop',
+                    'type'=>'text',
+                    'idform'=>'nmsop1',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
                 ),
-                'stg_nama' => array(
-                    'label'=>'Name_Structureorg',
-                    'field'=>'stg_nama',
+                'dok_nmsop2' => array(
+                    'label'=>'Nama_SOP2',
+                    'field'=>'dok_nmsop2',
                     'type'=>'text',
-                    'idform'=>'namastg',
+                    'idform'=>'nmsop2',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
                 ),
-                'stg_nama2' => array(
-                    'label'=>'Name_Structureorg2',
-                    'field'=>'stg_nama2',
-                    'type'=>'text',
-                    'idform'=>'namastg2',
-                    'form-class'=>'form-control',
-                    'style' => 'col-md-10 col-xl-10'
-                ),
-                'stg_nmfile' => array(
-                    'label'=>'Name_File',
-                    'field'=>'stg_file',
-                    'type'=>'file',
-                    'idform'=>'stgfile',
-                    'form-class'=>'form-control',
-                    'style' => 'col-md-10 col-xl-10'
-                ),
-                'stg_cover' => array(
-                    'label'=>'Cover',
-                    'field'=>'stg_cover',
-                    'type'=>'text',
+                'idkategory' => array(
+                    'label'=>'Category',
+                    'field'=>'idkategory',
+                    'type'=>'select',
                     'idform'=>'stgcover',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
+                ),
+                'dok_nmfile' => array(
+                    'label'=>'Name_File',
+                    'field'=>'dok_nmfile',
+                    'type'=>'file',
+                    'idform'=>'nmfile',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
+                ),
+                'dok_nmfile2' => array(
+                    'label'=>'Name_File2',
+                    'field'=>'dok_nmfile2',
+                    'type'=>'file',
+                    'idform'=>'nmfile',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
+                ),
+                'dok_nmfile3' => array(
+                    'label'=>'Name_File3',
+                    'field'=>'dok_nmfile3',
+                    'type'=>'file',
+                    'idform'=>'nmfile',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
                 ),
