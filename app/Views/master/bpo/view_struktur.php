@@ -15,10 +15,19 @@
 </head>
 
 <body>
+  <?php if(!file_exists(base_url().'/assets/protected/'.$dir.'/'.$data))
+      // $data = [
+			// 	'title_meta' => view('partials/title-meta', ['title' => 'Structure-Org']),
+			// 	'data' => $row[$field],
+			// 	'dir' => $name,
+			// ];
+      // return view('pages-404',$data);
+      echo 'test';
+   ?>
 <canvas id="the-canvas"></canvas>
 
 <script type="text/javascript">
-    const url = 'http://localhost:8080/assets/protected/struktur/1_Lamp__01_SK_SO_WPG_MNGT_SO_All_Group_Dept_.pdf';
+    const url = '<?=base_url()?>/assets/protected/<?=$dir?>/<?=$data?>';
 
     const loadingTask = pdfjsLib.getDocument(url);
   (async () => {
