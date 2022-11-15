@@ -16,8 +16,9 @@ class Dokumen extends BaseController
         helper(['admin_helper']);
         helper(['master_helper']);
         $menu = getMenu($user='Admin');
-        $document = getStrukturOrg();
+        $document = getDocument();
         $group = getDepartment();
+        $category = getKategory();
         //$submenu = getSubmenu($moduleid=0);
         
 		$data = [
@@ -30,8 +31,8 @@ class Dokumen extends BaseController
             'modal' => 'modal-lg',
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
-            'columns' => array('Action','Id','Name_Department','Code_Structureorg','Name_Structureorg','Name_Structureorg2','Name_File','Cover','Publish','Status','Cover2'),
-            'columns_link' => array('Name_File'),
+            'columns' => array('Action','Id','Name_Department','No_SOP','Name_Document','Name_Document2','Name_Category','Name_File','Name_File2','Name_File3','Publish','Status','Cover2'),
+            // 'columns_link2' => array('Name_File','Name_File2','Name_File3'),
             //'crudScript' => view('partials/script/divisi',['menuname' => 'Divisi']),
             'forms' => [
                 # rule
@@ -54,6 +55,7 @@ class Dokumen extends BaseController
                     'label'=>'No_SOP',
                     'field'=>'dok_nosop',
                     'type'=>'text',
+                    'attr' => 'readonly',
                     'idform'=>'nosop',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10',
@@ -75,12 +77,17 @@ class Dokumen extends BaseController
                     'style' => 'col-md-10 col-xl-10'
                 ),
                 'idkategory' => array(
-                    'label'=>'Category',
+                    'label'=>'Name_Category',
                     'field'=>'idkategory',
                     'type'=>'select',
-                    'idform'=>'stgcover',
-                    'form-class'=>'form-control',
-                    'style' => 'col-md-10 col-xl-10'
+                    'idform'=>'idsubgroup',
+                    'form-class'=>'form-select',
+                    'style' => 'col-md-10 col-xl-10',
+                    'options' => array(
+                        'list' => $category,
+                        'id' => 'Id',
+                        'value' => 'Name_Category',
+                    ),
                 ),
                 'dok_nmfile' => array(
                     'label'=>'Name_File',
@@ -94,7 +101,7 @@ class Dokumen extends BaseController
                     'label'=>'Name_File2',
                     'field'=>'dok_nmfile2',
                     'type'=>'file',
-                    'idform'=>'nmfile',
+                    'idform'=>'nmfile2',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
                 ),
@@ -102,31 +109,31 @@ class Dokumen extends BaseController
                     'label'=>'Name_File3',
                     'field'=>'dok_nmfile3',
                     'type'=>'file',
-                    'idform'=>'nmfile',
+                    'idform'=>'nmfile3',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
                 ),
-                'stg_publish' => array(
+                'dok_publish' => array(
                     'label'=>'Publish',
-                    'field'=>'stg_publish',
+                    'field'=>'dok_publish',
                     'type'=>'text',
-                    'idform'=>'stgpublish',
+                    'idform'=>'dokpublish',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
                 ),
-                'stg_aktif' => array(
+                'dok_aktif' => array(
                     'label'=>'Status',
-                    'field'=>'stg_aktif',
+                    'field'=>'dok_aktif',
                     'type'=>'text',
-                    'idform'=>'stgstatus',
+                    'idform'=>'dokstatus',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
                 ),
-                'stg_default' => array(
+                'dok_default' => array(
                     'label'=>'Cover2',
-                    'field'=>'stg_default',
+                    'field'=>'dok_cover',
                     'type'=>'text',
-                    'idform'=>'stgcover2',
+                    'idform'=>'dokcover',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
                 ),
@@ -148,7 +155,7 @@ class Dokumen extends BaseController
         if($this->request->isAJAX()) {
             try {
                 $id = $this->request->getVar('id');
-                $this->model->where('iddivisi',$id)->delete();
+                $this->model->where('iddokumen',$id)->delete();
                 if($this->model->find($id)) {
                     $arr = array(
                         'status' => 'warning',
@@ -190,20 +197,23 @@ class Dokumen extends BaseController
                     $datas = (array) $datas;
                 }
                 $data = [
-                    'idstrukturorg' => $datas['id'],
-                    'stg_kode' => $datas['kode'],
-                    'stg_nama' => $datas['namastg'],
-                    'stg_nama2' => $datas['namastg2'],
-                    'stg_nmfile' => $datas['stgfile'],
+                    'iddokumen' => $datas['id'],
+                    'dok_nosop' => $datas['nosop'],
+                    'dok_nmsop' => $datas['nmsop1'],
+                    'dok_nmsop2' => $datas['nmsop2'],
                     'iddepartment' => $datas['idgroup'],
-                    'stg_cover' => $datas['stgcover'],
-                    'stg_publish' => $datas['stgpublish'],
-                    'stg_aktif' => $datas['stgstatus'],
-                    'stg_default' => $datas['stgcover2'],
+                    'idkategory' => $datas['idsubgroup'],
+                    'dok_cover' => $datas['dokcover'],
+                    'dok_publish' => $datas['dokpublish'],
+                    'dok_aktif' => $datas['dokstatus'],
                     // 'user_m' => $this->session->user_kode,
                     'tgl_m'=>date('Y-m-d'),
                     'time_m'=>date("h:i:s a")
                 ];
+                if(isset($datas['nmfile'])) $data = array_merge($data,['dok_nmfile' => $datas['nmfile']]);
+                if(isset($datas['nmfile2'])) $data = array_merge($data,['dok_nmfile2' => $datas['nmfile2']]);
+                if(isset($datas['nmfile3'])) $data = array_merge($data,['dok_nmfile3' => $datas['nmfile3']]);
+                
                 if($datas['id']!=='') {
                     $this->model->update($datas['id'],$data);
                     $message = lang('Files.Update_Success');
@@ -261,14 +271,14 @@ class Dokumen extends BaseController
         }
     }
 
-    public function viewbyfile($urlfile) 
+    public function viewbyfile($field,$urlfile) 
     {
         // $uri = service('uri');
         // echo $uri->getSegment(3);
 
         // check param from db
         
-        if($this->model->where('stg_nmfile',$urlfile)->first()) {
+        if($this->model->where($field,$urlfile)->first()) {
             $data = [
                 'title_meta' => view('partials/title-meta', ['title' => 'Structure-Org']),                
             ];

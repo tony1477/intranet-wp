@@ -32,6 +32,14 @@ function getKategory() {
     from sop_ifmkategori a")->getResult();
 }
 
+function getDocument() {
+    $db = db_connect();
+    return $db->query("select a.iddokumen as Id, dok_nosop as No_SOP, dok_nmsop as Name_Document, dok_nmsop2 as Name_Document2, c.dep_kode as Code_Department, c.dep_nama as Name_Department, dok_nmfile as Name_File, dok_nmfile2 as Name_File2, dok_nmfile3 as Name_File3, b.kat_kode as Code_Category,kat_nama as Name_Category, dok_publish as Publish, dok_aktif as Status, dok_cover as Cover2
+    from sop_ifmdokumen a
+    join sop_ifmkategori b on b.idkategory = a.idkategory
+    join tbl_ifmdepartemen c on c.iddepartment = a.iddepartment")->getResult();
+}
+
 function getPosition() {
     $db = db_connect();
     return $db->query("select idjabatan as Id, jab_kode as Code_Position, jab_nama as Name_Position, jab_nama2 as Name_Position2

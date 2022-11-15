@@ -16,6 +16,7 @@ class Home extends BaseController
      * @var Session
      */
     protected $session;
+	private $model;
 
 	public function __construct()
     {
@@ -57,6 +58,99 @@ class Home extends BaseController
 		
 		return view('auth/login', $data);
 	}
+
+	public function viewbyfile($name,$file,$field) {
+		if(!file_exists(getcwd().'/assets/protected/'.$name.'/'.$file)) return redirect()->route('pages-404');
+		$next=0;
+		switch($name) {
+			case "struktur-organisasi":
+				$this->model = new \App\Models\StrukturorgModel(); $next=1;
+				break;
+			case "dokumen-sop":
+				$this->model = new \App\Models\DokumenModel(); $next=1;
+				break;
+			default:
+				$this->model = null;
+		}
+
+		if(!$next) return redirect()->route('pages-404');
+
+		try {
+			$row=$this->model->where($field,$file)->first();
+			$data = [
+				'title_meta' => view('partials/title-meta', ['title' => 'Structure-Org']),
+				'data' => $row[$field],
+				'dir' => $name,
+			];
+			return view('master/bpo/view_dokumen',$data);
+		}
+		catch(Exception $e) {
+			echo $e->getMessage();
+		}
+	}
+
+	public function uploadfile($dir) {
+        header("Content-Type: application/json");
+        $arr = array(
+            'status' => 'failed',
+            'code' => 400,
+            'message' => 'Error'
+        );
+        
+        $loc = getcwd().'/assets/protected/'.$dir;
+        // var_dump($_FILES);
+        $filename = $_FILES['file']['name'];
+
+        /* Choose where to save the uploaded file */
+        $location = $loc.'/'.$filename;
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $name = pathinfo($filename, PATHINFO_FILENAME);
+
+        // check if file exists 
+        if(file_exists($location)) {
+            // $name = $this->getName($name,$ext);
+            // $location = $loc.'/'.$name;
+            $location = $this->getName($dir,$name,$ext);
+        }
+        
+        /* Save the uploaded file to the local filesystem */
+        try {
+            if(move_uploaded_file($_FILES['file']['tmp_name'], $location)) {
+                $char = $dir.'/';
+                $str = strpos($location,$char,0);
+                $filename = substr($location,$str+(strlen($char)));
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => 'Uploaded File!',
+                    'filename' => $filename
+                );
+            }
+        }
+        catch(Exception $e) {
+            $arr = array(
+                'status' => 'failed',
+                'code' => 400,
+                'message' => $e->getMessage(),
+            );
+        }
+        $response = json_encode($arr);
+        return $response;
+    }
+	
+	private function getName($dir,$name,$ext,$urut=0) {
+        $loc = getcwd().'/assets/protected/'.$dir;
+        $location = $loc.'/'.$name.'.'.$ext;
+        if($urut>=2) {
+            $name = substr($name,0,-2);
+        }
+        if(file_exists($location)) {
+            $urut++;
+            return $this->getName($name.($urut==1 ? ' copy' : ' '.$urut),$ext,$urut);
+        }
+        // var_dump($loca);
+        return $location;
+    }
 
 	public function register() {
 		$data = [

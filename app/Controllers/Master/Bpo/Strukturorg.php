@@ -31,7 +31,7 @@ class Strukturorg extends BaseController
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
             'columns' => array('Action','Id','Name_Department','Code_Structureorg','Name_Structureorg','Name_Structureorg2','Name_File','Cover','Publish','Status','Cover2'),
-            'columns_link' => array('Name_File'),
+            // 'columns_link' => array('Name_File'),
             //'crudScript' => view('partials/script/divisi',['menuname' => 'Divisi']),
             'forms' => [
                 # rule
@@ -76,7 +76,7 @@ class Strukturorg extends BaseController
                 ),
                 'stg_nmfile' => array(
                     'label'=>'Name_File',
-                    'field'=>'stg_file',
+                    'field'=>'stg_nmfile',
                     'type'=>'file',
                     'idform'=>'stgfile',
                     'form-class'=>'form-control',
@@ -178,7 +178,6 @@ class Strukturorg extends BaseController
                     'stg_kode' => $datas['kode'],
                     'stg_nama' => $datas['namastg'],
                     'stg_nama2' => $datas['namastg2'],
-                    'stg_nmfile' => $datas['stgfile'],
                     'iddepartment' => $datas['idgroup'],
                     'stg_cover' => $datas['stgcover'],
                     'stg_publish' => $datas['stgpublish'],
@@ -188,6 +187,9 @@ class Strukturorg extends BaseController
                     'tgl_m'=>date('Y-m-d'),
                     'time_m'=>date("h:i:s a")
                 ];
+                if(isset($datas['stgfile'])) {
+                    $data = array_merge($data,['stg_nmfile' => $datas['stgfile']]);
+                }
                 if($datas['id']!=='') {
                     $this->model->update($datas['id'],$data);
                     $message = lang('Files.Update_Success');
@@ -272,7 +274,7 @@ class Strukturorg extends BaseController
             'message' => 'Error'
         );
         
-        $loc = getcwd().'/assets/protected/struktur';
+        $loc = getcwd().'/assets/protected/struktur-organisasi';
         // var_dump($_FILES);
         $filename = $_FILES['file']['name'];
 
@@ -291,7 +293,7 @@ class Strukturorg extends BaseController
         /* Save the uploaded file to the local filesystem */
         try {
             if(move_uploaded_file($_FILES['file']['tmp_name'], $location)) {
-                $char = 'struktur/';
+                $char = 'struktur-organisasi/';
                 $str = strpos($location,$char,0);
                 $filename = substr($location,$str+(strlen($char)));
                 $arr = array(
@@ -312,11 +314,7 @@ class Strukturorg extends BaseController
         $response = json_encode($arr);
         return $response;
     }
-
-    public function tes() {
-        return view('master/bpo/tes');
-    }
-
+ 
     private function getName($name,$ext,$urut=0) {
         $loc = getcwd().'/assets/protected/struktur';
         $location = $loc.'/'.$name.'.'.$ext;
@@ -330,7 +328,11 @@ class Strukturorg extends BaseController
         // var_dump($loca);
         return $location;
     }
-
+    
+    public function tes() {
+        return view('master/bpo/tes');
+    }
+    
     public function upload() {
 
         $loc = getcwd().'/assets/protected/upload';

@@ -37,7 +37,7 @@
                             </div>
                             <div class="card-body">
 
-                                <table id="datatable-buttons" class="table table-bordered dt-responsive  w-100 <?=$menuname?>">
+                                <table id="datatable-buttons" class="table table-bordered dt-responsive w-100 <?=$menuname?>">
                                     <thead>
                                         <?php $rows = array_diff($columns,$columns_hidden);?>
                                         <tr>
@@ -59,7 +59,8 @@
                                                     echo '*****';
                                                 }
                                                 elseif(isset($columns_link) && in_array($row,$columns_link)) {
-                                                    echo "<a href='".base_url()."/struktur-organisasi/viewbyfile/".$list->$row."' target='blank'>".$list->$row."</a>";
+                                                    echo "<a href='".base_url()."/".$route.
+                                                "/viewbyfile/".$list->$row."' target='blank'>".$list->$row."</a>";
                                                 }
                                                 else {echo $list->$row; }?></td>
                                                 <?php endforeach;?>
@@ -101,7 +102,7 @@
                                                     <div class="<?=$form['style']?>">
                                                         <div class="form-group mb-3">
                                                             <label><?=lang('Files.'.$form['label'])?></label>
-                                                        <input type="text" name="<?=$form['idform']?>" id="<?=$form['idform']?>" class="<?=$form['form-class']?>" required value="" />
+                                                        <input type="text" name="<?=$form['idform']?>" id="<?=$form['idform']?>" class="<?=$form['form-class']?>" required value="" <?=$form['attr']??''?>/>
                                                         </div>
                                                     </div>
                                                     <?php }
@@ -203,6 +204,7 @@
 
         //Buttons examples
         var table = $('#datatable-buttons').DataTable({
+            // scrollX: true,
             lengthChange: false,
             buttons: [
             {
@@ -230,6 +232,46 @@
 
         // table.columns(1).visible(false)
         $(".dataTables_length select").addClass('form-select form-select-sm');
+
+        // let table = $('#datatable-buttons').DataTable;
+
+        // EDIT
+        $('#datatable-buttons tbody').on( 'click', 'tr', function () {
+            let i=1;
+            let rowData = table.row( this ).data();
+            let ix = table.row( this ).index();
+            // console.log(rowData)
+
+            <?php foreach($forms as $form): ?>
+                let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
+                <?php if($form['type']=='select' ) { ?>
+                    let select<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>');
+                    let option<?=$form['idform']?> = Array.from(select<?=$form['idform']?>.options);
+                    let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
+                    selectedOpt<?=$form['idform']?>.selected = true;
+                    // console.log(<?=$form['idform']?>)
+                <?php } ?>
+                <?php if($form['type']=='file') { ?>
+                    // let <?=$form['field']?> = <?=$form['field']?>;
+                    document.getElementById("file<?=$form['idform']?>").value = '';
+                    document.getElementById("f<?=$form['idform']?>").innerHTML = <?=$form['idform']?>;
+                    document.getElementById("f<?=$form['idform']?>").setAttribute('target','_blank');
+                    document.getElementById("f<?=$form['idform']?>").href = "<?=base_url()?>/dokumen/<?=$route?>/viewbyfile/"+<?=$form['idform']?>+"/<?=$form['field']?>"
+                <?php } ?>
+                // n++;
+                i++;
+            <?php endforeach;?>
+
+            let str = document.querySelector('#static<?=$menuname?>Label')
+                        // console.log(str.html)
+            str.innerHTML = '<?=lang('Files.Edit'),' ',lang('Files.'.$menuname)?>'
+            <?php foreach($forms as $form) :
+                if($form['type']!='select' && $form['type']!='file') { ?>
+                    document.getElementById("<?=$form['idform']?>").value = <?=$form['idform']?>;
+                <?php } ?>
+            <?php endforeach;?>
+            ix++;
+        });
     })
 
     // const table = $('#datatable').DataTable()
@@ -284,86 +326,97 @@
     // const $select = document.querySelector('#idgroup')
     // const $option = Array.from($select.options)
     let ix; let offset=10;
-    for (let i = 0; i < editButton.length; i++) {
-        editButton[i].addEventListener("click", function() {
+    // EDIT DIBAWAH TIDAK DIPAKAI LAGI
+    // for (let i = 0; i < editButton.length; i++) {
+    //     editButton[i].addEventListener("click", function() {
     
-            // var table = $('#datatable-buttons').DataTable();
+    //         // var table = $('#datatable-buttons').DataTable();
  
-            // $('#datatable-buttons tbody').on( 'click', 'td', function () {
-            //     var idx = table.cell( this ).index().column;
-            //     var title = table.column( idx ).header();
+    //         // $('#datatable-buttons tbody').on( 'click', 'td', function () {
+    //         //     var idx = table.cell( this ).index().column;
+    //         //     var title = table.column( idx ).header();
             
-            //     alert( 'Column title clicked on: '+$(title).html() );
-            // } );
+    //         //     alert( 'Column title clicked on: '+$(title).html() );
+    //         // } );
             
-            // let id = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(1).innerHTML
-            // let group = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(2).innerHTML
-            // let kode = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(3).innerHTML
-            // let nama = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(4).innerHTML
-            ix = Math.floor(i/offset);
-            let j = i - (offset*ix);
-            let n=1; 
-    
-            <?php foreach($forms as $form): ?>
-                let <?=$form['idform']?> = document.querySelector('table.<?=$menuname?>').rows.item(j+1).cells.item(n).innerText;
-                <?php if($form['type']=='select' ) { ?>
-                    let select<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>');
-                    let option<?=$form['idform']?> = Array.from(select<?=$form['idform']?>.options);
-                    let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
-                    selectedOpt<?=$form['idform']?>.selected = true;
-                    // console.log(option<?=$form['idform']?>)
-                <?php } ?>
-                <?php if($form['type']=='file') { ?>
-                    document.getElementById("file<?=$form['idform']?>").value = '';
-                    document.getElementById("f<?=$form['idform']?>").innerHTML = <?=$form['idform']?>;
-                    document.getElementById("f<?=$form['idform']?>").setAttribute('target','_blank');
-                    document.getElementById("f<?=$form['idform']?>").href = "<?=base_url()?>/struktur-organisasi/viewbyfile/"+<?=$form['idform']?>;
-                <?php } ?>
-                n++;
-            <?php endforeach;?>
+    //         // let idx = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(1).innerHTML
+    //         // console.log(idx)
+    //         // let group = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(2).innerHTML
+    //         // let kode = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(3).innerHTML
+    //         // let nama = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(4).innerHTML
+    //         ix = Math.floor(i/offset);
+    //         let j = i - (offset*ix);
+    //         let n=1;
 
-            let str = document.querySelector('#static<?=$menuname?>Label')
-                    // console.log(str.html)
-            str.innerHTML = '<?=lang('Files.Edit'),' ',lang('Files.'.$menuname)?>'
-            <?php foreach($forms as $form) :
-                if($form['type']!='select' && $form['type']!='file') { ?>
-                    document.getElementById("<?=$form['idform']?>").value = <?=$form['idform']?>;
-                <?php } ?>
-            <?php endforeach;?>
-            ix++;
-        });
-    }
+    
+    //         <?php foreach($forms as $form): ?>
+    //             let <?=$form['idform']?> = document.querySelector('table.<?=$menuname?>').rows.item(j+1).cells.item(n).innerText;
+    //             <?php if($form['type']=='select' ) { ?>
+    //                 let select<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>');
+    //                 let option<?=$form['idform']?> = Array.from(select<?=$form['idform']?>.options);
+    //                 let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
+    //                 selectedOpt<?=$form['idform']?>.selected = true;
+    //                 // console.log(option<?=$form['idform']?>)
+    //             <?php } ?>
+    //             <?php if($form['type']=='file') { ?>
+    //                 // let <?=$form['field']?> = <?=$form['field']?>;
+    //                 document.getElementById("file<?=$form['idform']?>").value = '';
+    //                 document.getElementById("f<?=$form['idform']?>").innerHTML = <?=$form['idform']?>;
+    //                 document.getElementById("f<?=$form['idform']?>").setAttribute('target','_blank');
+    //                 document.getElementById("f<?=$form['idform']?>").href = "<?=base_url()?>/struktur-organisasi/viewbyfile/"+<?=$form['idform']?>+"/<?=$form['field']?>"
+    //             <?php } ?>
+    //             n++;
+    //         <?php endforeach;?>
+
+    //         let str = document.querySelector('#static<?=$menuname?>Label')
+    //                 // console.log(str.html)
+    //         str.innerHTML = '<?=lang('Files.Edit'),' ',lang('Files.'.$menuname)?>'
+    //         <?php foreach($forms as $form) :
+    //             if($form['type']!='select' && $form['type']!='file') { ?>
+    //                 document.getElementById("<?=$form['idform']?>").value = <?=$form['idform']?>;
+    //             <?php //} ?>
+    //         <?php endforeach;?>
+    //         ix++;
+    //     });
+    // }
+
+    // var table = $('#datatable-buttons').DataTable();
 
     for(let i=0; i< deleteButton.length; i++) {
         deleteButton[i].addEventListener("click", function() {
-        let id = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(1).innerHTML
-        Swal.fire({
-            title: "<?=lang('Files.Deleted_Confirm')?>",
-            text: "",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#2ab57d",
-            cancelButtonColor: "#fd625e",
-            confirmButtonText: "<?=lang('Files.Yes')?>"
-        }).then(function (result) {
-            // const reqbody = {'kode':kode}
-            if (result.value) {
-                // console.log(id)
-                deleteData('<?=base_url()?>/<?=$route?>/delete', {'id':id})
-                .then(data => {
-                    console.log(data)
-                    if(data.code === 200) 
-                    Swal.fire("Deleted!", data.message, data.status)
-                    // table.ajax.reload()
-                    // Swal.clickConfirm()
-                    setTimeout(() => location.reload(), 1500)
-                })
-                .catch(err => {
-                    console.log('Error',err)
-                })
-                // console.log(table)
-            }
-        });
+        // let id = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(1).innerHTML;
+        let t1 = $('#datatable-buttons').DataTable();
+        $('#datatable-buttons tbody').on( 'click', 'tr', function () {
+            let idx = t1.row( this ).data()[1]
+            
+            Swal.fire({
+                title: "<?=lang('Files.Deleted_Confirm')?>",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#2ab57d",
+                cancelButtonColor: "#fd625e",
+                confirmButtonText: "<?=lang('Files.Yes')?>"
+            }).then(function (result) {
+                // const reqbody = {'kode':kode}
+                if (result.value) {
+                    // console.log(id)
+                    deleteData('<?=base_url()?>/<?=$route?>/delete', {'id':idx})
+                    .then(data => {
+                        console.log(data)
+                        if(data.code === 200) 
+                        Swal.fire("Deleted!", data.message, data.status)
+                        // table.ajax.reload()
+                        // Swal.clickConfirm()
+                        setTimeout(() => location.reload(), 1500)
+                    })
+                    .catch(err => {
+                        console.log('Error',err)
+                    })
+                    // console.log(table)
+                }
+            });
+        })
         });
     }
 
@@ -379,68 +432,70 @@
             <?php }
             if($form['type']=='file') { ?>
                 status=0;
-                let datafile = document.getElementById('file<?=$form['idform']?>').files[0];
-                let name<?=$form['idform']?> = datafile.name;
-                let <?=$form['field']?> = <?=$form['idform']?>;
-                const formData = new FormData();
-                formData.append('file',datafile)
-                try {
-                    // uploadFile('<?=base_url()?>/<?=$route?>/uploadfile',{data:formData})
-                    // .then(data => {
-                    //     console.log(data)
-                    // });
-                    // fetch('<?=base_url()?>/<?=$route?>/uploadfile', {
-                    //     method: 'POST',
-                    //     mode: 'cors',
-                    //     cache: 'no-cache',
-                    //     body: formData
-                    // })
-                    // .then(response => response.json())
-                    // .then(datas => {
-                    //         // console.log(data)
-                    //         if(datas.status == 'success') {
-                    //             data.<?=$form['idform']?> = datas.filename;
-                    //             postData('<?=base_url()?>/<?=$route?>/post',{'data':data})
-                    //             .then(data => {
-                    //                 if(data.code === 200) {
-                    //                     $('#editDivisi').modal('hide'); 
-                    //                     Swal.fire("Success!", data.message, data.status);
-                    //                 }
-                    //                 // table.ajax.reload()
-                    //                 // Swal.clickConfirm()
-                    //                 //setTimeout(() => location.reload(), 1500)
-                    //             })
-                    //         }
-                    //         if(data.status!='success') Swal.fire("Failed!", data.message, data.status)
-                    //     }
-                    // )
-                    // .catch(e => {
-                    //         console.log(e);
-                    //         Swal.fire("Failed!", e, 400);
-                    //     }
-                    // )
+                let datafile<?=$form['idform']?> = document.getElementById('file<?=$form['idform']?>').files[0];
+                if(datafile<?=$form['idform']?>!=undefined) {
+                    let name<?=$form['idform']?> = datafile<?=$form['idform']?>.name;
+                    let <?=$form['field']?> = <?=$form['idform']?>;
+                    const formData<?=$form['idform']?> = new FormData();
+                    formData<?=$form['idform']?>.append('file',datafile<?=$form['idform']?>)
+                    try {
+                        // uploadFile('<?=base_url()?>/<?=$route?>/uploadfile',{data:formData})
+                        // .then(data => {
+                        //     console.log(data)
+                        // });
+                        // fetch('<?=base_url()?>/<?=$route?>/uploadfile', {
+                        //     method: 'POST',
+                        //     mode: 'cors',
+                        //     cache: 'no-cache',
+                        //     body: formData
+                        // })
+                        // .then(response => response.json())
+                        // .then(datas => {
+                        //         // console.log(data)
+                        //         if(datas.status == 'success') {
+                        //             data.<?=$form['idform']?> = datas.filename;
+                        //             postData('<?=base_url()?>/<?=$route?>/post',{'data':data})
+                        //             .then(data => {
+                        //                 if(data.code === 200) {
+                        //                     $('#editDivisi').modal('hide'); 
+                        //                     Swal.fire("Success!", data.message, data.status);
+                        //                 }
+                        //                 // table.ajax.reload()
+                        //                 // Swal.clickConfirm()
+                        //                 //setTimeout(() => location.reload(), 1500)
+                        //             })
+                        //         }
+                        //         if(data.status!='success') Swal.fire("Failed!", data.message, data.status)
+                        //     }
+                        // )
+                        // .catch(e => {
+                        //         console.log(e);
+                        //         Swal.fire("Failed!", e, 400);
+                        //     }
+                        // )
 
-                    $.ajax({
-                        url: "<?=base_url()?>/<?=$route?>/uploadfile",
-                        enctype: 'multipart/form-data',
-                        type: 'POST',
-                        data: formData,
-                        dataType: 'json',
-                        async: false,
-                        success: function (res) {
-                            data.<?=$form['idform']?> = res.filename;
-                            console.log(res.status)
-                            // $('.filesToUpload').empty();
-                        },
-                        cache: false,
-                        contentType: false,
-                        processData: false
-                    });
-                }
-                // data. = datafile;
-                catch(e) {
-                    console.log('Error :',e);
-                    Swal.fire("Failed!", e, 400);
+                        $.ajax({
+                            url: "<?=base_url()?>/dokumen/uploadfile/<?=$route?>",
+                            enctype: 'multipart/form-data',
+                            type: 'POST',
+                            data: formData<?=$form['idform']?>,
+                            dataType: 'json',
+                            async: false,
+                            success: function (res) {
+                                data.<?=$form['idform']?> = res.filename;
+                                console.log(res.status)
+                                // $('.filesToUpload').empty();
+                            },
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                    }
+                    // data. = datafile;
+                    catch(e) {
+                        console.log('Error :',e);
+                        Swal.fire("Failed!", e, 400);
+                    }
                 }
             <?php } ?>
         <?php endforeach;?>
