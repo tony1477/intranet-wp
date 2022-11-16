@@ -8,7 +8,7 @@ class DokumenModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'sop_ifmdokumen';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'iddokumen';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';

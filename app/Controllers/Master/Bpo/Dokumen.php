@@ -32,7 +32,7 @@ class Dokumen extends BaseController
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
             'columns' => array('Action','Id','Name_Department','No_SOP','Name_Document','Name_Document2','Name_Category','Name_File','Name_File2','Name_File3','Publish','Status','Cover2'),
-            // 'columns_link2' => array('Name_File','Name_File2','Name_File3'),
+            // 'columns_link' => array('Name_File','Name_File2','Name_File3'),
             //'crudScript' => view('partials/script/divisi',['menuname' => 'Divisi']),
             'forms' => [
                 # rule

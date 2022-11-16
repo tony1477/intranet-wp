@@ -39,7 +39,10 @@
 
                                 <table id="datatable-buttons" class="table table-bordered dt-responsive w-100 <?=$menuname?>">
                                     <thead>
-                                        <?php $rows = array_diff($columns,$columns_hidden);?>
+                                        <?php 
+                                            $rows = array_diff($columns,$columns_hidden);
+                                            $key = array_keys($rows);
+                                        ?>
                                         <tr>
                                             <?php foreach($columns as $column):?>
                                             <th><?= lang('Files.'.$column)?></th>
@@ -49,21 +52,29 @@
                                     <tbody>
                                         <?php foreach($data as $list):?>
                                             <tr>
+                                                <?php if($key[0]!==0):?>
                                                 <td>
                                                     <a class="btn btn-soft-secondary waves-effect waves-light btn-sm edit<?=$menuname?>" title="Edit" data-bs-toggle="modal" data-bs-target="#edit<?=$menuname?>"><i class="fas fa-pencil-alt" title="<?=lang('Files.Edit')?>"></i></a>
                                                     <a class="btn btn-soft-danger waves-effect waves-light btn-sm delete<?=$menuname?>" title="Hapus" ><i class="fas fa-trash-alt" title="<?=lang('Files.Delete')?>"></i></a>
                                                 </td>
-                                               
+                                                <?php endif;?>
                                                 <?php foreach($rows as $row):?>
                                                 <td><?php if(isset($mark_column) && in_array($row,$mark_column)) {
                                                     echo '*****';
                                                 }
                                                 elseif(isset($columns_link) && in_array($row,$columns_link)) {
-                                                    echo "<a href='".base_url()."/".$route.
-                                                "/viewbyfile/".$list->$row."' target='blank'>".$list->$row."</a>";
+                                                    echo "<a href='".base_url()."/dokumen/".$route."/viewbyfile/".$list->$row."' target='blank'>".$list->$row."</a>";
                                                 }
                                                 else {echo $list->$row; }?></td>
                                                 <?php endforeach;?>
+                                                <?php if($key[0]!==1):?>
+                                                <td>
+                                                    <a class="btn btn-soft-danger waves-effect waves-light btn-sm edit<?=$menuname?>" title="<?=lang('Files.View')?>" target="_blank" href="<?=base_url()?>/bpo/<?=$route?>/viewpdf/<?=$list->No_SOP?>" ><i class="fas fa-file-pdf" title="<?=lang('Files.View')?>"></i></a>
+                                                    <?php for($i=1; $i<=$list->hit; $i++):?>
+                                                    <a class="btn btn-soft-info waves-effect waves-light btn-sm download<?=$menuname?>" title="<?=lang('Files.Download').' '.lang('Files.Form'.$i)?>" href="<?=base_url()?>/bpo/<?=$route?>/downloadform/<?=$list->No_SOP.'/'.$i?>"><i class="bx bxs-download" title="<?=lang('Files.Download').' '.lang('Files.Form'.$i)?>"></i></a>
+                                                    <?php endfor;?>
+                                                </td>
+                                               <?php endif;?>
                                             </tr>
                                         <?php endforeach;?>
                                     </tbody>
@@ -140,8 +151,15 @@
                                                         <div class="<?=$form['style']?>">
                                                             <div class="form-group mb-3">
                                                                 <label><?=lang('Files.'.$form['label'])?></label>
-                                                            <input type="file" name="file<?=$form['idform']?>" id="file<?=$form['idform']?>" class="<?=$form['form-class']?>" />
-                                                            FILE : <span id="<?=$form['idform']?>"><a id="f<?=$form['idform']?>"></a></span>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                <button class="btn btn-success d-none" type="button" id="download<?=$form['idform']?>"><i class="fa fa-download"></i></button>
+                                                                </div>
+                                                            <input type="file" name="file<?=$form['idform']?>" id="file<?=$form['idform']?>" class="<?=$form['form-class']?>" /> 
+                                                            </div>
+                                                            FILE : <span id="<?=$form['idform']?>"><a id="f<?=$form['idform']?>"></a></span><br />
+                                                            <!-- <span id="download">DOWNLOAD : <button class="btn btn-sm btn-success" style="border-radius:50%"><i class="fa fa-download"></i> </button>
+                                                            </span> -->
                                                             </div>
                                                         </div>
                                                         <?php }
@@ -203,6 +221,7 @@
         $('#datatable').DataTable();
 
         //Buttons examples
+        <?php if(!isset($bpo)):?>
         var table = $('#datatable-buttons').DataTable({
             // scrollX: true,
             lengthChange: false,
@@ -225,7 +244,12 @@
             'excel', 'pdf', 'colvis',
             ]
         });
-
+        <?php else: ?>
+            var tables = $('#datatable-buttons').DataTable({
+            // scrollX: true,
+            lengthChange: false,
+        });
+        <?php endif;?> 
         // var column = table.column('ID'.attr('data-column'));
         table.buttons().container()
             .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
@@ -253,10 +277,16 @@
                 <?php } ?>
                 <?php if($form['type']=='file') { ?>
                     // let <?=$form['field']?> = <?=$form['field']?>;
+                    let dwn<?=$form['idform']?> = document.querySelector('#download<?=$form['idform']?>');
                     document.getElementById("file<?=$form['idform']?>").value = '';
-                    document.getElementById("f<?=$form['idform']?>").innerHTML = <?=$form['idform']?>;
-                    document.getElementById("f<?=$form['idform']?>").setAttribute('target','_blank');
-                    document.getElementById("f<?=$form['idform']?>").href = "<?=base_url()?>/dokumen/<?=$route?>/viewbyfile/"+<?=$form['idform']?>+"/<?=$form['field']?>"
+                    document.getElementById("f<?=$form['idform']?>").innerHTML = '';
+                    dwn<?=$form['idform']?>.classList.add("d-none");
+                    if(<?=$form['idform']?>!='') {
+                        dwn<?=$form['idform']?>.classList.remove("d-none");
+                        document.getElementById("f<?=$form['idform']?>").innerHTML = <?=$form['idform']?>;
+                        document.getElementById("f<?=$form['idform']?>").setAttribute('target','_blank');
+                        document.getElementById("f<?=$form['idform']?>").href = "<?=base_url()?>/dokumen/<?=$route?>/viewbyfile/"+<?=$form['idform']?>+"/<?=$form['field']?>"
+                    }
                 <?php } ?>
                 // n++;
                 i++;

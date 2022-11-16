@@ -146,7 +146,7 @@ class Home extends BaseController
         }
         if(file_exists($location)) {
             $urut++;
-            return $this->getName($name.($urut==1 ? ' copy' : ' '.$urut),$ext,$urut);
+            return $this->getName($dir,$name.($urut==1 ? ' copy' : ' '.$urut),$ext,$urut);
         }
         // var_dump($loca);
         return $location;

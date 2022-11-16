@@ -157,6 +157,8 @@ return [
     "Name_Category2" => "Nama Kategory (ENG)",
     "Category" => "Katagory",
 
+    // Document
+
     // Position
     "Code_Position" => "Kode Jabatan",
     "Name_Position" => "Nama Jabatan (IDN)",
@@ -199,6 +201,13 @@ return [
     "Delete_Error" => "Terjadi kesalahan saat menghapus data",
     "(Eng)" => "(ENG)",
     "(Idn)" => "(IDN)",
+    "Sorry" => "Maaf",
+    "Data" => "Data",
+    "Not_Found" => "tidak ditemukan",
+    "Download" => "Unduh",
+    "Form1" => "Form 1",
+    "Form2" => "Form 2",
+    "Form3" => "Form 3",
     
     // Menu
     "group-divisi" => 'Grup Divisi',

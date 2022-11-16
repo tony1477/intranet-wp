@@ -197,7 +197,7 @@ $routes->post('kategory/post', 'Maser/Bpo/Kategory::save');
 ## Dokumen
 $routes->get('dokumen-sop', 'Master/Bpo/Dokumen::index');
 $routes->post('dokumen-sop/delete', 'Master/Bpo/Dokumen::delete');
-$routes->post('dokumen-sop/post', 'Maser/Bpo/Dokumen::save');
+$routes->post('dokumen-sop/post', 'Master/Bpo/Dokumen::save');
 $routes->post('dokumen/uploadfile/(:any)', 'Home::uploadfile/$1');
 $routes->get('dokumen/([a-z\-]+)/viewbyfile/(:any)','Home::viewbyfile/$1/$2/$3');
 
@@ -226,6 +226,16 @@ $routes->get('meeting-schedule/booking','Meeting/MeetingSchedule::booking');
 $routes->get('meeting-schedule/booking/:any','Meeting/MeetingSchedule::booking');
 $routes->get('meeting-schedule/detail/:num','Meeting/MeetingSchedule::detail');
 $routes->get('meeting-schedule/:any','Meeting/MeetingSchedule::schedule');
+
+## BPO - USER
+$routes->get('bpo/kebijakan','Bpo/Support::kebijakan');
+$routes->get('bpo/manual','Bpo/Support::manual');
+$routes->get('bpo/sop','Bpo/Support::sop');
+$routes->get('bpo/intruksi-kerja','Bpo/Support::intruksikerja');
+$routes->get('bpo/lainnya','Bpo/Support::lainnya');
+$routes->get('bpo/([a-z\-]+)/viewpdf/(:any)','Bpo\Support::viewpdf/$1/$2');
+$routes->get('bpo/([a-z\-]+)/downloadform/(:any)','Bpo\Support::downloadform/$1/$2/$3');
+// $routes->get('bpo/([a-z\-]+)/viewpdf/(:any)','Bpo/Master::viewpdf/$1');
 
 
 ## Website
