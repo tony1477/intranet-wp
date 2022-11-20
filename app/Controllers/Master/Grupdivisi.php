@@ -142,9 +142,9 @@ class Grupdivisi extends BaseController
                     'gdiv_kode' => $datas['kode'],
                     'gdiv_nama' => $datas['namagroup'],
                     'gdiv_nama2' => $datas['namagroup2'],
-                    // 'user_m' => $this->session->user_kode,
-                    'tgl_m'=>date('Y-m-d'),
-                    'time_m'=>date("h:i:s a")
+                    'user_m' => user()->username,
+                    'tgl_m'=> date('Y-m-d'),
+                    'time_m'=> date("h:i:s a")
                 ];
                 if($datas['id']!=='') {
                     $this->model->update($datas['id'],$data);
@@ -153,7 +153,7 @@ class Grupdivisi extends BaseController
                 
                 if($datas['id']==='') {
                     $newdata = [
-                        // 'user_c' => $this->session->user_kode,
+                        'user_c' => user()->username,
                         'tgl_c'=>date('Y-m-d'),
                         'time_c'=>date("h:i:s a")
                     ];
@@ -173,6 +173,7 @@ class Grupdivisi extends BaseController
                     'code' => 400,
                 );
             }
+            
         }
         $response = json_encode($arr);
         return $response;

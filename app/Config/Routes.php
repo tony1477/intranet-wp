@@ -192,7 +192,7 @@ $routes->add('struktur-organisasi/upload', 'Master/Bpo/Strukturorg::upload');
 ## Kategory
 $routes->get('kategory', 'Master/Bpo/Kategory::index');
 $routes->post('kategory/delete', 'Master/Bpo/Kategory::delete');
-$routes->post('kategory/post', 'Maser/Bpo/Kategory::save');
+$routes->post('kategory/post', 'Master/Bpo/Kategory::save');
 
 ## Dokumen
 $routes->get('dokumen-sop', 'Master/Bpo/Dokumen::index');

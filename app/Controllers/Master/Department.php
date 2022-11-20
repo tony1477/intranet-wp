@@ -135,7 +135,7 @@ class Department extends BaseController
                     'dep_kode' => $datas['kode'],
                     'dep_nama' => $datas['namadepartment'],
                     'dep_nama2' => $datas['namadepartment2'],
-                    // 'user_m' => $this->session->user_kode,
+                    'user_m' => user()->username,
                     'tgl_m'=>date('Y-m-d'),
                     'time_m'=>date("h:i:s a")
                 ];
@@ -146,7 +146,7 @@ class Department extends BaseController
                 
                 if($datas['id']==='') {
                     $newdata = [
-                        // 'user_c' => $this->session->user_kode,
+                        'user_c' => user()->username,
                         'tgl_c'=>date('Y-m-d'),
                         'time_c'=>date("h:i:s a")
                     ];

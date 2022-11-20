@@ -32,6 +32,23 @@ class Strukturorg extends BaseController
             'columns_hidden' => array('Action'),
             'columns' => array('Action','Id','Name_Department','Code_Structureorg','Name_Structureorg','Name_Structureorg2','Name_File','Cover','Publish','Status','Cover2'),
             // 'columns_link' => array('Name_File'),
+            'button' => array(
+                'Publish' => [
+                    'class' => 'btn-sm waves-effect waves-light',
+                    'text' => false,
+                    // 'icon' => 'bx bx-check-double label-icon',
+                ],
+                'Status' => [
+                    'class' => 'btn-sm waves-effect waves-light',
+                    'text' => false,
+                    // 'icon' => 'bx bx-block label-icon',
+                ],
+                'Cover2' => [
+                    'class' => 'btn-sm waves-effect waves-light',
+                    'text' => false,
+                    // 'icon' => 'bx bx-block label-icon',
+                ]
+            ),
             //'crudScript' => view('partials/script/divisi',['menuname' => 'Divisi']),
             'forms' => [
                 # rule
@@ -76,6 +93,7 @@ class Strukturorg extends BaseController
                 ),
                 'stg_nmfile' => array(
                     'label'=>'Name_File',
+                    'label2'=>'Full_Name_File',
                     'field'=>'stg_nmfile',
                     'type'=>'file',
                     'idform'=>'stgfile',
@@ -266,68 +284,68 @@ class Strukturorg extends BaseController
         return view('pages-404',$data);
     }
 
-    public function uploadfile() {
-        header("Content-Type: application/json");
-        $arr = array(
-            'status' => 'failed',
-            'code' => 400,
-            'message' => 'Error'
-        );
+    // public function uploadfile() {
+    //     header("Content-Type: application/json");
+    //     $arr = array(
+    //         'status' => 'failed',
+    //         'code' => 400,
+    //         'message' => 'Error'
+    //     );
         
-        $loc = getcwd().'/assets/protected/struktur-organisasi';
-        // var_dump($_FILES);
-        $filename = $_FILES['file']['name'];
+    //     $loc = getcwd().'/assets/protected/struktur-organisasi';
+    //     // var_dump($_FILES);
+    //     $filename = $_FILES['file']['name'];
 
-        /* Choose where to save the uploaded file */
-        $location = $loc.'/'.$filename;
-        $ext = pathinfo($filename, PATHINFO_EXTENSION);
-        $name = pathinfo($filename, PATHINFO_FILENAME);
+    //     /* Choose where to save the uploaded file */
+    //     $location = $loc.'/'.$filename;
+    //     $ext = pathinfo($filename, PATHINFO_EXTENSION);
+    //     $name = pathinfo($filename, PATHINFO_FILENAME);
 
-        // check if file exists 
-        if(file_exists($location)) {
-            // $name = $this->getName($name,$ext);
-            // $location = $loc.'/'.$name;
-            $location = $this->getName($name,$ext);
-        }
+    //     // check if file exists 
+    //     if(file_exists($location)) {
+    //         // $name = $this->getName($name,$ext);
+    //         // $location = $loc.'/'.$name;
+    //         $location = $this->getName($name,$ext);
+    //     }
         
-        /* Save the uploaded file to the local filesystem */
-        try {
-            if(move_uploaded_file($_FILES['file']['tmp_name'], $location)) {
-                $char = 'struktur-organisasi/';
-                $str = strpos($location,$char,0);
-                $filename = substr($location,$str+(strlen($char)));
-                $arr = array(
-                    'status' => 'success',
-                    'code' => 200,
-                    'message' => 'Uploaded File!',
-                    'filename' => $filename
-                );
-            }
-        }
-        catch(Exception $e) {
-            $arr = array(
-                'status' => 'failed',
-                'code' => 400,
-                'message' => $e->getMessage(),
-            );
-        }
-        $response = json_encode($arr);
-        return $response;
-    }
+    //     /* Save the uploaded file to the local filesystem */
+    //     try {
+    //         if(move_uploaded_file($_FILES['file']['tmp_name'], $location)) {
+    //             $char = 'struktur-organisasi/';
+    //             $str = strpos($location,$char,0);
+    //             $filename = substr($location,$str+(strlen($char)));
+    //             $arr = array(
+    //                 'status' => 'success',
+    //                 'code' => 200,
+    //                 'message' => 'Uploaded File!',
+    //                 'filename' => $filename
+    //             );
+    //         }
+    //     }
+    //     catch(Exception $e) {
+    //         $arr = array(
+    //             'status' => 'failed',
+    //             'code' => 400,
+    //             'message' => $e->getMessage(),
+    //         );
+    //     }
+    //     $response = json_encode($arr);
+    //     return $response;
+    // }
  
-    private function getName($name,$ext,$urut=0) {
-        $loc = getcwd().'/assets/protected/struktur';
-        $location = $loc.'/'.$name.'.'.$ext;
-        if($urut>=2) {
-            $name = substr($name,0,-2);
-        }
-        if(file_exists($location)) {
-            $urut++;
-            return $this->getName($name.($urut==1 ? ' copy' : ' '.$urut),$ext,$urut);
-        }
-        // var_dump($loca);
-        return $location;
-    }
+    // private function getName($name,$ext,$urut=0) {
+    //     $loc = getcwd().'/assets/protected/struktur';
+    //     $location = $loc.'/'.$name.'.'.$ext;
+    //     if($urut>=2) {
+    //         $name = substr($name,0,-2);
+    //     }
+    //     if(file_exists($location)) {
+    //         $urut++;
+    //         return $this->getName($name.($urut==1 ? ' copy' : ' '.$urut),$ext,$urut);
+    //     }
+    //     // var_dump($loca);
+    //     return $location;
+    // }
     
     public function tes() {
         return view('master/bpo/tes');

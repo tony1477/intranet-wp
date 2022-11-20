@@ -21,7 +21,7 @@ function getDepartment() {
 
 function getStrukturOrg() {
     $db = db_connect();
-    return $db->query("select a.idstrukturorg as Id, a.stg_kode as Code_Structureorg, a.stg_nama as Name_Structureorg, a.stg_nama2 as Name_Structureorg2, a.stg_nmfile as Name_File, a.stg_cover as Cover, a.stg_publish as Publish, a.stg_aktif as Status, a.stg_default as Cover2, b.dep_nama as Name_Department
+    return $db->query("select a.idstrukturorg as Id, a.stg_kode as Code_Structureorg, a.stg_nama as Name_Structureorg, a.stg_nama2 as Name_Structureorg2, concat(substr(a.stg_nmfile,1,10),'...',substr(a.stg_nmfile,-8,8)) as Name_File, a.stg_nmfile as Full_Name_File, a.stg_cover as Cover, if(a.stg_publish='Y','YES','NO') as Publish, if(a.stg_aktif='Y','YES','NO') as Status, a.stg_default as Cover2, b.dep_nama as Name_Department
     from sop_ifmstrukturorg a
     join tbl_ifmdepartemen b on b.iddepartment = a.iddepartment")->getResult();
 }
@@ -42,7 +42,7 @@ function getDocument() {
 
 function getPosition() {
     $db = db_connect();
-    return $db->query("select idjabatan as Id, jab_kode as Code_Position, jab_nama as Name_Position, jab_nama2 as Name_Position2
+    return $db->query("select idjabatan as Id, jab_kode as Code_Position, jab_nama as Name_Position, jab_nama2 as Name_Position2,user_c User_Created, user_m as User_Modified
     from tbl_ifmjabatan a")->getResult();
 }
 

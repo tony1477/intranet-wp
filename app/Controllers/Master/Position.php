@@ -37,7 +37,7 @@ class Position extends BaseController
             'data' => $position,
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
-            'columns' => array('Action','Id','Code_Position','Name_Position','Name_Position2'),
+            'columns' => array('Action','Id','Code_Position','Name_Position','Name_Position2','User_Created','User_Modified'),
             // 'crudScript' => view('partials/script/groupdivisi',['menuname' => 'Divisi_Group','forms'=>'forms']),
             'forms' => [
                 # rule
@@ -141,7 +141,7 @@ class Position extends BaseController
                     'jab_kode' => $datas['kode'],
                     'jab_nama' => $datas['namajabatan'],
                     'jab_nama2' => $datas['namajabatan2'],
-                    // 'user_m' => $this->session->user_kode,
+                    'user_m' => user()->username,
                     'tgl_m'=>date('Y-m-d'),
                     'time_m'=>date("h:i:s a")
                 ];
@@ -152,7 +152,7 @@ class Position extends BaseController
                 
                 if($datas['id']==='') {
                     $newdata = [
-                        // 'user_c' => $this->session->user_kode,
+                        'user_c' => user()->username,
                         'tgl_c'=>date('Y-m-d'),
                         'time_c'=>date("h:i:s a")
                     ];

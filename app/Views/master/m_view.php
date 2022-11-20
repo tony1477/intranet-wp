@@ -65,7 +65,12 @@
                                                 elseif(isset($columns_link) && in_array($row,$columns_link)) {
                                                     echo "<a href='".base_url()."/dokumen/".$route."/viewbyfile/".$list->$row."' target='blank'>".$list->$row."</a>";
                                                 }
-                                                else {echo $list->$row; }?></td>
+                                                elseif(isset($button) && array_key_exists($row,$button)) {
+                                                    $btnclass = $list->$row=='YES' ? 'btn-success ' : 'btn-danger ';
+                                                    $iconclass = ($list->$row=='YES' ? 'bx bx-check' : 'bx bx-block'); 
+                                                    echo '<button type="button" class="btn '.$btnclass.$button[$row]['class'].'" id="btn'.$row.'"><i class="'.$iconclass.' label-icon"></i> '.($button[$row]['text'] == true ? $list->$row : '').'</button>';
+                                                }
+                                                else {echo $list->$row;}?></td>
                                                 <?php endforeach;?>
                                                 <?php if($key[0]!==1):?>
                                                 <td>
@@ -147,7 +152,7 @@
                                                         </div>
                                                     </div>
                                                     <?php }
-                                                    if($form['type']=='file') { ?>
+                                                    if($form['type']=='file') { $f = $form['label2'];?>
                                                         <div class="<?=$form['style']?>">
                                                             <div class="form-group mb-3">
                                                                 <label><?=lang('Files.'.$form['label'])?></label>
@@ -156,6 +161,7 @@
                                                                 <button class="btn btn-success d-none" type="button" id="download<?=$form['idform']?>"><i class="fa fa-download"></i></button>
                                                                 </div>
                                                             <input type="file" name="file<?=$form['idform']?>" id="file<?=$form['idform']?>" class="<?=$form['form-class']?>" /> 
+                                                            <input type="hidden" name="full<?=$form['idform']?>" id="full<?=$form['idform']?>" value="<?=$data[0]->$f?>" />
                                                             </div>
                                                             FILE : <span id="<?=$form['idform']?>"><a id="f<?=$form['idform']?>"></a></span><br />
                                                             <!-- <span id="download">DOWNLOAD : <button class="btn btn-sm btn-success" style="border-radius:50%"><i class="fa fa-download"></i> </button>
@@ -163,6 +169,17 @@
                                                             </div>
                                                         </div>
                                                         <?php }
+                                                    if($form['type']=='switch'): ?>
+                                                    <div class="<?=$form['style']?>">
+                                                        <div class="form-group mb-3">
+                                                            <label><?=lang('Files.'.$form['label'])?></label>
+                                                        <!-- </div> -->
+                                                            <div class="form-check form-switch form-switch-md mb-3" dir="ltr">
+                                                            <input type="checkbox" class="form-check-input" id="<?=$form['idform']?>">
+                                                        </div>
+                                                        <!-- <label class="form-check-label" for="customSwitchsizemd"></label> -->
+                                                    </div>
+                                                    <?php endif;
                                                     endforeach; ?>
                                                 </form>
                                             </div>
@@ -276,7 +293,8 @@
                     // console.log(<?=$form['idform']?>)
                 <?php } ?>
                 <?php if($form['type']=='file') { ?>
-                    // let <?=$form['field']?> = <?=$form['field']?>;
+                    let full<?=$form['idform']?> = document.querySelector('#full<?=$form['idform']?>').value;
+                    // console.log(full<?=$form['idform']?>)
                     let dwn<?=$form['idform']?> = document.querySelector('#download<?=$form['idform']?>');
                     document.getElementById("file<?=$form['idform']?>").value = '';
                     document.getElementById("f<?=$form['idform']?>").innerHTML = '';
@@ -285,8 +303,22 @@
                         dwn<?=$form['idform']?>.classList.remove("d-none");
                         document.getElementById("f<?=$form['idform']?>").innerHTML = <?=$form['idform']?>;
                         document.getElementById("f<?=$form['idform']?>").setAttribute('target','_blank');
-                        document.getElementById("f<?=$form['idform']?>").href = "<?=base_url()?>/dokumen/<?=$route?>/viewbyfile/"+<?=$form['idform']?>+"/<?=$form['field']?>"
+                        document.getElementById("f<?=$form['idform']?>").href = "<?=base_url()?>/dokumen/<?=$route?>/viewbyfile/"+full<?=$form['idform']?>+"/<?=$form['field']?>"
                     }
+                <?php } ?>
+                <?php if($form['type']=='switch') { ?>
+                    let s<?=$form['idform']?> = document.querySelector('#btn<?=$form['label']?>');
+                    // console.log(s<?=$form['idform']?>)
+                    // let dwn<?=$form['idform']?> = document.querySelector('#download<?=$form['idform']?>');
+                    // document.getElementById("file<?=$form['idform']?>").value = '';
+                    // document.getElementById("f<?=$form['idform']?>").innerHTML = '';
+                    // dwn<?=$form['idform']?>.classList.add("d-none");
+                    // if(<?=$form['idform']?>!='') {
+                    //     dwn<?=$form['idform']?>.classList.remove("d-none");
+                    //     document.getElementById("f<?=$form['idform']?>").innerHTML = <?=$form['idform']?>;
+                    //     document.getElementById("f<?=$form['idform']?>").setAttribute('target','_blank');
+                    //     document.getElementById("f<?=$form['idform']?>").href = "<?=base_url()?>/dokumen/<?=$route?>/viewbyfile/"+full<?=$form['idform']?>+"/<?=$form['field']?>"
+                    // }
                 <?php } ?>
                 // n++;
                 i++;
@@ -296,7 +328,7 @@
                         // console.log(str.html)
             str.innerHTML = '<?=lang('Files.Edit'),' ',lang('Files.'.$menuname)?>'
             <?php foreach($forms as $form) :
-                if($form['type']!='select' && $form['type']!='file') { ?>
+                if($form['type']!='select' && $form['type']!='file' && $form['type']!='switch') { ?>
                     document.getElementById("<?=$form['idform']?>").value = <?=$form['idform']?>;
                 <?php } ?>
             <?php endforeach;?>
@@ -450,13 +482,22 @@
         });
     }
 
-    saveButton.addEventListener("click", function(){
+    saveButton.addEventListener("click", function(e){
+        // e.preventDefault()
         const data = {}
         let status = 1;
         <?php foreach($forms as $form):
-            if($form['type']!='file') { ?>
+            if($form['type']=='switch') { ?>
+                let value<?=$form['idform']?> = 'NO';
+                let val<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>').checked;
+                val<?=$form['idform']?> ? value<?=$form['idform']?> = 'YES' : 'NO';
+                data.<?=$form['idform']?> = value<?=$form['idform']?>
+                // console.log(value<?=$form['idform']?>);
+            <?php } 
+            elseif($form['type']!='file' && $form['type']!='switch') { ?>
                 let <?=$form['field']?> = <?=$form['idform']?>;
                 let value<?=$form['idform']?> = document.forms["<?=$menuname?>"]["<?=$form['idform']?>"].value;
+                // console.log(value<?=$form['idform']?>);
                 //data[<?=$form['idform']?>] = value<?=$form['idform']?>;
                 data.<?=$form['idform']?> = value<?=$form['idform']?>;
             <?php }
@@ -469,6 +510,7 @@
                     const formData<?=$form['idform']?> = new FormData();
                     formData<?=$form['idform']?>.append('file',datafile<?=$form['idform']?>)
                     try {
+                        console.log('uploading...');
                         // uploadFile('<?=base_url()?>/<?=$route?>/uploadfile',{data:formData})
                         // .then(data => {
                         //     console.log(data)
@@ -540,9 +582,9 @@
                     $('#editDivisi').modal('hide'); 
                     Swal.fire("Success!", data.message, data.status);
                 }
-                // table.ajax.reload()
-                // Swal.clickConfirm()
-                //setTimeout(() => location.reload(), 1500)
+            //     // table.ajax.reload()
+            //     // Swal.clickConfirm()
+            //     //setTimeout(() => location.reload(), 1500)
             })
         // }
     })

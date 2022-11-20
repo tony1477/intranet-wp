@@ -91,6 +91,7 @@ class Dokumen extends BaseController
                 ),
                 'dok_nmfile' => array(
                     'label'=>'Name_File',
+                    'label2'=>'Name_File',
                     'field'=>'dok_nmfile',
                     'type'=>'file',
                     'idform'=>'nmfile',
@@ -99,6 +100,7 @@ class Dokumen extends BaseController
                 ),
                 'dok_nmfile2' => array(
                     'label'=>'Name_File2',
+                    'label2'=>'Name_File2',
                     'field'=>'dok_nmfile2',
                     'type'=>'file',
                     'idform'=>'nmfile2',
@@ -107,6 +109,7 @@ class Dokumen extends BaseController
                 ),
                 'dok_nmfile3' => array(
                     'label'=>'Name_File3',
+                    'label2'=>'Name_File3',
                     'field'=>'dok_nmfile3',
                     'type'=>'file',
                     'idform'=>'nmfile3',
@@ -116,7 +119,7 @@ class Dokumen extends BaseController
                 'dok_publish' => array(
                     'label'=>'Publish',
                     'field'=>'dok_publish',
-                    'type'=>'text',
+                    'type'=>'switch',
                     'idform'=>'dokpublish',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
@@ -124,7 +127,7 @@ class Dokumen extends BaseController
                 'dok_aktif' => array(
                     'label'=>'Status',
                     'field'=>'dok_aktif',
-                    'type'=>'text',
+                    'type'=>'switch',
                     'idform'=>'dokstatus',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
@@ -132,7 +135,7 @@ class Dokumen extends BaseController
                 'dok_default' => array(
                     'label'=>'Cover2',
                     'field'=>'dok_cover',
-                    'type'=>'text',
+                    'type'=>'switch',
                     'idform'=>'dokcover',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
