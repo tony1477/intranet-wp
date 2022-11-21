@@ -111,7 +111,7 @@ class Strukturorg extends BaseController
                 'stg_publish' => array(
                     'label'=>'Publish',
                     'field'=>'stg_publish',
-                    'type'=>'text',
+                    'type'=>'switch',
                     'idform'=>'stgpublish',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
@@ -119,7 +119,7 @@ class Strukturorg extends BaseController
                 'stg_aktif' => array(
                     'label'=>'Status',
                     'field'=>'stg_aktif',
-                    'type'=>'text',
+                    'type'=>'switch',
                     'idform'=>'stgstatus',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
@@ -127,7 +127,7 @@ class Strukturorg extends BaseController
                 'stg_default' => array(
                     'label'=>'Cover2',
                     'field'=>'stg_default',
-                    'type'=>'text',
+                    'type'=>'switch',
                     'idform'=>'stgcover2',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'

@@ -307,8 +307,13 @@
                     }
                 <?php } ?>
                 <?php if($form['type']=='switch') { ?>
-                    let s<?=$form['idform']?> = document.querySelector('#btn<?=$form['label']?>');
-                    // console.log(s<?=$form['idform']?>)
+                    let dom<?=$form['idform']?> = new DOMParser().parseFromString(<?=$form['idform']?>, "text/html");
+                    // consoe(<?=$form['idform']?>.className)
+                    // let id<?=$form['idform']?> = dom<?=$form['idform']?>.querySelector('#btn<?=$form['label']?>');
+                    let id<?=$form['idform']?> = dom<?=$form['idform']?>.getElementsByClassName('btn btn-success').length;
+                    console.log(id<?=$form['idform']?>)
+                    // if(id<?=$form['idform']?>.getAttribute('class') == 'btn') console.log('ada'); 
+                    // else { console.log('tida')}
                     // let dwn<?=$form['idform']?> = document.querySelector('#download<?=$form['idform']?>');
                     // document.getElementById("file<?=$form['idform']?>").value = '';
                     // document.getElementById("f<?=$form['idform']?>").innerHTML = '';
@@ -483,14 +488,14 @@
     }
 
     saveButton.addEventListener("click", function(e){
-        // e.preventDefault()
+        e.preventDefault()
         const data = {}
         let status = 1;
         <?php foreach($forms as $form):
             if($form['type']=='switch') { ?>
-                let value<?=$form['idform']?> = 'NO';
+                let value<?=$form['idform']?> = 'N';
                 let val<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>').checked;
-                val<?=$form['idform']?> ? value<?=$form['idform']?> = 'YES' : 'NO';
+                val<?=$form['idform']?> ? value<?=$form['idform']?> = 'Y' : 'N';
                 data.<?=$form['idform']?> = value<?=$form['idform']?>
                 // console.log(value<?=$form['idform']?>);
             <?php } 
@@ -576,6 +581,7 @@
         // const nama =  document.forms["<?=$menuname?>"]["namadivisi"].value;
         // data = [id, kode, nama]
         // if(status == 1) {
+            console.log(data)
             postData('<?=base_url()?>/<?=$route?>/post',{'data':data})
             .then(data => {
                 if(data.code === 200) {
