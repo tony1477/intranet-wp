@@ -32,11 +32,23 @@ class Dokumen extends BaseController
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
             'columns' => array('Action','Id','Name_Department','No_SOP','Name_Document','Name_Document2','Name_Category','Name_File','Name_File2','Name_File3','Publish','Status','Cover2'),
+            'button' => array(
+                'Publish' => [
+                    'class' => 'btn-sm waves-effect waves-light',
+                    'text' => false,
+                ],
+                'Status' => [
+                    'class' => 'btn-sm waves-effect waves-light',
+                    'text' => false,                ],
+                'Cover2' => [
+                    'class' => 'btn-sm waves-effect waves-light',
+                    'text' => false,
+                ]
+            ),
             // 'columns_link' => array('Name_File','Name_File2','Name_File3'),
-            //'crudScript' => view('partials/script/divisi',['menuname' => 'Divisi']),
             'forms' => [
                 # rule
-                # column_name => array(type,'name and id','class','style')
+                # column_name => array(type,'name and id','class','style','option',etc)
                 'iddokumen' => array('type'=>'hidden','idform'=>'id','field'=>'iddokumen'),
                 'iddepartment' => array(
                     'label'=>'Name_Department',
@@ -91,7 +103,7 @@ class Dokumen extends BaseController
                 ),
                 'dok_nmfile' => array(
                     'label'=>'Name_File',
-                    'label2'=>'Name_File',
+                    'label2'=>'Full_Name_File',
                     'field'=>'dok_nmfile',
                     'type'=>'file',
                     'idform'=>'nmfile',
@@ -100,7 +112,7 @@ class Dokumen extends BaseController
                 ),
                 'dok_nmfile2' => array(
                     'label'=>'Name_File2',
-                    'label2'=>'Name_File2',
+                    'label2'=>'Full_Name_File2',
                     'field'=>'dok_nmfile2',
                     'type'=>'file',
                     'idform'=>'nmfile2',
@@ -109,7 +121,7 @@ class Dokumen extends BaseController
                 ),
                 'dok_nmfile3' => array(
                     'label'=>'Name_File3',
-                    'label2'=>'Name_File3',
+                    'label2'=>'Full_Name_File3',
                     'field'=>'dok_nmfile3',
                     'type'=>'file',
                     'idform'=>'nmfile3',
@@ -140,11 +152,10 @@ class Dokumen extends BaseController
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
                 ),
-            ]
+            ],
 		];
 		
 		return view('master/m_view', $data);
-		// var_dump($group);
     }
 
     public function delete()

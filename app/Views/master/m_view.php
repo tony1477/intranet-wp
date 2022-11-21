@@ -5,7 +5,8 @@
     <?= $title_meta ?>
     <?= $this->include('partials/_datatables-css') ?>
     <?= $this->include('partials/head-css') ?>
-    <?= $this->include('partials/sweetalert-css') ?>   
+    <?= $this->include('partials/sweetalert-css') ?>
+    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -56,6 +57,10 @@
                                                 <td>
                                                     <a class="btn btn-soft-secondary waves-effect waves-light btn-sm edit<?=$menuname?>" title="Edit" data-bs-toggle="modal" data-bs-target="#edit<?=$menuname?>"><i class="fas fa-pencil-alt" title="<?=lang('Files.Edit')?>"></i></a>
                                                     <a class="btn btn-soft-danger waves-effect waves-light btn-sm delete<?=$menuname?>" title="Hapus" ><i class="fas fa-trash-alt" title="<?=lang('Files.Delete')?>"></i></a>
+                                                    <?php 
+                                                    if(isset($custombutton)): ?>
+                                                    <a class="btn btn-soft-primary waves-effect waves-light btn-sm custom<?=$menuname?>" title="" ><i class="fas fa-users" title="<?=lang('Files.User')?>"></i></a>
+                                                    <?php endif;?>
                                                 </td>
                                                 <?php endif;?>
                                                 <?php foreach($rows as $row):?>
@@ -232,6 +237,7 @@
 <script src="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 <script src="<?=base_url()?>/assets/js/app.js"></script>
+<script src="<?=base_url()?>/assets/js/multiselect.min.js"></script>
 <?php //echo $crudScript;?>
 <script>
     $(document).ready(function() {
@@ -285,7 +291,7 @@
 
             <?php foreach($forms as $form): ?>
                 let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
-                <?php if($form['type']=='select' ) { ?>
+                <?php if($form['type']=='select') { ?>
                     let select<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>');
                     let option<?=$form['idform']?> = Array.from(select<?=$form['idform']?>.options);
                     let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
@@ -308,29 +314,16 @@
                 <?php } ?>
                 <?php if($form['type']=='switch') { ?>
                     let dom<?=$form['idform']?> = new DOMParser().parseFromString(<?=$form['idform']?>, "text/html");
-                    // consoe(<?=$form['idform']?>.className)
-                    // let id<?=$form['idform']?> = dom<?=$form['idform']?>.querySelector('#btn<?=$form['label']?>');
                     let id<?=$form['idform']?> = dom<?=$form['idform']?>.getElementsByClassName('btn btn-success').length;
-                    console.log(id<?=$form['idform']?>)
-                    // if(id<?=$form['idform']?>.getAttribute('class') == 'btn') console.log('ada'); 
-                    // else { console.log('tida')}
-                    // let dwn<?=$form['idform']?> = document.querySelector('#download<?=$form['idform']?>');
-                    // document.getElementById("file<?=$form['idform']?>").value = '';
-                    // document.getElementById("f<?=$form['idform']?>").innerHTML = '';
-                    // dwn<?=$form['idform']?>.classList.add("d-none");
-                    // if(<?=$form['idform']?>!='') {
-                    //     dwn<?=$form['idform']?>.classList.remove("d-none");
-                    //     document.getElementById("f<?=$form['idform']?>").innerHTML = <?=$form['idform']?>;
-                    //     document.getElementById("f<?=$form['idform']?>").setAttribute('target','_blank');
-                    //     document.getElementById("f<?=$form['idform']?>").href = "<?=base_url()?>/dokumen/<?=$route?>/viewbyfile/"+full<?=$form['idform']?>+"/<?=$form['field']?>"
-                    // }
+                    let s<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>')
+                    if(id<?=$form['idform']?> == 1) s<?=$form['idform']?>.checked = true
                 <?php } ?>
                 // n++;
                 i++;
             <?php endforeach;?>
 
             let str = document.querySelector('#static<?=$menuname?>Label')
-                        // console.log(str.html)
+            // console.log(str.html)
             str.innerHTML = '<?=lang('Files.Edit'),' ',lang('Files.'.$menuname)?>'
             <?php foreach($forms as $form) :
                 if($form['type']!='select' && $form['type']!='file' && $form['type']!='switch') { ?>
@@ -576,21 +569,21 @@
                 }
             <?php } ?>
         <?php endforeach;?>
+        console.log(data)
         // const id =  document.forms["<?=$menuname?>"]["id"].value;
         // const kode =  document.forms["<?=$menuname?>"]["kode"].value;
         // const nama =  document.forms["<?=$menuname?>"]["namadivisi"].value;
         // data = [id, kode, nama]
         // if(status == 1) {
-            console.log(data)
             postData('<?=base_url()?>/<?=$route?>/post',{'data':data})
             .then(data => {
                 if(data.code === 200) {
                     $('#editDivisi').modal('hide'); 
                     Swal.fire("Success!", data.message, data.status);
                 }
-            //     // table.ajax.reload()
-            //     // Swal.clickConfirm()
-            //     //setTimeout(() => location.reload(), 1500)
+                // table.ajax.reload()
+                // Swal.clickConfirm()
+                // setTimeout(() => location.reload(), 1500)
             })
         // }
     })

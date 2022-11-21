@@ -144,7 +144,6 @@ return [
     "Code_Structureorg" => "Kode Struktur",
     "Name_Structureorg" => "Nama Struktur (IDN)",
     "Name_Structureorg2" => "Nama Struktur (ENG)",
-    "Name_File" => "Nama File",
     "Cover" => "Cover",
     "Publish" => "Publish",
     "Status" => "Status",
@@ -208,6 +207,9 @@ return [
     "Form1" => "Form 1",
     "Form2" => "Form 2",
     "Form3" => "Form 3",
+    "Name_File" => "Nama File",
+    "Name_File2" => "Nama File 2",
+    "Name_File3" => "Nama File 3",
     
     // Menu
     "group-divisi" => 'Grup Divisi',

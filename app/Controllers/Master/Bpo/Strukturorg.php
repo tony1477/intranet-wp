@@ -30,7 +30,7 @@ class Strukturorg extends BaseController
             'modal' => 'modal-lg',
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
-            'columns' => array('Action','Id','Name_Department','Code_Structureorg','Name_Structureorg','Name_Structureorg2','Name_File','Cover','Publish','Status','Cover2'),
+            'columns' => array('Action','Id','Name_Department','Code_Structureorg','Name_Structureorg','Name_Structureorg2','Name_File','Cover','Publish','Status'),
             // 'columns_link' => array('Name_File'),
             'button' => array(
                 'Publish' => [
@@ -43,11 +43,6 @@ class Strukturorg extends BaseController
                     'text' => false,
                     // 'icon' => 'bx bx-block label-icon',
                 ],
-                'Cover2' => [
-                    'class' => 'btn-sm waves-effect waves-light',
-                    'text' => false,
-                    // 'icon' => 'bx bx-block label-icon',
-                ]
             ),
             //'crudScript' => view('partials/script/divisi',['menuname' => 'Divisi']),
             'forms' => [

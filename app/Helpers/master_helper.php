@@ -21,7 +21,7 @@ function getDepartment() {
 
 function getStrukturOrg() {
     $db = db_connect();
-    return $db->query("select a.idstrukturorg as Id, a.stg_kode as Code_Structureorg, a.stg_nama as Name_Structureorg, a.stg_nama2 as Name_Structureorg2, concat(substr(a.stg_nmfile,1,10),'...',substr(a.stg_nmfile,-8,8)) as Name_File, a.stg_nmfile as Full_Name_File, a.stg_cover as Cover, if(a.stg_publish='Y','YES','NO') as Publish, if(a.stg_aktif='Y','YES','NO') as Status, a.stg_default as Cover2, b.dep_nama as Name_Department
+    return $db->query("select a.idstrukturorg as Id, a.stg_kode as Code_Structureorg, a.stg_nama as Name_Structureorg, a.stg_nama2 as Name_Structureorg2, concat(substr(a.stg_nmfile,1,10),'...',substr(a.stg_nmfile,-8,8)) as Name_File, a.stg_nmfile as Full_Name_File, a.stg_cover as Cover, if(a.stg_publish='Y','YES','NO') as Publish, if(a.stg_aktif='Y','YES','NO') as Status, if(a.stg_default='Y','YES','NO') as Cover2, b.dep_nama as Name_Department
     from sop_ifmstrukturorg a
     join tbl_ifmdepartemen b on b.iddepartment = a.iddepartment")->getResult();
 }
@@ -34,7 +34,10 @@ function getKategory() {
 
 function getDocument() {
     $db = db_connect();
-    return $db->query("select a.iddokumen as Id, dok_nosop as No_SOP, dok_nmsop as Name_Document, dok_nmsop2 as Name_Document2, c.dep_kode as Code_Department, c.dep_nama as Name_Department, dok_nmfile as Name_File, dok_nmfile2 as Name_File2, dok_nmfile3 as Name_File3, b.kat_kode as Code_Category,kat_nama as Name_Category, dok_publish as Publish, dok_aktif as Status, dok_cover as Cover2
+    return $db->query("select a.iddokumen as Id, dok_nosop as No_SOP, dok_nmsop as Name_Document, dok_nmsop2 as Name_Document2, c.dep_kode as Code_Department, c.dep_nama as Name_Department, 
+    if(dok_nmfile<>'',concat(substr(dok_nmfile,1,10),'...',substr(dok_nmfile,-5,5)),'') as Name_File, dok_nmfile as Full_Name_File, 
+    if(dok_nmfile2<>'',concat(substr(dok_nmfile2,1,10),'...',substr(dok_nmfile2,-5,5)),'') as Name_File2, dok_nmfile2 as Full_Name_File2, 
+    if(dok_nmfile3<>'',concat(substr(dok_nmfile3,1,10),'...',substr(dok_nmfile3,-5,5)),'') as Name_File3,dok_nmfile3 as Full_Name_File3, b.kat_kode as Code_Category,kat_nama as Name_Category, if(dok_publish='Y','YES','NO') as Publish, if(dok_aktif='Y','YES','NO') as Status, dok_cover as Cover2
     from sop_ifmdokumen a
     join sop_ifmkategori b on b.idkategory = a.idkategory
     join tbl_ifmdepartemen c on c.iddepartment = a.iddepartment")->getResult();
