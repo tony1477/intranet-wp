@@ -30,6 +30,26 @@ class Dokumen extends BaseController
             'data' => $document,
             'modal' => 'modal-lg',
             //'options' => array('option1' => $group),
+            'custombutton' => array(
+                'Button1' => [
+                    'toggle' => true,
+                    'id' => 'exampleModal',
+                    'name' => 'userByDoc',
+                    'class' => 'btn btn-soft-primary waves-effect waves-light btn-sm',
+                    'icon-class' => 'mdi mdi-file-compare',
+                    'title' => lang('Files.Doc'),
+                    'loadfile' => 'master/_partials/test',
+                    'scriptfile' => 'master/_partials/script/userbydoc',
+
+                ],
+                // 'Button2' => [
+                //     'name' => 'docByUser',
+                //     'class' => 'btn btn-soft-primary waves-effect waves-light btn-sm',
+                //     'icon-class' => 'fas fa-users',
+                //     'title' => lang('Files.User'),
+                //     // 'loadfile' => 'master/_partials/test'
+                // ],
+            ),
             'columns_hidden' => array('Action'),
             'columns' => array('Action','Id','Name_Department','No_SOP','Name_Document','Name_Document2','Name_Category','Name_File','Name_File2','Name_File3','Publish','Status','Cover2'),
             'button' => array(
@@ -390,5 +410,17 @@ class Dokumen extends BaseController
         // } else { 
         // echo 'Failure'; 
         // }
+    }
+
+    public function userbydoc()
+    {
+        helper(['admin_helper']);
+        helper(['master_helper']);
+        $menu = getMenu($user='Admin');
+        $document = getDocument();
+        $group = getDepartment();
+        $category = getKategory();
+
+
     }
 }

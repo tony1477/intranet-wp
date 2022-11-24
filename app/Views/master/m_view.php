@@ -58,9 +58,11 @@
                                                     <a class="btn btn-soft-secondary waves-effect waves-light btn-sm edit<?=$menuname?>" title="Edit" data-bs-toggle="modal" data-bs-target="#edit<?=$menuname?>"><i class="fas fa-pencil-alt" title="<?=lang('Files.Edit')?>"></i></a>
                                                     <a class="btn btn-soft-danger waves-effect waves-light btn-sm delete<?=$menuname?>" title="Hapus" ><i class="fas fa-trash-alt" title="<?=lang('Files.Delete')?>"></i></a>
                                                     <?php 
-                                                    if(isset($custombutton)): ?>
-                                                    <a class="btn btn-soft-primary waves-effect waves-light btn-sm custom<?=$menuname?>" title="" ><i class="fas fa-users" title="<?=lang('Files.User')?>"></i></a>
-                                                    <?php endif;?>
+                                                    if(isset($custombutton)):
+                                                        foreach($custombutton as $button):?>
+                                                        <a class="<?=$button['class']?> <?=$button['name']?>" <?=!empty($button['toggle']) ? 'data-toggle="modal" data-target="#'.$button['id'].'"' : ''?> title="<?=$button['title']?>" id="#<?=$button['id']?>"><i class="<?=$button['icon-class']?>" title="<?=$button['title']?>"></i></a>
+                                                    <?php endforeach;
+                                                    endif;?>
                                                 </td>
                                                 <?php endif;?>
                                                 <?php foreach($rows as $row):?>
@@ -195,6 +197,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- HERE -->
+                                <?php if(isset($custombutton)):
+                                    foreach($custombutton as $button):
+                                        if(isset($button['loadfile']) && $button['loadfile']!==null)
+                                        echo $this->include($button['loadfile']);
+                                    endforeach;
+                                endif;?>
                             </div>
                         </div>
                     </div> <!-- end col -->
@@ -588,6 +597,12 @@
         // }
     })
 </script>
+<?php if(isset($custombutton) && $custombutton!=='' ):
+    foreach($custombutton as $button):
+        echo $this->include($button['scriptfile']);
+    endforeach;
+    endif;
+?>
 </body>
 
 </html>
