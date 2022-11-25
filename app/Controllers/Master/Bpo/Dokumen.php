@@ -33,11 +33,11 @@ class Dokumen extends BaseController
             'custombutton' => array(
                 'Button1' => [
                     'toggle' => true,
-                    'id' => 'exampleModal',
+                    'id' => 'userByDoc',
                     'name' => 'userByDoc',
+                    'title' => lang('Files.UserByDoc'),
                     'class' => 'btn btn-soft-primary waves-effect waves-light btn-sm',
                     'icon-class' => 'mdi mdi-file-compare',
-                    'title' => lang('Files.Doc'),
                     'loadfile' => 'master/_partials/test',
                     'scriptfile' => 'master/_partials/script/userbydoc',
 

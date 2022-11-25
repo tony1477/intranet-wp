@@ -55,13 +55,14 @@
                                             <tr>
                                                 <?php if($key[0]!==0):?>
                                                 <td>
-                                                    <a class="btn btn-soft-secondary waves-effect waves-light btn-sm edit<?=$menuname?>" title="Edit" data-bs-toggle="modal" data-bs-target="#edit<?=$menuname?>"><i class="fas fa-pencil-alt" title="<?=lang('Files.Edit')?>"></i></a>
+                                                    <a class="btn btn-soft-secondary waves-effect waves-light btn-sm edit<?=$menuname?>" title="Edit" data-bs-toggle="modal" href="#edit<?=$menuname?>"><i class="fas fa-pencil-alt" title="<?=lang('Files.Edit')?>"></i></a>
                                                     <a class="btn btn-soft-danger waves-effect waves-light btn-sm delete<?=$menuname?>" title="Hapus" ><i class="fas fa-trash-alt" title="<?=lang('Files.Delete')?>"></i></a>
                                                     <?php 
                                                     if(isset($custombutton)):
                                                         foreach($custombutton as $button):?>
-                                                        <a class="<?=$button['class']?> <?=$button['name']?>" <?=!empty($button['toggle']) ? 'data-toggle="modal" data-target="#'.$button['id'].'"' : ''?> title="<?=$button['title']?>" id="#<?=$button['id']?>"><i class="<?=$button['icon-class']?>" title="<?=$button['title']?>"></i></a>
-                                                    <?php endforeach;
+                                                        <a class="<?=$button['class']?> <?=$button['name']?>" <?=!empty($button['toggle']) ? 'data-bs-toggle="modal" data-bs-target="#'.$button['id'].'"' : ''?> title="<?=$button['title']?>"><i class="<?=$button['icon-class']?>" title="<?=$button['title']?>"></i></a>
+                                                    <?php 
+                                                    endforeach;
                                                     endif;?>
                                                 </td>
                                                 <?php endif;?>
@@ -91,6 +92,14 @@
                                         <?php endforeach;?>
                                     </tbody>
                                 </table>
+                                <?php
+                                foreach($custombutton as $button):
+                                if(isset($button['loadfile']) && $button['loadfile']!==null)
+                                    $data['id'] = $button['id'];
+                                    $data['title'] = $button['title'];
+                                    echo view($button['loadfile'],$data);
+                                endforeach;
+                                ?>
                                 <div class="modal fade" id="edit<?=$menuname?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="static<?=$menuname?>Label" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered <?php echo $modal=$modal??'';?>" role="document">
                                         <div class="modal-content">
@@ -198,12 +207,6 @@
                                     </div>
                                 </div>
                                 <!-- HERE -->
-                                <?php if(isset($custombutton)):
-                                    foreach($custombutton as $button):
-                                        if(isset($button['loadfile']) && $button['loadfile']!==null)
-                                        echo $this->include($button['loadfile']);
-                                    endforeach;
-                                endif;?>
                             </div>
                         </div>
                     </div> <!-- end col -->
@@ -211,8 +214,6 @@
             </div> <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
-
-
         <?= $this->include('partials/footer') ?>
     </div>
     <!-- end main content-->
@@ -256,7 +257,8 @@
         <?php if(!isset($bpo)):?>
         var table = $('#datatable-buttons').DataTable({
             // scrollX: true,
-            lengthChange: false,
+            lengthChange: true,
+            // lengthMenu: [ 10, 25, 50, 75, 100,200 ],
             buttons: [
             {
                 text: '<?= lang('Files.Add')?>',
@@ -299,8 +301,8 @@
             // console.log(rowData)
 
             <?php foreach($forms as $form): ?>
-                let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
                 <?php if($form['type']=='select') { ?>
+                    let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
                     let select<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>');
                     let option<?=$form['idform']?> = Array.from(select<?=$form['idform']?>.options);
                     let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
@@ -453,39 +455,40 @@
 
     for(let i=0; i< deleteButton.length; i++) {
         deleteButton[i].addEventListener("click", function() {
-        // let id = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(1).innerHTML;
-        let t1 = $('#datatable-buttons').DataTable();
-        $('#datatable-buttons tbody').on( 'click', 'tr', function () {
-            let idx = t1.row( this ).data()[1]
-            
-            Swal.fire({
-                title: "<?=lang('Files.Deleted_Confirm')?>",
-                text: "",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#2ab57d",
-                cancelButtonColor: "#fd625e",
-                confirmButtonText: "<?=lang('Files.Yes')?>"
-            }).then(function (result) {
-                // const reqbody = {'kode':kode}
-                if (result.value) {
-                    // console.log(id)
-                    deleteData('<?=base_url()?>/<?=$route?>/delete', {'id':idx})
-                    .then(data => {
-                        console.log(data)
-                        if(data.code === 200) 
-                        Swal.fire("Deleted!", data.message, data.status)
-                        // table.ajax.reload()
-                        // Swal.clickConfirm()
-                        setTimeout(() => location.reload(), 1500)
-                    })
-                    .catch(err => {
-                        console.log('Error',err)
-                    })
-                    // console.log(table)
+            // let id = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(1).innerHTML;
+            let t1 = $('#datatable-buttons').DataTable();
+            $('#datatable-buttons tbody').on( 'click', 'tr', function (e) {
+                let idx = t1.row( this ).data()[1]
+                if(e.target.classList.contains('delete<?=$menuname?>') || (e.target.classList.contains('fa-trash-alt'))){
+                Swal.fire({
+                    title: "<?=lang('Files.Deleted_Confirm')?>",
+                    text: "",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#2ab57d",
+                    cancelButtonColor: "#fd625e",
+                    confirmButtonText: "<?=lang('Files.Yes')?>"
+                }).then(function (result) {
+                    // const reqbody = {'kode':kode}
+                    if (result.value) {
+                        // console.log(id)
+                        deleteData('<?=base_url()?>/<?=$route?>/delete', {'id':idx})
+                        .then(data => {
+                            console.log(data)
+                            if(data.code === 200) 
+                            Swal.fire("Deleted!", data.message, data.status)
+                            // table.ajax.reload()
+                            // Swal.clickConfirm()
+                            setTimeout(() => location.reload(), 1500)
+                        })
+                        .catch(err => {
+                            console.log('Error',err)
+                        })
+                        // console.log(table)
+                    }
+                });
                 }
-            });
-        })
+            })
         });
     }
 
@@ -599,7 +602,8 @@
 </script>
 <?php if(isset($custombutton) && $custombutton!=='' ):
     foreach($custombutton as $button):
-        echo $this->include($button['scriptfile']);
+        $data['class'] = $button['name'];
+        echo view($button['scriptfile'],$data);
     endforeach;
     endif;
 ?>
