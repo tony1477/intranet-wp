@@ -1,5 +1,5 @@
 <div class="modal" id="<?=$id?>" data-bs-keyboard="false" tabindex="-1" aria-labelledby="<?=$id?>Label" aria-hidden="true" role="dialog">
-  <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="<?=$id?>Label"><?=$title?></h5>
@@ -22,7 +22,7 @@
           </div>
     
           <div class="col-xs-5 col-md-5">
-              <select name="to[]" id="search_to" class="form-control" size="8" multiple="multiple"></select>
+              <select name="to[]" id="search_to" class="form-control touserbydoc" size="8" multiple="multiple"></select>
           </div>
           </div>
         </form>

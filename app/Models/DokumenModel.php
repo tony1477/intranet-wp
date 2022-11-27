@@ -39,4 +39,20 @@ class DokumenModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getUserbyDoc($docId)
+    {
+        $sql = "select * from (select a.user_kode,a.dok_nosop
+            from sop_ifmdokumenuser a
+            left join tbl_ifmuser b on b.user_kode = a.user_kode 
+            where b.user_blokir = 'Tidak'
+            and a.dok_nosop = '001.SKM.MNGT.I.2022'
+            union 
+            select user_kode,null from tbl_ifmuser c
+            where c.user_blokir = 'Tidak'
+            ) z group by z.user_kode
+            order by dok_nosop desc, user_kode asc";
+        // $this->db->query($sql,);
+        return $this->db->query($sql)->getResult();
+    }
 }

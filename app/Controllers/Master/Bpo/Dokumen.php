@@ -414,13 +414,15 @@ class Dokumen extends BaseController
 
     public function userbydoc()
     {
-        helper(['admin_helper']);
-        helper(['master_helper']);
-        $menu = getMenu($user='Admin');
-        $document = getDocument();
-        $group = getDepartment();
-        $category = getKategory();
+        $id = '001.SKM.MNGT.I.2022';
+        $query = $this->model->getUserbyDoc($id);
+        $result = [
+            'status' => 'success',
+            'code' => 200,
+            'data' => $query
+        ];
 
+        return json_encode($result);
 
     }
 }

@@ -93,12 +93,14 @@
                                     </tbody>
                                 </table>
                                 <?php
-                                foreach($custombutton as $button):
-                                if(isset($button['loadfile']) && $button['loadfile']!==null)
-                                    $data['id'] = $button['id'];
-                                    $data['title'] = $button['title'];
-                                    echo view($button['loadfile'],$data);
-                                endforeach;
+                                if(!empty($custombutton)) {
+                                    foreach($custombutton as $button):
+                                    if(isset($button['loadfile']) && $button['loadfile']!==null)
+                                        $data['id'] = $button['id'];
+                                        $data['title'] = $button['title'];
+                                        echo view($button['loadfile'],$data);
+                                    endforeach;
+                                }
                                 ?>
                                 <div class="modal fade" id="edit<?=$menuname?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="static<?=$menuname?>Label" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered <?php echo $modal=$modal??'';?>" role="document">
@@ -258,6 +260,7 @@
         var table = $('#datatable-buttons').DataTable({
             // scrollX: true,
             lengthChange: true,
+            retrieve: true,
             // lengthMenu: [ 10, 25, 50, 75, 100,200 ],
             buttons: [
             {
@@ -301,8 +304,8 @@
             // console.log(rowData)
 
             <?php foreach($forms as $form): ?>
+                let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
                 <?php if($form['type']=='select') { ?>
-                    let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
                     let select<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>');
                     let option<?=$form['idform']?> = Array.from(select<?=$form['idform']?>.options);
                     let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
@@ -328,6 +331,8 @@
                     let id<?=$form['idform']?> = dom<?=$form['idform']?>.getElementsByClassName('btn btn-success').length;
                     let s<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>')
                     if(id<?=$form['idform']?> == 1) s<?=$form['idform']?>.checked = true
+                <?php } else { ?>
+                    // let <?=$form['idform']?> = rowData[i];
                 <?php } ?>
                 // n++;
                 i++;
@@ -338,6 +343,7 @@
             str.innerHTML = '<?=lang('Files.Edit'),' ',lang('Files.'.$menuname)?>'
             <?php foreach($forms as $form) :
                 if($form['type']!='select' && $form['type']!='file' && $form['type']!='switch') { ?>
+                    // console.log(<?=$form['idform']?>)
                     document.getElementById("<?=$form['idform']?>").value = <?=$form['idform']?>;
                 <?php } ?>
             <?php endforeach;?>
