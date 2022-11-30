@@ -25,7 +25,8 @@
         // button1[i].addEventListener('click', function(){
             // let t2 = $('#datatable-buttons').DataTable();
             $('#datatable-buttons tbody').on( 'click', 'tr', function (e) {
-                // let rowData = table.row( this ).data();
+                let rowData = $('#datatable-buttons').DataTable().row( this ).data();
+                // console.log(rowData[3])
                 if(e.target.classList.contains('<?=$class?>') || e.target.classList.contains('mdi-file-compare')) {
                     // console.log(rowData[1])
                     const selectUser = document.querySelector('.fromuserbydoc')
@@ -37,17 +38,19 @@
                         url: '<?=base_url()?>/dokumen-sop/userbydoc',
                         dataType:'json',
                         type:'POST',
-                        data: {id:1},
+                        data: {'dok_nosop':rowData[3]},
                         success: function(data) {
                             if(data.status=='success') {
+                                $('.fromuserbydoc').find('option').remove()
+                                $('.touserbydoc').find('option').remove()
                                 if(data.data != null) {
                                     for(let i of data.data) {
                                         if(i.dok_nosop != null) {
-                                            let optTo =  new Option(i.user_kode,i.user_kode);
+                                            let optTo =  new Option(i.username,i.id);
                                             select2User.add(optTo,null)
                                         }
                                         if(i.dok_nosop==null) {
-                                            let optFrom = new Option(i.user_kode,i.user_kode);
+                                            let optFrom = new Option(i.username,i.id);
                                             selectUser.add(optFrom,null)
                                         }
                                     }
@@ -56,9 +59,15 @@
                         },
                         cache:false,
                     });
-                    console.log('tes')
                 }
             })
         // })
     // }
+    function savedata(){ 
+        let obj = {}
+        let values = Array.from(document.querySelector('#search_to').options).map(e => e.value);
+        obj.usersid = values
+        obj.dok_nosop = 'AA'
+        console.log(obj)
+    }
 </script>

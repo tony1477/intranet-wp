@@ -414,8 +414,9 @@ class Dokumen extends BaseController
 
     public function userbydoc()
     {
-        $id = '001.SKM.MNGT.I.2022';
-        $query = $this->model->getUserbyDoc($id);
+        // $id = '001.SKM.MNGT.I.2022';
+        $doksop = $_POST['dok_nosop'];
+        $query = $this->model->getUserbyDoc($doksop);
         $result = [
             'status' => 'success',
             'code' => 200,

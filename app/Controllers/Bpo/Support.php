@@ -283,9 +283,10 @@ class Support extends BaseController
         $cond = [
             'dok_nosop' => $file,
             'dok_aktif' =>'Y',
-            'dok_publish'=>'Y'
+            'dok_publish'=>'Y',
+            'username' => user()->username,
         ];
-        if($row = $this->model->where($cond)->first()) {
+        if($row = $this->model->getViewDoc($cond)->getRowArray()) {
             $_SESSION['filePdf'] = $row['dok_nmfile'];
             return view('master/bpo/viewpdf');
         }

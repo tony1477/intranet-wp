@@ -1,6 +1,8 @@
 <?php
 function getKebijakanData(){
     $db = db_connect();
+    /* 
+    *** Tidak digunakan lagi
     return $result = $db->query("select Id,No_SOP,Name_Document,Name_Document2,Code_Department,Name_Department,Name_File,Name_File2,Name_File3,(f2+f3+f4+f5) as hit from (select a.iddokumen as Id, dok_nosop as No_SOP, dok_nmsop as Name_Document, dok_nmsop2 as Name_Document2, c.dep_kode as Code_Department, c.dep_nama as Name_Department, dok_nmfile as Name_File, dok_nmfile2 as Name_File2, dok_nmfile3 as Name_File3, b.kat_kode as Code_Category,kat_nama as Name_Category,
     (select if(dok_nmfile<>'',1,0)) as f1,(select if(dok_nmfile2<>'',1,0)) as f2,(select if(dok_nmfile3<>'',1,0)) as f3,
     (select if(dok_nmfile4<>'',1,0)) as f4,(select if(dok_nmfile5<>'',1,0)) as f5
@@ -9,10 +11,23 @@ function getKebijakanData(){
       join tbl_ifmdepartemen c on c.iddepartment = a.iddepartment
       where b.idkategory = 1 and a.dok_aktif=1 and a.dok_publish=1) z
       order by Id asc")->getResult();
+      ***
+    */
+
+    return $result = $db->query("select b.iddokumen as Id, dok_nosop as No_SOP, dok_nmsop as Name_Document, dok_nmsop2 as Name_Document2, d.dep_kode as Code_Department, d.dep_nama as Name_Department, dok_nmfile as Name_File,0 as hit
+      from userdokumen a
+      join sop_ifmdokumen b on b.iddokumen = a.iddokumen
+      join users c on c.id = idusers
+      join tbl_ifmdepartemen d on d.iddepartment = b.iddepartment
+      where c.username = '".user()->username."' and b.idkategory = 1
+      and b.dok_aktif=1 and b.dok_publish=1 and a.status=1 and c.active=1 
+      order by Id asc")->getResult();
 }
 
 function getManualData(){
     $db = db_connect();
+    /*
+    ***
     return $result = $db->query("select Id,No_SOP,Name_Document,Name_Document2,Code_Department,Name_Department,Name_File,Name_File2,Name_File3,(f2+f3+f4+f5) as hit from (select a.iddokumen as Id, dok_nosop as No_SOP, dok_nmsop as Name_Document, dok_nmsop2 as Name_Document2, c.dep_kode as Code_Department, c.dep_nama as Name_Department, dok_nmfile as Name_File, dok_nmfile2 as Name_File2, dok_nmfile3 as Name_File3, b.kat_kode as Code_Category,kat_nama as Name_Category,
     (select if(dok_nmfile<>'',1,0)) as f1,(select if(dok_nmfile2<>'',1,0)) as f2,(select if(dok_nmfile3<>'',1,0)) as f3,
     (select if(dok_nmfile4<>'',1,0)) as f4,(select if(dok_nmfile5<>'',1,0)) as f5
@@ -21,41 +36,60 @@ function getManualData(){
       join tbl_ifmdepartemen c on c.iddepartment = a.iddepartment
       where b.idkategory = 2 and a.dok_aktif=1 and a.dok_publish=1) z
       order by Id asc")->getResult();
+    ***
+    */
+    return $result = $db->query("select b.iddokumen as Id, dok_nosop as No_SOP, dok_nmsop as Name_Document, dok_nmsop2 as Name_Document2, d.dep_kode as Code_Department, d.dep_nama as Name_Department, dok_nmfile as Name_File,0 as hit
+      from userdokumen a
+      join sop_ifmdokumen b on b.iddokumen = a.iddokumen
+      join users c on c.id = idusers
+      join tbl_ifmdepartemen d on d.iddepartment = b.iddepartment
+      where c.username = '".user()->username."' and b.idkategory = 2
+      and b.dok_aktif=1 and b.dok_publish=1 and a.status=1 and c.active=1
+      order by Id asc")->getResult();
 }
 
 function getSOPData(){
   $db = db_connect();
-  return $result = $db->query("select Id,No_SOP,Name_Document,Name_Document2,Code_Department,Name_Department,Name_File,Name_File2,Name_File3,(f2+f3+f4+f5) as hit from (select a.iddokumen as Id, dok_nosop as No_SOP, dok_nmsop as Name_Document, dok_nmsop2 as Name_Document2, c.dep_kode as Code_Department, c.dep_nama as Name_Department, dok_nmfile as Name_File, dok_nmfile2 as Name_File2, dok_nmfile3 as Name_File3, b.kat_kode as Code_Category,kat_nama as Name_Category,
+  return $result = $db->query("select Id,No_SOP,Name_Document,Name_Document2,Code_Department,Name_Department,Name_File,Name_File2,Name_File3,(f2+f3+f4+f5) as hit 
+  from (select a.iddokumen as Id, dok_nosop as No_SOP, dok_nmsop as Name_Document, dok_nmsop2 as Name_Document2, d.dep_kode as Code_Department, 
+  d.dep_nama as Name_Department, dok_nmfile as Name_File, dok_nmfile2 as Name_File2, dok_nmfile3 as Name_File3, 
   (select if(dok_nmfile<>'',1,0)) as f1,(select if(dok_nmfile2<>'',1,0)) as f2,(select if(dok_nmfile3<>'',1,0)) as f3,
   (select if(dok_nmfile4<>'',1,0)) as f4,(select if(dok_nmfile5<>'',1,0)) as f5
-    from sop_ifmdokumen a
-    join sop_ifmkategori b on b.idkategory = a.idkategory 
-    join tbl_ifmdepartemen c on c.iddepartment = a.iddepartment
-    where b.idkategory = 3 and a.dok_aktif=1 and a.dok_publish=1) z
+    from userdokumen a
+    join sop_ifmdokumen b on b.iddokumen = a.iddokumen
+    join users c on c.id = a.idusers
+    join tbl_ifmdepartemen d on d.iddepartment = b.iddepartment
+    where c.username = '".user()->username."' and b.idkategory = 3 and b.dok_aktif=1 and b.dok_publish=1 and a.status=1 and c.active=1) z
     order by Id asc")->getResult();
 }
 
 function getInstruksiKerjaData(){
   $db = db_connect();
-  return $result = $db->query("select Id,No_SOP,Name_Document,Name_Document2,Code_Department,Name_Department,Name_File,Name_File2,Name_File3,(f2+f3+f4+f5) as hit from (select a.iddokumen as Id, dok_nosop as No_SOP, dok_nmsop as Name_Document, dok_nmsop2 as Name_Document2, c.dep_kode as Code_Department, c.dep_nama as Name_Department, dok_nmfile as Name_File, dok_nmfile2 as Name_File2, dok_nmfile3 as Name_File3, b.kat_kode as Code_Category,kat_nama as Name_Category,
+  return $result = $db->query("select Id,No_SOP,Name_Document,Name_Document2,Code_Department,Name_Department,Name_File,Name_File2,Name_File3,(f2+f3+f4+f5) as hit 
+  from (select a.iddokumen as Id, dok_nosop as No_SOP, dok_nmsop as Name_Document, dok_nmsop2 as Name_Document2, d.dep_kode as Code_Department, 
+  d.dep_nama as Name_Department, dok_nmfile as Name_File, dok_nmfile2 as Name_File2, dok_nmfile3 as Name_File3, 
   (select if(dok_nmfile<>'',1,0)) as f1,(select if(dok_nmfile2<>'',1,0)) as f2,(select if(dok_nmfile3<>'',1,0)) as f3,
   (select if(dok_nmfile4<>'',1,0)) as f4,(select if(dok_nmfile5<>'',1,0)) as f5
-    from sop_ifmdokumen a
-    join sop_ifmkategori b on b.idkategory = a.idkategory 
-    join tbl_ifmdepartemen c on c.iddepartment = a.iddepartment
-    where b.idkategory = 4 and a.dok_aktif=1 and a.dok_publish=1) z
+    from userdokumen a
+    join sop_ifmdokumen b on b.iddokumen = a.iddokumen
+    join users c on c.id = a.idusers
+    join tbl_ifmdepartemen d on d.iddepartment = b.iddepartment
+    where c.username = '".user()->username."' and b.idkategory = 4 and b.dok_aktif=1 and b.dok_publish=1 and a.status=1 and c.active=1) z
     order by Id asc")->getResult();
 }
 
 function getLainnyaData(){
   $db = db_connect();
-  return $result = $db->query("select Id,No_SOP,Name_Document,Name_Document2,Code_Department,Name_Department,Name_File,Name_File2,Name_File3,(f2+f3+f4+f5) as hit from (select a.iddokumen as Id, dok_nosop as No_SOP, dok_nmsop as Name_Document, dok_nmsop2 as Name_Document2, c.dep_kode as Code_Department, c.dep_nama as Name_Department, dok_nmfile as Name_File, dok_nmfile2 as Name_File2, dok_nmfile3 as Name_File3, b.kat_kode as Code_Category,kat_nama as Name_Category,
+  return $result = $db->query("select Id,No_SOP,Name_Document,Name_Document2,Code_Department,Name_Department,Name_File,Name_File2,Name_File3,(f2+f3+f4+f5) as hit 
+  from (select a.iddokumen as Id, dok_nosop as No_SOP, dok_nmsop as Name_Document, dok_nmsop2 as Name_Document2, d.dep_kode as Code_Department, 
+  d.dep_nama as Name_Department, dok_nmfile as Name_File, dok_nmfile2 as Name_File2, dok_nmfile3 as Name_File3, 
   (select if(dok_nmfile<>'',1,0)) as f1,(select if(dok_nmfile2<>'',1,0)) as f2,(select if(dok_nmfile3<>'',1,0)) as f3,
   (select if(dok_nmfile4<>'',1,0)) as f4,(select if(dok_nmfile5<>'',1,0)) as f5
-    from sop_ifmdokumen a
-    join sop_ifmkategori b on b.idkategory = a.idkategory 
-    join tbl_ifmdepartemen c on c.iddepartment = a.iddepartment
-    where b.idkategory = 5 and a.dok_aktif=1 and a.dok_publish=1) z
+    from userdokumen a
+    join sop_ifmdokumen b on b.iddokumen = a.iddokumen
+    join users c on c.id = a.idusers
+    join tbl_ifmdepartemen d on d.iddepartment = b.iddepartment
+    where c.username = '".user()->username."' and b.idkategory = 5 and b.dok_aktif=1 and b.dok_publish=1 and a.status=1 and c.active=1) z
     order by Id asc")->getResult();
 }
 
