@@ -280,6 +280,61 @@ class Dokumen extends BaseController
         return $response;
     }
 
+    public function saveUserByDoc()
+    {
+        header("Content-Type: application/json");
+        $arr = array(
+            'fail' => 500,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+        if($this->request->isAJAX()) {
+            try {
+                $datas = $this->request->getVar('data');
+                if(is_object($datas)) {
+                    $datas = (array) $datas;
+                }
+                $data = [
+                    'dok_nosop' => $datas['dok_nosop'],
+                    'idusers' => $datas['idusers'],
+                    // 'user_m' => $this->session->user_kode,
+                    // 'tgl_m'=>date('Y-m-d'),
+                    // 'time_m'=>date("h:i:s a")
+                ];
+                                
+                // if($datas['id']!=='') {
+                //     $this->model->update($datas['id'],$data);
+                //     $message = lang('Files.Update_Success');
+                // }
+                
+                // if($datas['id']==='') {
+                //     $newdata = [
+                //         // 'user_c' => $this->session->user_kode,
+                //         'tgl_c'=>date('Y-m-d'),
+                //         'time_c'=>date("h:i:s a")
+                //     ];
+                //     $data = array_merge($data,$newdata);
+                //     $this->model->insert($data);
+                //     $message = lang('Files.Save_Success');
+                // }
+                $this->model->postUserDoc($data);
+
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => $message
+                );
+            } catch (\Exception $e) {
+                $arr = array(
+                    'status' => $e->getMessage(),
+                    'code' => 400
+                );
+            }
+        }
+        $response = json_encode($arr);
+        return $response;
+    }
+
     public function display()
     {
     }
@@ -420,6 +475,7 @@ class Dokumen extends BaseController
         $result = [
             'status' => 'success',
             'code' => 200,
+            'nodok' => $doksop,
             'data' => $query
         ];
 

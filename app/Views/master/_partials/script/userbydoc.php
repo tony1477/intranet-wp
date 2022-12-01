@@ -1,6 +1,5 @@
 <script>
-    // const userbydoc = document.querySelector('#exampleModal')
-    // new bootstrap.Modal(document.getElementById('exampleModal'))
+   
     if ($.fn.dataTable.isDataTable('#datatable-buttons')) {
         console.log('ada')
         table = $('#datatable-buttons').DataTable();
@@ -29,6 +28,7 @@
                 // console.log(rowData[3])
                 if(e.target.classList.contains('<?=$class?>') || e.target.classList.contains('mdi-file-compare')) {
                     // console.log(rowData[1])
+                    const nodok = document.querySelector('#nodokumen')
                     const selectUser = document.querySelector('.fromuserbydoc')
                     const select2User = document.querySelector('.touserbydoc')
                     // const op1 =  new Option('Option Text1 ','Option Value 1');
@@ -41,6 +41,7 @@
                         data: {'dok_nosop':rowData[3]},
                         success: function(data) {
                             if(data.status=='success') {
+                                nodok.innerHTML = data.nodok 
                                 $('.fromuserbydoc').find('option').remove()
                                 $('.touserbydoc').find('option').remove()
                                 if(data.data != null) {
@@ -66,8 +67,34 @@
     function savedata(){ 
         let obj = {}
         let values = Array.from(document.querySelector('#search_to').options).map(e => e.value);
-        obj.usersid = values
-        obj.dok_nosop = 'AA'
-        console.log(obj)
+        obj.idusers = values
+        obj.dok_nosop = document.querySelector('#nodokumen').innerText
+        // console.log(obj)
+        postUserByDoc('<?=base_url()?>/<?=$route?>/postUser',{'data':obj})
+            .then(data => {
+                if(data.code === 200) {
+                    $('#<?=$id?>').modal('hide'); 
+                    Swal.fire("Success!", data.message, data.status);
+                }
+                // table.ajax.reload()
+                // Swal.clickConfirm()
+                // setTimeout(() => location.reload(), 1500)
+            })
+    }
+
+    async function postUserByDoc(url='',data={}) {
+        const response = await fetch(url,{
+            method:'POST',
+            mode:'cors',
+            cache:'no-cache',
+            creadentials:'same-origin',
+            headers: {
+                'Content-Type':'application/json',
+                "X-Requested-With": "XMLHttpRequest"
+            },
+            body: JSON.stringify(data)
+        })
+
+        return response.json()
     }
 </script>

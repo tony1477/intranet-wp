@@ -198,6 +198,7 @@ $routes->post('kategory/post', 'Master/Bpo/Kategory::save');
 $routes->get('dokumen-sop', 'Master/Bpo/Dokumen::index');
 $routes->post('dokumen-sop/delete', 'Master/Bpo/Dokumen::delete');
 $routes->post('dokumen-sop/post', 'Master/Bpo/Dokumen::save');
+$routes->post('dokumen-sop/postUser', 'Master/Bpo/Dokumen::saveUserByDoc');
 // $routes->get('dokumen-sop/userbydokumen', 'Master/Bpo/Dokumen::userbydoc');
 $routes->post('dokumen-sop/userbydoc', 'Master/Bpo/Dokumen::userbydoc');
 // $routes->get('dokumen-sop/dokumenbyuser', 'Master/Bpo/Dokumen::docbyuser');

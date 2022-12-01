@@ -40,7 +40,7 @@ class DokumenModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getUserbyDoc($docId)
+    public function getUserbyDoc(string $docId)
     {
         /*
         ***
@@ -83,5 +83,10 @@ class DokumenModel extends Model
             and a.dok_publish = '".$data['dok_publish']."'
             and b.status = 1";
         return $this->db->query($sql);
+    }
+
+    public function postUserDoc(array $data) 
+    {
+        var_dump($data);
     }
 }
