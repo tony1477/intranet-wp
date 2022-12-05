@@ -85,8 +85,72 @@ class DokumenModel extends Model
         return $this->db->query($sql);
     }
 
-    public function postUserDoc(array $data) 
+    public function postUserDoc(array $array) 
     {
-        var_dump($data);
+        $db = \Config\Database::connect();
+        $dok = $db->table('sop_ifmdokumen');
+        $b = $db->table('userdokumen a');
+
+        // $i=0;
+        $cond = ['dok_nosop' => $array['dok_nosop']];
+        // $return=false;
+        try {
+            $docRow = $dok->select('iddokumen')->where($cond)->get()->getRow();
+            // var_dump($docRow);
+            foreach($array as $key => $data):
+                // check if user active
+                if($key==='idusers'):
+                    for($i=0; $i<count($data); $i++):
+                        $u = $db->table('users');
+                        if($u->getWhere(['id' => $data[$i]])):
+                            echo $data[$i];
+                            // check if exists in userdokumen's table
+                            $b->select('b.iddokumen,a.iduserdokumen,idusers');
+                            $b->join('sop_ifmdokumen b','a.iddokumen = b.iddokumen');
+                            $b->where('a.iddokumen',$docRow->iddokumen);
+                            $b->where('idusers',$data[$i]);
+                            $userdoc = $b->get()->getRow();
+                            
+                            // if exists update
+                            if($userdoc):
+                                    $datas = [
+                                        'status' => 1,
+                                        'idusers' => $userdoc->idusers,
+                                    ];
+                                    $b->set($datas);
+                                    $b->where('iduserdokumen',$userdoc->iduserdokumen);
+                                    $b->update();                                
+                                    $message = lang('Files.Save_Success');
+                            else:
+                                $datas = [
+                                        'status' => 1,
+                                        'idusers' => $row->idusers,
+                                    ];
+                                $newdata = ['iddokumen' => $docRow->iddokumen];
+                                $insert = array_merge($datas,$newdata);
+                                $b->set($insert);
+                                $b->insert();
+                                $message = lang('Files.Save_Success');
+                            endif;
+                        endif;
+                    endfor;
+                endif;
+                // $u->find($data['idusers'])
+            endforeach;
+
+            $arr = array(
+                'status' => 'success',
+                'code' => 200,
+                'message' => 'OK'
+            );
+        }
+        catch (\Exception $e) {
+            $arr = array(
+                'status' => $e->getMessage(),
+                'code' => 400
+            );
+        }
+        $response = json_encode($arr);
+        return $response;
     }
 }

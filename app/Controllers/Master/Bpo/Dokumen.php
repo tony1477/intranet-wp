@@ -322,7 +322,7 @@ class Dokumen extends BaseController
                 $arr = array(
                     'status' => 'success',
                     'code' => 200,
-                    'message' => $message
+                    'message' => 'OK'
                 );
             } catch (\Exception $e) {
                 $arr = array(
