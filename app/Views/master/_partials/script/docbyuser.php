@@ -26,33 +26,33 @@
             $('#datatable-buttons tbody').on( 'click', 'tr', function (e) {
                 let rowData = $('#datatable-buttons').DataTable().row( this ).data();
                 // console.log(rowData[3])
-                if(e.target.classList.contains('<?=$class?>') || e.target.classList.contains('dripicons-user')) {
+                if(e.target.classList.contains('<?=$class?>') || e.target.classList.contains('dripicons-document')) {
                     // console.log(rowData[1])
-                    const nodok = document.querySelector('#nodokumen')
-                    const selectUser = document.querySelector('.fromuserbydoc')
-                    const select2User = document.querySelector('.touserbydoc')
+                    const nmuser = document.querySelector('#namauser')
+                    const selectDoc = document.querySelector('.fromdocbyuser')
+                    const select2Doc = document.querySelector('.todocbyuser')
                     // const op1 =  new Option('Option Text1 ','Option Value 1');
                     // selectUser.add(op1,null)
                     // selectUser.add(op2,null)
                     $.ajax({
-                        url: '<?=base_url()?>/dokumen-sop/userbydoc',
+                        url: '<?=base_url()?>/users/docbyuser',
                         dataType:'json',
                         type:'POST',
-                        data: {'dok_nosop':rowData[3]},
+                        data: {'username':rowData[2]},
                         success: function(data) {
                             if(data.status=='success') {
-                                nodok.innerHTML = data.nodok 
-                                $('.fromuserbydoc').find('option').remove()
-                                $('.touserbydoc').find('option').remove()
+                                nmuser.innerHTML = data.nmuser 
+                                $('.fromdocbyuser').find('option').remove()
+                                $('.todocbyuser').find('option').remove()
                                 if(data.data != null) {
                                     for(let i of data.data) {
-                                        if(i.dok_nosop != null) {
-                                            let optTo =  new Option(i.username,i.id);
-                                            select2User.add(optTo,null)
+                                        if(i.username != null) {
+                                            let optTo =  new Option(i.dok_nosop,i.iddokumen);
+                                            select2Doc.add(optTo,null)
                                         }
-                                        if(i.dok_nosop==null) {
-                                            let optFrom = new Option(i.username,i.id);
-                                            selectUser.add(optFrom,null)
+                                        if(i.username==null) {
+                                            let optFrom = new Option(i.dok_nosop,i.iddokumen);
+                                            selectDoc.add(optFrom,null)
                                         }
                                     }
                                 }
@@ -67,10 +67,10 @@
     function savedata(){ 
         let obj = {}
         let values = Array.from(document.querySelector('#search_to').options).map(e => e.value);
-        obj.idusers = values
-        obj.dok_nosop = document.querySelector('#nodokumen').innerText
+        obj.iddokumen = values
+        obj.nmuser = document.querySelector('#namauser').innerText
         // console.log(obj)
-        postUserByDoc('<?=base_url()?>/<?=$route?>/postUser',{'data':obj})
+        postDocByUser('<?=base_url()?>/<?=$route?>/postDoc',{'data':obj})
             .then(data => {
                 if(data.code === 200) {
                     $('#<?=$id?>').modal('hide'); 
@@ -82,7 +82,7 @@
             })
     }
 
-    async function postUserByDoc(url='',data={}) {
+    async function postDocByUser(url='',data={}) {
         const response = await fetch(url,{
             method:'POST',
             mode:'cors',

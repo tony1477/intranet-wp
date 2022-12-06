@@ -59,8 +59,8 @@
                                                     <a class="btn btn-soft-danger waves-effect waves-light btn-sm delete<?=$menuname?>" title="Hapus" ><i class="fas fa-trash-alt" title="<?=lang('Files.Delete')?>"></i></a>
                                                     <?php 
                                                     if(isset($custombutton)):
-                                                        foreach($custombutton as $button):?>
-                                                        <a class="<?=$button['class']?> <?=$button['name']?>" <?=!empty($button['toggle']) ? 'data-bs-toggle="modal" data-bs-target="#'.$button['id'].'"' : ''?> title="<?=$button['title']?>"><i class="<?=$button['icon-class']?>" title="<?=$button['title']?>"></i></a>
+                                                        foreach($custombutton as $btn):?>
+                                                        <a class="<?=$btn['class']?> <?=$btn['name']?>" <?=!empty($btn['toggle']) ? 'data-bs-toggle="modal" data-bs-target="#'.$btn['id'].'"' : ''?> title="<?=$btn['title']?>"><i class="<?=$btn['icon-class']?>" title="<?=$btn['title']?>"></i></a>
                                                     <?php 
                                                     endforeach;
                                                     endif;?>
@@ -70,10 +70,10 @@
                                                 <td><?php if(isset($mark_column) && in_array($row,$mark_column)) {
                                                     echo '*****';
                                                 }
-                                                elseif(isset($columns_link) && in_array($row,$columns_link)) {
+                                                if(isset($columns_link) && in_array($row,$columns_link)) {
                                                     echo "<a href='".base_url()."/dokumen/".$route."/viewbyfile/".$list->$row."' target='blank'>".$list->$row."</a>";
                                                 }
-                                                elseif(isset($button) && array_key_exists($row,$button)) {
+                                                if(isset($button) && array_key_exists($row,$button)) {  
                                                     $btnclass = $list->$row=='YES' ? 'btn-success ' : 'btn-danger ';
                                                     $iconclass = ($list->$row=='YES' ? 'bx bx-check' : 'bx bx-block'); 
                                                     echo '<button type="button" class="btn '.$btnclass.$button[$row]['class'].'" id="btn'.$row.'"><i class="'.$iconclass.' label-icon"></i> '.($button[$row]['text'] == true ? $list->$row : '').'</button>';

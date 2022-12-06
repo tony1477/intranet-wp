@@ -216,9 +216,11 @@ $routes->post('group-user/delete', 'Master/GroupUser::delete', ['filter' => 'per
 $routes->post('group-user/post', 'Master/GroupUser::save', ['filter' => 'permission:master-data']);
 
 ## User
-$routes->get('users', 'Master/User::index');
-$routes->post('users/delete', 'Master/User::delete');
-$routes->post('users/post', 'Master/User::save');
+$routes->get('users', 'Master/Users::index');
+$routes->post('users/delete', 'Master/Users::delete');
+$routes->post('users/post', 'Master/Users::save');
+$routes->post('users/docbyuser', 'Master/Users::docbyuser');
+$routes->post('users/postDoc', 'Master/Users::saveDocByUser');
 
 ## Meeting Room
 $routes->get('room-meeting','Meeting/MeetingRoom::index');

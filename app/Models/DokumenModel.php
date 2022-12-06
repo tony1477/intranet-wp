@@ -97,13 +97,15 @@ class DokumenModel extends Model
         try {
             $docRow = $dok->select('iddokumen')->where($cond)->get()->getRow();
             // var_dump($docRow);
+            //update all status to 0 
+            $db->table('userdokumen')->set('status',0)->where('iddokumen',$docRow->iddokumen)->update();
             foreach($array as $key => $data):
                 // check if user active
                 if($key==='idusers'):
                     for($i=0; $i<count($data); $i++):
                         $u = $db->table('users');
                         if($u->getWhere(['id' => $data[$i]])):
-                            echo $data[$i];
+                            // echo $data[$i];
                             // check if exists in userdokumen's table
                             $b->select('b.iddokumen,a.iduserdokumen,idusers');
                             $b->join('sop_ifmdokumen b','a.iddokumen = b.iddokumen');
@@ -124,12 +126,12 @@ class DokumenModel extends Model
                             else:
                                 $datas = [
                                         'status' => 1,
-                                        'idusers' => $row->idusers,
+                                        'idusers' => $data[$i],
                                     ];
                                 $newdata = ['iddokumen' => $docRow->iddokumen];
                                 $insert = array_merge($datas,$newdata);
-                                $b->set($insert);
-                                $b->insert();
+                                $db->table('userdokumen')->set($insert)->insert();
+                                // echo $b->getCompiledInsert();
                                 $message = lang('Files.Save_Success');
                             endif;
                         endif;

@@ -61,3 +61,9 @@ function getUser() {
     as Blokir_User, user_fhoto as Photo_User
     from tbl_ifmuser a")->getResult();
 }
+
+function getUsers() {
+    $db = db_connect();
+    return $db->query("select id as Id, username as Username, fullname as Fullname, user_image as Photo_User, if(active=1,'YES','NO') as Active, email as Email
+    from users ")->getResult();
+}

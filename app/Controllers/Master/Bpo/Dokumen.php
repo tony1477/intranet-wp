@@ -37,8 +37,8 @@ class Dokumen extends BaseController
                     'name' => 'userByDoc',
                     'title' => lang('Files.UserByDoc'),
                     'class' => 'btn btn-soft-primary waves-effect waves-light btn-sm',
-                    'icon-class' => 'mdi mdi-file-compare',
-                    'loadfile' => 'master/_partials/test',
+                    'icon-class' => 'dripicons-user',
+                    'loadfile' => 'master/_partials/userbydoc',
                     'scriptfile' => 'master/_partials/script/userbydoc',
 
                 ],
