@@ -63,7 +63,7 @@ class Users extends BaseController
             'forms' => [
                 # rule
                 # column_name => array(type,'name and id','class','style')
-                'iduser' => array('type'=>'hidden','idform'=>'id','field'=>'id'), 
+                'iduser' => array('type'=>'hidden','idform'=>'id','field'=>'iduser'), 
                 // 'iddivisigroup' => array(
                 //     'label'=>'Name_GroupDivisi',
                 //     'type'=>'select',
@@ -175,15 +175,14 @@ class Users extends BaseController
                     $datas = (array) $datas;
                 }
                 $data = [
-                    'user_kode' => $datas['kode'],
-                    'user_nama' => $datas['namauser'],
-                    'user_pwd' => $datas['pwd'],
-                    'user_email' => $datas['email'],
-                    'user_blokir' => $datas['statususer'],
-                    'user_fhoto' => $datas['photouser'],
+                    'username' => $datas['namauser'],
+                    'fullname' => $datas['namalengkap'],
+                    'password_hash' => 'IniPassword',
+                    'email' => $datas['emailuser'],
+                    'active' => $datas['statususer'],
                     // 'user_m' => $this->session->user_kode,
-                    'tgl_m'=>date('Y-m-d'),
-                    'time_m'=>date("h:i:s a")
+                    // 'tgl_m'=>date('Y-m-d'),
+                    // 'time_m'=>date("h:i:s a")
                 ];
                 if($datas['id']!=='') {
                     $this->model->update($datas['id'],$data);
@@ -193,8 +192,8 @@ class Users extends BaseController
                 if($datas['id']==='') {
                     $newdata = [
                         // 'user_c' => $this->session->user_kode,
-                        'tgl_c'=>date('Y-m-d'),
-                        'time_c'=>date("h:i:s a")
+                        // 'tgl_c'=>date('Y-m-d'),
+                        // 'time_c'=>date("h:i:s a")
                     ];
                     $data = array_merge($data,$newdata);
                     $this->model->insert($data);

@@ -12,7 +12,7 @@
                 <?php foreach($modules as $module): ?>
                 <li>
                     <?php if(has_permission($module->modulecode)):?>
-                    <a <?=$module->moduletypeid == 1 ? "href='javascript:void(0);' class='has-arrow'" : "href=".base_url($module->url)?>">
+                    <a <?=$module->moduletypeid == 1 ? "href='javascript:void(0);' class='has-arrow'" : "href=".base_url($module->url).""?>>
                         <i data-feather="<?=$module->icon?>"></i>
                         <!-- <span data-key="t-dashboard"><?= lang('Files.Dashboard') ?></span> -->
                         <span data-key="t-<?=$module->modulecode?>"><?= $module->modulename?></span>
