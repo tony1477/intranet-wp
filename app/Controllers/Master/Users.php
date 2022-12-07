@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Controllers\Master;
-
 use App\Controllers\BaseController;
+use Myth\Auth\Config\Auth as AuthConfig;
 
 class Users extends BaseController
 {
     public $model = null;
+    protected $config;
     public function __construct()
     {
         $this->model = new \Myth\Auth\Models\UserModel();
@@ -38,7 +39,7 @@ class Users extends BaseController
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
             'mark_column' => array('Pwd_User'),
-            'columns' => array('Action','Id','Username','Fullname','Email','Photo_User','Active'),
+            'columns' => array('Action','Id','Name_User','Fullname','Email','Pwd_User','Photo_User','Active'),
             'button' => array(
                 'Active' => [
                     'class' => 'btn-sm waves-effect waves-light',
@@ -59,28 +60,15 @@ class Users extends BaseController
 
                 ],
             ),
-            //'crudScript' => view('partials/script/groupdivisi',['menuname' => 'Divisi_Group','forms'=>'forms']),
             'forms' => [
                 # rule
                 # column_name => array(type,'name and id','class','style')
                 'iduser' => array('type'=>'hidden','idform'=>'id','field'=>'iduser'), 
-                // 'iddivisigroup' => array(
-                //     'label'=>'Name_GroupDivisi',
-                //     'type'=>'select',
-                //     'idform'=>'idgroup',
-                //     'form-class'=>'form-select',
-                //     'style' => 'col-md-8 col-xl-8',
-                //     'options' => array(
-                //         'list' => $group,
-                //         'id' => 'iddivisigroup',
-                //         'value' => 'gdiv_nama',
-                //     ),
-                // ),
                 'username' => array(
-                    'label'=>'Username',
+                    'label'=>'Name_User',
                     'field'=>'username',
                     'type'=>'text',
-                    'idform'=>'namauser',
+                    'idform'=>'nama',
                     'form-class'=>'form-control',
                     'style' => 'col-md-8 col-xl-8'
                 ),
@@ -99,6 +87,14 @@ class Users extends BaseController
                     'idform'=>'emailuser',
                     'form-class'=>'form-control',
                     'style' => 'col-md-8 col-xl-8'
+                ),
+                'pwd' => array(
+                    'label' => 'Pwd_User',
+                    'field' => 'hash_password',
+                    'type' => 'password',
+                    'idform' => 'userpwd',
+                    'form-class' => 'form-control',
+                    'style' => 'col-md-8 col-xl-8',   
                 ),
                 'user_fhoto' => array(
                     'label'=>'Photo_User',
@@ -133,16 +129,16 @@ class Users extends BaseController
         if($this->request->isAJAX()) {
             try {
                 $id = $this->request->getVar('id');
-                $this->model->where('iddivisigroup',$id)->delete();
-                if($this->model->find($id)) {
-                    $arr = array(
-                        'status' => 'warning',
-                        'code' => 200,
-                        'message' => 'Terjadi kesalahan dalam menghapus data',
-                        // 'data' => $this->model->findAll()
-                    );
-                    return json_encode($arr);
-                }
+                // $this->model->where('iddivisigroup',$id)->delete();
+                // if($this->model->find($id)) {
+                //     $arr = array(
+                //         'status' => 'warning',
+                //         'code' => 200,
+                //         'message' => 'Terjadi kesalahan dalam menghapus data',
+                //         // 'data' => $this->model->findAll()
+                //     );
+                //     return json_encode($arr);
+                // }
                 $arr = array(
                     'status' => 'success',
                     'code' => 200,
@@ -168,24 +164,37 @@ class Users extends BaseController
             'code' => 'FAILED',
             'message'=>'NOT ALLOWED'
         );
+        $hash=null;
         if($this->request->isAJAX()) {
             try {
+                $this->config = config('Auth');
+                $user = new \Myth\Auth\Entities\User();
                 $datas = $this->request->getVar('data');
                 if(is_object($datas)) {
                     $datas = (array) $datas;
                 }
+
+                if($datas['userpwd']!=='********'):
+                    $user->setPassword($datas['userpwd']);
+                    $hash = $user->password_hash;
+                else:
+                    $id = $this->model->find($datas['id']);
+                    $hash = $id->password_hash;
+                endif;
+
                 $data = [
-                    'username' => $datas['namauser'],
+                    'username' => $datas['nama'],
                     'fullname' => $datas['namalengkap'],
-                    'password_hash' => 'IniPassword',
-                    'email' => $datas['emailuser'],
-                    'active' => $datas['statususer'],
+                    'email' => ($datas['emailuser'] == '' ? null : $datas['emailuser']),
+                    'active' => ($datas['statususer'] == 'Y' ? 1 : 0),
                     // 'user_m' => $this->session->user_kode,
                     // 'tgl_m'=>date('Y-m-d'),
                     // 'time_m'=>date("h:i:s a")
                 ];
                 if($datas['id']!=='') {
-                    $this->model->update($datas['id'],$data);
+                    $newdata = ['id' => $datas['id'], 'password_hash' => $hash];
+                    $data = array_merge($data,$newdata);
+                    $this->model->save($data);
                     $message = lang('Files.Update_Success');
                 }
                 
@@ -194,8 +203,10 @@ class Users extends BaseController
                         // 'user_c' => $this->session->user_kode,
                         // 'tgl_c'=>date('Y-m-d'),
                         // 'time_c'=>date("h:i:s a")
+                        'password_hash' => $hash,
                     ];
                     $data = array_merge($data,$newdata);
+                    $this->model->withGroup($this->config->defaultUserGroup);
                     $this->model->insert($data);
                     $message = lang('Files.Save_Success');
                 }

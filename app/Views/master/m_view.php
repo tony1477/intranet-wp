@@ -348,6 +348,7 @@
             str.innerHTML = '<?=lang('Files.Edit'),' ',lang('Files.'.$menuname)?>'
             <?php foreach($forms as $form) :
                 if($form['type']!='select' && $form['type']!='file' && $form['type']!='switch') { ?>
+                    // console.log(<?=$form['idform']?>)
                     document.getElementById("<?=$form['idform']?>").value = <?=$form['idform']?>;
                 <?php } ?>
             <?php endforeach;?>
@@ -593,7 +594,7 @@
                 }
             <?php } ?>
         <?php endforeach;?>
-        console.log(data)
+        // console.log(data)
         // const id =  document.forms["<?=$menuname?>"]["id"].value;
         // const kode =  document.forms["<?=$menuname?>"]["kode"].value;
         // const nama =  document.forms["<?=$menuname?>"]["namadivisi"].value;

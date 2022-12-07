@@ -64,6 +64,6 @@ function getUser() {
 
 function getUsers() {
     $db = db_connect();
-    return $db->query("select id as Id, username as Username, fullname as Fullname, user_image as Photo_User, if(active=1,'YES','NO') as Active, email as Email
+    return $db->query("select id as Id, username as Name_User, fullname as Fullname, user_image as Photo_User, if(active=1,'YES','NO') as Active, email as Email, '***' as Pwd_User
     from users ")->getResult();
 }
