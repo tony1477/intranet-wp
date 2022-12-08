@@ -8,8 +8,10 @@ use Config\Services as Config;
 class MeetingSchedule extends BaseController
 {
     protected $request;
+    protected $model;
     public function __construct() {
         $this->request = \Config\Services::request();
+        $this->model = new \App\Models\MeetingScheduleModel();
     }
     public function index()
     {
@@ -78,5 +80,80 @@ class MeetingSchedule extends BaseController
             'data' => $detail,
         ];
         return view('meeting-room/detail-meeting',$data);
+    }
+
+    public function requestRoom()
+    {
+        header("Content-Type: application/json");
+        $arr = array(
+            'fail' => 500,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+        $hash=null;
+        if($this->request->isAJAX()) {
+            try {
+                $datas = $this->request->getVar('data');
+                if(is_object($datas)) {
+                    $datas = (array) $datas;
+                }
+
+                // $participant = explode(',',$datas['parti']);
+                $data = [
+                    'idruangan' => $datas['room'],
+                    'userid' => user()->id,
+                    'tgl_mulai' => $datas['startdate'],
+                    'jam_mulai' => $datas['starttime'],
+                    'tgl_selesai' => $datas['startdate'],
+                    'jam_selesai' => $datas['endtime'],
+                    'iddepartment' => $datas['department'],
+                    'jumlah_peserta' => $datas['participant'],
+                    'asal_peserta' => $datas['location'],
+                    'agenda' => $datas['agenda'],
+                    'pemateri' => $datas['speaker'],
+                    'nama_peserta' => $datas['nameparti'],
+                    'kebutuhan' => $datas['requirement'],
+                    'status' => 1,
+                    // 'user_m' => $this->session->user_kode,
+                    // 'tgl_m'=>date('Y-m-d'),
+                    // 'time_m'=>date("h:i:s a")
+                ];
+                var_dump($data);
+                $this->model->insert($data);
+                $message = lang('Files.Update_Success');
+                // if($datas['id']!=='') {
+                //     $newdata = ['id' => $datas['id'], 'password_hash' => $hash];
+                //     $data = array_merge($data,$newdata);
+                //     $this->model->save($data);
+                //     $message = lang('Files.Update_Success');
+                // }
+                
+                // if($datas['id']==='') {
+                //     $newdata = [
+                //         // 'user_c' => $this->session->user_kode,
+                //         // 'tgl_c'=>date('Y-m-d'),
+                //         // 'time_c'=>date("h:i:s a")
+                //         'password_hash' => $hash,
+                //     ];
+                //     $data = array_merge($data,$newdata);
+                //     $this->model->withGroup($this->config->defaultUserGroup);
+                //     $this->model->insert($data);
+                //     $message = lang('Files.Save_Success');
+                // }
+                
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => $message
+                );
+            }catch (\Exception $e) {
+                $arr = array(
+                    'status' => $e->getMessage(),
+                    'code' => 400,
+                );
+            }
+        }
+        $response = json_encode($arr);
+        return $response;
     }
 }

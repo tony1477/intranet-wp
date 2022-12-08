@@ -127,13 +127,17 @@
                                         <ul class="dropdown-menu dropdown-menu-end">
                                             <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/detail/<?=$list->idpeminjaman?>"><i class="btn-primary btn-rounded  bx bx-chevrons-right label-icon waves-effect waves-light"></i> Lihat Detail</a></li>
                                             <?php if($list->status == 1):?>
+                                                <?php if(has_permission('approval-meeting')):?>
                                                 <div class="dropdown-divider"></div>
                                                 <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/booking/<?=str_replace(' ','-',strtolower($list->nama_ruangan))?>"><i class="btn-success btn-rounded bx bx-check label-icon waves-effect waves-light"></i> Approve</a></li>
                                                 <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/booking/<?=str_replace(' ','-',strtolower($list->nama_ruangan))?>"><i class="btn-danger btn-rounded bx bx-block label-icon waves-effect waves-light"></i> Batal</a></li>
+                                            <?php endif;?>
                                             <?php elseif($list->status == 2): ?>
+                                                <?php if($list->userid === user()->id || has_permission('approval_meeting')):?>
                                                 <div class="dropdown-divider"></div>
                                                 <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/booking/<?=str_replace(' ','-',strtolower($list->nama_ruangan))?>"><i class="btn-success btn-rounded bx bx-check-double label-icon waves-effect waves-light"></i> Selesai</a></li>
                                                 <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/booking/<?=str_replace(' ','-',strtolower($list->nama_ruangan))?>"><i class="btn-danger btn-rounded bx bx-block label-icon waves-effect waves-light"></i> Batal</a></li>
+                                                <?php endif;?>
                                             <?php endif;?>
                                         </ul>
                                     </div>

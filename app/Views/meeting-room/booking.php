@@ -80,13 +80,13 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-firstname-input" class="form-label"><?=lang('Files.First_Name')?></label>
-                                                            <input type="text" class="form-control" name="fullname" value="<?=user()->fullname?>"  <?= (user()->fullname != '') ? 'readonly' : ''?>>
+                                                            <input type="text" class="form-control" name="fullname" id="fullname" value="<?=user()->fullname?>"  <?= (user()->fullname != '') ? 'readonly' : ''?>>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-lastname-input" class="form-label"><?=lang('Files.Position')?></label>
-                                                            <input type="text" class="form-control" name="position">
+                                                            <input type="text" class="form-control" name="position" id="position">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -95,7 +95,7 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-phoneno-input" class="form-label"><?=lang('Files.Department')?></label>
-                                                            <select class="form-select" id="choices-single-no-sorting" name="iddepartment">
+                                                            <select class="form-select iddepartment" id="choices-single-no-sorting" name="iddepartment">
                                                                 <option selected>- Pilih -</option>
                                                                 <?php foreach($department as $list): ?>
                                                                 <option value="<?=$list->Id?>"><?=$list->Name_Department.' ('.$list->Name_Divisi.')'?>
@@ -106,13 +106,13 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-email-input" class="form-label">Email</label>
-                                                            <input type="email" class="form-control" name="email" value="<?=user()->email?>" <?=(user()->email != '') ? 'readonly' : ''?>>
+                                                            <input type="email" class="form-control" name="email" id="email" value="<?=user()->email?>" <?=(user()->email != '') ? 'readonly' : ''?>>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </form>
                                             <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                                <li class="next"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()">Next <i class="bx bx-chevron-right ms-1"></i></a></li>
+                                                <li class="next"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab1()">Next <i class="bx bx-chevron-right ms-1"></i></a></li>
                                             </ul>
                                         </div>
                                         <!-- tab pane -->
@@ -127,14 +127,14 @@
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="basicpill-pancard-input" class="form-label"><?=lang('Files.Date')?></label>
-                                                                <input type="date" class="form-control" name="startdate" >
+                                                                <input type="date" class="form-control" name="startdate" id="startdate">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="basicpill-vatno-input" class="form-label"><?=lang('Files.Time')?></label>
-                                                                <input type="time" class="form-control" name="starttime">
+                                                                <input type="time" class="form-control" name="starttime" id="starttime">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -142,14 +142,14 @@
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="basicpill-cstno-input" class="form-label"><?=lang('Files.Time')?></label>
-                                                                <input type="time" class="form-control" name="endtime">
+                                                                <input type="time" class="form-control" name="endtime" id="endtime">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="basicpill-cstno-input" class="form-label"><?=lang('Files.Amount_Participant')?></label>
-                                                                <input type="number" class="form-control" name="participant">
+                                                                <input type="number" class="form-control" name="participant" id="participant">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -157,7 +157,7 @@
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="basicpill-servicetax-input" class="form-label"><?=lang('Files.ParticipantBase')?></label>
-                                                                <select class="form-select">
+                                                                <select class="form-select" id="location">
                                                                     <option selected>- Pilih -</option>
                                                                     <option value="HO">HO</option>
                                                                     <option value="Unit PS">Unit PKS</option>
@@ -169,22 +169,28 @@
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="basicpill-servicetax-input" class="form-label"><?=lang('Files.Speaker')?></label>
-                                                                <input type="text" class="form-control" name="speaker">
+                                                                <input type="text" class="form-control" name="speaker" id="speaker">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-lg-6">
+                                                    <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="basicpill-companyuin-input" class="form-label"><?=lang('Files.Name_Participant')?></label>
-                                                                <input class="form-control" id="choices-text-unique-values"type="text" value="" placeholder="This is a placeholder" class="custom class" name="nameparti" />
+                                                                <input class="form-control nameparti" id="choices-text-unique-values" type="text" value="" placeholder="This is a placeholder"  name="nameparti" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label for="basicpill-agenda-input" class="form-label"><?=lang('Files.Agenda')?></label>
+                                                                <textarea id="agenda" class="form-control" placeholder="Agenda Meeting" rows="3" ></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </form>
                                                 <ul class="pager wizard twitter-bs-wizard-pager-link">
                                                     <li class="previous"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()"><i class="bx bx-chevron-left me-1"></i> Previous</a></li>
-                                                    <li class="next"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()">Next <i class="bx bx-chevron-right ms-1"></i></a></li>
+                                                    <li class="next"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab2()">Next <i class="bx bx-chevron-right ms-1"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -200,7 +206,7 @@
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label class="form-label"><?=lang('Files.Choose')?></label>
-                                                                <select class="form-select">
+                                                                <select class="form-select" id="room">
                                                                     <option selected>- Pilih -</option>
                                                                     <?php foreach($room as $list)  : ?>
                                                                     <option value="<?=$list->idruangan?>"><?=$list->nama_ruangan?></option>
@@ -211,7 +217,7 @@
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="basicpill-namecard-input" class="form-label"><?=lang('Files.Kebutuhan')?></label>
-                                                                <input type="text" class="form-control" name="kebutuhan" >
+                                                                <input type="text" class="form-control" name="kebutuhan" id="requirement" >
                                                             </div>
                                                         </div>
 
@@ -220,7 +226,7 @@
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="basicpill-cardno-input" class="form-label"><?=lang('Files.Notulen_Meeting')?></label>
-                                                                <input type="text" class="form-control" name="notulen" >
+                                                                <input type="text" class="form-control" name="notulen" id="notulen">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -266,7 +272,7 @@
                     </div>
                     <div class="modal-footer justify-content-center">
                         <button type="button" class="btn btn-light w-md" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary w-md" data-bs-dismiss="modal" >Save changes</button>
+                        <button type="submit" class="btn btn-primary w-md submitted" data-bs-dismiss="modal">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -295,7 +301,80 @@
 <?= $this->include('partials/script/booking') ?>
 
 <script src="<?=base_url()?>/assets/js/app.js"></script>
+<script text="text/javascript">
+    const fullname = document.querySelector('#fullname')
+    const position = document.querySelector('#position')
+    const department = document.querySelector('.iddepartment')
+    const email = document.querySelector('#email')
+    const startdate = document.querySelector('#startdate')
+    const starttime = document.querySelector('#starttime')
+    const endtime = document.querySelector('#endtime')
+    const participant = document.querySelector('#participant')
+    const lokasi = document.querySelector('#location')
+    const speaker = document.querySelector('#speaker')
+    const nameparti = document.querySelector('.nameparti')
+    const agenda = document.querySelector('#agenda')
+    const room = document.querySelector('#room')
+    const requirement = document.querySelector('#requirement')
+    const notulen = document.querySelector('#notulen')
+    const submitted = document.querySelector('.submitted')
+    const el = new Choices(nameparti)
+    
+    function nextTab1()
+    {
+        localStorage.setItem('fullname',fullname.value)
+        localStorage.setItem('position',position.value)
+        localStorage.setItem('department',department.value)
+        localStorage.setItem('email',email.value)
+    }
 
+    function nextTab2()
+    {
+        // const items = { ...localStorage };
+        localStorage.setItem('startdate',startdate.value)
+        localStorage.setItem('starttime',starttime.value)
+        localStorage.setItem('endtime',endtime.value)
+        localStorage.setItem('participant',participant.value)
+        localStorage.setItem('location',lokasi.value)
+        localStorage.setItem('speaker',speaker.value)
+        // localStorage.setItem('nameparti',nameparti.val())
+        localStorage.setItem('nameparti',el.getValue(true))
+        localStorage.setItem('agenda',agenda.value)
+    }
+
+    submitted.addEventListener('click', (e) => {
+        localStorage.setItem('room',room.value)
+        localStorage.setItem('requirement',requirement.value)
+        localStorage.setItem('notulen',notulen.value)
+        const items = { ...localStorage };
+        // console.log(items)
+        postData('<?=base_url()?>/meeting-schedule/booking/request',{'data':items})
+        .then(data => {
+            console.log(data)
+            if(data.code === 200) {
+                // release localstorage
+                // localStorage.clear()
+                Swal.fire("Success!",data.message, data.status);
+            }
+        })
+    })
+
+    async function postData(url='',data={}) {
+        const response = await fetch(url,{
+            method:'POST',
+            mode:'cors',
+            cache:'no-cache',
+            creadentials:'same-origin',
+            headers: {
+                'Content-Type':'application/json',
+                "X-Requested-With": "XMLHttpRequest"
+            },
+            body: JSON.stringify(data)
+        })
+
+        return response.json()
+    }
+</script>
 </body>
 
 </html>

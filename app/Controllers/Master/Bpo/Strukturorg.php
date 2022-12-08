@@ -366,4 +366,20 @@ class Strukturorg extends BaseController
         // echo 'Failure'; 
         // }
     }
+
+    public function visimisi()
+    {
+        helper(['admin_helper']);
+        helper(['master_helper']);
+        $menu = getMenu($user='Admin');
+
+        $data = [
+			'title_meta' => view('partials/title-meta', ['title' => 'Structure-Org']),
+			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Structure-Org']),
+			'modules' => $menu,
+            'route'=>'struktur-organisasi',
+            'menuname' => 'Visi-Misi',
+        ];
+        return view('companyprofile/visimisi',$data);
+    }
 }

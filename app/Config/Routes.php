@@ -188,7 +188,7 @@ $routes->add('struktur-organisasi/view/(:any)', 'Master\Bpo\Strukturorg::view/$1
 // $routes->post('struktur-organisasi/uploadfile', 'Master/Bpo/Strukturorg::uploadfile');
 $routes->add('struktur-organisasi/tes', 'Master/Bpo/Strukturorg::tes');
 $routes->add('struktur-organisasi/upload', 'Master/Bpo/Strukturorg::upload');
-
+$routes->add('visi-misi/display', 'Master/Bpo/Strukturorg::visimisi');
 ## Kategory
 $routes->get('kategory', 'Master/Bpo/Kategory::index');
 $routes->post('kategory/delete', 'Master/Bpo/Kategory::delete');
@@ -229,6 +229,7 @@ $routes->get('room-meeting/detail/:any','Meeting/MeetingRoom::detail');
 ## Meeting Schedule
 $routes->get('meeting-schedule','Meeting/MeetingSchedule::index');
 $routes->get('meeting-schedule/booking','Meeting/MeetingSchedule::booking');
+$routes->post('meeting-schedule/booking/request','Meeting/MeetingSchedule::requestRoom');
 $routes->get('meeting-schedule/booking/:any','Meeting/MeetingSchedule::booking');
 $routes->get('meeting-schedule/detail/:num','Meeting/MeetingSchedule::detail');
 $routes->get('meeting-schedule/:any','Meeting/MeetingSchedule::schedule');
