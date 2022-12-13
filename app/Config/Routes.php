@@ -221,6 +221,7 @@ $routes->post('users/delete', 'Master/Users::delete');
 $routes->post('users/post', 'Master/Users::save');
 $routes->post('users/docbyuser', 'Master/Users::docbyuser');
 $routes->post('users/postDoc', 'Master/Users::saveDocByUser');
+$routes->post('users/uploadimage', 'Master/Users::uploadImage');
 
 ## Meeting Room
 $routes->get('room-meeting','Meeting/MeetingRoom::index');
@@ -232,6 +233,7 @@ $routes->get('meeting-schedule/booking','Meeting/MeetingSchedule::booking');
 $routes->post('meeting-schedule/booking/request','Meeting/MeetingSchedule::requestRoom');
 $routes->get('meeting-schedule/booking/:any','Meeting/MeetingSchedule::booking');
 $routes->get('meeting-schedule/detail/:num','Meeting/MeetingSchedule::detail');
+$routes->get('meeting-schedule/([a-z]+)/(:num)','Meeting\MeetingSchedule::action/$1/$2');
 $routes->get('meeting-schedule/:any','Meeting/MeetingSchedule::schedule');
 
 ## BPO - USER
@@ -243,6 +245,9 @@ $routes->get('bpo/lainnya','Bpo/Support::lainnya');
 $routes->get('bpo/([a-z\-]+)/viewpdf/(:any)','Bpo\Support::viewpdf/$1/$2');
 $routes->get('bpo/([a-z\-]+)/downloadform/(:any)','Bpo\Support::downloadform/$1/$2/$3');
 // $routes->get('bpo/([a-z\-]+)/viewpdf/(:any)','Bpo/Master::viewpdf/$1');
+
+## Gallery
+$routes->get('gallery-foto','Company/Gallery::foto');
 
 
 ## Website

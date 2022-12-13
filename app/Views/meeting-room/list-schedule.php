@@ -129,14 +129,14 @@
                                             <?php if($list->status == 1):?>
                                                 <?php if(has_permission('approval-meeting')):?>
                                                 <div class="dropdown-divider"></div>
-                                                <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/booking/<?=str_replace(' ','-',strtolower($list->nama_ruangan))?>"><i class="btn-success btn-rounded bx bx-check label-icon waves-effect waves-light"></i> Approve</a></li>
-                                                <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/booking/<?=str_replace(' ','-',strtolower($list->nama_ruangan))?>"><i class="btn-danger btn-rounded bx bx-block label-icon waves-effect waves-light"></i> Batal</a></li>
+                                                <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/approve/<?=$list->idpeminjaman?>"><i class="btn-success btn-rounded bx bx-check label-icon waves-effect waves-light"></i> Approve</a></li>
+                                                <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/batal/<?=$list->idpeminjaman?>"><i class="btn-danger btn-rounded bx bx-block label-icon waves-effect waves-light"></i> Batal</a></li>
                                             <?php endif;?>
                                             <?php elseif($list->status == 2): ?>
-                                                <?php if($list->userid === user()->id || has_permission('approval_meeting')):?>
+                                                <?php if(has_permission('approval-meeting') || $list->userid === user_id()):?>
                                                 <div class="dropdown-divider"></div>
-                                                <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/booking/<?=str_replace(' ','-',strtolower($list->nama_ruangan))?>"><i class="btn-success btn-rounded bx bx-check-double label-icon waves-effect waves-light"></i> Selesai</a></li>
-                                                <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/booking/<?=str_replace(' ','-',strtolower($list->nama_ruangan))?>"><i class="btn-danger btn-rounded bx bx-block label-icon waves-effect waves-light"></i> Batal</a></li>
+                                                <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/selesai/<?=$list->idpeminjaman?>"><i class="btn-success btn-rounded bx bx-check-double label-icon waves-effect waves-light"></i> Selesai</a></li>
+                                                <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/batal/<?=$list->idpeminjaman?>"><i class="btn-danger btn-rounded bx bx-block label-icon waves-effect waves-light"></i> Batal</a></li>
                                                 <?php endif;?>
                                             <?php endif;?>
                                         </ul>

@@ -156,4 +156,26 @@ class MeetingSchedule extends BaseController
         $response = json_encode($arr);
         return $response;
     }
+
+    public function action(string $action, int $id)
+    {
+        if(!has_permission('approval-meeting')):
+            return redirect()->to('/meeting-schedule');
+        endif;
+
+        $status;
+        switch ($action) {
+            case "approve":
+                $status=2;
+                break;
+            case "selesai":
+                $status=3;
+                break;
+            default:
+                $status=0;
+        }
+        $data = ['status'=>$status];
+        $this->model->update($id,$data);
+        return redirect()->to('/meeting-schedule');
+    }
 }

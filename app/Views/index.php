@@ -38,7 +38,7 @@
                                         <img src="assets/images/users/<?=user()->user_image?>" class="img-fluid rounded-circle border border-light img-upload" alt="">
                                         <input type="file" id="user_image" name="user_image" style="display: none;" />
                                         <div>
-                                            <button class="btn btn-info mt-4">Upload</button>
+                                            <button class="btn btn-info mt-4" id="uploadfoto">Upload</button>
                                             <button class="btn btn-success mt-4">Update Data</button>
                                         </div>
                                     </div>
@@ -232,8 +232,39 @@
 <!-- App js -->
 <script src="assets/js/app.js"></script>
 <script type="text/javascript">
+const uploadButton = document.querySelector('#uploadfoto')
 $(".img-upload").click(function() {
     $("input[id='user_image']").click();
+});
+
+uploadButton.addEventListener('click',(e) => {
+    const datafile = document.querySelector('#user_image').files[0];
+    const namefile = datafile.name
+    const formData = new FormData()
+    formData.append('file',datafile)
+    try {
+        console.log('uploading...')
+        $.ajax({
+            url: "<?=base_url()?>/users/uploadimage",
+            enctype: 'multipart/form-data',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            async: false,
+            success: function(resp) {
+                console.log(resp)
+                if(resp.status=='success') location.reload();
+            },
+            cache: false,
+            contentType:false,
+            processData: false
+        });
+    }
+    catch(e) {
+        console.log('Err: ',e)
+        Swal.fire("Failed!", e, 400);
+    }
+    // console.log(datafile)
 });
 
 function changeFunc() {

@@ -10,7 +10,7 @@ class Users extends BaseController
     protected $config;
     public function __construct()
     {
-        $this->model = new \Myth\Auth\Models\UserModel();
+        $this->model = new \App\Models\UsersModel();
     }
 
     public function index()
@@ -220,6 +220,42 @@ class Users extends BaseController
                 $arr = array(
                     'status' => $e->getMessage(),
                     'code' => 400,
+                );
+            }
+        }
+        $response = json_encode($arr);
+        return $response;
+    }
+
+    public function uploadImage()
+    {
+        header("Content-Type: application/json");
+        $arr = array(
+            'fail' => 400,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+        if($this->request->isAJAX()) {
+            try {
+
+                $loc = getcwd().'/assets/images/users';
+                // var_dump($_FILES);
+                $filename = $_FILES['file']['name'];
+                $newname = user()->username.'-'.$filename;
+
+                if(move_uploaded_file($_FILES['file']['tmp_name'], $loc.'/'.$newname)):
+                    $data = ['user_image' => $newname];
+                    $this->model->update(user()->id,$data);
+                    $arr = array(
+                        'status' => 'success',
+                        'code' => 200,
+                        'message' => 'OK'
+                    );
+                endif;
+            } catch (\Exception $e) {
+                $arr = array(
+                    'status' => $e->getMessage(),
+                    'code' => 400
                 );
             }
         }

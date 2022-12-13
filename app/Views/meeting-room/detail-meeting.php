@@ -38,7 +38,7 @@
                                     <div class="col-sm-6">
                                         <div>
                                             <h5 class="font-size-15 mb-3"><?=lang('Files.Event')?> : </h5>
-                                            <h5 class="font-size-14 mb-2"><?=$row->agenda?> (<?=$row->nama_ruangan?>)</h5>
+                                            <h5 class="font-size-14 mb-2"><?=$row->agenda?> (<?=$row->nama_ruangan?>)<?=$row->status==0 ? " [BATAL]":""?></h5>
                                             <p class="mb-1"><?=lang('Files.Date')?> : <?=date('d-m-Y',strtotime($row->tgl_mulai))?></p>
                                             <p><?=lang('Files.Time')?> : <?=$row->jam_mulai?></p>
                                         </div>
