@@ -199,6 +199,11 @@ return [
     "Delete_Error" => "Wrong happen! Error when deleted",
     "(Eng)" => "(ENG)",
     "(Idn)" => "(IDN)",
+    "New" => "New",
+    "Photo" => "Photo",
+    "Album" => "Album",
+    "Album_Photo" => "Photo's Album",
+    "Upload_Success" => "Successed Uploaded File",
 
     // Menu
     "group-divisi" => 'Division Group',

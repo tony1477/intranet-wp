@@ -6,7 +6,7 @@
     <?= $title_meta ?>
 
     <?= $this->include('partials/head-css') ?>
-
+    <link rel="stylesheet" href="<?=base_url()?>/assets/css/gallery.css" />
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -48,113 +48,48 @@
                 </div>
                 <!-- end row -->
 
-                <div class="row">
+                <!-- <div class="row">
+                    <?php foreach($data as $row):?>
                     <div class="col-xl-4 col-sm-6">
                         <div class="card">
                             <div class="">
-                                <img src="assets/images/small/img-3.jpg" alt="" class="img-fluid">
+                                <img src="<?=base_url()?>/assets/images/gallery/foto/<?=$row->url?>" alt="" class="img-fluid">
                             </div>
                             <div class="card-body">
-                                <p class="text-muted mb-2">10 Apr, 2022</p>
-                                <h5 class=""><a href="#" class="text-dark">Beautiful Day with Friends</a></h5>
-                                <p class="mb-0 font-size-15">Contrary to popular belief, Lorem Ipsum is not simply random text,a Latin professor at Hampden-Sydney College in Virginia.</p>
-                                <div class="mt-3">
-                                    <a href="#" class="align-middle font-size-15">Read more <i class="mdi mdi-chevron-right"></i></a>
-                                </div>
+                                <p class="text-muted mb-2"><?=$row->updated_at?></p>
+                                <h5 class=""><a href="#" class="text-dark"><?=$row->title?></a></h5>
+                                <p class="mb-0 font-size-15"><?=$row->description?></p>
                             </div>
                         </div>
-                        <!-- end card -->
                     </div>
-                    <!-- end col -->
-                    <div class="col-xl-4 col-sm-6">
-                        <div class="card">
-                            <div class="">
-                                <img src="assets/images/small/img-2.jpg" alt="" class="img-fluid">
-                            </div>
-                            <div class="card-body">
-                                <p class="text-muted mb-2">24 May, 2022</p>
-                                <h5 class=""><a href="#" class="text-dark">Drawing a sketch</a></h5>
-                                <p class="mb-0 font-size-15">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-                                <div class="mt-3">
-                                    <a href="#" class="align-middle font-size-15">Read more <i class="mdi mdi-chevron-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end card -->
-                    </div>
-                    <!-- end col -->
-                    <div class="col-xl-4 col-sm-6">
-                        <div class="card">
-                            <div class="">
-                                <img src="assets/images/small/img-1.jpg" alt="" class="img-fluid">
-                            </div>
-                            <div class="card-body">
-                                <p class="text-muted mb-2">12 june, 2022</p>
-                                <h5 class=""><a href="#" class="text-dark">Project discussion with team</a></h5>
-                                <p class="mb-0 font-size-15">Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words.</p>
-                                <div class="mt-3">
-                                    <a href="#" class="align-middle font-size-15">Read more <i class="mdi mdi-chevron-right"></i></a>
-                                </div>
-                            </div>
-                        </div> <!-- end card -->
-                    </div>
-                    <!-- end col -->
-                    <div class="col-xl-4 col-sm-6">
-                        <div class="card">
-                            <div class="">
-                                <img src="assets/images/small/img-4.jpg" alt="" class="img-fluid">
-                            </div>
-                            <div class="card-body">
-                                <p class="text-muted mb-2">10 July, 2022</p>
-                                <h5 class=""><a href="#" class="text-dark">Morning with Photoshoot</a></h5>
-                                <p class="mb-0 font-size-15">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-                                <div class="mt-3">
-                                    <a href="#" class="align-middle font-size-15">Read more <i class="mdi mdi-chevron-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end card -->
-                    </div>
-                    <!-- end col -->
+                    <?php endforeach;?>     
+                </div> -->
 
-                    <div class="col-xl-4 col-sm-6">
-                        <div class="card">
-                            <div class="">
-                                <img src="assets/images/small/img-3.jpg" alt="" class="img-fluid">
-                            </div>
-                            <div class="card-body">
-                                <p class="text-muted mb-2">16 June, 2022</p>
-                                <h5 class=""><a href="#" class="text-dark">Coffee with friends</a></h5>
-                                <p class="mb-0 font-size-15">Contrary to popular belief, Lorem Ipsum is not simply random text,a Latin professor at Hampden-Sydney College in Virginia.</p>
-                                <div class="mt-3">
-                                    <a href="#" class="align-middle font-size-15">Read more <i class="mdi mdi-chevron-right"></i></a>
-                                </div>
+                <div class="row">
+                    <section id="portfolio">
+                        <?php foreach($data as $row):?>
+                        <div class="project">
+                            <img class="project__image" src="<?=base_url().'/assets/images/gallery/foto/'.$row->url?>" />
+                            <p><?=$row->title?></p>
+                            <h3 class="grid__title"> <?=$row->description?></h3>
+                            <div class="grid__overlay">
+                                <button class="viewbutton">open details</button>
                             </div>
                         </div>
-                        <!-- end card -->
-                    </div>
-                    <!-- end col -->
-                    <div class="col-xl-4 col-sm-6">
-                        <div class="card">
-                            <div class="">
-                                <img src="assets/images/small/img-5.jpg" alt="" class="img-fluid">
-                            </div>
-                            <div class="card-body">
-                                <p class="text-muted mb-2">22 May, 2022</p>
-                                <h5 class=""><a href="#" class="text-dark">Working day with our new ideas</a></h5>
-                                <p class="mb-0 font-size-15">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
-                                <div class="mt-3">
-                                    <a href="#" class="align-middle font-size-15">Read more <i class="mdi mdi-chevron-right"></i></a>
-                                </div>
-                            </div>
+                        <?php endforeach;?>
+                        
+                        <div class="overlay">
+                        <div class="overlay__inner">
+                            <button class="close">close X</button>
+                            <img>
+                            <div id="img-caption">INI TEKS YANG AKAN MUNCUL DI BAWAH</div>
                         </div>
-                        <!-- end card -->
-                    </div>
-                    <!-- end col -->                            
+                        </div>
+                    </section>
                 </div>
                 <!-- end row -->
 
-                <div class="row justify-content-center mb-4">
+                <div class="row justify-content-center mb-4 mt-3">
                     <div class="col-md-3">
                         <div class="">
                             <ul class="pagination mb-sm-0">
@@ -204,7 +139,27 @@
 <?= $this->include('partials/vendor-scripts') ?>
 
 <script src="assets/js/app.js"></script>
+<script type="text/javascript">
+const buttons = document.querySelectorAll('.project');
+const overlay = document.querySelector('.overlay');
+const overlayImage = document.querySelector('.overlay__inner img');
 
+function open(e) {
+  overlay.classList.add('open');
+  const src= e.currentTarget.querySelector('img').src;
+  overlayImage.src = src;
+}
+
+function close() {
+  overlay.classList.remove('open');
+}
+
+buttons.forEach(button => button.addEventListener('click', open));
+overlay.addEventListener('click', close);
+
+
+
+</script>
 </body>
 
 </html>

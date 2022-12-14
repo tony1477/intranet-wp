@@ -210,6 +210,11 @@ return [
     "Name_File" => "Nama File",
     "Name_File2" => "Nama File 2",
     "Name_File3" => "Nama File 3",
+    "New" => "Baru",
+    "Photo" => "Foto",
+    "Album" => "Album",
+    "Album_Photo" => "Album Foto",
+    "Upload_Success" => "Upload Data Berhasil",
     
     // Menu
     "group-divisi" => 'Grup Divisi',

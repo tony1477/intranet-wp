@@ -380,6 +380,6 @@ class Strukturorg extends BaseController
             'route'=>'struktur-organisasi',
             'menuname' => 'Visi-Misi',
         ];
-        return view('companyprofile/visimisi',$data);
+        return view('company/visimisi',$data);
     }
 }

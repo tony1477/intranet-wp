@@ -249,7 +249,7 @@ class Users extends BaseController
                     $arr = array(
                         'status' => 'success',
                         'code' => 200,
-                        'message' => 'OK'
+                        'message' => lang('Files.Upload_Success'),
                     );
                 endif;
             } catch (\Exception $e) {
@@ -261,6 +261,23 @@ class Users extends BaseController
         }
         $response = json_encode($arr);
         return $response;
+    }
+
+    public function getProfile($username)
+    {
+        helper(['admin_helper']);
+        helper(['master_helper']);
+        $menu = getMenu($user='Admin');
+
+        $data = [
+			'title_meta' => view('partials/title-meta', ['title' => 'User_Profile']),
+			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'User_Profile']),
+			'modules' => $menu,
+            'route' => 'users',
+            'menuname' => 'User',
+        ];
+
+        return view('users/profile.php',$data);
     }
     
     public function docbyuser()

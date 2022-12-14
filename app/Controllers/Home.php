@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\GalleryModel as Gallery;
 
 class Home extends BaseController
 {
 
 	protected $auth;
+	private $gallery;
 
     /**
      * @var AuthConfig
@@ -26,6 +28,7 @@ class Home extends BaseController
 
         $this->config = config('Auth');
         $this->auth   = service('authentication');
+		$this->gallery = new Gallery();
     }
 	
 	public function index()
@@ -37,11 +40,15 @@ class Home extends BaseController
 		if($sess->meeting_day == null) {
 			$sess->set(['meeting_day' => 'Today']);
 		}
+		$foto = $this->gallery->where(['ishighlight'=>1,'gallerytype'=>1])->findAll();
         //$submenu = getSubmenu($moduleid=0);
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Dashboard']),
 			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Dashboard']),
 			'modules' => $menu,
+			'data' => [
+				'foto' => $foto
+			],
 			// 'data_meeting' => 
 			// 'session' => $sess
 		];

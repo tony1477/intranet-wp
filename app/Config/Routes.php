@@ -222,6 +222,7 @@ $routes->post('users/post', 'Master/Users::save');
 $routes->post('users/docbyuser', 'Master/Users::docbyuser');
 $routes->post('users/postDoc', 'Master/Users::saveDocByUser');
 $routes->post('users/uploadimage', 'Master/Users::uploadImage');
+$routes->get('([a-z0-9\-]+)/profile', 'Master\Users::getProfile/$1');
 
 ## Meeting Room
 $routes->get('room-meeting','Meeting/MeetingRoom::index');
@@ -247,7 +248,7 @@ $routes->get('bpo/([a-z\-]+)/downloadform/(:any)','Bpo\Support::downloadform/$1/
 // $routes->get('bpo/([a-z\-]+)/viewpdf/(:any)','Bpo/Master::viewpdf/$1');
 
 ## Gallery
-$routes->get('gallery-foto','Company/Gallery::foto');
+$routes->get('gallery-foto','Company/Gallery::index');
 
 
 ## Website
