@@ -6,16 +6,19 @@ use App\Controllers\BaseController;
 
 class Gallery extends BaseController
 {
-    private $model;
+    private $gallery;
+    private $album;
     private $entity;
     public function __construct()
     {
-        $this->model = new \App\Models\GalleryModel();
+        $this->gallery = new \App\Models\GalleryModel();
+        $this->album = new \App\Models\AlbumModel();
     }
     public function index()
     {
         helper(['admin_helper']);
         // helper(['master_helper']);
+        $album = $this->album->getAlbum()->getResult();
         $menu = getMenu($user='Admin');
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Gallery_Foto']),
@@ -23,6 +26,7 @@ class Gallery extends BaseController
 			'modules' => $menu,
             'route'=>'department',
             'menuname' => 'Department',
+            'data' => $album,
             
 		];
         // $gallery = $this->model->where('gallerytype',1)->findAll($limit,$offset);
@@ -30,14 +34,14 @@ class Gallery extends BaseController
         return view('company/album',$data);
     }
 
-    public function foto()
+    public function foto($id)
     {
         helper(['admin_helper']);
         helper(['master_helper']);
         $menu = getMenu($user='Admin');
-        $limit = 6;
+        $limit = 8;
         $offset = 0;
-        $gallery = $this->model->where('gallerytype',1)->findAll($limit,$offset);
+        $gallery = $this->gallery->where(['gallerytype'=>1,'categoryid'=>$id])->findAll($limit,$offset);
         //$submenu = getSubmenu($moduleid=0);
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Gallery_Foto']),

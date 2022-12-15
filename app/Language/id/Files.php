@@ -215,6 +215,8 @@ return [
     "Album" => "Album",
     "Album_Photo" => "Album Foto",
     "Upload_Success" => "Upload Data Berhasil",
+    "Empty" => "Kosong",
+    "Back" => "Kembali",
     
     // Menu
     "group-divisi" => 'Grup Divisi',

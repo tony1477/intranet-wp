@@ -204,6 +204,8 @@ return [
     "Album" => "Album",
     "Album_Photo" => "Photo's Album",
     "Upload_Success" => "Successed Uploaded File",
+    "Empty" => "Empty",
+    "Back" => "Back",
 
     // Menu
     "group-divisi" => 'Division Group',

@@ -33,7 +33,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <h5 class="card-title"><?=lang('Files.Album_Photo')?><span class="text-muted fw-normal ms-2"><!-- INI DIISI NANTI --></span></h5>
+                            <h5 class="card-title"><?=lang('Files.Gallery')?><span class="text-muted fw-normal ms-2"><!-- INI DIISI NANTI --></span></h5>
                         </div>
                     </div>
 
@@ -49,43 +49,31 @@
                 <!-- end row -->
 
                 <div class="row">
+                    <?php foreach($data as $row):?>
                     <div class="col-md-6 container">
-                        <h4 class="text-center">ALBUM 1</h4>
+                        <h4 class="text-center"><?=$row->categoryname?></h4>
                         <div class="card-stack">
-                            <a class="buttons prev" href="#"><</a>
-                            <ul class="card-list">
-                                <li class="cards-li" style="background-color: #4CD964;"></li>
-                                <li class="cards-li" style="background-color: #FFCC00;"></li>
-                                <li class="cards-li" style="background-color: #FF3B30;"></li>
-                            </ul>	
+                            <!-- <a class="buttons prev" href="#"><</a> -->
+                            <?php if($row->cover !== null):
+                            $exp = explode(',',$row->cover); ?>
+                            <ul class="card-list" onclick="openAlbum(<?=$row->categoryid?>)">
+                            <?php for($i=0; $i<count($exp); $i++):?>
+                                <li><img src="<?=base_url()?>/assets/images/gallery/foto/<?=$exp[$i]?>" class="img-stack" /></li>
+                            <?php endfor;?>
+                            </ul>
                             <a class="buttons next" href="#">></a>
+                            <?php
+                            else : ?>
+                            <ul class="card-list">
+                            <li>
+                                <h3 style="position:absolute; left:50%; top:50%; transform: translate(-50%, -50%) rotate(-45deg); color: rgba(10,20,10,.5)"><?=lang('Files.Empty')?></h3>
+                                <img src="<?=base_url()?>/assets/images/gallery/default.jpeg" class="img-stack" /></li>
+                            </ul>
+                            <?php endif;?>
                         </div>
                     </div>
-                    <div class="col-md-6 container">
-                        <h4 class="text-center">ALBUM 2</h4>
-                        <div class="card-stack">
-                            <a class="buttons prev" href="#" onclick="prevSlide(this)"><</a>
-                            <ul class="card-list">
-                                <li class="cards-li" style="background-color: #4CD964;"></li>
-                                <li class="cards-li" style="background-color: #FFCC00;"></li>
-                                <li class="cards-li" style="background-color: #FF3B30;"></li>
-                            </ul>	
-                            <a class="buttons next" href="#">></a>
-                        </div>
-                    </div>
-                    <!-- <div class="col-md-6 container">
-                        <div class="card-stack">
-                            <a class="buttons prev" href="#"><</a>
-                            <ul class="card-list">
-                                <li class="cards-li" style="background-color: #4CD964;"></li>
-                                <li class="cards-li" style="background-color: #FFCC00;"></li>
-                                <li class="cards-li" style="background-color: #FF3B30;"></li>
-                                <li class="cards-li" style="background-color: #34AADC;"></li>					
-                                <li class="cards-li" style="background-color: #FF9500;"></li>
-                            </ul>	
-                            <a class="buttons next" href="#">></a>
-                        </div>
-                    </div>
+                    <?php endforeach;?>
+                    <!--
                     <div class="col-md-6 container">
                         <div class="card-stack">
                             <a class="buttons prev" href="#"><</a>
@@ -136,12 +124,9 @@
             </div> <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
-
-
         <?= $this->include('partials/footer') ?>
     </div>
     <!-- end main content-->
-
 </div>
 <!-- END layout-wrapper -->
 
@@ -153,52 +138,31 @@
 
 <script src="assets/js/app.js"></script>
 <script type="text/javascript">
-    const $card = $('.cards-li');
-    const lastCard = $(".card-list .card").length - 1;
-
-    function nextSlide() {
-        var prependList = function() {
-            if($('.cards-li').hasClass('activeNow')) {
-                var $slicedCard = $('.cards-li').slice(lastCard).removeClass('transformThis activeNow');
-                $('ul.card-list').prepend($slicedCard);
-            }
-        }
-        $('li.cards-li').last().removeClass('transformPrev').addClass('transformThis').prev().addClass('activeNow');
-        setTimeout(function(){prependList(); }, 150);
+     
+    function openAlbum(id)
+    {
+        location.href = "<?=base_url()?>/gallery-foto/open-album/"+id
     }
+    const nextBtn = document.querySelectorAll('.next');
+    for(let i=0; i < nextBtn.length; i++) {
+        nextBtn[i].addEventListener('click', function(e){
+            let lastEl = this.previousElementSibling.lastElementChild
+            let ulEl = this.previousElementSibling
+            lastEl.classList.remove('transformPrev')
+            lastEl.classList.add('transformThis')
+            lastEl.previousElementSibling.classList.add('activeNow')
 
-    // const nextBtn = document.querySelectorAll('.next');
-    // for(let i=0; i < nextBtn.length; i++) {
-    //     nextBtn[i].addEventListener('click', function(e){
-    //         let prevSib = this.previousElementSibling;
-    //         // console.log(this.previousElementSibling)
-    //         let prependList = function() {
-    //             if(prevSib.querySelector('.cards-li').classList.contains('activeNow') ) {
-    //                 let $slicedCard = prevSib.querySelector('.cards-li').slice(lastCard).removeClass('transformThis activeNow');
-    //                 prevSib.querySelector('ul.card-list').prepend($slicedCard);
-    //             }
-    //         }
+            let prependList = function() {
+                lastEl.classList.remove('transformThis')
+                lastEl.classList.remove('activeNow')
+                // var slicedCard = lastEl.classList.remove('transformThis')
+                ulEl.prepend(lastEl)
+            }
 
-            
-    //         prevSib.querySelector('li.cards-li').last().removeClass('transformPrev').addClass('transformThis').prev().addClass('activeNow');
-    //             setTimeout(function(){prependList(); }, 150);
-    //         // });
-    //         // console.log(prevSib.querySelector('.cards-li').classList.contains('activeNow'))
-    //         // console.log(e)
-    //     })
-    // }
-    // // $('.next').click(function(){ 
-    // //     // console.log($('.cards-li').hasClass('activeNow'))
-    // //     var prependList = function() {
-    // //         if($('.cards-li').hasClass('activeNow')) {
-    // //             var $slicedCard = $('.cards-li').slice(lastCard).removeClass('transformThis activeNow');
-    // //             $('ul.card-list').prepend($slicedCard);
-    // //         }
-    // //     }
-    // //     $('li.cards-li').last().removeClass('transformPrev').addClass('transformThis').prev().addClass('activeNow');
-    // //     setTimeout(function(){prependList(); }, 150);
-    // // });
-
+            setTimeout(function(){prependList(); }, 150);           
+        })
+    }
+    
     // // $('.prev').click(function() {
     // //     var appendToList = function() {
     // //         if( $('.cards-li').hasClass('activeNow') ) {

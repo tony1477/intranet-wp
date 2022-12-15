@@ -40,7 +40,8 @@
                     <div class="col-md-6">
                         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                             <div>
-                                <a href="#" class="btn btn-light"><i class="bx bx-plus me-1"></i> Add New</a>
+                                <a href="#" onclick="history.back()" class="btn btn-primary"><i class="bx bx-arrow-back me-1"></i> <?=lang('Files.Back')?></a>
+                                <a href="#" class="btn btn-light"><i class="bx bx-plus me-1"></i> <?=lang('Files.Add').' '.lang('Files.New')?></a>
                             </div>
                         </div>
 
@@ -138,7 +139,7 @@
 <!-- JAVASCRIPT -->
 <?= $this->include('partials/vendor-scripts') ?>
 
-<script src="assets/js/app.js"></script>
+<script src="<?=base_url()?>/assets/js/app.js"></script>
 <script type="text/javascript">
 const buttons = document.querySelectorAll('.project');
 const overlay = document.querySelector('.overlay');

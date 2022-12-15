@@ -19,7 +19,7 @@
   width: 35px;
   height: 35px;
   left: 0;
-  top: 55%;
+  top: 65%;
   color: rgba(255, 255, 255, 0.7);
   text-align: center;
   line-height: 35px;
@@ -52,13 +52,14 @@
   border-radius: 2px;
   position: absolute;
   list-style: none;
-  height: 300px;
+  height: auto;
+  /* height: 300px; */
   -webkit-box-shadow: 0 2px 15px 1px rgba(225, 225, 225, 0.5);
   box-shadow: 0 1px 4px 1px rgba(0, 0, 0, 0.5);
   left: 0;
   right: 0;
   margin: 0 auto;
-  padding-top: 20px;
+  padding-top: 0px;
   text-align: center;
   background-size: cover;
 }
@@ -85,10 +86,12 @@
 }
 .container .card-stack:hover > .buttons.prev {
   display: block;
+  line-height: 30px;
   animation: bounceInLeft 200ms;
 }
 .container .card-stack:hover > .buttons.next {
   display: block;
+  line-height: 30px;
   animation: bounceInRight 200ms;
 }
 .transformThis {
@@ -98,6 +101,15 @@
   animation: scaleUp 100ms;
   display: none;
 }
+
+li img.img-stack {
+  width: 100%;
+}
+
+li img.img-stack:hover {
+  cursor: pointer;
+}
+
 @keyframes scaleUp {
   0% {
     transform: scale(1.2) translateY(50px);

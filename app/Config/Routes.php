@@ -249,6 +249,7 @@ $routes->get('bpo/([a-z\-]+)/downloadform/(:any)','Bpo\Support::downloadform/$1/
 
 ## Gallery
 $routes->get('gallery-foto','Company/Gallery::index');
+$routes->get('gallery-foto/open-album/(:num)','Company\Gallery::foto/$1');
 
 
 ## Website
