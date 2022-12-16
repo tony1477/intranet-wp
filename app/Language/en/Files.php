@@ -206,6 +206,10 @@ return [
     "Upload_Success" => "Successed Uploaded File",
     "Empty" => "Empty",
     "Back" => "Back",
+    "Manage" => "Manage",
+    "Manage_Album" => "Manage Album",
+    "Manage_Photo" => "Manage Photo",
+    "Gallery_Photo" => "Photo Gallery",
 
     // Menu
     "group-divisi" => 'Division Group',

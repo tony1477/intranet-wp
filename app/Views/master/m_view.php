@@ -123,7 +123,7 @@
                                                     <div class="<?=$form['style']?>">
                                                         <div class="form-group mb-3">
                                                             <label><?=lang('Files.'.$form['label'])?></label>
-                                                            <select name="<?=$form['idform']?>" id="<?=$form['idform']?>" class="<?=$form['form-class']?>">
+                                                            <select name="<?=$form['idform']?>" id="<?=$form['idform']?>" class="<?=$form['form-class']?>" <?php echo $form['disabled']=$form['disabled']??'';?>>
                                                                 <option value="">-</option>
                                                                 <?php foreach($form['options']['list'] as $opt):?>
                                                                   <option value="<?=$opt->$id?>"><?=$opt->$value?></option>
@@ -183,6 +183,23 @@
                                                             <input type="hidden" name="full<?=$form['idform']?>" id="full<?=$form['idform']?>" value="<?=$data[0]->$f?>" />
                                                             </div>
                                                             FILE : <span id="<?=$form['idform']?>"><a id="f<?=$form['idform']?>"></a></span><br />
+                                                            <!-- <span id="download">DOWNLOAD : <button class="btn btn-sm btn-success" style="border-radius:50%"><i class="fa fa-download"></i> </button>
+                                                            </span> -->
+                                                            </div>
+                                                        </div>
+                                                        <?php }
+                                                    if($form['type']=='file-image') {;?>
+                                                        <div class="<?=$form['style']?>">
+                                                            <div class="form-group mb-3">
+                                                                <label><?=lang('Files.'.$form['label'])?></label>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                <button class="btn btn-success d-none" type="button" id="download<?=$form['idform']?>"><i class="fa fa-download"></i></button>
+                                                                </div>
+                                                            <input type="file" name="file<?=$form['idform']?>" id="file<?=$form['idform']?>" class="<?=$form['form-class']?>" /> 
+                                                            </div>
+                                                            IMAGE : <br />
+                                                            <img src="<?=base_url()?>/assets/images/gallery/foto/img-1.jpg" style="width:100%"/>
                                                             <!-- <span id="download">DOWNLOAD : <button class="btn btn-sm btn-success" style="border-radius:50%"><i class="fa fa-download"></i> </button>
                                                             </span> -->
                                                             </div>

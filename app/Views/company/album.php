@@ -40,6 +40,7 @@
                     <div class="col-md-6">
                         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                             <div>
+                                <a href="<?=base_url()?>/gallery-foto/manage-album" class="btn btn-info"><i class="bx bx-photo-album me-1"></i> <?=lang('Files.Manage').' '.lang('Files.Album')?></a>
                                 <a href="#" class="btn btn-light"><i class="bx bx-plus me-1"></i> <?=lang('Files.Add').' '.lang('Files.New')?></a>
                             </div>
                         </div>
@@ -64,7 +65,7 @@
                             <a class="buttons next" href="#">></a>
                             <?php
                             else : ?>
-                            <ul class="card-list">
+                            <ul class="card-list" onclick="openAlbum(<?=$row->categoryid?>)">
                             <li>
                                 <h3 style="position:absolute; left:50%; top:50%; transform: translate(-50%, -50%) rotate(-45deg); color: rgba(10,20,10,.5)"><?=lang('Files.Empty')?></h3>
                                 <img src="<?=base_url()?>/assets/images/gallery/default.jpeg" class="img-stack" /></li>
@@ -136,7 +137,7 @@
 <!-- JAVASCRIPT -->
 <?= $this->include('partials/vendor-scripts') ?>
 
-<script src="assets/js/app.js"></script>
+<script src="<?=base_url()?>/assets/js/app.js"></script>
 <script type="text/javascript">
      
     function openAlbum(id)

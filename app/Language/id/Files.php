@@ -217,6 +217,10 @@ return [
     "Upload_Success" => "Upload Data Berhasil",
     "Empty" => "Kosong",
     "Back" => "Kembali",
+    "Manage" => "Atur",
+    "Manage_Album" => "Atur Album",
+    "Manage_Photo" => "Atur Foto",
+    "Gallery_Photo" => "Galeri Foto",
     
     // Menu
     "group-divisi" => 'Grup Divisi',
