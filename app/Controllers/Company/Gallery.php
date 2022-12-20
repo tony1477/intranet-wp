@@ -41,7 +41,7 @@ class Gallery extends BaseController
         $menu = getMenu($user='Admin');
         $limit = 8;
         $offset = 0;
-        $gallery = $this->gallery->where(['gallerytype'=>1,'categoryid'=>$id])->findAll($limit,$offset);
+        $gallery = $this->gallery->where(['gallerytype'=>1,'categoryid'=>$id,'status'=>1])->findAll($limit,$offset);
         //$submenu = getSubmenu($moduleid=0);
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Gallery_Foto']),
@@ -119,20 +119,20 @@ class Gallery extends BaseController
 		return view('master/m_view', $data);
     }
 
-    public function manageFoto()
+    public function manageFoto($id)
     {
         $this->entity = new \App\Entities\GalleryCategory();
         helper(['admin_helper']);
         helper(['master_helper']);
         $menu = getMenu($user='Admin');
-        $gallery = $this->gallery->getGallery()->getResult();
-        $categories = $this->album->findAll();
+        $gallery = $this->gallery->getGallery($id)->getResult();
+        $categories = $this->album->where('categoryid',$id)->findAll();
         //$submenu = getSubmenu($moduleid=0);
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Gallery_Foto']),
 			'page_title' => view('partials/page-title', ['title' => 'Album', 'li_1' => 'Intranet', 'li_2' => 'Gallery_Foto']),
 			'modules' => $menu,
-            'route'=>'gallery-foto/manage-album',
+            'route'=>'gallery-foto/manage-foto',
             'menuname' => 'Gallery',
             'data' => $gallery,
             'modal' => 'modal-md',
@@ -260,6 +260,99 @@ class Gallery extends BaseController
                     'code' => 400
                 );
             }
+        }
+        $response = json_encode($arr);
+        return $response;
+    }
+    
+    public function postFoto()
+    {
+        header("Content-Type: application/json");
+        $arr = array(
+            'fail' => 500,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+        if($this->request->isAJAX()) {
+            try {
+                $datas = $this->request->getVar('data');
+                if(is_object($datas)) {
+                    $datas = (array) $datas;
+                }
+                $data = [
+                    'gallerytype' => 1,
+                    'categoryid' => $datas['idkategori'],
+                    'title' => ($datas['judul']),
+                    'description' => $datas['deskripsi'],
+                    'ishighlight' => ($datas['istampil']=='Y' ? 1 : 0),
+                    'status' => ($datas['isaktif']=='Y' ? 1 : 0),
+                    'updatedby' => user()->username,
+                    'updated_at'=>date('Y-m-d H:i:s'),
+                ];
+                if(isset($datas['nama_url'])) $data = array_merge($data,['url' => $datas['nama_url']]);
+                if($datas['id']!=='') {
+                    $this->gallery->update($datas['id'],$data);
+                    $message = lang('Files.Update_Success');
+                }
+                
+                if($datas['id']==='') {
+                    $newdata = [
+                        'createdby' => user()->username,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                    ];
+                    $data = array_merge($data,$newdata);
+                    $this->gallery->insert($data);
+                    $message = lang('Files.Save_Success');
+                }
+                
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => $message
+                );
+            }catch (\Exception $e) {
+                $arr = array(
+                    'status' => $e->getMessage(),
+                    'code' => 400
+                );
+            }
+        }
+        $response = json_encode($arr);
+        return $response;
+    }
+
+    public function uploadfile($dir)
+    {
+        header("Content-Type: application/json");
+        $arr = array(
+            'status' => 'failed',
+            'code' => 400,
+            'message' => 'Error'
+        );
+        
+        $loc = getcwd().'/assets/images/gallery/foto';
+        $filename = $_FILES['file']['name'];
+
+        /* Choose where to save the uploaded file */
+        $location = $loc.'/'.$filename;
+        
+        /* Save the uploaded file to the local filesystem */
+        try {
+            if(move_uploaded_file($_FILES['file']['tmp_name'], $location)) {
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => 'Uploaded File!',
+                    'filename' => $filename
+                );
+            }
+        }
+        catch(Exception $e) {
+            $arr = array(
+                'status' => 'failed',
+                'code' => 400,
+                'message' => $e->getMessage(),
+            );
         }
         $response = json_encode($arr);
         return $response;

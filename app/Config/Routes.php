@@ -253,6 +253,8 @@ $routes->get('gallery-foto/open-album/(:num)','Company\Gallery::foto/$1');
 $routes->get('gallery-foto/manage-album','Company/Gallery::manageAlbum');
 $routes->get('gallery-foto/manage-foto/(:num)','Company\Gallery::manageFoto/$1');
 $routes->post('gallery-foto/manage-album/post','Company/Gallery::postAlbum');
+$routes->post('gallery-foto/manage-foto/post', 'Company/Gallery::postFoto');
+$routes->post('([a-z]+)/uploadfile/gallery-foto/manage-foto', 'Company\Gallery::uploadfile/$1');
 
 
 ## Website

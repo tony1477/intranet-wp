@@ -72,7 +72,7 @@
                         <div class="project">
                             <img class="project__image" src="<?=base_url().'/assets/images/gallery/foto/'.$row->url?>" />
                             <p><?=$row->title?></p>
-                            <h3 class="grid__title"> <?=$row->description?></h3>
+                            <h3 class="grid__title d-none"> <?=$row->description?></h3>
                             <div class="grid__overlay">
                                 <button class="viewbutton">open details</button>
                             </div>
@@ -83,7 +83,7 @@
                         <div class="overlay__inner">
                             <button class="close">close X</button>
                             <img>
-                            <div id="img-caption">INI TEKS YANG AKAN MUNCUL DI BAWAH</div>
+                            <div id="img-caption"></div>
                         </div>
                         </div>
                     </section>
@@ -144,10 +144,13 @@
 const buttons = document.querySelectorAll('.project');
 const overlay = document.querySelector('.overlay');
 const overlayImage = document.querySelector('.overlay__inner img');
+const imgCaption = document.querySelector('#img-caption')
 
 function open(e) {
   overlay.classList.add('open');
   const src= e.currentTarget.querySelector('img').src;
+  const deskripsi = e.currentTarget.querySelector('.grid__title').innerText
+  imgCaption.innerText = deskripsi
   overlayImage.src = src;
 }
 

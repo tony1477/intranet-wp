@@ -193,15 +193,10 @@
                                                             <div class="form-group mb-3">
                                                                 <label><?=lang('Files.'.$form['label'])?></label>
                                                             <div class="input-group mb-3">
-                                                                <div class="input-group-prepend">
-                                                                <button class="btn btn-success d-none" type="button" id="download<?=$form['idform']?>"><i class="fa fa-download"></i></button>
-                                                                </div>
-                                                            <input type="file" name="file<?=$form['idform']?>" id="file<?=$form['idform']?>" class="<?=$form['form-class']?>" /> 
+                                                            <input type="file" name="file<?=$form['idform']?>" id="file<?=$form['idform']?>" class="<?=$form['form-class']?> img-upload" /> 
                                                             </div>
                                                             IMAGE : <br />
-                                                            <img src="<?=base_url()?>/assets/images/gallery/foto/img-1.jpg" style="width:100%"/>
-                                                            <!-- <span id="download">DOWNLOAD : <button class="btn btn-sm btn-success" style="border-radius:50%"><i class="fa fa-download"></i> </button>
-                                                            </span> -->
+                                                            <img class="f<?=$form['idform']?>" style="width:100%"/>
                                                             </div>
                                                         </div>
                                                         <?php }
@@ -286,13 +281,21 @@
                 action: function ( e, dt, node, config ) {
                     let str = document.querySelector('#static<?=$menuname?>Label')
                     str.innerHTML = '<?=  lang('Files.Add'),' ',lang('Files.'.$menuname)  ?>'
-                    <?php foreach($forms as $form): 
-                        if($form['type'] == 'file') { ?>
+                    <?php foreach($forms as $form):
+                        switch($form['type']) {
+                        case 'file': ?>
                         document.getElementById("file<?=$form['idform']?>").value = '';
                         document.getElementById("f<?=$form['idform']?>").innerHTML = '';
-                        <?php } ?>
+                        <?php break; ?>
+                        <?php case 'file-image': ?>
+                        document.getElementById("file<?=$form['idform']?>").value='';
+                        document.querySelector(".f<?=$form['idform']?>").src = '';
+                        <?php break; ?>
+                        <?php case 'select':?>
+                            let select1 = document.getElementById("<?=$form['idform']?>").removeAttribute('disabled')
+                        <?php default: ?>
                         document.getElementById("<?=$form['idform']?>").value = '';
-                    <?php endforeach;?>
+                    <?php } endforeach;?>
                     $('#edit<?=$menuname?>').modal('show')
                 }
             },
@@ -332,7 +335,7 @@
                     // console.log(<?=$form['idform']?>)
                 <?php break; ?>
                 <?php case 'file': ?>
-                    <?=$form['idform']?> = rowData[i].replace('&amp;','&');
+                    let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
                     let full<?=$form['idform']?> = document.querySelector('#full<?=$form['idform']?>').value;
                     // console.log(full<?=$form['idform']?>)
                     let dwn<?=$form['idform']?> = document.querySelector('#download<?=$form['idform']?>');
@@ -344,6 +347,13 @@
                         document.getElementById("f<?=$form['idform']?>").innerHTML = <?=$form['idform']?>;
                         document.getElementById("f<?=$form['idform']?>").setAttribute('target','_blank');
                         document.getElementById("f<?=$form['idform']?>").href = "<?=base_url()?>/dokumen/<?=$route?>/viewbyfile/"+full<?=$form['idform']?>+"/<?=$form['field']?>"
+                    }
+                <?php break; ?>
+                <?php case 'file-image': ?>
+                    let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
+                    document.getElementById("file<?=$form['idform']?>").value = '';
+                    if(<?=$form['idform']?>!='') {
+                        document.querySelector(".f<?=$form['idform']?>").src = "<?=base_url()?>/assets/images/gallery/foto/"+<?=$form['idform']?>;
                     }
                 <?php break; ?>
                 <?php case 'switch':  ?>
@@ -364,7 +374,7 @@
             <?php if(!isset($bpo)): ?>
             str.innerHTML = '<?=lang('Files.Edit'),' ',lang('Files.'.$menuname)?>'
             <?php foreach($forms as $form) :
-                if($form['type']!='select' && $form['type']!='file' && $form['type']!='switch') { ?>
+                if($form['type']!='select' && $form['type']!='file' && $form['type']!='file-image' && $form['type']!='switch') { ?>
                     // console.log(<?=$form['idform']?>)
                     document.getElementById("<?=$form['idform']?>").value = <?=$form['idform']?>;
                 <?php } ?>
@@ -421,6 +431,12 @@
     const editButton = document.querySelectorAll(".edit<?=$menuname?>");
     const deleteButton = document.querySelectorAll('.delete<?=$menuname?>')
     const saveButton = document.querySelector('.save');
+    const uploadBtn = document.querySelector('.img-upload')
+    
+    uploadBtn.addEventListener('change',function(e){
+        const charlength = e.target.value.length - 12;
+        if(charlength>=100) Swal.fire("Error","Filename too long!!","error")
+    })
     
     // const selected = document.querySelectorAll("input#kode");
     // const $select = document.querySelector('#idgroup')
@@ -534,7 +550,7 @@
                 data.<?=$form['idform']?> = value<?=$form['idform']?>
                 // console.log(value<?=$form['idform']?>);
             <?php } 
-            elseif($form['type']!='file' && $form['type']!='switch') { ?>
+            elseif($form['type']!='file' && $form['type']!='switch' && $form['type']!='file-image') { ?>
                 let <?=$form['field']?> = <?=$form['idform']?>;
                 let value<?=$form['idform']?> = document.forms["<?=$menuname?>"]["<?=$form['idform']?>"].value;
                 // console.log(value<?=$form['idform']?>);
@@ -588,6 +604,38 @@
 
                         $.ajax({
                             url: "<?=base_url()?>/dokumen/uploadfile/<?=$route?>",
+                            enctype: 'multipart/form-data',
+                            type: 'POST',
+                            data: formData<?=$form['idform']?>,
+                            dataType: 'json',
+                            async: false,
+                            success: function (res) {
+                                data.<?=$form['idform']?> = res.filename;
+                                console.log(res.status)
+                                // $('.filesToUpload').empty();
+                            },
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                    }
+                    // data. = datafile;
+                    catch(e) {
+                        console.log('Error :',e);
+                        Swal.fire("Failed!", e, 400);
+                    }
+                }
+            <?php } 
+            if($form['type']=='file-image') { ?>
+                let datafile<?=$form['idform']?> = document.getElementById('file<?=$form['idform']?>').files[0];
+                if(datafile<?=$form['idform']?>!=undefined) {
+                    let name<?=$form['idform']?> = datafile<?=$form['idform']?>.name;
+                    const formData<?=$form['idform']?> = new FormData();
+                    formData<?=$form['idform']?>.append('file',datafile<?=$form['idform']?>)
+                    try {
+                        console.log('uploading...');
+                        $.ajax({
+                            url: "<?=base_url()?>/foto/uploadfile/<?=$route?>",
                             enctype: 'multipart/form-data',
                             type: 'POST',
                             data: formData<?=$form['idform']?>,
