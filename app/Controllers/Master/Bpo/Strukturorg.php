@@ -378,7 +378,7 @@ class Strukturorg extends BaseController
 			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Structure-Org']),
 			'modules' => $menu,
             'route'=>'struktur-organisasi',
-            'menuname' => 'Visi-Misi',
+            'menuname' => 'visimisi',
         ];
         return view('company/visimisi',$data);
     }

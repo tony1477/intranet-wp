@@ -66,7 +66,7 @@
                     <div class="col-md-6 col-lg-6">
                         <div class="card">
                             <div class="card-header align-items-center d-flex">
-                                <h4 class="card-title mb-0 flex-grow-1 fs-3 text-center">Meeting Schedule</h4>
+                                <h4 class="card-title mb-0 flex-grow-1 fs-3 text-center"><?=lang('Files.Meeting_Schedule')?></h4>
                                 <!-- <div class="flex-shrink-0">
                                     <select class="form-select form-select-sm mb-0 my-n1" onchange="changeFunc()" id="select_day">
                                         <option value="Today">Today</option>

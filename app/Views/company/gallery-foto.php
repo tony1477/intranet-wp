@@ -70,18 +70,18 @@
                     <section id="portfolio">
                         <?php foreach($data as $row):?>
                         <div class="project">
-                            <img class="project__image" src="<?=base_url().'/assets/images/gallery/foto/'.$row->url?>" />
-                            <p><?=$row->title?></p>
+                            <img class="project__image" src="<?=base_url().'/assets/images/gallery/foto/'.$row->url?>" alt="Foto-<?=$row->title?>" />
+                            <p class="img-title"><?=$row->title?></p>
                             <h3 class="grid__title d-none"> <?=$row->description?></h3>
                             <div class="grid__overlay">
-                                <button class="viewbutton">open details</button>
+                                <button class="viewbutton"><?=lang('Files.open_details')?></button>
                             </div>
                         </div>
                         <?php endforeach;?>
                         
                         <div class="overlay">
                         <div class="overlay__inner">
-                            <button class="close">close X</button>
+                            <button class="close"><?=lang('Files.Close')?> X</button>
                             <img>
                             <div id="img-caption"></div>
                         </div>
@@ -149,9 +149,11 @@ const imgCaption = document.querySelector('#img-caption')
 function open(e) {
   overlay.classList.add('open');
   const src= e.currentTarget.querySelector('img').src;
+  const imgTitle = e.currentTarget.querySelector('.img-title');
   const deskripsi = e.currentTarget.querySelector('.grid__title').innerText
   imgCaption.innerText = deskripsi
   overlayImage.src = src;
+  overlayImage.alt = imgTitle.innerText
 }
 
 function close() {

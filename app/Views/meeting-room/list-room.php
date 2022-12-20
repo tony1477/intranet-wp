@@ -39,14 +39,14 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <h5 class="card-title">Room List </span></h5>
+                            <h5 class="card-title"><?=lang('Files.Room_List')?> </span></h5>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                             <div>
-                                <a href="<?=base_url()?>/meeting-schedule/booking/" class="btn btn-light"><i class="bx bx-plus me-1"></i> Buat Peminjaman Ruangan</a>
+                                <a href="<?=base_url()?>/meeting-schedule/booking/" class="btn btn-light"><i class="bx bx-plus me-1"></i> <?=lang('Files.Request_Room')?></a>
                             </div>
                         </div>
 
@@ -59,11 +59,11 @@
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
-                                <th scope="col">Room Name</th>
-                                <th scope="col">Position</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Peminjam</th>
-                                <th style="width: 80px; min-width: 80px;">Action</th>
+                                <th scope="col"><?=lang('Files.Room_Name')?></th>
+                                <th scope="col"><?=lang('Files.Area')?></th>
+                                <th scope="col"><?=lang('Files.Status')?></th>
+                                <th scope="col"><?=lang('Files.Requester')?></th>
+                                <th style="width: 80px; min-width: 80px;"><?=lang('Files.Action')?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -89,10 +89,10 @@
                                             <i class="bx bx-dots-horizontal-rounded"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/<?=str_replace(' ','-',strtolower($row->nama_ruangan))?>"><i class="btn-primary btn-rounded  bx bx-chevrons-right label-icon waves-effect waves-light"></i> Lihat Jadwal</a></li>
-                                            <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/booking/<?=str_replace(' ','-',strtolower($row->nama_ruangan))?>"><i class="btn-light btn-rounded bx bx-purchase-tag-alt label-icon waves-effect waves-light"></i> Ajukan Peminjaman</a></li>
+                                            <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/<?=str_replace(' ','-',strtolower($row->nama_ruangan))?>"><i class="btn-primary btn-rounded  bx bx-chevrons-right label-icon waves-effect waves-light"></i> <?=lang('Files.View_Schedule')?></a></li>
+                                            <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/booking/<?=str_replace(' ','-',strtolower($row->nama_ruangan))?>"><i class="btn-light btn-rounded bx bx-purchase-tag-alt label-icon waves-effect waves-light"></i> <?=lang('Files.Request_Room')?></a></li>
                                             <div class="dropdown-divider"></div>
-                                            <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/booking/<?=str_replace(' ','-',strtolower($row->nama_ruangan))?>"><i class="btn-success btn-rounded bx bx-check-double label-icon waves-effect waves-light"></i> Selesai Meeting</a></li>
+                                            <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/booking/<?=str_replace(' ','-',strtolower($row->nama_ruangan))?>"><i class="btn-success btn-rounded bx bx-check-double label-icon waves-effect waves-light"></i> <?=lang('Files.Finish').' '.lang('Files.Meeting')?></a></li>
                                         </ul>
                                     </div>
                                 </td>

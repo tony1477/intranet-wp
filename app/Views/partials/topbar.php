@@ -8,7 +8,7 @@
                         <img src="<?=base_url()?>/assets/images/logo.png" alt="" height="24">
                     </span>
                     <span class="logo-lg">
-                        <img src="<?=base_url()?>/assets/images/logo.png" alt="" height="24"> <span class="logo-txt">WPG</span>
+                        <img src="<?=base_url()?>/assets/images/logo.png" alt="" height="24"> <span class="logo-txt">WILIAN PERKASA</span>
                     </span>
                 </a>
 
@@ -17,7 +17,7 @@
                         <img src="<?=base_url()?>/assets/images/logo-white.png" alt="" height="24">
                     </span>
                     <span class="logo-lg">
-                        <img src="<?=base_url()?>/assets/images/logo-white.png" alt="" height="24"> <span class="logo-txt">WPG</span>
+                        <img src="<?=base_url()?>/assets/images/logo-white.png" alt="" height="24"> <span class="logo-txt">WILIAN PERKASA</span>
                     </span>
                 </a>
             </div>

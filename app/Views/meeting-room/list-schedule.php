@@ -70,12 +70,12 @@
                                         <label class="form-check-label" for="checkAll"></label>
                                     </div>
                                 </th>
-                                <th scope="col"><?=lang('Files.Name')?></th>
+                                <th scope="col"><?=lang('Files.Room_Name')?></th>
                                 <th scope="col"><?=lang('Files.Date')?></th>
                                 <th scope="col"><?=lang('Files.Event')?></th>
                                 <th scope="col"><?=lang('Files.Name_Department')?></th>
                                 <th scope="col"><?=lang('Files.Status')?></th>
-                                <th style="width: 80px; min-width: 80px;">Action</th>
+                                <th style="width: 80px; min-width: 80px;"><?=lang('Files.Action')?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -125,7 +125,7 @@
                                             <i class="bx bx-dots-horizontal-rounded"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/detail/<?=$list->idpeminjaman?>"><i class="btn-primary btn-rounded  bx bx-chevrons-right label-icon waves-effect waves-light"></i> Lihat Detail</a></li>
+                                            <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/detail/<?=$list->idpeminjaman?>"><i class="btn-primary btn-rounded  bx bx-chevrons-right label-icon waves-effect waves-light"></i> <?=lang('Files.View_Detail')?></a></li>
                                             <?php if($list->status == 1):?>
                                                 <?php if(has_permission('approval-meeting')):?>
                                                 <div class="dropdown-divider"></div>

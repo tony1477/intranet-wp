@@ -21,7 +21,7 @@ class Support extends BaseController
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Category']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Category']),
+			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Policy']),
 			'modules' => $menu,
             'route' => 'kebijakan',
             'menuname' => 'Policy',
@@ -74,7 +74,7 @@ class Support extends BaseController
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Category']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Category']),
+			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'manual']),
 			'modules' => $menu,
             'route' => 'manual',
             'menuname' => 'Manual',
@@ -127,7 +127,7 @@ class Support extends BaseController
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Category']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Category']),
+			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'sop']),
 			'modules' => $menu,
             'route' => 'sop',
             'menuname' => 'SOP',
@@ -180,7 +180,7 @@ class Support extends BaseController
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Category']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Category']),
+			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'instruksi']),
 			'modules' => $menu,
             'route' => 'kebijakan',
             'menuname' => 'Work_Instruction',
@@ -233,7 +233,7 @@ class Support extends BaseController
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Category']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Category']),
+			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'lain']),
 			'modules' => $menu,
             'route' => 'lainnya',
             'menuname' => 'Others',

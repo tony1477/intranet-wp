@@ -38,7 +38,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title mb-0">Form Peminjaman Ruang <?=$nama != '' ? $nama : 'Meeting'?></h4>
+                                <h4 class="card-title mb-0"><?=lang('Files.Form_Request_Room')?> <?=$nama != '' ? $nama : 'Meeting'?></h4>
                             </div>
                             <div class="card-body" style="border:0px solid #000; height:70vh">
                                 <div id="basic-pills-wizard" class="twitter-bs-wizard">
@@ -205,7 +205,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
-                                                                <label class="form-label"><?=lang('Files.Choose')?></label>
+                                                                <label class="form-label"><?=lang('Files.Room_Name')?></label>
                                                                 <select class="form-select" id="room">
                                                                     <option selected>- Pilih -</option>
                                                                     <?php foreach($room as $list)  : ?>
@@ -216,7 +216,7 @@
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
-                                                                <label for="basicpill-namecard-input" class="form-label"><?=lang('Files.Kebutuhan')?></label>
+                                                                <label for="basicpill-namecard-input" class="form-label"><?=lang('Files.Requirement')?></label>
                                                                 <input type="text" class="form-control" name="kebutuhan" id="requirement" >
                                                             </div>
                                                         </div>
@@ -225,7 +225,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
-                                                                <label for="basicpill-cardno-input" class="form-label"><?=lang('Files.Notulen_Meeting')?></label>
+                                                                <label for="basicpill-cardno-input" class="form-label"><?=lang('Files.Notulen')?></label>
                                                                 <input type="text" class="form-control" name="notulen" id="notulen">
                                                             </div>
                                                         </div>

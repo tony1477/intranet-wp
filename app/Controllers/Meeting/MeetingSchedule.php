@@ -18,12 +18,12 @@ class MeetingSchedule extends BaseController
         helper(['admin_helper']);
         helper(['meeting_helper']);
         $menu = getMenu($user='Admin');
-        $data = getListSchedule();
+        $list = getListSchedule();
         $data = [
             'title_meta' => view('partials/title-meta', ['title' => 'Meeting_Room']),
 			'page_title' => view('partials/page-title', ['title' => 'Meeting_Room', 'li_1' => 'Intranet', 'li_2' => 'Meeting_Schedule']),
 			'modules' => $menu,
-            'data' => $data,
+            'data' => $list,
         ];
         return view('meeting-room/list-schedule',$data);
     }
@@ -163,7 +163,7 @@ class MeetingSchedule extends BaseController
             return redirect()->to('/meeting-schedule');
         endif;
 
-        $status;
+        $status=null;
         switch ($action) {
             case "approve":
                 $status=2;

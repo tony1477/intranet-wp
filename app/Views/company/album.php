@@ -41,7 +41,7 @@
                         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                             <div>
                                 <a href="<?=base_url()?>/gallery-foto/manage-album" class="btn btn-info"><i class="bx bx-photo-album me-1"></i> <?=lang('Files.Manage').' '.lang('Files.Album')?></a>
-                                <a href="#" class="btn btn-light"><i class="bx bx-plus me-1"></i> <?=lang('Files.Add').' '.lang('Files.New')?></a>
+                                <!-- <a href="#" class="btn btn-light"><i class="bx bx-plus me-1"></i> <?=lang('Files.Add').' '.lang('Files.New')?></a> -->
                             </div>
                         </div>
 
@@ -59,7 +59,7 @@
                             $exp = explode(',',$row->cover); ?>
                             <ul class="card-list" onclick="openAlbum(<?=$row->categoryid?>)">
                             <?php for($i=0; $i<count($exp); $i++):?>
-                                <li><img src="<?=base_url()?>/assets/images/gallery/foto/<?=$exp[$i]?>" class="img-stack" /></li>
+                                <li><img src="<?=base_url()?>/assets/images/gallery/foto/<?=$exp[$i]?>" class="img-stack" alt="<?=$row->categoryname?>" /></li>
                             <?php endfor;?>
                             </ul>
                             <a class="buttons next" href="#">></a>
@@ -68,7 +68,7 @@
                             <ul class="card-list" onclick="openAlbum(<?=$row->categoryid?>)">
                             <li>
                                 <h3 style="position:absolute; left:50%; top:50%; transform: translate(-50%, -50%) rotate(-45deg); color: rgba(10,20,10,.5)"><?=lang('Files.Empty')?></h3>
-                                <img src="<?=base_url()?>/assets/images/gallery/default.jpeg" class="img-stack" /></li>
+                                <img src="<?=base_url()?>/assets/images/gallery/default.jpeg" class="img-stack" alt="<?=lang('Files.Empty')?>"/></li>
                             </ul>
                             <?php endif;?>
                         </div>

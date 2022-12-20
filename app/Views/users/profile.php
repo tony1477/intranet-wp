@@ -48,19 +48,19 @@
                                     </div>
                                     <div class="col-sm-8">
                                         <div class="row mb-3">
-                                            <label for="fullname" class="col-form-label col-sm-4 text-end">Fullname</label>
+                                            <label for="fullname" class="col-form-label col-sm-4 text-end"><?=lang('Files.Fullname')?></label>
                                             <div class="col-sm-8">    
                                                 <input type="text" name="fullname" value="<?=user()->fullname?>" class="form-control" placeholder="Silahkan isi Nama Lengkap Anda" />
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label for="username" class="col-form-label col-sm-4 text-end">Username</label>
+                                            <label for="username" class="col-form-label col-sm-4 text-end"><?=lang('Files.Username')?></label>
                                             <div class="col-sm-8">    
                                                 <input type="text" name="username" value="<?=user()->username?>" class="form-control" placeholder="Silahkan isi username Anda" />
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label for="email" class="col-form-label col-sm-4 text-end">Email</label>
+                                            <label for="email" class="col-form-label col-sm-4 text-end"><?=lang('Files.Email')?></label>
                                             <div class="col-sm-8">    
                                             <input type="email" name="email" value="<?=user()->email?>" class="form-control" aria-describedby="emailHelpBlock" readonly/>
                                             <div id="emailHelpBlock" class="form-text">
@@ -69,7 +69,7 @@
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label for="password" class="col-form-label col-sm-4 text-end">Password</label>
+                                            <label for="password" class="col-form-label col-sm-4 text-end"><?=lang('Files.Password')?></label>
                                             <div class="col-sm-8">    
                                             <input type="password" name="password" value="********" class="form-control" aria-describedby="passwordHelpBlock" placeholder="Password tidak boleh kosong!" />
                                             <div id="passwordHelpBlock" class="form-text">
