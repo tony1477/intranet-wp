@@ -79,22 +79,22 @@
                             <div class="card-body px-0">
                                 <div class="px-3" data-simplebar="init" style="max-height: 35vh;"><div class="simplebar-wrapper" style="margin: 0px -16px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: -15px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: auto; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px 16px;">
                                     <ul class="list-unstyled activity-wid mb-0" id="ulMeeting">
-
+                                    <?php foreach($data['meeting'] as $meeting):?>
                                     <li class="activity-list activity-border" id="liMeeting">
                                         <div class="activity-icon avatar-md">
                                             <span class="avatar-title bg-soft-warning text-warning rounded-circle">
-                                            <i class="bx bxs-report font-size-24"></i>
+                                            <i class="bx bxs-bookmark font-size-24"></i>
                                             </span>
                                         </div>
                                         <div class="timeline-list-item">
                                             <div class="d-flex">
                                                 <div class="flex-grow-1 overflow-hidden me-4">
-                                                    <h5 class="font-size-14 mb-1">24/05/2021, 18:24:56</h5>
-                                                    <p class="text-truncate text-muted font-size-13">Bapak Purwantoro, Ibu Lainy, Bapak Hermansyah, Ibu Ocni, Ibu Widiyati, Bapak Daud</p>
+                                                    <h5 class="font-size-14 mb-1"><?=date('d-M-Y',strtotime($meeting->tgl_mulai))?>, <?=$meeting->jam_mulai?></h5>
+                                                    <p class="text-truncate text-muted font-size-13"><?=$meeting->nama_peserta?></p>
                                                 </div>
                                                 <div class="flex-shrink-0 text-end me-3">
                                                     <h6 class="mb-1">Pemateri </h6>
-                                                    <div class="font-size-13">Bapak Errry Wilian</div>
+                                                    <div class="font-size-13"><?=$meeting->pemateri?></div>
                                                 </div>
 
                                                 <div class="flex-shrink-0 text-end">
@@ -104,7 +104,7 @@
                                                         </a>
     
                                                         <div class="dropdown-menu dropdown-menu-end" style="">
-                                                            <a class="dropdown-item" href="#">Lihat Detail</a>
+                                                            <a class="dropdown-item" href="<?=base_url().'/meeting-schedule/detail/'.$meeting->idpeminjaman?>">Lihat Detail</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item" href="#">Selesai Meeting</a>
                                                         </div>
@@ -113,206 +113,8 @@
                                             </div>
                                         </div> 
                                     </li>
+                                    <?php endforeach;?>
                                     
-                                    <li class="activity-list activity-border" id="liMeeting">
-                                        <div class="activity-icon avatar-md">
-                                            <span class="avatar-title bg-soft-warning text-warning rounded-circle">
-                                            <i class="bx bxs-report font-size-24"></i>
-                                            </span>
-                                        </div>
-                                        <div class="timeline-list-item">
-                                            <div class="d-flex">
-                                                <div class="flex-grow-1 overflow-hidden me-4">
-                                                    <h5 class="font-size-14 mb-1">24/05/2021, 18:24:56</h5>
-                                                    <p class="text-truncate text-muted font-size-13">Bapak Purwantoro, Ibu Lainy, Bapak Hermansyah, Ibu Ocni, Ibu Widiyati, Bapak Daud</p>
-                                                </div>
-                                                <div class="flex-shrink-0 text-end me-3">
-                                                    <h6 class="mb-1">Pemateri </h6>
-                                                    <div class="font-size-13">Bapak Errry Wilian</div>
-                                                </div>
-
-                                                <div class="flex-shrink-0 text-end">
-                                                    <div class="dropdown">
-                                                        <a class="text-muted dropdown-toggle font-size-24" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="mdi mdi-dots-vertical"></i>
-                                                        </a>
-    
-                                                        <div class="dropdown-menu dropdown-menu-end" style="">
-                                                            <a class="dropdown-item" href="#">Lihat Detail</a>
-                                                            <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" href="#">Selesai Meeting</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </li>
-                                    <li class="activity-list activity-border" id="liMeeting">
-                                        <div class="activity-icon avatar-md">
-                                            <span class="avatar-title bg-soft-warning text-warning rounded-circle">
-                                            <i class="bx bxs-report font-size-24"></i>
-                                            </span>
-                                        </div>
-                                        <div class="timeline-list-item">
-                                            <div class="d-flex">
-                                                <div class="flex-grow-1 overflow-hidden me-4">
-                                                    <h5 class="font-size-14 mb-1">24/05/2021, 18:24:56</h5>
-                                                    <p class="text-truncate text-muted font-size-13">Bapak Purwantoro, Ibu Lainy, Bapak Hermansyah, Ibu Ocni, Ibu Widiyati, Bapak Daud</p>
-                                                </div>
-                                                <div class="flex-shrink-0 text-end me-3">
-                                                    <h6 class="mb-1">Pemateri </h6>
-                                                    <div class="font-size-13">Bapak Errry Wilian</div>
-                                                </div>
-
-                                                <div class="flex-shrink-0 text-end">
-                                                    <div class="dropdown">
-                                                        <a class="text-muted dropdown-toggle font-size-24" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="mdi mdi-dots-vertical"></i>
-                                                        </a>
-    
-                                                        <div class="dropdown-menu dropdown-menu-end" style="">
-                                                            <a class="dropdown-item" href="#">Lihat Detail</a>
-                                                            <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" href="#">Selesai Meeting</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </li>
-                                    <li class="activity-list activity-border" id="liMeeting">
-                                        <div class="activity-icon avatar-md">
-                                            <span class="avatar-title bg-soft-warning text-warning rounded-circle">
-                                            <i class="bx bxs-report font-size-24"></i>
-                                            </span>
-                                        </div>
-                                        <div class="timeline-list-item">
-                                            <div class="d-flex">
-                                                <div class="flex-grow-1 overflow-hidden me-4">
-                                                    <h5 class="font-size-14 mb-1">24/05/2021, 18:24:56</h5>
-                                                    <p class="text-truncate text-muted font-size-13">Bapak Purwantoro, Ibu Lainy, Bapak Hermansyah, Ibu Ocni, Ibu Widiyati, Bapak Daud</p>
-                                                </div>
-                                                <div class="flex-shrink-0 text-end me-3">
-                                                    <h6 class="mb-1">Pemateri </h6>
-                                                    <div class="font-size-13">Bapak Errry Wilian</div>
-                                                </div>
-
-                                                <div class="flex-shrink-0 text-end">
-                                                    <div class="dropdown">
-                                                        <a class="text-muted dropdown-toggle font-size-24" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="mdi mdi-dots-vertical"></i>
-                                                        </a>
-    
-                                                        <div class="dropdown-menu dropdown-menu-end" style="">
-                                                            <a class="dropdown-item" href="#">Lihat Detail</a>
-                                                            <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" href="#">Selesai Meeting</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </li>
-                                    <li class="activity-list activity-border" id="liMeeting">
-                                        <div class="activity-icon avatar-md">
-                                            <span class="avatar-title bg-soft-warning text-warning rounded-circle">
-                                            <i class="bx bxs-report font-size-24"></i>
-                                            </span>
-                                        </div>
-                                        <div class="timeline-list-item">
-                                            <div class="d-flex">
-                                                <div class="flex-grow-1 overflow-hidden me-4">
-                                                    <h5 class="font-size-14 mb-1">24/05/2021, 18:24:56</h5>
-                                                    <p class="text-truncate text-muted font-size-13">Bapak Purwantoro, Ibu Lainy, Bapak Hermansyah, Ibu Ocni, Ibu Widiyati, Bapak Daud</p>
-                                                </div>
-                                                <div class="flex-shrink-0 text-end me-3">
-                                                    <h6 class="mb-1">Pemateri </h6>
-                                                    <div class="font-size-13">Bapak Errry Wilian</div>
-                                                </div>
-
-                                                <div class="flex-shrink-0 text-end">
-                                                    <div class="dropdown">
-                                                        <a class="text-muted dropdown-toggle font-size-24" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="mdi mdi-dots-vertical"></i>
-                                                        </a>
-    
-                                                        <div class="dropdown-menu dropdown-menu-end" style="">
-                                                            <a class="dropdown-item" href="#">Lihat Detail</a>
-                                                            <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" href="#">Selesai Meeting</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </li>
-                                    <li class="activity-list activity-border" id="liMeeting">
-                                        <div class="activity-icon avatar-md">
-                                            <span class="avatar-title bg-soft-warning text-warning rounded-circle">
-                                            <i class="bx bxs-report font-size-24"></i>
-                                            </span>
-                                        </div>
-                                        <div class="timeline-list-item">
-                                            <div class="d-flex">
-                                                <div class="flex-grow-1 overflow-hidden me-4">
-                                                    <h5 class="font-size-14 mb-1">24/05/2021, 18:24:56</h5>
-                                                    <p class="text-truncate text-muted font-size-13">Bapak Purwantoro, Ibu Lainy, Bapak Hermansyah, Ibu Ocni, Ibu Widiyati, Bapak Daud</p>
-                                                </div>
-                                                <div class="flex-shrink-0 text-end me-3">
-                                                    <h6 class="mb-1">Pemateri </h6>
-                                                    <div class="font-size-13">Bapak Errry Wilian</div>
-                                                </div>
-
-                                                <div class="flex-shrink-0 text-end">
-                                                    <div class="dropdown">
-                                                        <a class="text-muted dropdown-toggle font-size-24" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="mdi mdi-dots-vertical"></i>
-                                                        </a>
-    
-                                                        <div class="dropdown-menu dropdown-menu-end" style="">
-                                                            <a class="dropdown-item" href="#">Lihat Detail</a>
-                                                            <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" href="#">Selesai Meeting</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </li>
-                                    <li class="activity-list activity-border" id="liMeeting">
-                                        <div class="activity-icon avatar-md">
-                                            <span class="avatar-title bg-soft-warning text-warning rounded-circle">
-                                            <i class="bx bxs-report font-size-24"></i>
-                                            </span>
-                                        </div>
-                                        <div class="timeline-list-item">
-                                            <div class="d-flex">
-                                                <div class="flex-grow-1 overflow-hidden me-4">
-                                                    <h5 class="font-size-14 mb-1">24/05/2021, 18:24:56</h5>
-                                                    <p class="text-truncate text-muted font-size-13">Bapak Purwantoro, Ibu Lainy, Bapak Hermansyah, Ibu Ocni, Ibu Widiyati, Bapak Daud</p>
-                                                </div>
-                                                <div class="flex-shrink-0 text-end me-3">
-                                                    <h6 class="mb-1">Pemateri </h6>
-                                                    <div class="font-size-13">Bapak Errry Wilian</div>
-                                                </div>
-
-                                                <div class="flex-shrink-0 text-end">
-                                                    <div class="dropdown">
-                                                        <a class="text-muted dropdown-toggle font-size-24" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="mdi mdi-dots-vertical"></i>
-                                                        </a>
-    
-                                                        <div class="dropdown-menu dropdown-menu-end" style="">
-                                                            <a class="dropdown-item" href="#">Lihat Detail</a>
-                                                            <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" href="#">Selesai Meeting</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </li>
-
                                     <li class="activity-list activity-border">
                                         <div class="timeline-list-item">
                                             <div class="flex-grow-1 overflow-hidden me-4">

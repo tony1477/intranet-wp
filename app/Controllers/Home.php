@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\GalleryModel as Gallery;
+use App\Models\MeetingScheduleModel as Meeting;
 
 class Home extends BaseController
 {
@@ -29,6 +30,7 @@ class Home extends BaseController
         $this->config = config('Auth');
         $this->auth   = service('authentication');
 		$this->gallery = new Gallery();
+		$this->meeting = new Meeting();
     }
 	
 	public function index()
@@ -41,13 +43,15 @@ class Home extends BaseController
 			$sess->set(['meeting_day' => 'Today']);
 		}
 		$foto = $this->gallery->where(['ishighlight'=>1,'gallerytype'=>1])->findAll();
+		$meeting = $this->meeting->orderBy('tgl_mulai', 'desc')->findAll(5,0);
         //$submenu = getSubmenu($moduleid=0);
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Dashboard']),
 			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Dashboard']),
 			'modules' => $menu,
 			'data' => [
-				'foto' => $foto
+				'foto' => $foto,
+				'meeting' => $meeting,
 			],
 			// 'data_meeting' => 
 			// 'session' => $sess

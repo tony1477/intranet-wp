@@ -34,12 +34,27 @@
                         <div class="card">
                             <div class="card-body">
                                 <!-- <hr class="my-4"> -->
-                                <?php foreach($data as $row): ?>
+                                <?php foreach($data as $row):
+                                switch($row->status) {
+                                    case '1' :
+                                    $text = '<span class="text-info">[NEED APPROVAL] </span>';
+                                    break;
+                                    case '2' :
+                                    $text = '<span class="text-primary">[IN-USE] </span>';
+                                    break;
+                                    case '3' :
+                                    $text = '<span class="text-success">[SELESAI] </span>';
+                                    break;
+                                    default: 
+                                    $text = '<span class="text-danger">[CANCEL] </span>';
+                                } ?>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div>
                                             <h5 class="font-size-15 mb-3"><?=lang('Files.Event')?> : </h5>
-                                            <h5 class="font-size-14 mb-2"><?=$row->agenda?> (<?=$row->nama_ruangan?>)<?=$row->status==0 ? " [BATAL]":""?></h5>
+                                            <h5 class="font-size-14 mb-2"><?=$row->agenda?> (<?=$row->nama_ruangan?>) <?=$text?>
+                                            
+                                            </h5>
                                             <p class="mb-1"><?=lang('Files.Date')?> : <?=date('d-m-Y',strtotime($row->tgl_mulai))?></p>
                                             <p><?=lang('Files.Time')?> : <?=$row->jam_mulai?></p>
                                         </div>
