@@ -293,7 +293,7 @@
                         document.querySelector(".f<?=$form['idform']?>").src = '';
                         <?php break; ?>
                         <?php case 'select':?>
-                            let select1 = document.getElementById("<?=$form['idform']?>").removeAttribute('disabled')
+                            let select<?=$form['idform']?> = document.getElementById("<?=$form['idform']?>").removeAttribute('disabled')
                         <?php default: ?>
                         document.getElementById("<?=$form['idform']?>").value = '';
                     <?php } endforeach;?>
@@ -434,10 +434,12 @@
     const saveButton = document.querySelector('.save');
     const uploadBtn = document.querySelector('.img-upload')
     
-    uploadBtn.addEventListener('change',function(e){
-        const charlength = e.target.value.length - 12;
-        if(charlength>=100) Swal.fire("Error","Filename too long!!","error")
-    })
+    if(uploadBtn!==null) {
+        uploadBtn.addEventListener('change',function(e){
+            const charlength = e.target.value.length - 12;
+            if(charlength>=100) Swal.fire("Error","Filename too long!!","error")
+        })
+    }
     
     // const selected = document.querySelectorAll("input#kode");
     // const $select = document.querySelector('#idgroup')
