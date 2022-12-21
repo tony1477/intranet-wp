@@ -7,6 +7,7 @@
     <?= $this->include('partials/sweetalert-css') ?>
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/home.css" />
     <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
 </head>
 
 <?= $this->include('partials/body') ?>

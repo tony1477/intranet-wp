@@ -7,6 +7,7 @@
 
     <?= $this->include('partials/head-css') ?>
     <link rel="stylesheet" href="<?=base_url()?>/assets/css/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
 </head>
 
 <?= $this->include('partials/body') ?>

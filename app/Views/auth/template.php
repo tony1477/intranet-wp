@@ -28,7 +28,7 @@
                                 <div class="d-flex flex-column h-100">
                                     <div class="mb-4 mb-md-5 text-center">
                                         <a href="/" class="d-block auth-logo">
-                                            <img src="<?=base_url() ?>/assets/images/logo.png" alt="" height="28"> <span class="logo-txt ">Wilian Perkasa</span>
+                                            <img src="<?=base_url() ?>/assets/images/logo-baru.png" alt="" height="28"> <span class="logo-txt ">Wilian Perkasa</span>
                                         </a>
                                     </div>
 

@@ -11,6 +11,7 @@
     <!-- <link rel="stylesheet" href="/assets/libs/flatpickr/flatpickr.min.css"> -->
 
     <?= $this->include('partials/head-css') ?>
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
 
 </head>
 

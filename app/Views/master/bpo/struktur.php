@@ -12,6 +12,7 @@
     <!-- Responsive datatable examples -->
     <!-- <link href="assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" /> -->
     <?= $this->include('partials/head-css') ?>
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
     
 </head>
 
