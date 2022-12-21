@@ -5,10 +5,10 @@
             <div class="navbar-brand-box">
                 <a href="/" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="<?=base_url()?>/assets/images/logo.png" alt="" height="24">
+                        <img src="<?=base_url()?>/assets/images/logo-baru.png" alt="" height="24">
                     </span>
                     <span class="logo-lg">
-                        <img src="<?=base_url()?>/assets/images/logo.png" alt="" height="24"> <span class="logo-txt">WILIAN PERKASA</span>
+                        <img src="<?=base_url()?>/assets/images/logo-baru.png" alt="" height="24"> <span class="logo-txt">WILIAN PERKASA</span>
                     </span>
                 </a>
 

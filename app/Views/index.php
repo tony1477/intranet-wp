@@ -6,6 +6,7 @@
     <?= $title_meta ?>
 
     <?= $this->include('partials/head-css') ?>
+    <link rel="stylesheet" href="<?=base_url()?>/assets/css/index.css" type="text/css" />
 </head>
 
 <?= $this->include('partials/body') ?>

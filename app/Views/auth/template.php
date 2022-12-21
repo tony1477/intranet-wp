@@ -28,14 +28,14 @@
                                 <div class="d-flex flex-column h-100">
                                     <div class="mb-4 mb-md-5 text-center">
                                         <a href="/" class="d-block auth-logo">
-                                            <img src="<?=base_url() ?>/assets/images/logo.png" alt="" height="28"> <span class="logo-txt ">WPG</span>
+                                            <img src="<?=base_url() ?>/assets/images/logo.png" alt="" height="28"> <span class="logo-txt ">Wilian Perkasa</span>
                                         </a>
                                     </div>
 
                                     <?= $this->renderSection('content')?>
 
                                     <div class="mt-4 mt-md-5 text-center">
-                                        <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> WPG . All Right Reserved</p>
+                                        <p class="mb-0">© 2022 . All Right Reserved</p>
                                     </div>
                                 </div>
                             </div>
