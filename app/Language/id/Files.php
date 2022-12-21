@@ -251,6 +251,8 @@ return [
     "Requirement" => "Kebutuhan",
     "Notulen" => "Notulen",
     "View_Detail" => "Buka Detail",
+    "Document" => "Dokumen",
+    "Active" => "Aktif",
     
     // Menu
     "group-divisi" => 'Grup Divisi',

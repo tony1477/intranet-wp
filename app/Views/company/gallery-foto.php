@@ -41,7 +41,9 @@
                         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                             <div>
                                 <a href="#" onclick="history.back()" class="btn btn-primary"><i class="bx bx-arrow-back me-1"></i> <?=lang('Files.Back')?></a>
+                                <?php if(has_permission('gallery-permission')): ?>
                                 <a href="<?=base_url()?>/gallery-foto/manage-foto/<?=$categoryid?>" class="btn btn-light"><i class="bx bxs-photo-album me-1"></i> <?=lang('Files.Manage_Photo')?></a>
+                                <?php endif;?>
                             </div>
                         </div>
 

@@ -63,6 +63,7 @@ class Gallery extends BaseController
 
     public function manageAlbum()
     {
+        if(!has_permission('gallery-permission')) return redirect()->route('gallery-foto');
         $this->entity = new \App\Entities\GalleryCategory();
         helper(['admin_helper']);
         helper(['master_helper']);
@@ -121,6 +122,7 @@ class Gallery extends BaseController
 
     public function manageFoto($id)
     {
+        if(!has_permission('gallery-permission')) return redirect()->route('gallery-foto');
         $this->entity = new \App\Entities\GalleryCategory();
         helper(['admin_helper']);
         helper(['master_helper']);
@@ -215,6 +217,7 @@ class Gallery extends BaseController
     
     public function postAlbum()
     {
+        if(!has_permission('gallery-permission')) return redirect()->route('gallery-foto');
         header("Content-Type: application/json");
         $arr = array(
             'fail' => 500,
@@ -267,6 +270,7 @@ class Gallery extends BaseController
     
     public function postFoto()
     {
+        if(!has_permission('gallery-permission')) return redirect()->route('gallery-foto');
         header("Content-Type: application/json");
         $arr = array(
             'fail' => 500,
@@ -323,6 +327,7 @@ class Gallery extends BaseController
 
     public function uploadfile($dir)
     {
+        if(!has_permission('gallery-permission')) return redirect()->route('gallery-foto');
         header("Content-Type: application/json");
         $arr = array(
             'status' => 'failed',
