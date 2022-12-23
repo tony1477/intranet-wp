@@ -172,6 +172,10 @@ $routes->post('group-divisi/post', 'Master/Grupdivisi::save', ['filter' => 'perm
 $routes->get('divisi', 'Master/Divisi::index', ['filter' => 'permission:master-data']);
 $routes->post('divisi/delete', 'Master/Divisi::delete', ['filter' => 'permission:master-data']);
 $routes->post('divisi/post', 'Master/Divisi::save', ['filter' => 'permission:master-data']);
+$routes->get('divisi/getData','Master/Divisi::getData');
+$routes->get('api/getDivisi','Api/CommonApi::getDivisi');
+$routes->get('api/getDepartment','Api/CommonApi::getDepartment');
+$routes->get('api/getJabatan','Api/CommonApi::getJabatan');
 
 ## Department
 $routes->get('department', 'Master/Department::index', ['filter' => 'permission:master-data']);
@@ -256,6 +260,8 @@ $routes->post('gallery-foto/manage-album/post','Company/Gallery::postAlbum');
 $routes->post('gallery-foto/manage-foto/post', 'Company/Gallery::postFoto');
 $routes->post('([a-z]+)/uploadfile/gallery-foto/manage-foto', 'Company\Gallery::uploadfile/$1');
 
+## Article
+$routes->get('article','Company/Article::index');
 
 ## Website
 $routes->get('tentang/profil','Website/About/Profile::index');

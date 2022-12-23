@@ -13,6 +13,7 @@
         <link rel="shortcut icon" href="<?=base_url()?>/assets/images/logo.png">
 
         <?= $this->include('partials/head-css') ?>
+        <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/template.css" />
 
 </head>
 
