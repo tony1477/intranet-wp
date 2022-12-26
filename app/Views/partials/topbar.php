@@ -201,7 +201,7 @@
                     <a class="dropdown-item" href="<?=base_url().'/'.user()->username.'/profile'?>"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> <?= lang('Files.Profile') ?></a>
                    <a class="dropdown-item" href="#"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> <?= lang('Files.Lock_screen') ?></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/logout"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> <?= lang('Files.Logout') ?></a>
+                    <a class="dropdown-item" href="<?=base_url()?>/logout"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> <?= lang('Files.Logout') ?></a>
                 </div>
             </div>
 
