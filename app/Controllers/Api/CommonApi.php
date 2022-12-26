@@ -40,15 +40,15 @@ class CommonApi extends ResourceController {
         return $this->failUnauthorized('NOT AUTHORIZED!');
     }
 
-    public function getDepartment() {
-        if($this->getAuthorized()===true) 
-        {
+    public function getDepartment($id=0) {
+        // if($this->getAuthorized()===true) 
+        // {
             $model = new DepartmentModel();
-            $data = $model->select('iddepartment,dep_nama')->findAll();
+            $data = $model->select('iddepartment,dep_nama')->where('iddivisi',$id)->findAll();
             $data = array_merge(['status'=>'success'],$data);
             return $this->respond($data,200);
-        }
-        return $this->failUnauthorized('NOT AUTHORIZED!');
+        // }
+        // return $this->failUnauthorized('NOT AUTHORIZED!');
     }
 
     public function getJabatan() {

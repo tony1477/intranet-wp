@@ -3,7 +3,7 @@
     <div class="auth-content my-auto">
         <div class="text-center">
             <h5 class="mb-0"><?=lang('Auth.register')?></h5>
-            <p class="text-muted mt-2">Get your free Minia account now.</p>
+            <p class="text-muted mt-2">Silahkan Isi data-data dibawah ini :</p>
         </div>
 
         <?= view('Myth\Auth\Views\_message_block') ?>
@@ -103,11 +103,11 @@
 <script type="text/javascript">
     (function() {
 	'use strict';
+    const listDivisi = document.querySelector('.divisi')
+    const listDepartment = document.querySelector('.department')
+    const listJabatan = document.querySelector('.jabatan')
 	window.addEventListener('load', function() {
 		// Fetch all the forms we want to apply custom Bootstrap validation styles to
-        const listDivisi = document.querySelector('.divisi')
-        const listDepartment = document.querySelector('.department')
-        const listJabatan = document.querySelector('.jabatan')
         getApiData('<?=base_url()?>/api/getDivisi')
         .then(resp => {
             // console.log(resp)
@@ -122,24 +122,6 @@
                 for(let i of data) {
                     opt[i] = new Option(i.div_nama,i.iddivisi);
                     listDivisi.add(opt[i]);
-                }
-            }
-        });
-
-        getApiData('<?=base_url()?>/api/getDepartment')
-        .then(resp => {
-            // console.log(resp)
-            const key = Object.keys(resp)
-            const data = Object.values(resp)
-            const lengthdata = data.length-1;
-
-            let opt = []
-            if(data[lengthdata]=='success') {
-                const index = data.indexOf(data[lengthdata]);
-                if (index > -1) data.splice(index, 1); 
-                for(let i of data) {
-                    opt[i] = new Option(i.dep_nama,i.iddepartment);
-                    listDepartment.add(opt[i]);
                 }
             }
         });
@@ -175,6 +157,30 @@
 		});
 
 	}, false);
+
+    listDivisi.addEventListener('change', (e) => {
+        let options = document.querySelectorAll('.department option');
+        options.forEach(o => o.remove());
+        let val = e.currentTarget.value
+
+        getApiData(`<?=base_url()?>/api/getDepartment/${val}`)
+        .then(resp => {
+            const key = Object.keys(resp)
+            const data = Object.values(resp)
+            const lengthdata = data.length-1;
+            console.log(lengthdata)
+
+            let opt = []
+            if(data[lengthdata]=='success') {
+                const index = data.indexOf(data[lengthdata]);
+                if (index > -1) data.splice(index, 1); 
+                for(let i of data) {
+                    opt[i] = new Option(i.dep_nama,i.iddepartment);
+                    listDepartment.add(opt[i]);
+                }
+            }
+        });
+    })
 })();
 
 </script>
@@ -190,7 +196,23 @@
                 'Content-Type':'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
                 'Authorization' : 'Bearer <?=hash('sha256',getenv('SECRET_KEY').date('Y-m-d H:i'))?>',
-            },
+            },  
+        })
+        return resp.json()
+    }
+
+    async function getDepartmentById() 
+    {
+        const resp = await fetch(url, {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            creadentials: 'same-origin',
+            headers: {
+                'Content-Type':'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization' : 'Bearer <?=hash('sha256',getenv('SECRET_KEY').date('Y-m-d H:i'))?>',
+            },  
         })
         return resp.json()
     }

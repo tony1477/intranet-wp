@@ -189,6 +189,7 @@ $routes->get('divisi/getData','Master/Divisi::getData');
 $routes->get('api/getDivisi','Api/CommonApi::getDivisi');
 $routes->get('api/getDepartment','Api/CommonApi::getDepartment');
 $routes->get('api/getJabatan','Api/CommonApi::getJabatan');
+$routes->get('api/getDepartment/(:num)','Api\CommonApi::getDepartment/$1');
 
 ## Department
 $routes->get('department', 'Master/Department::index', ['filter' => 'permission:master-data']);
