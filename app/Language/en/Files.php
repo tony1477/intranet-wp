@@ -252,6 +252,10 @@ return [
     "View_Detail" => "View Detail",
     "Document" => "Document",
     "Active" => "Active",
+    "are_you_sure?" => "Are You Sure?",
+    "Approval_Activation_User" => "This user want to be activated?",
+    "Activate" => "Activate",
+    "User_Activated" => "User has been Activated!",
 
     // Menu
     "group-divisi" => 'Division Group',

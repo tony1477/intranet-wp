@@ -26,6 +26,19 @@ $routes->set404Override(function(){
 });
 $routes->setAutoRoute(true);
 
+
+$routes->group('', ['namespace' => 'App\Controllers'], static function ($routes) {
+    
+    // Login/out
+    $routes->get('login', 'AuthController::login', ['as' => 'login']);
+    $routes->post('login', 'AuthController::attemptLogin');
+    $routes->get('logout', 'AuthController::logout');
+
+    // Registration
+    $routes->get('register', 'AuthController::register', ['as' => 'register']);
+    $routes->post('register', 'AuthController::attemptRegister');
+});
+
 /*
  * --------------------------------------------------------------------
  * Route Definitions
@@ -223,6 +236,7 @@ $routes->post('group-user/post', 'Master/GroupUser::save', ['filter' => 'permiss
 $routes->get('users', 'Master/Users::index');
 $routes->post('users/delete', 'Master/Users::delete');
 $routes->post('users/post', 'Master/Users::save');
+$routes->post('users/activated', 'Master/Users::activate');
 $routes->post('users/docbyuser', 'Master/Users::docbyuser');
 $routes->post('users/postDoc', 'Master/Users::saveDocByUser');
 $routes->post('users/uploadimage', 'Master/Users::uploadImage');

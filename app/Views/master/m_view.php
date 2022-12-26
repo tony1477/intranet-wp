@@ -60,9 +60,12 @@
                                                     <a class="btn btn-soft-danger waves-effect waves-light btn-sm delete<?=$menuname?>" title="Hapus" ><i class="fas fa-trash-alt" title="<?=lang('Files.Delete')?>"></i></a>
                                                     <?php 
                                                     if(isset($custombutton)):
-                                                        foreach($custombutton as $btn):?>
-                                                        <a class="<?=$btn['class']?> <?=$btn['name']?>" <?=!empty($btn['toggle']) ? 'data-bs-toggle="modal" data-bs-target="#'.$btn['id'].'"' : ''?> title="<?=$btn['title']?>"><i class="<?=$btn['icon-class']?>" title="<?=$btn['title']?>"></i></a>
-                                                    <?php 
+                                                        foreach($custombutton as $btn):
+                                                        if(!empty($btn['toggle'])):?>
+                                                        <a class="<?=$btn['class']?> <?=$btn['name']?>" data-bs-toggle="modal" data-bs-target="#<?=$btn['id']?>" title="<?=$btn['title']?>"><i class="<?=$btn['icon-class']?>" title="<?=$btn['title']?>"></i></a>
+                                                    <?php else: ?>
+                                                        <a class="<?=$btn['class']?>" title="<?=$btn['title']?>"><i class="<?=$btn['icon-class']?>" title="<?=$btn['title']?>"></i></a>
+                                                    <?php endif;
                                                     endforeach;
                                                     endif;?>
                                                 </td>

@@ -253,6 +253,10 @@ return [
     "View_Detail" => "Buka Detail",
     "Document" => "Dokumen",
     "Active" => "Aktif",
+    "are_you_sure?" => "Apakah Anda Yakin?",
+    "Approval_Activation_User" => "User ini akan di aktifkan?",
+    "Activate" => "Aktifkan",
+    "User_Activated" => "User sudah di aktifkan.",
     
     // Menu
     "group-divisi" => 'Grup Divisi',

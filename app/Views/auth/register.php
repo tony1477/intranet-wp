@@ -28,6 +28,14 @@
             </div>
 
             <div class="mb-3">
+                <label for="fullname" class="form-label"><?=lang('Auth.fullname')?></label>
+                <input type="text" class="form-control <?php if (session('errors.fullname')) : ?>is-invalid<?php endif ?>" name="fullname" placeholder="Enter Fullname" value="<?= old('fullname') ?>" required>
+                <div class="invalid-feedback">
+                    Please Enter Fullname
+                </div>  
+            </div>
+
+            <div class="mb-3">
                 <label for="userpassword" class="form-label"><?=lang('Auth.password')?></label>
                 <input type="password" class="form-control <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" name="password" placeholder="Enter password" autocomplete="off" required>
                 <div class="invalid-feedback">
@@ -45,7 +53,7 @@
 
             <div class="mb-3">
                 <label for="divisi" class="form-label"><?=lang('Files.Location')?></label>
-                <select name="divisi" class="form-select divisi" placeholder="<?=lang('Files.Location')?>" autocomplete="off" required>
+                <select name="iddivisi" class="form-select divisi" placeholder="<?=lang('Files.Location')?>" autocomplete="off" required>
                     <option value=""></option>
                 </select>
                 <div class="invalid-feedback">
@@ -55,7 +63,7 @@
 
             <div class="mb-3">
                 <label for="department" class="form-label"><?=lang('Files.Department')?></label>
-                <select name="department" class="form-select department" placeholder="<?=lang('Files.Department')?>" autocomplete="off" required>
+                <select name="iddepartment" class="form-select department" placeholder="<?=lang('Files.Department')?>" autocomplete="off" required>
                     <option value=""></option>
                 </select>
                 <div class="invalid-feedback">
@@ -65,7 +73,7 @@
 
             <div class="mb-3">
                 <label for="jabatan" class="form-label"><?=lang('Files.Position')?></label>
-                <select name="jabatan" class="form-select jabatan" placeholder="<?=lang('Files.Position')?>" autocomplete="off" required>
+                <select name="idjabatan" class="form-select jabatan" placeholder="<?=lang('Files.Position')?>" autocomplete="off" required>
                     <option value=""></option>
                 </select>
                 <div class="invalid-feedback">

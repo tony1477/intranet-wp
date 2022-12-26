@@ -3,9 +3,11 @@
 namespace App\Controllers\Master;
 use App\Controllers\BaseController;
 use Myth\Auth\Config\Auth as AuthConfig;
+use CodeIgniter\API\ResponseTrait;
 
 class Users extends BaseController
 {
+    use ResponseTrait;
     public $model = null;
     protected $config;
     public function __construct()
@@ -57,7 +59,16 @@ class Users extends BaseController
                     'icon-class' => 'dripicons-document',
                     'loadfile' => 'master/_partials/docbyuser',
                     'scriptfile' => 'master/_partials/script/docbyuser',
-
+                ],
+                'Button2' => [
+                    // 'toggle' => true,
+                    'id' => 'activeUser',
+                    'name' => 'activeUser',
+                    'title' => lang('Files.activeUser'),
+                    'class' => 'btn btn-soft-primary waves-effect waves-light btn-sm activeUser',
+                    'icon-class' => 'fas fa-check',
+                    'loadfile' => 'master/_partials/activeuser',
+                    'scriptfile' => 'master/_partials/script/activeuser',
                 ],
             ),
             'forms' => [
@@ -227,6 +238,17 @@ class Users extends BaseController
         return $response;
     }
 
+    public function activate() {
+        $id = $this->request->getVar('id');
+
+        // $users = new \App\Models\UserModel();
+        $user = new \App\Entities\User();
+        $user->id = $id;
+        $user->activate();
+        $this->model->save($user);
+        if(!$user->hasChanged('active')) return $this->failNotFound('No Data to Update');
+        return $this->setResponseFormat('json')->respond(['success' => true]);
+    }
     public function uploadImage()
     {
         header("Content-Type: application/json");
