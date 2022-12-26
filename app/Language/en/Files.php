@@ -256,6 +256,8 @@ return [
     "Approval_Activation_User" => "This user want to be activated?",
     "Activate" => "Activate",
     "User_Activated" => "User has been Activated!",
+    "Location" => "Location",
+    "phone" => "Phone Number",
 
     // Menu
     "group-divisi" => 'Division Group',

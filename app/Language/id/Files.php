@@ -257,6 +257,8 @@ return [
     "Approval_Activation_User" => "User ini akan di aktifkan?",
     "Activate" => "Aktifkan",
     "User_Activated" => "User sudah di aktifkan.",
+    "Location" => "Lokasi",
+    "phone" => "Nomor HP",
     
     // Menu
     "group-divisi" => 'Grup Divisi',
