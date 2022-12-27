@@ -4,6 +4,7 @@ namespace App\Controllers\Master;
 use App\Controllers\BaseController;
 use Myth\Auth\Config\Auth as AuthConfig;
 use CodeIgniter\API\ResponseTrait;
+use Config\Email;
 
 class Users extends BaseController
 {
@@ -241,12 +242,28 @@ class Users extends BaseController
     public function activate() {
         $id = $this->request->getVar('id');
 
-        // $users = new \App\Models\UserModel();
-        $user = new \App\Entities\User();
-        $user->id = $id;
+        $userModel = new \App\Models\UserModel();
+        // $user = new \App\Entities\User();
+        $user = $userModel->find($id);
         $user->activate();
         $this->model->save($user);
-        if(!$user->hasChanged('active')) return $this->failNotFound('No Data to Update');
+        if(!$user->hasChanged('active')) return $this->fail('No Data to Update');
+        /**
+         * Send Email success activation 
+         * */ 
+        if($user->email != '') {
+            $email  = service('email');
+            $config = new Email();
+            $fromEmail = 'dont-reply@wilianperkasa.com';
+            $fromName = 'Info Pendaftaran';
+
+            $sent = $email->setFrom($fromEmail, $fromName)
+                ->setTo($user->email)
+                ->setSubject(lang('Auth.activationSubject'))
+                ->setMessage(view('email/activation',['email'=>$user->email]))
+                ->setMailType('html')
+                ->send();
+        }
         return $this->setResponseFormat('json')->respond(['success' => true]);
     }
     public function uploadImage()

@@ -9,6 +9,7 @@ for(let i=0; i<btn.length; i++) {
             let idx = t1.row( this ).data()[1]
             let nama = t1.row( this ).data()[2]
             if(e.target.classList.contains('activeUser') || (e.target.classList.contains('fa-check'))) {
+                const data = {id:idx}
                 Swal.fire({
                     title: '<?=lang('Files.are_you_sure?')?>',
                     text: `<?=lang('Files.Approval_Activation_User')?> ${nama}`,
@@ -16,24 +17,39 @@ for(let i=0; i<btn.length; i++) {
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: '<?=lang('Files.Activate')?>'
+                    confirmButtonText: '<?=lang('Files.Activate')?>',
+                    showLoaderOnConfirm: true,
+                    preConfirm: () => {
+                        return fetch('<?=base_url()?>/users/activated',{
+                            method:'POST',
+                            mode: 'cors',
+                            cache: 'no-cache',
+                            creadentials: 'same-origin',
+                            headers: {
+                                'Content-Type':'application/json',
+                                "X-Requested-With": "XMLHttpRequest"
+                            },
+                            body: JSON.stringify(data)
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                            throw new Error(response.statusText)
+                            }
+                            return response.json()
+                        })
+                        .catch(error => {
+                            Swal.showValidationMessage(
+                            `Request failed: ${error}`
+                            )
+                        })
+                    },
+                    allowOutsideClick: false,
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    const data = {id:idx}
-                    fetch('<?=base_url()?>/users/activated',{
-                        method:'POST',
-                        mode: 'cors',
-                        cache: 'no-cache',
-                        creadentials: 'same-origin',
-                        headers: {
-                            'Content-Type':'application/json',
-                            "X-Requested-With": "XMLHttpRequest"
-                        },
-                        body: JSON.stringify(data)
-                    })
-                    .then((resp) => resp.json())
-                    .then((data) => {
-                        if(data.success)
+                    
+                    // .then((data) => {
+                    //     // swal.showLoading();
+                    //     if(data.success)
                         Swal.fire(
                         'Success!',
                         '<?=lang('Files.User_Activated')?>',
@@ -41,15 +57,15 @@ for(let i=0; i<btn.length; i++) {
                         ).then(function(){
                             location.reload()
                         })
-                    })
-                    .catch((err) => {
-                        console.log("Erorr : ",err)
-                    })
-                //     Swal.fire(
-                //     'Deleted!',
-                //     'Your file has been deleted.',
-                //     'success'
-                //     )
+                    // })
+                    // .catch((err) => {
+                    //     console.log("Erorr : ",err)
+                    // })
+                    //     Swal.fire(
+                    //     'Deleted!',
+                    //     'Your file has been deleted.',
+                    //     'success'
+                    //     )
                 }
                 })
             }
