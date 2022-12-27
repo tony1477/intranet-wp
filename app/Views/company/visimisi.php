@@ -44,8 +44,20 @@
                                     <div class="col-lg-6 mx-auto">
                                     <p class="lead mb-4 fs-2">Meningkatkan kualitas hidup melalui pengembangan multi industri dan menjadi perusahaan yang dipercaya. <i class="fas fa-quote-right"></i></p>
                                         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                                        <button type="button" class="btn btn-primary btn-lg px-4 gap-3">MISI</button>
+                                        <button type="button" class="btn btn-primary btn-lg px-4 gap-3" data-bs-toggle="collapse" data-bs-target="#misi" aria-expanded="false" aria-controls="misi">MISI</button>
                                         </div>
+                                    </div>
+                                    <div class="collapse " id="misi">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-6">
+                                        <p class="mb-4 mt-4 misi">
+                                            <ul class="list-misi">
+                                                <li>Menyediakan produk alami untuk bisnis maupun pelanggan dengan memberikan harga yang kompetitif dan mutu yang baik</li>
+                                                <li>Menyediakan berbagai kesempatan bagi karyawan dan komunitas local agar mereka mempunyai standar kehidupan yang lebih baik</li>
+                                                <li>Bertansformasi menjadi perusahaan dengan manajemen yang professional dan system yang terintegrasi</li>
+                                        </p>
+                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

@@ -9,4 +9,4 @@
 <p>If you did not registered on this website, you can safely ignore this email.</p>
 
 <p style="color:red; font-family: Arial; font-size:12px;">Note!
-Please do not reply to this message. Replies to this message are routed to an unmonitored mailbox. If you have questions you may call us at 0852-xxxx-xxxx</p>
+Please do not reply to this message. Replies to this message are routed to an unmonitored mailbox. If you have questions you may email at : documentcontrol@wilianperkasa.com or call us at +62 852-6325-6312</p>

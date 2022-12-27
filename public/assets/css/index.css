@@ -5,3 +5,22 @@
     letter-spacing: 1.5px;
     font-size: 14px;
 }
+
+ul.list-misi {
+    list-style-type: none;
+}
+
+ul.list-misi li::first-letter {
+    text-transform: uppercase;
+    font-size: 1.5em;
+    font-weight: 400;
+    color: rgba(173, 47, 47,9);
+    /* font-family: 'Roboto'; */
+}
+
+ul.list-misi li {
+    font-size: 1.5em;
+    font-weight: 300;
+    font-style: oblique;
+}
+

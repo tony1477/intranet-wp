@@ -259,6 +259,7 @@ return [
     "User_Activated" => "User sudah di aktifkan.",
     "Location" => "Lokasi",
     "phone" => "Nomor HP",
+    "article" => "Berita",
     
     // Menu
     "group-divisi" => 'Grup Divisi',

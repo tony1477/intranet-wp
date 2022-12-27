@@ -245,6 +245,7 @@ class Users extends BaseController
         $userModel = new \App\Models\UserModel();
         // $user = new \App\Entities\User();
         $user = $userModel->find($id);
+        if($user==null) return $this->fail('No User Registered');
         $user->activate();
         $this->model->save($user);
         if(!$user->hasChanged('active')) return $this->fail('No Data to Update');
