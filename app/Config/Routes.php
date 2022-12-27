@@ -241,7 +241,7 @@ $routes->post('users/activated', 'Master/Users::activate');
 $routes->post('users/docbyuser', 'Master/Users::docbyuser');
 $routes->post('users/postDoc', 'Master/Users::saveDocByUser');
 $routes->post('users/uploadimage', 'Master/Users::uploadImage');
-$routes->get('([a-z0-9\-]+)/profile', 'Master\Users::getProfile/$1');
+$routes->get('([a-zA-z0-9\-]+)/profile', 'Master\Users::getProfile/$1');
 
 ## Meeting Room
 $routes->get('room-meeting','Meeting/MeetingRoom::index');
