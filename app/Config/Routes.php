@@ -276,7 +276,13 @@ $routes->post('gallery-foto/manage-foto/post', 'Company/Gallery::postFoto');
 $routes->post('([a-z]+)/uploadfile/gallery-foto/manage-foto', 'Company\Gallery::uploadfile/$1');
 
 ## Article
-$routes->get('article','Company/Article::index');
+$routes->get('articles','Company/Article::index');
+$routes->get('article','Company/Article::article');
+$routes->post('article/post','Company/Article::postArticle');
+$routes->get('article/category','Company/Article::categories');
+$routes->post('article/category/post','Company/Article::postCategories');
+$routes->get('article/getData/(:num)','Company\Article::getData/$1');
+$routes->post('article/upload_image','Company/Article::uploadImg');
 
 ## Website
 $routes->get('tentang/profil','Website/About/Profile::index');

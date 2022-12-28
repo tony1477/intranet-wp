@@ -6,6 +6,7 @@
     <?= $this->include('partials/_datatables-css') ?>
     <?= $this->include('partials/head-css') ?>
     <?= $this->include('partials/sweetalert-css') ?>
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -37,7 +38,7 @@
                             </div>
                             <div class="card-body">
 
-                                <table id="datatable-buttons" class="table table-bordered dt-responsive  w-100 <?=$menuname?>">
+                                <table id="datatable-buttons" class="table table-bordered dt-responsive w-100 <?=$menuname?>">
                                     <thead>
                                         <?php $rows = array_diff($columns,$columns_hidden);?>
                                         <tr>
@@ -57,6 +58,11 @@
                                                 <?php foreach($rows as $row):?>
                                                 <td><?php if(isset($mark_column) && in_array($row,$mark_column)) {
                                                     echo '*****';
+                                                }
+                                                if(isset($button) && array_key_exists($row,$button)) {  
+                                                    $btnclass = $list->$row=='YES' ? 'btn-success ' : 'btn-danger ';
+                                                    $iconclass = ($list->$row=='YES' ? 'bx bx-check' : 'bx bx-block'); 
+                                                    echo '<button type="button" class="btn '.$btnclass.$button[$row]['class'].'" id="btn'.$row.'"><i class="'.$iconclass.' label-icon"></i> '.($button[$row]['text'] == true ? $list->$row : '').'</button>';
                                                 }
                                                 else {
                                                     echo $list->$row;
@@ -158,6 +164,29 @@
                                                         </div>
                                                     </div>
                                                     <?php }
+                                                    if($form['type']=='file-image') {;?>
+                                                        <div class="<?=$form['style']?>">
+                                                            <div class="form-group mb-3">
+                                                                <label><?=lang('Files.'.$form['label'])?></label>
+                                                            <div class="input-group mb-3">
+                                                            <input type="file" name="file<?=$form['idform']?>" id="file<?=$form['idform']?>" class="<?=$form['form-class']?> img-upload" /> 
+                                                            </div>
+                                                            IMAGE : <br />
+                                                            <img class="f<?=$form['idform']?>" style="width:100%"/>
+                                                            </div>
+                                                        </div>
+                                                        <?php }
+                                                    if($form['type']=='switch'): ?>
+                                                    <div class="<?=$form['style']?>">
+                                                        <div class="form-group mb-3">
+                                                            <label><?=lang('Files.'.$form['label'])?></label>
+                                                        <!-- </div> -->
+                                                            <div class="form-check form-switch form-switch-md mb-3" dir="ltr">
+                                                            <input type="checkbox" class="form-check-input" id="<?=$form['idform']?>">
+                                                        </div>
+                                                        <!-- <label class="form-check-label" for="customSwitchsizemd"></label> -->
+                                                    </div>
+                                                    <?php endif;
                                                     endforeach; ?>
                                                 </form>
                                             </div>
@@ -228,17 +257,22 @@
                     if(e.type == 'click') {
                         let str = document.querySelector('#static<?=$menuname?>Label')
                         str.innerHTML = '<?=  lang('Files.Add'),' ',lang('Files.'.$menuname)  ?>'
-                        <?php foreach($forms as $form): ?>
-                            <?php if($form['type']=='textarea') : ?>
+                        <?php foreach($forms as $form):
+                             switch($form['type']) {
+                                case 'textarea' : ?>
                                 let instanceCKeditor<?=$form['idform']?> = CKEDITOR.instances['<?=$form['idform']?>'];
                                 // if(instanceCKeditor) CKEDITOR.remove(CKEDITOR.instances['<?=$form['idform']?>']);
                                 if(instanceCKeditor<?=$form['idform']?>) CKEDITOR.instances.<?=$form['idform']?>.destroy();
                                 CKEDITOR.replace( '<?=$form['idform']?>')
                                 CKEDITOR.instances.<?=$form['idform']?>.setData('');
-                            <?php else: ?>
+                            <?php break; ?>
+                            <?php case 'file-image': ?>
+                                document.getElementById("file<?=$form['idform']?>").value='';
+                                document.querySelector('.f<?=$form['idform']?>').src='';
+                            <?php break; ?>
+                            <?php default: ?>
                             document.getElementById("<?=$form['idform']?>").value = '';
-                            <?php endif; ?>
-                        <?php endforeach;?>
+                            <?php } endforeach;?>
                         $('#edit<?=$menuname?>').modal('show')
                     }
                 }
@@ -253,6 +287,64 @@
 
         // table.columns(1).visible(false)
         $(".dataTables_length select").addClass('form-select form-select-sm');
+
+        // EDIT
+        $('#datatable-buttons tbody').on( 'click', 'tr', function () {
+            let i=1;
+            let rowData = table.row( this ).data();
+            let ix = table.row( this ).index();
+            // console.log(rowData)
+
+            <?php foreach($forms as $form): ?>
+                <?php switch($form['type']) {
+                    case 'select': ?>
+                    let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
+                    let select<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>');
+                    let option<?=$form['idform']?> = Array.from(select<?=$form['idform']?>.options);
+                    let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
+                    selectedOpt<?=$form['idform']?>.selected = true;
+                    // console.log(<?=$form['idform']?>)
+                <?php break; ?>
+                <?php case 'file-image': ?>
+                    let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
+                    document.getElementById("file<?=$form['idform']?>").value = '';
+                    if(<?=$form['idform']?>!='') {
+                        document.querySelector(".f<?=$form['idform']?>").src = "<?=base_url()?>/assets/images/gallery/foto/"+<?=$form['idform']?>;
+                    }
+                <?php break; ?>
+                <?php case 'switch':  ?>
+                    let s<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>')
+                    s<?=$form['idform']?>.checked = false
+                    let <?=$form['idform']?> = rowData[i]
+                    let dom<?=$form['idform']?> = new DOMParser().parseFromString(<?=$form['idform']?>, "text/html");
+                    let id<?=$form['idform']?> = dom<?=$form['idform']?>.getElementsByClassName('btn btn-success').length;
+                    if(id<?=$form['idform']?> == 1) s<?=$form['idform']?>.checked = true
+                <?php break;  ?>
+                <?php case 'textarea': ?>
+                    // get full content
+                    fetch(`<?=base_url().'/'.$route?>/getData/${rowData[1]}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                    })
+                    CKEDITOR.replace('<?=$form['idform']?>')
+                    let <?=$form['idform']?>TextArea = rowData[i];
+                    CKEDITOR.instances.<?=$form['idform']?>.setData(<?=$form['idform']?>TextArea);
+                <?php break; ?>
+                <?php default: ?>
+                    let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
+                <?php } ?>
+                i++;
+            <?php endforeach;?>
+            // console.log(str.html)
+            <?php foreach($forms as $form) :
+                if($form['type']!='select' && $form['type']!='file-image' && $form['type']!='switch') { ?>
+                    // console.log(<?=$form['idform']?>)
+                    document.getElementById("<?=$form['idform']?>").value = <?=$form['idform']?>;
+                <?php } ?>
+            <?php endforeach;?>
+            ix++;
+        });
     })
 
     // const table = $('#datatable').DataTable()
@@ -286,61 +378,47 @@
 
         return response.json()
     }
+
+    async function uploadFile(url='',data={}) {
+        const response = await fetch(url, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            creadentials: 'same-origin',
+            body: data
+        })
+
+        return response.json()
+    }
+
     const editButton = document.querySelectorAll(".edit<?=$menuname?>");
     const deleteButton = document.querySelectorAll('.delete<?=$menuname?>')
     const saveButton = document.querySelector('.save');
+    const uploadBtn = document.querySelector('.img-upload')
     
+    if(uploadBtn!==null) {
+        uploadBtn.addEventListener('change',function(e){
+            const charlength = e.target.value.length - 12;
+            if(charlength>=100) Swal.fire("Error","Filename too long!!","error")
+        })
+    }
     // const selected = document.querySelectorAll("input#kode");
     // const $select = document.querySelector('#idgroup')
     // const $option = Array.from($select.options)
     let ix; let offset=10;
-    for (let i = 0; i < editButton.length; i++) {
-        editButton[i].addEventListener("click", function() {
+    // for (let i = 0; i < editButton.length; i++) {
+    //     editButton[i].addEventListener("click", function() {
             
-            // let id = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(1).innerHTML
-            // let group = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(2).innerHTML
-            // let kode = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(3).innerHTML
-            // let nama = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(4).innerHTML
-            ix = Math.floor(i/offset);
-            let j = i - (offset*ix);
-            let n=1; 
+    //         // let id = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(1).innerHTML
+    //         // let group = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(2).innerHTML
+    //         // let kode = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(3).innerHTML
+    //         // let nama = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(4).innerHTML
+    //         ix = Math.floor(i/offset);
+    //         let j = i - (offset*ix);
+    //         let n=1; 
     
 
-            <?php foreach($forms as $form): ?>
-                let <?=$form['idform']?> = document.querySelector('table.<?=$menuname?>').rows.item(j+1).cells.item(n).innerText;
-                // let <?=$form['idform']?> = $(this).closest('tr').find("td:eq(2)").text()
-
-                <?php if($form['type']=='select' ) { ?>
-                    let select<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>');
-                    let option<?=$form['idform']?> = Array.from(select<?=$form['idform']?>.options);
-                    let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
-                    selectedOpt<?=$form['idform']?>.selected = true;
-                    
-                    // console.log(select<?=$form['idform']?>)
-                    <?php } ?>
-
-                <?php if($form['type']=='textarea') { ?>
-                    CKEDITOR.replace( '<?=$form['idform']?>')
-                    let <?=$form['idform']?>TextArea = document.querySelector('table.<?=$menuname?>').rows.item(j+1).cells.item(n).innerHTML;
-                    CKEDITOR.instances.<?=$form['idform']?>.setData(<?=$form['idform']?>TextArea);
-                <?php } ?>
-                n++;
-            <?php endforeach;?>
-
-            let str = document.querySelector('#static<?=$menuname?>Label')
-            // console.log(str.html)
-            str.innerHTML = '<?=lang('Files.Edit'),' ',lang('Files.'.$menuname)?>'
-            <?php foreach($forms as $form) :
-                if($form['type']=='textarea') { ?>
-                    document.getElementById("<?=$form['idform']?>").value = <?=$form['idform']?>TextArea;
-                <?php } 
-                if($form['type']=='text' || $form['type']=='number' || $form['type']=='hidden') { ?>
-                    document.getElementById("<?=$form['idform']?>").value = <?=$form['idform']?>;
-                <?php } ?>
-            <?php endforeach;?>
-            ix++;
-        });
-    }
+    //     
 
     for(let i=0; i< deleteButton.length; i++) {
         deleteButton[i].addEventListener("click", function() {
@@ -375,17 +453,65 @@
         });
     }
 
-    saveButton.addEventListener("click", function(){
+    saveButton.addEventListener("click", function(e){
+        e.preventDefault()
         const data = {}
-        <?php foreach($forms as $form): ?>
-            let <?=$form['field']?> = <?=$form['idform']?>;
+        let status=1;
+        <?php foreach($forms as $form): 
+            if($form['type']=='switch') { ?>
+                let value<?=$form['idform']?> = 'N';
+                let val<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>').checked;
+                val<?=$form['idform']?> ? value<?=$form['idform']?> = 'Y' : 'N';
+                data.<?=$form['idform']?> = value<?=$form['idform']?>
+                // console.log(value<?=$form['idform']?>);
+            <?php }
+            elseif($form['type']!='file' && $form['type']!='switch' && $form['type']!='file-image' && $form['type']!='textarea') { ?>
+                let <?=$form['field']?> = <?=$form['idform']?>;
+                let value<?=$form['idform']?> = document.forms["<?=$menuname?>"]["<?=$form['idform']?>"].value;
+                // console.log(value<?=$form['idform']?>);
+                //data[<?=$form['idform']?>] = value<?=$form['idform']?>;
+                data.<?=$form['idform']?> = value<?=$form['idform']?>;
+            <?php }
+            if($form['type']=='file-image') { ?>
+                let datafile<?=$form['idform']?> = document.getElementById('file<?=$form['idform']?>').files[0];
+                if(datafile<?=$form['idform']?>!=undefined) {
+                    if(datafile<?=$form['idform']?>.size >= 2048000) Swal.fire("Error!", 'File to big', 'error');
+                    console.log(datafile<?=$form['idform']?>.size)
+                    let name<?=$form['idform']?> = datafile<?=$form['idform']?>.name;
+                    const formData<?=$form['idform']?> = new FormData();
+                    formData<?=$form['idform']?>.append('file',datafile<?=$form['idform']?>)
+                    try {
+                        console.log('uploading...');
+                        $.ajax({
+                            url: "<?=base_url().'/'.$route.'/'.$form['url_upload']?>",
+                            enctype: 'multipart/form-data',
+                            type: 'POST',
+                            data: formData<?=$form['idform']?>,
+                            dataType: 'json',
+                            async: false,
+                            success: function (res) {
+                                data.<?=$form['idform']?> = res.filename;
+                                console.log(res.status)
+                                // $('.filesToUpload').empty();
+                            },
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                    }
+                    // data. = datafile;
+                    catch(e) {
+                        console.log('Error :',e);
+                        Swal.fire("Failed!", e, 400);
+                    }
+                }
+            <?php } ?>
             <?php if($form['type']=='textarea'):?>
                 let value<?=$form['idform']?> = CKEDITOR.instances.<?=$form['idform']?>.getData()
-            <?php else:?>
-            let value<?=$form['idform']?> = document.forms["<?=$menuname?>"]["<?=$form['idform']?>"].value;
+                data.<?=$form['idform']?> = value<?=$form['idform']?>
             <?php endif;?>
             //data[<?=$form['idform']?>] = value<?=$form['idform']?>;
-            data.<?=$form['idform']?> = value<?=$form['idform']?>;
+            // data.<?=$form['idform']?> = value<?=$form['idform']?>;
         <?php endforeach;?>
         // const id =  document.forms["<?=$menuname?>"]["id"].value;
         // const kode =  document.forms["<?=$menuname?>"]["kode"].value;
