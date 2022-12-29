@@ -20,5 +20,9 @@ class CommentModel extends Model
     // Dates
     protected $useTimestamps = false;
    
-    
+    // public function getCommentbyArticle($id)
+    // {
+    //     $this->db->table('article_comment a')
+    //         ->select('userid,posted_date,text,parentid')
+    // }
 }
