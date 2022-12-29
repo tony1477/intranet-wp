@@ -277,13 +277,6 @@
                         <div class="reply-button">
                             <a href="javascript: void(0);" class="text-success" onclick="replyComment(${row.commentid})"><i class="mdi mdi-reply"></i> Reply</a>
                         </div>
-                        <div class="mb-3">
-                            <label for="commentmessage-input" class="form-label">Message</label>
-                            <textarea class="form-control" id="commentmessage-input" placeholder="Your message..." rows="3"></textarea>
-                        </div>
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-primary w-sm">Submit</button>
-                        </div>
                     </div>
                 `;
                 commentSection.appendChild(div);
@@ -318,7 +311,15 @@
     {
         const replyHeader = document.querySelector('.reply-section')
         replyHeader.classList.add('d-none')
-
+        // const div = document.createElement('div')
+        // div.className = 'mb-3'
+        <div class="mb-3">
+            <label for="commentmessage-input" class="form-label">Message</label>
+            <textarea class="form-control" id="commentmessage-input" placeholder="Your message..." rows="3"></textarea>
+        </div>
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary w-sm">Submit</button>
+        </div>
     }
 </script>
 </body>
