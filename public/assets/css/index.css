@@ -24,3 +24,7 @@ ul.list-misi li {
     font-style: oblique;
 }
 
+.slider-front, .meeting-list {
+    min-height: 500px;
+}
+

@@ -14,7 +14,7 @@ class ArticleModel extends Model
     protected $returnType       = Article::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['categoryid,title,content,images,page,slug,publish,status,creatorid,updaterid'];
+    protected $allowedFields    = ['categoryid','title','content','image','page','slug','publish','status','sum_comment','sum_read','creatorid','updaterid'];
 
     // Dates
     protected $useTimestamps = true;
@@ -27,6 +27,23 @@ class ArticleModel extends Model
         return $this->db->table('article a')
             ->select('a.*, b.categoryname')
             ->join('article_category b','b.categoryid=a.categoryid')
-            ->get();
+            ->get()->getResult(Article::class);
+    }
+
+    // public function getUpcoming()
+    // {
+    //     return $this->db->table('article a')
+    //         ->select
+    // }
+
+    // public function getPopularArticle()
+    // {
+
+    // }
+
+    public function sumPerTag()
+    {
+        return $this->db->select('slug')
+        ->groupBy('slug')->get()->getResult();
     }
 }

@@ -258,7 +258,8 @@ return [
     "User_Activated" => "User has been Activated!",
     "Location" => "Location",
     "phone" => "Phone Number",
-    "article" => "Article",
+    "article" => "News",
+    "Articles" => "Articles",
 
     // Menu
     "group-divisi" => 'Division Group',

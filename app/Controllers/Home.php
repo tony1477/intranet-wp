@@ -3,12 +3,14 @@
 namespace App\Controllers;
 use App\Models\GalleryModel as Gallery;
 use App\Models\MeetingScheduleModel as Meeting;
+use App\Models\ArticleModel as Article;
 
 class Home extends BaseController
 {
 
 	protected $auth;
 	private $gallery;
+	private $article;
 
     /**
      * @var AuthConfig
@@ -31,6 +33,7 @@ class Home extends BaseController
         $this->auth   = service('authentication');
 		$this->gallery = new Gallery();
 		$this->meeting = new Meeting();
+		$this->article = new Article();
     }
 	
 	public function index()
@@ -44,6 +47,7 @@ class Home extends BaseController
 		}
 		$foto = $this->gallery->where(['ishighlight'=>1,'gallerytype'=>1])->findAll();
 		$meeting = $this->meeting->orderBy('tgl_mulai', 'desc')->findAll(5,0);
+		$article = $this->article->where(['page'=>'F','publish'=>1,'status'=>1])->findAll(0,1);
         //$submenu = getSubmenu($moduleid=0);
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Dashboard']),
@@ -52,6 +56,7 @@ class Home extends BaseController
 			'data' => [
 				'foto' => $foto,
 				'meeting' => $meeting,
+				'article' => $article,
 			],
 			// 'data_meeting' => 
 			// 'session' => $sess

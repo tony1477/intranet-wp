@@ -260,6 +260,7 @@ return [
     "Location" => "Lokasi",
     "phone" => "Nomor HP",
     "article" => "Berita",
+    "Articles" => "Artikel",
     
     // Menu
     "group-divisi" => 'Grup Divisi',

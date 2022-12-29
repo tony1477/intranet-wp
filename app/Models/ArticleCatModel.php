@@ -21,5 +21,12 @@ class ArticleCatModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
+
+    public function sumPerCategory()
+    {
+        return $this->db->table('article_category a')
+                ->select('a.categoryname, (select ifnull(count(1),0) from article b where b.categoryid=a.categoryid) as jum')
+                ->get()->getResult();
+    }
    
 }

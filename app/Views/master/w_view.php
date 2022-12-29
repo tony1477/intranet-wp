@@ -322,11 +322,11 @@
                 <?php break;  ?>
                 <?php case 'textarea': ?>
                     // get full content
-                    fetch(`<?=base_url().'/'.$route?>/getData/${rowData[1]}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data)
-                    })
+                    // fetch(`<?=base_url().'/'.$route?>/getData/${rowData[1]}`)
+                    // .then(response => response.json())
+                    // .then(data => {
+                    //     console.log(data)
+                    // })
                     CKEDITOR.replace('<?=$form['idform']?>')
                     let <?=$form['idform']?>TextArea = rowData[i];
                     CKEDITOR.instances.<?=$form['idform']?>.setData(<?=$form['idform']?>TextArea);
@@ -476,7 +476,6 @@
                 let datafile<?=$form['idform']?> = document.getElementById('file<?=$form['idform']?>').files[0];
                 if(datafile<?=$form['idform']?>!=undefined) {
                     if(datafile<?=$form['idform']?>.size >= 2048000) Swal.fire("Error!", 'File to big', 'error');
-                    console.log(datafile<?=$form['idform']?>.size)
                     let name<?=$form['idform']?> = datafile<?=$form['idform']?>.name;
                     const formData<?=$form['idform']?> = new FormData();
                     formData<?=$form['idform']?>.append('file',datafile<?=$form['idform']?>)

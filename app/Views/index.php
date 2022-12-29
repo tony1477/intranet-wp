@@ -4,9 +4,11 @@
 <head>
 
     <?= $title_meta ?>
+    <link rel="stylesheet" href="assets/css/main.css">
 
     <?= $this->include('partials/head-css') ?>
     <link rel="stylesheet" href="<?=base_url()?>/assets/css/index.css" type="text/css" />
+    
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -27,12 +29,10 @@
                 <?= $page_title ?>
 
                 <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="card">
+                    <div class="col-md-12 col-lg-6">
+                        <div class="card slider-front">
                             <div class="card-header">
-                                <h4 class="card-title">Slider Foto Kegiatan WPG</h4>
-                                <p class="card-title-desc">You can also add the indicators to the
-                                    carousel, alongside the controls, too.</p>
+                                <h4 class="card-title flex-grow-1 fs-3 text-center">Slider Foto Kegiatan WPG</h4>
                             </div><!-- end card header -->
 
                             <div class="card-body">
@@ -64,8 +64,8 @@
                             </div><!-- end card-body -->
                         </div><!-- end card -->
                     </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="card">
+                    <div class="col-md-12 col-lg-6">
+                        <div class="card meeting-list">
                             <div class="card-header align-items-center d-flex">
                                 <h4 class="card-title mb-0 flex-grow-1 fs-3 text-center"><?=lang('Files.Meeting_Schedule')?></h4>
                                 <!-- <div class="flex-shrink-0">
@@ -77,7 +77,7 @@
                                 </div> -->
                             </div><!-- end card header -->
                             <div class="card-body px-0">
-                                <div class="px-3" data-simplebar="init" style="max-height: 35vh;"><div class="simplebar-wrapper" style="margin: 0px -16px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: -15px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: auto; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px 16px;">
+                                <div class="px-3" data-simplebar="init" style="max-height: 355px;"><div class="simplebar-wrapper" style="margin: 0px -16px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: -15px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: auto; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px 16px;">
                                     <ul class="list-unstyled activity-wid mb-0" id="ulMeeting">
                                     <?php foreach($data['meeting'] as $meeting):?>
                                     <li class="activity-list activity-border" id="liMeeting">
@@ -131,6 +131,107 @@
                             <!-- end card body -->
                         </div>
                     </div>
+                    <div class="row justify-content-xl-center justify-content-md-start">
+                        <div class="col-xl-12 col-lg-12">
+                            <?php foreach($data['article'] as $article):?>
+                                <input type="hidden" id="articleid" value="<?=$article->articleid?>" />
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="">
+                                        <div class="text-center mb-3">
+                                            <h4><?=$article->title?></h4>
+                                        </div>
+                                        <div class="mb-4">
+                                            <img src="<?=base_url()?>/assets/images/gallery/article/<?=$article->image?>" alt="" class="img-thumbnail mx-auto d-block">
+                                        </div>
+
+                                        <div class="text-center">
+                                            <!-- <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div>
+                                                        <h6 class="mb-2">Categories</h6>
+                                                        <p class="text-muted font-size-15">Project</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="mt-4 mt-sm-0">
+                                                        <h6 class="mb-2">Date</h6>
+                                                        <p class="text-muted font-size-15">20 June, 2022</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="mt-4 mt-sm-0">
+                                                        <p class="text-muted mb-2">Post by</p>
+                                                        <h5 class="font-size-15">Gilbert Smith</h5>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <hr>
+
+                                        <div class="mt-4">
+                                            <div class="text-muted font-size-14">
+                                                <?=$article->content?>
+                                                <!-- <blockquote class="p-4 border-light border rounded mb-4">
+                                                    <div class="d-flex">
+                                                        <div class="me-3">
+                                                            <i class="bx bxs-quote-alt-left text-dark font-size-24"></i>
+                                                        </div>
+                                                        <div>
+                                                            <p class="mb-0"> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium deleniti atque corrupti quos dolores et quas molestias excepturi sint quidem rerum facilis est</p>
+                                                        </div>
+                                                    </div>
+
+                                                </blockquote> -->
+                                            </div>
+
+                                            <hr>
+
+                                            <div class="mt-5">
+                                                <h5 class="font-size-15"><i class="bx bx-message-dots text-muted align-middle me-1"></i> Comments :</h5>
+
+                                                <div class="comment-section"></div>
+                                            </div>
+
+                                            <hr>
+                                            <div class="mt-5 reply-section">
+                                                <h5 class="font-size-16 mb-3">Leave a Reply:</h5>
+
+                                                <form>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mb-3">
+                                                                <label for="commentname-input" class="form-label">Name</label>
+                                                                <input type="text" class="form-control" id="commentname-input" placeholder="Enter name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="mb-3">
+                                                                <label for="commentemail-input" class="form-label">Email</label>
+                                                                <input type="email" class="form-control" id="commentemail-input" placeholder="Enter email">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="commentmessage-input" class="form-label">Message</label>
+                                                        <textarea class="form-control" id="commentmessage-input" placeholder="Your message..." rows="3"></textarea>
+                                                    </div>
+
+                                                    <div class="text-end">
+                                                        <button type="submit" class="btn btn-primary w-sm">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                            <?php endforeach;?>
+                        </div>
+                    </div>                   
                 </div>
             </div>
             <!-- container-fluid -->
@@ -148,6 +249,78 @@
 
 <!-- App js -->
 <script src="assets/js/app.js"></script>
+<script>
+    async function getCommentbyArticleId() {
+        const id = document.querySelector('#articleid').value;
+        // console.log(id)
+        let i = 0;
+        const response = await fetch(`<?=base_url()?>/article/getCommentbyArticle/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            // console.log(data)
+            const commentSection = document.querySelector('.comment-section');
+            for(let row of data) {
+                let div = document.createElement('div')
+                div.className = 'd-flex py-3'
+                if(i>0) div.className = 'd-flex py-3 border-top'
+                div.innerHTML = `
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar-xs">
+                            <div class="avatar-title rounded-circle bg-light text-primary">
+                                <i class="bx bxs-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="font-size-14 mb-1">${row.user} <small class="text-muted float-end">${row.tgl}</small></h5>
+                        <p class="text-muted">${row.comment}</p>
+                        <div class="reply-button">
+                            <a href="javascript: void(0);" class="text-success" onclick="replyComment(${row.commentid})"><i class="mdi mdi-reply"></i> Reply</a>
+                        </div>
+                        <div class="mb-3">
+                            <label for="commentmessage-input" class="form-label">Message</label>
+                            <textarea class="form-control" id="commentmessage-input" placeholder="Your message..." rows="3"></textarea>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary w-sm">Submit</button>
+                        </div>
+                    </div>
+                `;
+                commentSection.appendChild(div);
+                i++;
+                if(row.has_reply==true) {
+                    let findCl = div.querySelector('.reply-button')
+                    for(let child of row.child_comment) {
+                        let divChild = document.createElement('div')
+                        divChild.className = "d-flex pt-3"
+                        divChild.innerHTML = `
+                        <div class="flex-shrink-0 me-3">
+                            <div class="avatar-xs">
+                                <div class="avatar-title rounded-circle bg-light text-primary">
+                                    <i class="bx bxs-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5 class="font-size-14 mb-1">${child.user} <small class="text-muted float-end">${child.tgl}</small></h5>
+                            <p class="text-muted">${child.comment}</p>
+                        </div>
+                        `;
+                        findCl.appendChild(divChild)
+                    }
+                }
+            }
+        })
+    }
+    document.addEventListener('DOMContentLoaded', getCommentbyArticleId,false)
+
+    function replyComment($id)
+    {
+        const replyHeader = document.querySelector('.reply-section')
+        replyHeader.classList.add('d-none')
+
+    }
+</script>
 </body>
 
 </html>

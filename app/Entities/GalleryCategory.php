@@ -19,7 +19,7 @@ class GalleryCategory extends Entity
 
     public function setStatus()
     {
-        $this->attributes['status'] == 'YES' ? 1 : 0;
+        $this->attributes['status'] == 'Y' ? 1 : 0;
         return $this;
     }
     
