@@ -414,6 +414,14 @@ class Article extends BaseController
                 'tgl' => '10 Desember 2022',
                 'has_reply' => false,
                 'parentid' => null,
+            ],
+            [
+                'commentid' => 5,
+                'comment' => 'koment ke-3 ',
+                'user' => 'USER-3',
+                'tgl' => '12 Desember 2022',
+                'has_reply' => false,
+                'parentid' => null,
             ]
         ];
         return $this->respond($data,200);

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
 
     <?= $this->include('partials/head-css') ?>
+    <?= $this->include('partials/sweetalert-css') ?>
     <link rel="stylesheet" href="<?=base_url()?>/assets/css/index.css" type="text/css" />
     
 </head>
@@ -194,7 +195,9 @@
                                             </div>
 
                                             <hr>
-                                            <div class="mt-5 reply-section">
+                                            <button type="submit" class="btn btn-primary w-sm my-3" data-bs-toggle="collapse" data-bs-target="#reply-section" aria-expanded="false" aria-controls="reply-section"><?=lang('Files.Leave_Response')?></button>
+                                            <div class="collapse" id="reply-section">
+                                                <div class="mt-5 reply-section">
                                                 <h5 class="font-size-16 mb-3">Leave a Reply:</h5>
 
                                                 <form>
@@ -202,26 +205,27 @@
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
                                                                 <label for="commentname-input" class="form-label">Name</label>
-                                                                <input type="text" class="form-control" id="commentname-input" placeholder="Enter name">
+                                                                <input type="text" class="form-control" id="commentname-input" placeholder="Enter name" value="<?=user()->fullname?>" readonly >
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
                                                                 <label for="commentemail-input" class="form-label">Email</label>
-                                                                <input type="email" class="form-control" id="commentemail-input" placeholder="Enter email">
+                                                                <input type="email" class="form-control" id="commentemail-input" placeholder="Enter email" value="<?=user()->email?>" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label for="commentmessage-input" class="form-label">Message</label>
-                                                        <textarea class="form-control" id="commentmessage-input" placeholder="Your message..." rows="3"></textarea>
+                                                        <textarea class="form-control text_response" id="commentmessage-input" name="text_response" placeholder="Your message..." rows="3"></textarea>
                                                     </div>
 
                                                     <div class="text-end">
-                                                        <button type="submit" class="btn btn-primary w-sm">Submit</button>
+                                                        <button type="submit" class="btn btn-primary w-sm submitResponse">Submit</button>
                                                     </div>
                                                 </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -246,10 +250,12 @@
 <!-- END layout-wrapper -->
 
 <?= $this->include('partials/vendor-scripts') ?>
-
+<!-- SweetAlert -->
+<?= $this->include('partials/sweetalert') ?>
 <!-- App js -->
 <script src="assets/js/app.js"></script>
 <script>
+    const articleId = document.querySelector('#articleid')
     async function getCommentbyArticleId() {
         const id = document.querySelector('#articleid').value;
         // console.log(id)
@@ -261,8 +267,8 @@
             const commentSection = document.querySelector('.comment-section');
             for(let row of data) {
                 let div = document.createElement('div')
-                div.className = 'd-flex py-3'
-                if(i>0) div.className = 'd-flex py-3 border-top'
+                div.className = 'd-flex py-3 headerReply'
+                if(i>0) div.className = 'd-flex py-3 headerReply border-top'
                 div.innerHTML = `
                     <div class="flex-shrink-0 me-3">
                         <div class="avatar-xs">
@@ -275,7 +281,7 @@
                         <h5 class="font-size-14 mb-1">${row.user} <small class="text-muted float-end">${row.tgl}</small></h5>
                         <p class="text-muted">${row.comment}</p>
                         <div class="reply-button">
-                            <a href="javascript: void(0);" class="text-success" onclick="replyComment(${row.commentid})"><i class="mdi mdi-reply"></i> Reply</a>
+                            <a href="javascript: void(0);" class="text-success" onclick="replyComment(this,${row.commentid})"><i class="mdi mdi-reply"></i> Reply</a>
                         </div>
                     </div>
                 `;
@@ -307,19 +313,152 @@
     }
     document.addEventListener('DOMContentLoaded', getCommentbyArticleId,false)
 
-    function replyComment($id)
+    function replyComments($id)
     {
         const replyHeader = document.querySelector('.reply-section')
         replyHeader.classList.add('d-none')
-        // const div = document.createElement('div')
-        // div.className = 'mb-3'
-        <div class="mb-3">
-            <label for="commentmessage-input" class="form-label">Message</label>
-            <textarea class="form-control" id="commentmessage-input" placeholder="Your message..." rows="3"></textarea>
-        </div>
-        <div class="text-end">
-            <button type="submit" class="btn btn-primary w-sm">Submit</button>
-        </div>
+        
+        const replyBtn = document.querySelectorAll('.reply-button')
+        const divReply = document.createElement('div')
+        divReply.className = 'mb-3 reply-form'
+        divReply.innerHTML = `<label for="commentmessage-input" class="form-label">Message</label>
+            <textarea class="form-control" id="commentmessage-input" placeholder="Your message..." rows="3"></textarea>`
+        divBtn = document.createElement('div')
+        divBtn.className = 'text-end reply-btn'
+        divBtn.innerHTML = `<button type="submit" class="btn btn-primary w-sm">Submit</button>`
+               
+        for(let i=0; i<replyBtn.length; i++)
+        {
+            
+            // if(repForm.length>0)
+            // {
+            //     for(let elem of repForm) {
+            //         elem.remove()
+            //     }
+                    
+            //     for(let el of repBtn) 
+            //         el.remove();
+                
+            //     console.log('removed')
+            // }
+            replyBtn[i].addEventListener('click', function(e) {
+                // console.log(replyBtn[i])
+                const repForm = document.querySelectorAll('.reply-form')
+                const repBtn = document.querySelectorAll('.reply-btn')
+                // document.querySelectorAll('.reply-form').remove()
+                // document.querySelectorAll('.reply-btn').remove()
+                const headerReply = replyBtn[i].closest('.headerReply')
+                if(repForm.length==0) {
+                    console.log(0)
+                    headerReply.after(divReply,divBtn)
+                    return;
+                }
+                else {
+                    console.log(repForm.length)
+                    let el1 = document.querySelectorAll('.reply-form')
+                    // console.log(typeof(coll))
+                    Array.prototype.forEach.call( el1, function( node ) {
+                        node.parentNode.removeChild( node );
+                    });
+
+                    let el2 = document.querySelectorAll('.reply-btn')
+                    Array.prototype.forEach.call( el2, function( node ) {
+                        node.parentNode.removeChild( node );
+                    });
+                    
+                    return;
+                }
+                
+                
+            //    replyBtn[i].innerHTML += replyForm
+            })
+            // console.log(repBtn)
+        }
+        // replyButton.innerHTML += replyForm
+    }
+
+    function replyComment($id,commentid)
+    {
+        const parentEl = $id.parentElement
+        const childEl = parentEl.querySelector('.reply-form')
+        const childEl2 = parentEl.querySelector('.reply-btn')
+        
+        // clear all comment form
+
+        let allForm = document.querySelectorAll('.reply-form');
+        let allBtn = document.querySelectorAll('.reply-btn');
+        allForm.forEach(el => {
+            el.remove()
+        })
+
+        allBtn.forEach(el => {
+            el.remove()
+        })
+        // check is element has created before
+        // with child element wih classname
+        if(!childEl) {
+            const divReply = document.createElement('div')
+            
+            divReply.className = 'mb-3 reply-form'
+            divReply.innerHTML = `<label for="commentmessage-input" class="form-label">Message</label>
+                <textarea class="form-control text_reply" id="commentmessage-input" placeholder="Your message..." rows="3"></textarea>`
+            divBtn = document.createElement('div')
+            divBtn.className = 'text-end reply-btn'
+            divBtn.innerHTML = `<button type="submit" class="btn btn-primary w-sm" onclick="submitReply(${commentid})">Submit</button>`
+            parentEl.appendChild(divReply)
+            parentEl.appendChild(divBtn)
+        }
+    }
+
+    const submitResponse = document.querySelector('.submitResponse');
+    submitResponse.addEventListener('click',function(e){
+        e.preventDefault();
+        const respText = document.querySelector('.text_response').value
+        if(respText == '') {
+            Swal.fire('Info!','Pesan masih kosong','info'); 
+            return;
+        }
+        const data = {
+            'id': articleId.value,
+            'userid': <?=user_id()?>,
+            'text': respText,
+            'parentid': null,
+        };
+        postComment(data);
+    })
+
+    async function postComment(data)
+    {
+        await fetch(`<?=base_url()?>/article/postComment`,{
+            'method': 'POST',
+            'mode': 'cors',
+            'cache': 'no-cache',
+            'credentials': 'same-origin',
+            'headers': {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
+    }
+
+    function submitReply(parentId)
+    {
+        const respText = document.querySelector('.text_reply').value
+        if(respText == '') {
+            Swal.fire('Info!','Pesan masih kosong','info'); 
+            return;
+        }
+        const data = {
+            'id': articleId.value,
+            'userid': <?=user_id()?>,
+            'text': respText,
+            'parentid': parentId,
+        }
+        postComment(data);
     }
 </script>
 </body>
