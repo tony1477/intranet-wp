@@ -265,16 +265,16 @@
         .then(data => {
             // console.log(data)
             const commentSection = document.querySelector('.comment-section');
-            for(let row of data) {
+            // for(let row of data) {
+            data.forEach(row => {
+                // console.log(row.text)
                 let div = document.createElement('div')
                 div.className = 'd-flex py-3 headerReply'
                 if(i>0) div.className = 'd-flex py-3 headerReply border-top'
                 div.innerHTML = `
                     <div class="flex-shrink-0 me-3">
                         <div class="avatar-xs">
-                            <div class="avatar-title rounded-circle bg-light text-primary">
-                                <i class="bx bxs-user"></i>
-                            </div>
+                            <img src="<?=base_url()?>/assets/images/users/${row.image}" alt="" class="img-fluid d-block rounded-circle">
                         </div>
                     </div>
                     <div class="flex-grow-1">
@@ -295,9 +295,7 @@
                         divChild.innerHTML = `
                         <div class="flex-shrink-0 me-3">
                             <div class="avatar-xs">
-                                <div class="avatar-title rounded-circle bg-light text-primary">
-                                    <i class="bx bxs-user"></i>
-                                </div>
+                                <img src="<?=base_url()?>/assets/images/users/${child.image}" alt="" class="img-fluid d-block rounded-circle">
                             </div>
                         </div>
                         <div class="flex-grow-1">
@@ -308,7 +306,8 @@
                         findCl.appendChild(divChild)
                     }
                 }
-            }
+            })
+            // data.forEach(val => console.log(val.text))
         })
     }
     document.addEventListener('DOMContentLoaded', getCommentbyArticleId,false)
@@ -436,12 +435,22 @@
             'credentials': 'same-origin',
             'headers': {
                 'Content-Type': 'application/json',
+                "X-Requested-With": "XMLHttpRequest"
             },
             body: JSON.stringify(data)
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            // console.log(data)
+            if(data.status=='success') {
+                Swal.fire('Success','Pesan sudah terkirim','success')
+                .then((result)=> {
+                    if(result.isConfirmed) location.reload()
+                })
+                // console.log('here')
+            }
+            // else Swal.fire('Error','Ada kesalahan system, harap hubungi IT','error')
+            else console.log('ini')
         })
     }
 
@@ -459,6 +468,7 @@
             'parentid': parentId,
         }
         postComment(data);
+        // if(post.status)
     }
 </script>
 </body>

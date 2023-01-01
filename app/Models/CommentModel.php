@@ -25,4 +25,16 @@ class CommentModel extends Model
     //     $this->db->table('article_comment a')
     //         ->select('userid,posted_date,text,parentid')
     // }
+
+    public function getComment($articleid,$parentid=null)
+    {
+        $where = ['articleid'=>$articleid,'parentid'=>$parentid];
+        if($parentid == null) $where['parentid'] = null;
+        
+        return $this->db->table('article_comment a')
+            ->select('a.*,ifnull(fullname,username) as name, b.user_image')
+            ->join('users b','b.id=a.userid')
+            ->where($where)
+            ->get();
+    }
 }

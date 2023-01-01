@@ -373,57 +373,135 @@ class Article extends BaseController
     
     public function getCommentbyArticle($id=0,$parentid=null)
     {
-        // $where = ['articleid'=>$id];
-        // if($parentid==null) $where = array_merge($where,['parentid'=>$parentid]);
-        // $getdata = $this->comment->where($where)->orderBy('parentid','desc')->findAll();
-        // foreach($getdata as $row):
-        //     if($row->parentid != null) return getCommentbyArticle($id,$row->parentid);
+        // $data = [
+        //     [
+        //         'commentid' => 1,
+        //         'comment' => 'koment ke-1',
+        //         'user' => 'USER-1',
+        //         'tgl' => '09 Desember 2022',
+        //         'has_reply' => true,
+        //         'parentid' => null,
+        //         'child_comment' => [
+        //             [
+        //                 'commentid' => 3,
+        //                 'comment' => 'koment reply pertama',
+        //                 'user' => 'USER-2',
+        //                 'tgl' => '11 Desember 2022',
+        //                 'has_reply' => false,
+        //                 'parentid' => 1,
+        //             ],
+        //             [
+        //                 'commentid' => 4,
+        //                 'comment' => 'koment reply kedua',
+        //                 'user' => 'USER-1',
+        //                 'tgl' => '11 Desember 2022',
+        //                 'has_reply' => false,
+        //                 'parentid' => 1,
+        //             ],
+        //         ]     
+        //     ],
+        //     [
+        //         'commentid' => 2,
+        //         'comment' => 'koment ke-2',
+        //         'user' => 'USER-2',
+        //         'tgl' => '10 Desember 2022',
+        //         'has_reply' => false,
+        //         'parentid' => null,
+        //     ],
+        //     [
+        //         'commentid' => 5,
+        //         'comment' => 'koment ke-3 ',
+        //         'user' => 'USER-3',
+        //         'tgl' => '12 Desember 2022',
+        //         'has_reply' => false,
+        //         'parentid' => null,
+        //     ]
+        // ];
+       
+        $arr = [];
+        $find = $this->comment->getComment($id,null)->getResult();
+        $i=0;
+        foreach($find as $row):
+            // check child
+            array_push($arr,[
+                'commentid' => $row->commentid,
+                'comment' => $row->text,
+                // 'userid' => $row->userid,
+                'user' => $row->name,
+                'image' => $row->user_image,
+                'tgl' => date('d M Y',strtotime($row->posted_date)),
+                'parentid' => null,
+                'has_reply' => false,
+                ]
+            );
+            
+            if($getChild=$this->comment->getComment($id,$row->commentid)->getResult()):
+                $childs=[];
+                foreach($getChild as $child):
+                    array_push($childs,[
+                        'commentid' => $child->commentid,
+                        'comment' => $child->text,
+                        'user' => $child->name,
+                        'image' => $child->user_image,
+                        'tgl' => date('d M Y',strtotime($child->posted_date)),
+                        'parentid' => null,
+                        'has_reply' => false,
+                    ]);
+                endforeach;
+                // $charr = array_merge($arr,['child_comment'=>$childs]);
+                $arr[$i]['child_comment'] = $childs;
+                // $arr = array_replace($charr,['has_reply'=>true]);
+                $arr[$i]['has_reply'] = true;
+            endif;
+            // if($i==0) {
+            //     $arr[$i]['has_reply'] = true;
+            // }
+            $i++;
+        endforeach;
+        return $this->respond($arr,200);
+    }
 
-        // endforeach;
-        $data = [
-            [
-                'commentid' => 1,
-                'comment' => 'koment ke-1',
-                'user' => 'USER-1',
-                'tgl' => '09 Desember 2022',
-                'has_reply' => true,
-                'parentid' => null,
-                'child_comment' => [
-                    [
-                        'commentid' => 3,
-                        'comment' => 'koment reply pertama',
-                        'user' => 'USER-2',
-                        'tgl' => '11 Desember 2022',
-                        'has_reply' => false,
-                        'parentid' => 1,
-                    ],
-                    [
-                        'commentid' => 4,
-                        'comment' => 'koment reply kedua',
-                        'user' => 'USER-1',
-                        'tgl' => '11 Desember 2022',
-                        'has_reply' => false,
-                        'parentid' => 1,
-                    ],
-                ]     
-            ],
-            [
-                'commentid' => 2,
-                'comment' => 'koment ke-2',
-                'user' => 'USER-2',
-                'tgl' => '10 Desember 2022',
-                'has_reply' => false,
-                'parentid' => null,
-            ],
-            [
-                'commentid' => 5,
-                'comment' => 'koment ke-3 ',
-                'user' => 'USER-3',
-                'tgl' => '12 Desember 2022',
-                'has_reply' => false,
-                'parentid' => null,
-            ]
-        ];
-        return $this->respond($data,200);
+    public function postComment()
+    {
+        header("Content-Type: application/json");
+        $arr = array(
+            'fail' => 500,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+        if($this->request->isAJAX()) {
+            try {
+                $datas = $this->request->getVar();
+                if(is_object($datas)) {
+                    $datas = (array) $datas;
+                }
+
+                $data = [
+                    'articleid' => $datas['id'],
+                    'userid' => $datas['userid'],
+                    'text' => $datas['text'],
+                    'posted_date' => date('Y-m-d H:i:s'),
+                    // 'image' => ($datas['isaktif']=='Y' ? 1 : 0),
+                    'status' => 'publish',
+                ];
+                
+                if($datas['parentid']!='') $data = array_merge($data,['parentid' => $datas['parentid']]);
+                $this->comment->insert($data);
+                $message = lang('Files.Save_Success');
+                
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => $message
+                );
+            }catch (\Exception $e) {
+                $arr = array(
+                    'status' => $e->getMessage(),
+                    'code' => 400
+                );
+            }
+        }
+        $response = json_encode($arr);
+        return $response;
     }
 }
