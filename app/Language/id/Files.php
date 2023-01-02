@@ -261,6 +261,8 @@ return [
     "phone" => "Nomor HP",
     "article" => "Berita",
     "Articles" => "Artikel",
+    "Leave_Response" => "Tanggapi Artikel",
+    "Article" => "Artikel",
     
     // Menu
     "group-divisi" => 'Grup Divisi',

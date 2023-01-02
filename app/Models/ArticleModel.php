@@ -46,4 +46,16 @@ class ArticleModel extends Model
         return $this->db->select('slug')
         ->groupBy('slug')->get()->getResult();
     }
+
+    public function getArticle(int $id,?string $title)
+    {
+        $where = ['articleid'=>$id];
+        if($title!==null) array_merge($where,['title'=>$title]);
+        return $this->db->table('article a')
+            ->select('a.*, ifnull(fullname,username) as name, categoryname')
+            ->join('users b','b.id = a.creatorid')
+            ->join('article_category c','c.categoryid = a.categoryid')
+            ->where($where)
+            ->get();
+    }
 }

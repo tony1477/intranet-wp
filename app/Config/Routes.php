@@ -285,6 +285,7 @@ $routes->get('article/getData/(:num)','Company\Article::getData/$1');
 $routes->get('article/getCommentbyArticle/(:num)','Company\Article::getCommentbyArticle/$1');
 $routes->post('article/upload_image','Company/Article::uploadImg');
 $routes->post('article/postComment','Company/Article::postComment');
+$routes->get('article/read/(:segment)/(:num)','Company\Article::readArticle/$1/$2');
 
 ## Website
 $routes->get('tentang/profil','Website/About/Profile::index');

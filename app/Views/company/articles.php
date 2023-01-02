@@ -64,7 +64,7 @@
                                 <h5 class=""><a href="#" class="text-dark"><?=$article->title?></a></h5>
                                 <p class="mb-0 font-size-15"><?=substr(strip_tags($article->content,['br','p']),0,100)?>...</p>
                                 <div class="mt-3">
-                                    <a href="#" class="align-middle font-size-15">Read more <i class="mdi mdi-chevron-right"></i></a>
+                                    <a href="<?=base_url()?>/article/read/<?=str_replace(' ','-',$article->title)?>/<?=$article->articleid?>" class="align-middle font-size-15">Read more <i class="mdi mdi-chevron-right"></i></a>
                                 </div>
                             </div>
                         </div> <!-- end card -->

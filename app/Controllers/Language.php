@@ -12,6 +12,7 @@ class Language extends BaseController
         $locale = service('request')->getLocale();
         $session->remove('lang');
         $session->set('lang',$locale);
-        return redirect()->back(); 
+        // return redirect()->back();
+        return redirect()->route('/');
 	}
 }

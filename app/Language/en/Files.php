@@ -260,6 +260,8 @@ return [
     "phone" => "Phone Number",
     "article" => "News",
     "Articles" => "Articles",
+    "Leave_Response" => "Leave Response",
+    "Article" => "Article",
 
     // Menu
     "group-divisi" => 'Division Group',

@@ -504,4 +504,33 @@ class Article extends BaseController
         $response = json_encode($arr);
         return $response;
     }
+
+    public function readArticle($title,$id)
+    {
+        $title = str_replace('-',' ',$title);
+        //check article
+        if(!$article=$this->model->getArticle($id,$title)->getRow()) return redirect()->to('/articles');
+        
+        helper(['admin_helper']);
+        $menu = getMenu($user='Admin');
+        $categories = $this->category->sumPerCategory();
+        $upcoming = $this->model->where(['publish'=>0,'status'=>1])->findAll();
+        $popular = $this->model->findAll(0,3);
+        $tags = $this->model->findAll();
+        $data = [
+			'title_meta' => view('partials/title-meta', ['title' => 'Read_Article']),
+			'page_title' => view('partials/page-title', ['title' => 'Read_Articles', 'li_1' => 'Intranet', 'li_2' => 'Read_Articles']),
+			'modules' => $menu,
+            'route'=>'articles',
+            'menuname' => 'Read_Article',
+            'data' => [
+                'article' => $article,
+                'category' => $categories,
+                'upcoming' => $upcoming,
+                'popular' => $popular,
+                'tags' => $tags,
+            ],
+		];
+        return view('company/read_article',$data);
+    }
 }
