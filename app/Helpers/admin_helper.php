@@ -20,5 +20,11 @@ function getDetailMenu($menuid) {
   return $db->query("select * from menu where moduleid = {$menuid} and recordstatus = 1 order by urutan asc")->getResult();
 }
 
+function getImageSlider()
+{
+  $db = db_connect();
+  return $db->query("select * from gallery where islogin=1 and status=1")->getResult();
+}
+
 // bx bxs-card, bx bxs-report, bx bxs-bar-chart-alt-2, bx bx-trending-up, bx bx-bar-chart-square, bx bx-laptop, 
 ?>
