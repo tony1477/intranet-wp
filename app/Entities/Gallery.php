@@ -14,6 +14,7 @@ class Gallery extends Entity
         'Link_File' => 'url',
         'IsHighlight' => 'ishighlight',
         'Status' => 'status',
+        'IsLogin' => 'islogin',
         'User_Created' => 'created_by',
         'User_Modified' => 'updated_by',
     ];
@@ -28,6 +29,11 @@ class Gallery extends Entity
     public function getIshighlight()
     {
         return ($this->attributes['ishighlight'] == 1 ? 'YES' : 'NO');
+    }
+
+    public function getIsLogin()
+    {
+        return ($this->attributes['islogin'] == 1 ? 'YES' : 'NO');
     }
 
 }

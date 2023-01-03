@@ -139,13 +139,17 @@ class Gallery extends BaseController
             'data' => $gallery,
             'modal' => 'modal-md',
             'columns_hidden' => array('Action'),
-            'columns' => array('Action','Id','Name_Category','Title','Description','Link_File','IsHighlight','Status','User_Created','User_Modified'),
+            'columns' => array('Action','Id','Name_Category','Title','Description','Link_File','IsHighlight','Status','IsLogin','User_Created','User_Modified'),
             'button' => array(
                 'IsHighlight' => [
                     'class' => 'btn-sm waves-effect waves-light',
                     'text' => false,
                 ],
                 'Status' => [
+                    'class' => 'btn-sm waves-effect waves-light',
+                    'text' => false,
+                ],
+                'IsLogin' => [
                     'class' => 'btn-sm waves-effect waves-light',
                     'text' => false,
                 ],
@@ -205,6 +209,14 @@ class Gallery extends BaseController
                     'field'=>'status',
                     'type'=>'switch',
                     'idform'=>'isaktif',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
+                ),
+                'isbackground' => array(
+                    'label'=>'IsLogin',
+                    'field'=>'islogin',
+                    'type'=>'switch',
+                    'idform'=>'isbackground',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
                 ),
@@ -290,6 +302,7 @@ class Gallery extends BaseController
                     'description' => $datas['deskripsi'],
                     'ishighlight' => ($datas['istampil']=='Y' ? 1 : 0),
                     'status' => ($datas['isaktif']=='Y' ? 1 : 0),
+                    'islogin' => ($datas['isbackground']=='Y' ? 1 : 0),
                     'updatedby' => user()->username,
                     'updated_at'=>date('Y-m-d H:i:s'),
                 ];
