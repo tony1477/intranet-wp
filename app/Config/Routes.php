@@ -274,6 +274,7 @@ $routes->get('gallery-foto/manage-foto/(:num)','Company\Gallery::manageFoto/$1')
 $routes->post('gallery-foto/manage-album/post','Company/Gallery::postAlbum');
 $routes->post('gallery-foto/manage-foto/post', 'Company/Gallery::postFoto');
 $routes->post('([a-z]+)/uploadfile/gallery-foto/manage-foto', 'Company\Gallery::uploadfile/$1');
+$routes->post('gallery-foto/manage-foto/delete','Company/Gallery::deleteFoto');
 
 ## Article
 $routes->get('articles','Company/Article::index');

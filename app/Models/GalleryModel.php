@@ -15,7 +15,7 @@ class GalleryModel extends Model
     protected $returnType       = Gallery::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['gallerytype','categoryid','url','title','description','ishighlight','status','createdby','updatedby'];
+    protected $allowedFields    = ['gallerytype','categoryid','url','title','description','ishighlight','islogin','status','createdby','updatedby'];
 
     // Dates
     protected $useTimestamps = true;

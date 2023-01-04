@@ -45,6 +45,8 @@ class AlbumModel extends Model
     {
         return $this->db->table('gallerycategories')
             ->select('categoryname,description,categoryid,status, GetGallery(categoryid,3) as cover')
+            ->where('status',1)
+            // ->paginate(2);
             ->get();
         // return $this->db->query($sql);
     }

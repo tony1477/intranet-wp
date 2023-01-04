@@ -92,37 +92,7 @@
                     </section>
                 </div>
                 <!-- end row -->
-
-                <div class="row justify-content-center mb-4 mt-3">
-                    <div class="col-md-3">
-                        <div class="">
-                            <ul class="pagination mb-sm-0">
-                                <li class="page-item disabled">
-                                    <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a href="#" class="page-link">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">4</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">5</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- end row -->
+                <?= $pager->links('gallery','custom_pager') ?>
 
             </div> <!-- container-fluid -->
         </div>

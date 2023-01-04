@@ -41,7 +41,7 @@ class Gallery extends BaseController
         $menu = getMenu($user='Admin');
         $limit = 8;
         $offset = 0;
-        $gallery = $this->gallery->where(['gallerytype'=>1,'categoryid'=>$id,'status'=>1])->findAll($limit,$offset);
+        $gallery = $this->gallery->where(['gallerytype'=>1,'categoryid'=>$id,'status'=>1]);
         //$submenu = getSubmenu($moduleid=0);
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Gallery_Foto']),
@@ -49,7 +49,8 @@ class Gallery extends BaseController
 			'modules' => $menu,
             'route'=>'department',
             'menuname' => 'Department',
-            'data' => $gallery,
+            'data' => $gallery->paginate($limit,'gallery'),
+            'pager' => $gallery->pager,
             'categoryid' => $id,
 		];
 		
@@ -331,6 +332,44 @@ class Gallery extends BaseController
                 $arr = array(
                     'status' => $e->getMessage(),
                     'code' => 400
+                );
+            }
+        }
+        $response = json_encode($arr);
+        return $response;
+    }
+
+    public function deleteFoto()
+    {
+        header("Content-Type: application/json");
+        $arr = array(
+            'fail' => 500,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+        if($this->request->isAJAX()) {
+            try {
+                $id = $this->request->getVar('id');
+                $this->gallery->where('galleryid',$id)->delete();
+                if($this->gallery->find($id)) {
+                    $arr = array(
+                        'status' => 'warning',
+                        'code' => 200,
+                        'message' => 'Terjadi kesalahan dalam menghapus data',
+                        // 'data' => $this->model->findAll()
+                    );
+                    return json_encode($arr);
+                }
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => 'Data Berhasil di Hapus',
+                    // 'data' =>  $this->model->findAll()
+                );
+            }catch (\Exception $e) {
+                $arr = array(
+                    'status' => $e->getMessage(),
+                    'code' => 400,
                 );
             }
         }
