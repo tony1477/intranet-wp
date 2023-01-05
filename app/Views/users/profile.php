@@ -44,20 +44,22 @@
                                         <input type="file" id="user_image" name="user_image" style="display: none;" />
                                         <div>
                                             <button class="btn btn-info mt-4" id="uploadfoto">Upload</button>
-                                            <button class="btn btn-success mt-4">Update Data</button>
+                                            <button class="btn btn-success mt-4 updateprofile">Update Data</button>
                                         </div>
                                     </div>
                                     <div class="col-sm-8">
+                                        <form id="form-profile">
                                         <div class="row mb-3">
                                             <label for="fullname" class="col-form-label col-sm-4 text-end"><?=lang('Files.Fullname')?></label>
-                                            <div class="col-sm-8">    
-                                                <input type="text" name="fullname" value="<?=user()->fullname?>" class="form-control" placeholder="Silahkan isi Nama Lengkap Anda" />
+                                            <div class="col-sm-8">
+                                                <input type="hidden" value="<?=user_id()?>" id="id" />
+                                                <input type="text" name="fullname" id="fullname" value="<?=user()->fullname?>" class="form-control" placeholder="Silahkan isi Nama Lengkap Anda" />
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="username" class="col-form-label col-sm-4 text-end"><?=lang('Files.Username')?></label>
                                             <div class="col-sm-8">    
-                                                <input type="text" name="username" value="<?=user()->username?>" class="form-control" placeholder="Silahkan isi username Anda" />
+                                                <input type="text" name="username" id="username" value="<?=user()->username?>" class="form-control" placeholder="Silahkan isi username Anda" />
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -69,15 +71,16 @@
                                             </div>
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
+                                        <!-- <div class="row mb-3">
                                             <label for="password" class="col-form-label col-sm-4 text-end"><?=lang('Files.Password')?></label>
                                             <div class="col-sm-8">    
-                                            <input type="password" name="password" value="********" class="form-control" aria-describedby="passwordHelpBlock" placeholder="Password tidak boleh kosong!" />
+                                            <input type="password" name="password" value="********" class="form-control" aria-describedby="passwordHelpBlock" placeholder="Password tidak boleh kosong!" readonly />
                                             <div id="passwordHelpBlock" class="form-text">
                                             Jika tidak diganti, maka password tetap yang sebelumnya. <br />Note : Password diatas hanya sekedar symbol.
                                             </div>
                                             </div>
-                                        </div>
+                                        </div> -->
+                                    </form>
                                     </div>
                                 </div>
                                 <!-- <div class="row mb-3">
@@ -136,6 +139,7 @@
 <script src="<?=base_url()?>/assets/js/app.js"></script>
 <script type="text/javascript">
 const uploadButton = document.querySelector('#uploadfoto')
+const updateBtn = document.querySelector('.updateprofile')
 $(".img-upload").click(function() {
     $("input[id='user_image']").click();
 });
@@ -179,6 +183,39 @@ function changeFunc() {
     // console.log(optionValue)
 
 }
+
+updateBtn.addEventListener('click', (e) => {
+    const form = document.querySelector('form#form-profile')
+    const id = form.querySelector('#id')
+    const fullname = form.querySelector('#fullname')
+    const username = form.querySelector('#username')
+
+    const data = {
+        'id': id.value,
+        'username': username.value,
+        'fullname': fullname.value
+    }
+    fetch('<?=base_url()?>/profile/update',{
+        method : 'POST',
+        mode : 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type' : 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.status=='success') {
+            Swal.fire('success!','Data Berhasil di Perbaharui','success')
+            .then((res) => {
+                if(res.isConfirmed) location.reload();
+            })
+        }
+    })
+})
 </script>
 </body>
 </html>

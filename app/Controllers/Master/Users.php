@@ -319,6 +319,54 @@ class Users extends BaseController
 
         return view('users/profile.php',$data);
     }
+
+    public function updateProfile()
+    {
+        header("Content-Type: application/json");
+        $arr = array(
+            'fail' => 500,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+        $hash=null;
+        if($this->request->isAJAX()) {
+            try {
+                $this->config = config('Auth');
+                $user = new \Myth\Auth\Entities\User();
+                $datas = $this->request->getVar();
+                if(is_object($datas)) {
+                    $datas = (array) $datas;
+                }
+
+                $data = [
+                    'username' => $datas['username'],
+                    'fullname' => $datas['fullname'],
+                    // 'user_m' => $this->session->user_kode,
+                    // 'tgl_m'=>date('Y-m-d'),
+                    // 'time_m'=>date("h:i:s a")
+                ];
+                if($datas['id']!=='') {
+                    $newdata = ['id' => $datas['id']]; 
+                    $data = array_merge($data,$newdata);
+                    $this->model->save($data);
+                    $message = lang('Files.Update_Success');
+                }
+                
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => $message
+                );
+            }catch (\Exception $e) {
+                $arr = array(
+                    'status' => $e->getMessage(),
+                    'code' => 400,
+                );
+            }
+        }
+        $response = json_encode($arr);
+        return $response;
+    }
     
     public function docbyuser()
     {
