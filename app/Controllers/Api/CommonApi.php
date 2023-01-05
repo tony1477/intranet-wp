@@ -55,7 +55,7 @@ class CommonApi extends ResourceController {
         if($this->getAuthorized()===true) 
         {
             $model = new JabatanModel();
-            $data = $model->select('idjabatan,jab_nama')->findAll();
+            $data = $model->select('idjabatan,jab_nama')->orderBy('idjabatan','asc')->findAll();
             $data = array_merge(['status'=>'success'],$data);
             return $this->respond($data,200);
         }
