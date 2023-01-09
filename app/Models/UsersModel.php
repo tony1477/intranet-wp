@@ -9,12 +9,22 @@ class UsersModel extends MythModel
 {
     protected $returnType = Users::class;
     protected $allowedFields = ['email', 'username','password_hash', 'reset_hash', 'reset_at', 'reset_expires', 'activate_hash',
-    'status', 'status_message', 'active', 'force_pass_reset', 'permissions', 'deleted_at','fullname','user_image'];
+    'status', 'status_message', 'active', 'force_pass_reset', 'permissions', 'deleted_at','fullname','user_image','iddivisi','iddepartment','idjabatan','phoneno'];
 
     protected $validationRules = [
         'username'      => 'required|alpha_numeric_punct|min_length[3]|max_length[30]|is_unique[users.username,id,{id}]',
         'password_hash' => 'required',
     ];
+
+    public function getUsers()
+    {
+        return $this->db->table('users a')
+            ->select('a.*, if(a.active=1,"YES","NO") as aktif, b.dep_nama, div_nama, jab_nama','left')
+            ->join('tbl_ifmdepartemen b','b.iddepartment = a.iddepartment','left')
+            ->join('tbl_ifmdivisi c','c.iddivisi = a.iddivisi','left')
+            ->join('tbl_ifmjabatan d','d.idjabatan = a.idjabatan','left')
+            ->get();
+    }
 
     /**
      * Tambahan / Custom model

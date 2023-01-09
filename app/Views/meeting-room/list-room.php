@@ -73,7 +73,7 @@
                                 <td><?=$row->idruangan?></td>
                                 <td>
                                     <a href="<?=base_url().'/room-meeting/detail/'.str_replace(' ','-',strtolower($row->nama_ruangan))?>" class="text-body">
-                                    <img src="<?=base_url()?>/assets/images/meeting-rooms/<?=$row->foto_ruangan?>" alt="" class="avatar-md rounded-circle me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Lihat Detail Ruangan">
+                                    <img src="<?=base_url()?>/assets/images/meeting-rooms/<?=$row->foto_ruangan?>" alt="" class="avatar-md rounded-circle me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="<?=lang('Files.View_Detail')?>">
                                     <?=$row->nama_ruangan?></a>
                                 </td>
                                 <td><?=$row->lokasi_ruangan?></td>

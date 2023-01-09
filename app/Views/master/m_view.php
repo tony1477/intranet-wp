@@ -335,6 +335,7 @@
                     let select<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>');
                     let option<?=$form['idform']?> = Array.from(select<?=$form['idform']?>.options);
                     let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
+                    if(selectedOpt<?=$form['idform']?>!=undefined)
                     selectedOpt<?=$form['idform']?>.selected = true;
                     // console.log(<?=$form['idform']?>)
                 <?php break; ?>
@@ -692,6 +693,9 @@
     endforeach;
     endif;
 ?>
+<?php if(isset($additionalScript) && $additionalScript!==null):
+    echo view($additionalScript);
+endif;?>
 </body>
 
 </html>

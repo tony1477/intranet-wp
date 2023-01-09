@@ -262,6 +262,11 @@ return [
     "Articles" => "Articles",
     "Leave_Response" => "Leave Response",
     "Article" => "Article",
+    "Photos_Activity" => "Photos of Activity",
+    "Last_Used" => "Last Used",
+    "Room_Status" => "Status Room",
+    "available" => "Available",
+    "Meeting_Room" => "Meeting Room",
 
     // Menu
     "group-divisi" => 'Division Group',
@@ -288,6 +293,7 @@ return [
     "manual" => "Manual",
     "sop" => "SOP",
     "instruksi" => "Work Instruction",
-    "lain" => "Others",
+    "others" => "Others",
+    'lain' => "Others",
 
 ];

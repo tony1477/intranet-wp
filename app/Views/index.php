@@ -33,7 +33,7 @@
                     <div class="col-md-12 col-lg-6">
                         <div class="card slider-front">
                             <div class="card-header">
-                                <h4 class="card-title flex-grow-1 fs-3 text-center">Slider Foto Kegiatan WPG</h4>
+                                <h4 class="card-title flex-grow-1 fs-3 text-center"><?=lang('Files.Photos_Activity')?></h4>
                             </div><!-- end card header -->
 
                             <div class="card-body">

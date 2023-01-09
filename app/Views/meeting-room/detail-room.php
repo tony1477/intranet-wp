@@ -67,12 +67,12 @@
                                     <div class="col-sm-auto order-1 order-sm-2">
                                         <div class="d-flex align-items-start justify-content-end gap-2">
                                             <div><a href="<?=base_url()?>/meeting-schedule/booking/<?=str_replace(' ','-',strtolower($row->nama_ruangan))?>">
-                                                <button type="button" class="btn btn-soft-light"><i class="me-1"></i> Ajukan Peminjaman</button></a>
+                                                <button type="button" class="btn btn-soft-light"><i class="me-1"></i> <?=lang('Files.Request_Room')?></button></a>
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-start justify-content-start gap-2 mt-2 mx-2">
                                             <div><a href="javascript:void()" onclick="history.back()">
-                                                <button type="button" class="btn btn-soft-light"><i class="bx bx-arrow-back font-size-16 align-middle me-2"></i> Kembali </button></a>
+                                                <button type="button" class="btn btn-soft-light"><i class="bx bx-arrow-back font-size-16 align-middle me-2"></i> <?=lang('Files.Back')?> </button></a>
                                             </div>
                                         </div>
                                     </div>
@@ -141,7 +141,7 @@
                     <div class="col-xl-3 col-lg-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title mb-3">Pengguna Terakhir</h5>
+                                <h5 class="card-title mb-3"><?=lang('Files.Last_Used')?></h5>
                                 <div class="d-flex flex-wrap gap-2 font-size-16">
                                     <?php if($row->dep_kode!='') {
                                         $arr = explode(',',$row->dep_kode);
@@ -158,7 +158,7 @@
                         <!-- end card -->
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title mb-3">Status Ruangan</h5>
+                                <h5 class="card-title mb-3"><?=lang('Files.Room_Status')?></h5>
 
                                 <div>
                                     <button class="btn btn-success "> Available</button>

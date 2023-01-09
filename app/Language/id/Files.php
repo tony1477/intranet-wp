@@ -263,6 +263,11 @@ return [
     "Articles" => "Artikel",
     "Leave_Response" => "Tanggapi Artikel",
     "Article" => "Artikel",
+    "Photos_Activity" => "Foto-Foto Kegiatan",
+    "Last_Used" => "Pengguna Terakhir",
+    "Room_Status" => "Status Ruangan",
+    "available" => "Tersedia",
+    "Meeting_Room" => "Ruangan Meeting",
     
     // Menu
     "group-divisi" => 'Grup Divisi',
@@ -289,6 +294,7 @@ return [
     "manual" => "Manual",
     "sop" => "SOP",
     "instruksi" => "Instruksi Kerja",
-    "lain" => "Lain Lain",
+    "others" => "Lain Lain",
+    'lain' => "Lainnya",
 
 ];

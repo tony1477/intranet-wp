@@ -21,7 +21,10 @@ class Users extends BaseController
         helper(['admin_helper']);
         helper(['master_helper']);
         $menu = getMenu($user='Admin');
-        $users = getUsers();
+        $users = $this->model->getUsers()->getResult('\App\Entities\Users');
+        $divisi = getDivisi();
+        $department = getDepartment();
+        $position = getPosition();
         //$submenu = getSubmenu($moduleid=0);
 		// $data = [
 		// 	'title_meta' => view('partials/title-meta', ['title' => 'Group_Divisi']),
@@ -42,7 +45,7 @@ class Users extends BaseController
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
             'mark_column' => array('Pwd_User'),
-            'columns' => array('Action','Id','Name_User','Fullname','Email','Pwd_User','Photo_User','Active'),
+            'columns' => array('Action','Id','Name_User','Fullname','Email','Name_Divisi','Name_Department','Name_Position','Phone','Pwd_User','Photo_User','Active'),
             'button' => array(
                 'Active' => [
                     'class' => 'btn-sm waves-effect waves-light',
@@ -82,7 +85,7 @@ class Users extends BaseController
                     'type'=>'text',
                     'idform'=>'nama',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-8 col-xl-8'
+                    'style' => 'col-md-10 col-xl-10'
                 ),
                 'fullname' => array(
                     'label'=>'Fullname',
@@ -90,7 +93,7 @@ class Users extends BaseController
                     'type'=>'text',
                     'idform'=>'namalengkap',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-8 col-xl-8'
+                    'style' => 'col-md-10 col-xl-10'
                 ),
                 'email' => array(
                     'label'=>'Email',
@@ -98,7 +101,54 @@ class Users extends BaseController
                     'type'=>'email',
                     'idform'=>'emailuser',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-8 col-xl-8'
+                    'style' => 'col-md-10 col-xl-10'
+                ),
+                'iddivisi' => array(
+                    'label'=>'Name_Divisi',
+                    'field'=>'iddivisi',
+                    'type'=>'select',
+                    'idform'=>'id_divisi',
+                    'form-class'=>'form-select',
+                    'style' => 'col-md-10 col-xl-10',
+                    'options' => array(
+                        'list' => $divisi,
+                        'id' => 'Id',
+                        'value' => 'Name_Divisi',
+                    ),
+                ),
+                'iddepartment' => array(
+                    'label'=>'Name_Department',
+                    'field'=>'iddepartment',
+                    'type'=>'select',
+                    'idform'=>'id_department',
+                    'form-class'=>'form-select',
+                    'style' => 'col-md-10 col-xl-10',
+                    'options' => array(
+                        'list' => $department,
+                        'id' => 'Id',
+                        'value' => 'Name_Department',
+                    ),
+                ),
+                'idjabatan' => array(
+                    'label'=>'Name_Position',
+                    'field'=>'idjabatan',
+                    'type'=>'select',
+                    'idform'=>'id_jabatan',
+                    'form-class'=>'form-select',
+                    'style' => 'col-md-10 col-xl-10',
+                    'options' => array(
+                        'list' => $position,
+                        'id' => 'Id',
+                        'value' => 'Name_Position',
+                    ),
+                ),
+                'phone' => array(
+                    'label'=>'Phone',
+                    'field'=>'phoneno',
+                    'type'=>'text',
+                    'idform'=>'no_hp',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
                 ),
                 'pwd' => array(
                     'label' => 'Pwd_User',
@@ -106,7 +156,7 @@ class Users extends BaseController
                     'type' => 'password',
                     'idform' => 'userpwd',
                     'form-class' => 'form-control',
-                    'style' => 'col-md-8 col-xl-8',   
+                    'style' => 'col-md-10 col-xl-10',   
                 ),
                 'user_fhoto' => array(
                     'label'=>'Photo_User',
@@ -114,7 +164,7 @@ class Users extends BaseController
                     'type'=>'text',
                     'idform'=>'photouser',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-8 col-xl-8'
+                    'style' => 'col-md-10 col-xl-10'
                 ),
                 'user_blokir' => array(
                     'label'=>'Active',
@@ -122,12 +172,14 @@ class Users extends BaseController
                     'type'=>'switch',
                     'idform'=>'statususer',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-8 col-xl-8',
+                    'style' => 'col-md-10 col-xl-10',
                 ),
-            ]
+            ],
+            'additionalScript' => 'master/_partials/script/users',
 		];
 		
 		return view('master/m_view', $data);
+        // print_r($users);
     }
 
     public function delete()
@@ -198,8 +250,11 @@ class Users extends BaseController
                     'username' => $datas['nama'],
                     'fullname' => $datas['namalengkap'],
                     'email' => ($datas['emailuser'] == '' ? null : $datas['emailuser']),
-                    'active' => ($datas['statususer'] == 'Y' ? 1 : 0),
-                    // 'user_m' => $this->session->user_kode,
+                    'active' => ($datas['statususer'] == 'Y' ? 1 : 0),                    
+                    'iddivisi' => $datas['id_divisi'],
+                    'iddepartment' => $datas['id_department'],
+                    'idjabatan' => $datas['id_jabatan'],
+                    'phoneno' => $datas['no_hp'],
                     // 'tgl_m'=>date('Y-m-d'),
                     // 'time_m'=>date("h:i:s a")
                 ];

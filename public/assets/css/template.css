@@ -2,3 +2,9 @@
     height: 100vh;
     overflow: auto;
 }
+
+span#slogan {
+    font-weight: 600;
+    color: rgba(200,29,29,.9);
+    margin-left: 35px;
+}
