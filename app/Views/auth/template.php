@@ -31,6 +31,7 @@
                                         <a href="/" class="d-block auth-logo">
                                             <img src="<?=base_url() ?>/assets/images/logo-baru.png" alt="" height="28"> <span class="logo-txt ">Wilian Perkasa</span>
                                         </a>
+                                        <span id="slogan">be Wise be Excellent</span>
                                     </div>
 
                                     <?= $this->renderSection('content')?>
@@ -62,8 +63,8 @@
                                     <div class="carousel-item <?=$i==0 ?'active' : ''?>">
                                     <img src="<?=base_url()?>/assets/images/gallery/foto/<?=$inner->url?>" class="d-block w-100" style="min-height:100vh;" alt="...">
                                     <div class="carousel-caption d-none d-md-block">
-                                        <h5 class="text-white"><?=$inner->title?></h5>
-                                        <p class="text-white-50"><?=$inner->description?></p>
+                                        <h5 class="text-dark"><?=$inner->title?></h5>
+                                        <p class="text-black-50"><?=$inner->description?></p>
                                     </div>
                                     </div>
                                     <?php 
