@@ -676,7 +676,10 @@
             .then(data => {
                 if(data.code === 200) {
                     $('#editDivisi').modal('hide'); 
-                    Swal.fire("Success!", data.message, data.status);
+                    Swal.fire("Success!", data.message, data.status)
+                    .then(function(){
+                        location.reload();
+                    });
                 }
                 // table.ajax.reload()
                 // Swal.clickConfirm()
