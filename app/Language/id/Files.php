@@ -268,6 +268,10 @@ return [
     "Room_Status" => "Status Ruangan",
     "available" => "Tersedia",
     "Meeting_Room" => "Ruangan Meeting",
+    "Notulis" => "Notulis",
+    "Start_Time" => "Jam Mulai",
+    "End_Time" => "Jam Selesai",
+    "Date_Request" => "Tanggal Pembuatan",
     
     // Menu
     "group-divisi" => 'Grup Divisi',

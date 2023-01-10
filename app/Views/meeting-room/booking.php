@@ -12,6 +12,8 @@
 
     <?= $this->include('partials/head-css') ?>
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <!-- Sweet Alert-->
+    <link href="<?=base_url()?>/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -80,14 +82,19 @@
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
-                                                            <label for="basicpill-firstname-input" class="form-label"><?=lang('Files.First_Name')?></label>
+                                                            <label for="basicpill-firstname-input" class="form-label"><?=lang('Files.Fullname')?></label>
                                                             <input type="text" class="form-control" name="fullname" id="fullname" value="<?=user()->fullname?>"  <?= (user()->fullname != '') ? 'readonly' : ''?>>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-lastname-input" class="form-label"><?=lang('Files.Position')?></label>
-                                                            <input type="text" class="form-control" name="position" id="position">
+                                                            <select disabled class="form-select" id="position">
+                                                                <option>-</option>
+                                                                <?php foreach($position as $list):?>
+                                                                    <option value="" <?=($list->Id==user()->idjabatan ? 'selected' : '')?>><?=$list->Name_Position?></option>
+                                                                <?php endforeach;?>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -96,10 +103,10 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-phoneno-input" class="form-label"><?=lang('Files.Department')?></label>
-                                                            <select class="form-select iddepartment" id="choices-single-no-sorting" name="iddepartment">
+                                                            <select disabled class="form-select iddepartment" id="choices-single-no-sorting" name="iddepartment">
                                                                 <option selected>- Pilih -</option>
                                                                 <?php foreach($department as $list): ?>
-                                                                <option value="<?=$list->Id?>"><?=$list->Name_Department.' ('.$list->Name_Divisi.')'?>
+                                                                <option value="<?=$list->Id?>" <?=($list->Id==user()->iddepartment ? 'selected' : '')?>><?=$list->Name_Department.' ('.$list->Name_Divisi.')'?>
                                                             <?php endforeach;?>
                                                             </select>
                                                         </div>
@@ -134,7 +141,7 @@
 
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
-                                                                <label for="basicpill-vatno-input" class="form-label"><?=lang('Files.Time')?></label>
+                                                                <label for="basicpill-vatno-input" class="form-label"><?=lang('Files.Start_Time')?></label>
                                                                 <input type="time" class="form-control" name="starttime" id="starttime">
                                                             </div>
                                                         </div>
@@ -142,7 +149,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
-                                                                <label for="basicpill-cstno-input" class="form-label"><?=lang('Files.Time')?></label>
+                                                                <label for="basicpill-cstno-input" class="form-label"><?=lang('Files.End_Time')?></label>
                                                                 <input type="time" class="form-control" name="endtime" id="endtime">
                                                             </div>
                                                         </div>
@@ -226,7 +233,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
-                                                                <label for="basicpill-cardno-input" class="form-label"><?=lang('Files.Notulen')?></label>
+                                                                <label for="basicpill-cardno-input" class="form-label"><?=lang('Files.Notulis')?></label>
                                                                 <input type="text" class="form-control" name="notulen" id="notulen">
                                                             </div>
                                                         </div>
@@ -301,6 +308,9 @@
 <script src="<?=base_url()?>/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
 <?= $this->include('partials/script/booking') ?>
 
+<!-- Sweet Alerts js -->
+<script src="<?=base_url()?>/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
 <script src="<?=base_url()?>/assets/js/app.js"></script>
 <script text="text/javascript">
     const fullname = document.querySelector('#fullname')
@@ -355,7 +365,9 @@
             if(data.code === 200) {
                 // release localstorage
                 // localStorage.clear()
-                Swal.fire("Success!",data.message, data.status);
+                Swal.fire("Success!",data.message, data.status).then(function(){
+                    location.href = '<?=base_url()?>/meeting-schedule';
+                });
             }
         })
     })

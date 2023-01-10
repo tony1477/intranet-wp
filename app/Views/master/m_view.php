@@ -72,7 +72,7 @@
                                                 <?php endif;?>
                                                 <?php foreach($rows as $row):?>
                                                 <td><?php if(isset($mark_column) && in_array($row,$mark_column)) {
-                                                    echo '*****';
+                                                    echo '********';
                                                 }
                                                 if(isset($columns_link) && in_array($row,$columns_link)) {
                                                     echo "<a href='".base_url()."/dokumen/".$route."/viewbyfile/".$list->$row."' target='blank'>".$list->$row."</a>";

@@ -79,10 +79,14 @@
                                 <td><?=$row->lokasi_ruangan?></td>
                                 <td>Available</td>
                                 <td>
+                                    <?php if($row->dept_peminjam):
+                                        $str = explode(',',$row->dept_peminjam);?>
                                     <div class="d-flex gap-2">
-                                        <a href="#" class="badge badge-soft-primary">IA&CC</a>
-                                        <a href="#" class="badge badge-soft-primary">IT</a>
+                                        <?php foreach($str as $requester):?>
+                                        <a href="#" class="badge badge-soft-primary"><?=$requester?></a>
+                                        <?php endforeach;?>
                                     </div>
+                                    <?php endif;?>
                                 </td>
                                 <td>
                                     <div class="dropdown">

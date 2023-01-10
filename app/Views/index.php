@@ -94,7 +94,7 @@
                                                     <p class="text-truncate text-muted font-size-13"><?=$meeting->nama_peserta?></p>
                                                 </div>
                                                 <div class="flex-shrink-0 text-end me-3">
-                                                    <h6 class="mb-1">Pemateri </h6>
+                                                    <h6 class="mb-1"><?=lang('Files.Speaker')?> </h6>
                                                     <div class="font-size-13"><?=$meeting->pemateri?></div>
                                                 </div>
 

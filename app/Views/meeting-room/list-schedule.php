@@ -75,6 +75,7 @@
                                 <th scope="col"><?=lang('Files.Date')?></th>
                                 <th scope="col"><?=lang('Files.Event')?></th>
                                 <th scope="col"><?=lang('Files.Name_Department')?></th>
+                                <th scope="col"><?=lang('Files.Date_Request')?></th>
                                 <th scope="col"><?=lang('Files.Status')?></th>
                                 <th style="width: 80px; min-width: 80px;"><?=lang('Files.Action')?></th>
                             </tr>
@@ -90,13 +91,14 @@
                                 </th>
                                 <td>
                                     <img src="<?=base_url()?>/assets/images/meeting-rooms/<?=$list->foto_ruangan?>" alt="" class="avatar-sm rounded-circle me-2">
-                                    <a href="#" class="text-body"><?=$list->nama_ruangan?></a>
+                                    <a href="<?=base_url()?>/meeting-schedule/detail/<?=$list->idpeminjaman?>" class="text-body"><?=$list->nama_ruangan?></a>
                                 </td>
                                 <td><?=date('d F Y H:i', strtotime($list->tgl_mulai.' '.$list->jam_mulai))?></td>
                                 <td><?=$list->agenda?></td>
                                 <td>
                                     <a href="#" class="badge badge-soft-primary font-size-11"><?=$list->dep_kode?></a>
                                 </td>
+                                <td><?=date('d F Y H:i', strtotime($list->created_at))?></td>
                                 <td>
                                 <?php 
                                 if($list->status==1) {

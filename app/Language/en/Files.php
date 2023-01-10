@@ -267,6 +267,10 @@ return [
     "Room_Status" => "Status Room",
     "available" => "Available",
     "Meeting_Room" => "Meeting Room",
+    "Notulis" => "Notulis",
+    "Start_Time" => "Start Time",
+    "End_Time" => "End Time",
+    "Date_Request" => "Requested Date",
 
     // Menu
     "group-divisi" => 'Division Group',

@@ -20,8 +20,8 @@ class MeetingSchedule extends BaseController
         $menu = getMenu($user='Admin');
         $list = getListSchedule();
         $data = [
-            'title_meta' => view('partials/title-meta', ['title' => 'Meeting_Room']),
-			'page_title' => view('partials/page-title', ['title' => 'Meeting_Room', 'li_1' => 'Intranet', 'li_2' => 'Meeting_Schedule']),
+            'title_meta' => view('partials/title-meta', ['title' => 'Meeting_Schedule']),
+			'page_title' => view('partials/page-title', ['title' => 'Meeting_Schedule', 'li_1' => 'Intranet', 'li_2' => 'Meeting_Schedule']),
 			'modules' => $menu,
             'data' => $list,
         ];
@@ -51,6 +51,7 @@ class MeetingSchedule extends BaseController
         $menu = getMenu($user='Admin');
         $param = $this->request->uri->getSegment(3);
         $getDepartment = getDepartment();
+        $getPosition = getPosition();
         $rooms = getRoom();
         if($param!='') {
             $getRoom = getRoomByName($param);
@@ -63,6 +64,7 @@ class MeetingSchedule extends BaseController
             // 'data' => $schedule,
             'nama' => ucwords(str_replace('-room',' ',$param)),
             'department' => $getDepartment,
+            'position' => $getPosition,
             'room' => $rooms,
         ];
         return view('meeting-room/booking',$data);
@@ -104,7 +106,6 @@ class MeetingSchedule extends BaseController
                     'userid' => user()->id,
                     'tgl_mulai' => $datas['startdate'],
                     'jam_mulai' => $datas['starttime'],
-                    'tgl_selesai' => $datas['startdate'],
                     'jam_selesai' => $datas['endtime'],
                     'iddepartment' => $datas['department'],
                     'jumlah_peserta' => $datas['participant'],
@@ -113,14 +114,15 @@ class MeetingSchedule extends BaseController
                     'pemateri' => $datas['speaker'],
                     'nama_peserta' => $datas['nameparti'],
                     'kebutuhan' => $datas['requirement'],
+                    'notulis' => $datas['notulen'],
                     'status' => 1,
                     // 'user_m' => $this->session->user_kode,
                     // 'tgl_m'=>date('Y-m-d'),
                     // 'time_m'=>date("h:i:s a")
                 ];
-                var_dump($data);
+                // var_dump($data);
                 $this->model->insert($data);
-                $message = lang('Files.Update_Success');
+                $message = lang('Files.Save_Success');
                 // if($datas['id']!=='') {
                 //     $newdata = ['id' => $datas['id'], 'password_hash' => $hash];
                 //     $data = array_merge($data,$newdata);
@@ -164,17 +166,22 @@ class MeetingSchedule extends BaseController
         endif;
 
         $status=null;
+        $arr=null;
         switch ($action) {
             case "approve":
                 $status=2;
+                $arr = ['approveby'=>user_id()];
                 break;
             case "selesai":
                 $status=3;
+                $arr = ['act_tgl_selesai' => date('Y-m-d'), 'act_jam_selesai' => date('H:i:s')];
                 break;
             default:
                 $status=0;
+                $arr = ['rejectedby'=>user_id()];
         }
         $data = ['status'=>$status];
+        if($arr!=null) $data = array_merge($data,$arr);
         $this->model->update($id,$data);
         return redirect()->to('/meeting-schedule');
     }
