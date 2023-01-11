@@ -72,7 +72,7 @@
                                     </div>
                                 </th>
                                 <th scope="col"><?=lang('Files.Room_Name')?></th>
-                                <th scope="col"><?=lang('Files.Date')?></th>
+                                <th scope="col"><?=lang('Files.Meeting_Date')?></th>
                                 <th scope="col"><?=lang('Files.Event')?></th>
                                 <th scope="col"><?=lang('Files.Name_Department')?></th>
                                 <th scope="col"><?=lang('Files.Date_Request')?></th>

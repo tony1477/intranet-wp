@@ -1,9 +1,9 @@
 .logo-txt {
-    font-family: Cinzel;
-    font-weight: 600;
-    color: rgba(173, 47, 47,9);
+    /* font-family: Cinzel; */
+    font-weight: 700;
+    /* color: rgba(173, 47, 47,9); */
     letter-spacing: 1.5px;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 ul.list-misi {
@@ -28,3 +28,49 @@ ul.list-misi li {
     min-height: 500px;
 }
 
+.vertical-menu {
+    top:130px;
+}
+
+.slogan {
+    font-weight: 600;
+    color: rgba(200,29,29,.9);
+    /* margin-left: 35px; */
+}
+
+div.slogan {
+    background: 50% 100%/50% 50% no-repeat radial-gradient(ellipse at bottom, rgba(200,29,29,.9), transparent, transparent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 15px;
+    font-family: "Source Sans Pro", sans-serif;
+    -webkit-animation: reveal 3000ms ease-in-out forwards 200ms, glow 2500ms linear infinite 2000ms;
+            animation: reveal 3000ms ease-in-out forwards 200ms, glow 2500ms linear infinite 2000ms;
+  }
+  @-webkit-keyframes reveal {
+    80% {
+      letter-spacing: 1.5px;
+    }
+    100% {
+      background-size: 300% 300%;
+    }
+  }
+  @keyframes reveal {
+    80% {
+      letter-spacing: 1.5px;
+    }
+    100% {
+      background-size: 300% 300%;
+    }
+  }
+  @-webkit-keyframes glow {
+    40% {
+      text-shadow: 0 0 4px rgba(200,29,29,.9);
+    }
+  }
+  @keyframes glow {
+    40% {
+      text-shadow: 0 0 4px rgba(200,29,29,.9);
+    }
+  }

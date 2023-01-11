@@ -1,23 +1,26 @@
 <header id="page-topbar">
     <div class="navbar-header">
-        <div class="d-flex">
+        <div class="d-flex mh-100">
             <!-- LOGO -->
-            <div class="navbar-brand-box">
+            <div class="navbar-brand-box h-100">
                 <a href="/" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="<?=base_url()?>/assets/images/logo-baru.png" alt="" height="24">
+                        <img src="<?=base_url()?>/assets/images/logo-baru.png" alt="" height="33">
                     </span>
-                    <span class="logo-lg">
-                        <img src="<?=base_url()?>/assets/images/logo-baru.png" alt="" height="24"> <span class="logo-txt">WILIAN PERKASA</span>
+                    <span class="logo-lg text-center">
+                        <div class="w-100 mt-2">
+                        <img src="<?=base_url()?>/assets/images/logo-baru.png" alt="" height="78"> <div class="logo-txt" style="margin-top:-15px">Wilian Perkasa</div>
+                        <div style="margin-top:-45px" class="slogan">be Wise be Excellent</div>
+                    </div>
                     </span>
                 </a>
 
                 <a href="/" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="<?=base_url()?>/assets/images/logo-white.png" alt="" height="24">
+                        <img src="<?=base_url()?>/assets/images/logo-white.png" alt="" height="33">
                     </span>
                     <span class="logo-lg">
-                        <img src="<?=base_url()?>/assets/images/logo-white.png" alt="" height="24"> <span class="logo-txt">WILIAN PERKASA</span>
+                        <img src="<?=base_url()?>/assets/images/logo-white.png" alt="" height="88"> <span class="logo-txt">WILIAN PERKASA</span>
                     </span>
                 </a>
             </div>

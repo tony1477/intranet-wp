@@ -272,6 +272,7 @@ return [
     "Start_Time" => "Jam Mulai",
     "End_Time" => "Jam Selesai",
     "Date_Request" => "Tanggal Pembuatan",
+    "Meeting_Date" => "Tanggal Meeting",
     
     // Menu
     "group-divisi" => 'Grup Divisi',

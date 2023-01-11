@@ -271,6 +271,7 @@ return [
     "Start_Time" => "Start Time",
     "End_Time" => "End Time",
     "Date_Request" => "Requested Date",
+    "Meeting_Date" => "Meeting Date",
 
     // Menu
     "group-divisi" => 'Division Group',

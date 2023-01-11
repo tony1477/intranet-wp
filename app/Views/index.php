@@ -32,8 +32,8 @@
                 <div class="row">
                     <div class="col-md-12 col-lg-6">
                         <div class="card slider-front">
-                            <div class="card-header">
-                                <h4 class="card-title flex-grow-1 fs-3 text-center"><?=lang('Files.Photos_Activity')?></h4>
+                            <div class="card-header bg-info rounded">
+                                <h4 class="card-title flex-grow-1 fs-3 text-center text-white"><?=lang('Files.Photos_Activity')?></h4>
                             </div><!-- end card header -->
 
                             <div class="card-body">
@@ -67,8 +67,8 @@
                     </div>
                     <div class="col-md-12 col-lg-6">
                         <div class="card meeting-list">
-                            <div class="card-header align-items-center d-flex">
-                                <h4 class="card-title mb-0 flex-grow-1 fs-3 text-center"><?=lang('Files.Meeting_Schedule')?></h4>
+                            <div class="card-header align-items-center d-flex bg-info rounded">
+                                <h4 class="card-title mb-0 flex-grow-1 fs-3 text-center text-white"><?=lang('Files.Meeting_Schedule')?></h4>
                                 <!-- <div class="flex-shrink-0">
                                     <select class="form-select form-select-sm mb-0 my-n1" onchange="changeFunc()" id="select_day">
                                         <option value="Today">Today</option>

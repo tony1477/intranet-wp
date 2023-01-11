@@ -27,11 +27,12 @@
                         <div class="auth-full-page-content d-flex p-sm-5 p-4">
                             <div class="w-100">
                                 <div class="d-flex flex-column h-100">
-                                    <div class="mb-4 mb-md-5 text-center">
+                                    <div class="mb-4 mb-md-5 text-center justify-content-center">
+                                        <img src="<?=base_url() ?>/assets/images/logo-baru.png" alt="" height="88">
                                         <a href="/" class="d-block auth-logo">
-                                            <img src="<?=base_url() ?>/assets/images/logo-baru.png" alt="" height="28"> <span class="logo-txt ">Wilian Perkasa</span>
+                                             <span class="logo-txt text-center">Wilian Perkasa</span>
                                         </a>
-                                        <span id="slogan">be Wise be Excellent</span>
+                                        <span id="slogan" class="text-end">be Wise be Excellent</span>
                                     </div>
 
                                     <?= $this->renderSection('content')?>
@@ -63,7 +64,7 @@
                                     <div class="carousel-item <?=$i==0 ?'active' : ''?>">
                                     <img src="<?=base_url()?>/assets/images/gallery/foto/<?=$inner->url?>" class="d-block w-100" style="min-height:100vh;" alt="...">
                                     <div class="carousel-caption d-none d-md-block">
-                                        <h5 class="text-dark"><?=$inner->title?></h5>
+                                        <h5 class="text-dark judul"><?=$inner->title?></h5>
                                         <p class="text-black-50"><?=$inner->description?></p>
                                     </div>
                                     </div>

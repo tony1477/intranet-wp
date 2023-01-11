@@ -3,8 +3,67 @@
     overflow: auto;
 }
 
+.logo-txt {
+    letter-spacing: 2px;
+}
+
 span#slogan {
     font-weight: 600;
     color: rgba(200,29,29,.9);
-    margin-left: 35px;
+    /* margin-left: 35px; */
 }
+/* 
+div.carousel-caption::before {
+    content: "";
+    position: absolute;
+} */
+
+
+h5.judul::before {
+    content: "";
+    background-color: rgba(241, 233, 233, .5);
+    /* width: -moz-fit-content; */
+    width: 170px;
+    height: 25px;
+    position: absolute;
+    /* top:50; */
+    /* margin-left:-20px; */
+    border-radius: 50px;
+}
+
+span#slogan {
+    background: 50% 100%/50% 50% no-repeat radial-gradient(ellipse at bottom, rgba(200,29,29,.9), transparent, transparent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 15px;
+    font-family: "Source Sans Pro", sans-serif;
+    -webkit-animation: reveal 3000ms ease-in-out forwards 200ms, glow 2500ms linear infinite 2000ms;
+            animation: reveal 3000ms ease-in-out forwards 200ms, glow 2500ms linear infinite 2000ms;
+  }
+  @-webkit-keyframes reveal {
+    80% {
+      letter-spacing: 1.5px;
+    }
+    100% {
+      background-size: 300% 300%;
+    }
+  }
+  @keyframes reveal {
+    80% {
+      letter-spacing: 1.5px;
+    }
+    100% {
+      background-size: 300% 300%;
+    }
+  }
+  @-webkit-keyframes glow {
+    40% {
+      text-shadow: 0 0 4px rgba(200,29,29,.9);
+    }
+  }
+  @keyframes glow {
+    40% {
+      text-shadow: 0 0 4px rgba(200,29,29,.9);
+    }
+  }
