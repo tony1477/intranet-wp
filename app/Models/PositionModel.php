@@ -14,7 +14,7 @@ class PositionModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['jab_kode','jab_nama','jab_nama2','user_c','user_m','time_c','time_m','tgl_c','tgl_m'];
+    protected $allowedFields    = ['no_urut','jab_kode','jab_nama','jab_nama2','user_c','user_m','time_c','time_m','tgl_c','tgl_m'];
 
     // Dates
     protected $useTimestamps = false;

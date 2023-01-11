@@ -45,7 +45,7 @@ function getDocument() {
 
 function getPosition() {
     $db = db_connect();
-    return $db->query("select idjabatan as Id, jab_kode as Code_Position, jab_nama as Name_Position, jab_nama2 as Name_Position2,user_c User_Created, user_m as User_Modified
+    return $db->query("select idjabatan as Id, no_urut as No_Urut, jab_kode as Code_Position, jab_nama as Name_Position, jab_nama2 as Name_Position2,user_c User_Created, user_m as User_Modified
     from tbl_ifmjabatan a")->getResult();
 }
 

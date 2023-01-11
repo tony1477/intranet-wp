@@ -37,7 +37,7 @@ class Position extends BaseController
             'data' => $position,
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
-            'columns' => array('Action','Id','Code_Position','Name_Position','Name_Position2','User_Created','User_Modified'),
+            'columns' => array('Action','Id','No_Urut','Code_Position','Name_Position','Name_Position2','User_Created','User_Modified'),
             // 'crudScript' => view('partials/script/groupdivisi',['menuname' => 'Divisi_Group','forms'=>'forms']),
             'forms' => [
                 # rule
@@ -55,6 +55,14 @@ class Position extends BaseController
                 //         'value' => 'gdiv_nama',
                 //     ),
                 // ),
+                'nomor' => array(
+                    'label'=>'No_Urut',
+                    'field'=>'no_urut',
+                    'type'=>'text',
+                    'idform'=>'urutan',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-8 col-xl-8'
+                ),
                 'jab_kode' => array(
                     'label'=>'Code_Position',
                     'field'=>'jab_kode',
@@ -138,6 +146,7 @@ class Position extends BaseController
                     $datas = (array) $datas;
                 }
                 $data = [
+                    'no_urut' => $datas['urutan'],
                     'jab_kode' => $datas['kode'],
                     'jab_nama' => $datas['namajabatan'],
                     'jab_nama2' => $datas['namajabatan2'],
