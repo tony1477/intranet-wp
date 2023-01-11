@@ -281,7 +281,7 @@ return [
     "jabatan" => "Jabatan",
     "ruangan-meeting" => "Ruangan Meeting",
     "jadwal-meeting" => "Jadwal Meeting",
-    "struktur-org" => "Sturktur Organisasi",
+    "struktur-org" => "Struktur Organisasi",
     "kategory" => "Kategori",
     "dokumen" => "Dokumen",
     "group-user" => "Grup Pengguna",
