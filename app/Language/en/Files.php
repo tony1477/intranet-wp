@@ -272,6 +272,17 @@ return [
     "End_Time" => "End Time",
     "Date_Request" => "Requested Date",
     "Meeting_Date" => "Meeting Date",
+    "umum" => "General",
+    "album" => "Album",
+    "category" => "Category",
+    "foto" => "Photo",
+    "video" => "Video",
+    "article-category" => "Category Article",
+    "berita" => "News",
+    "pojok-wp" => "WP's Corner",
+    "gallery-foto" => "Photo Gallery",
+    "gallery-video" => "Video Gallery",
+    "List_Article" => "List Article",
 
     // Menu
     "group-divisi" => 'Division Group',

@@ -273,6 +273,17 @@ return [
     "End_Time" => "Jam Selesai",
     "Date_Request" => "Tanggal Pembuatan",
     "Meeting_Date" => "Tanggal Meeting",
+    "umum" => "Umum",
+    "album" => "Album",
+    "category" => "Kategori",
+    "foto" => "Foto",
+    "video" => "Video",
+    "article-category" => "Kategori Artikel",
+    "berita" => "Berita",
+    "pojok-wp" => "Pojok WP",
+    "gallery-foto" => "Gallery Foto",
+    "gallery-video" => "Gallery Video",
+    "List_Article" => "Daftar Berita",
     
     // Menu
     "group-divisi" => 'Grup Divisi',

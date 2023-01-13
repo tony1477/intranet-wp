@@ -33,7 +33,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <h5 class="card-title"><?=lang('Files.Pojok_WP')?> <span class="text-muted fw-normal ms-2"></span></h5>
+                            <h5 class="card-title"><?=lang('Files.pojok-wp')?> <span class="text-muted fw-normal ms-2"></span></h5>
                         </div>
                     </div>
 
