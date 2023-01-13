@@ -283,6 +283,7 @@ return [
     "gallery-foto" => "Photo Gallery",
     "gallery-video" => "Video Gallery",
     "List_Article" => "List Article",
+    "display-pojok-wp" => "WP's Corner",
 
     // Menu
     "group-divisi" => 'Division Group',
