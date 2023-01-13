@@ -309,7 +309,7 @@
                     let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
                     document.getElementById("file<?=$form['idform']?>").value = '';
                     if(<?=$form['idform']?>!='') {
-                        document.querySelector(".f<?=$form['idform']?>").src = "<?=base_url()?>/assets/images/gallery/foto/"+<?=$form['idform']?>;
+                        document.querySelector(".f<?=$form['idform']?>").src = "<?=base_url()?>/assets/<?=$form['asset-folder']?>/"+<?=$form['idform']?>;
                     }
                 <?php break; ?>
                 <?php case 'switch':  ?>

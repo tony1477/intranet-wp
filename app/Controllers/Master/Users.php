@@ -74,6 +74,16 @@ class Users extends BaseController
                     'loadfile' => 'master/_partials/activeuser',
                     'scriptfile' => 'master/_partials/script/activeuser',
                 ],
+                // 'Button3' => [
+                //     'toggle' => true,
+                //     'id' => 'copyAccess',
+                //     'name' => 'copyAccess',
+                //     'title' => lang('Files.copyAccess'),
+                //     'class' => 'btn btn-soft-primary waves-effect waves-light btn-sm copyAccess',
+                //     'icon-class' => 'mdi mdi-content-copy',
+                //     'loadfile' => 'master/_partials/copyaccess',
+                //     'scriptfile' => 'master/_partials/script/copyaccess',
+                // ],
             ),
             'forms' => [
                 # rule

@@ -14,7 +14,7 @@ class ArticleModel extends Model
     protected $returnType       = Article::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['categoryid','title','content','image','page','slug','publish','status','sum_comment','sum_read','creatorid','updaterid'];
+    protected $allowedFields    = ['categoryid','title','content','image','page','slug','publish','status','sum_comment','sum_read','can_comment','articletype','creatorid','updaterid'];
 
     // Dates
     protected $useTimestamps = true;
@@ -22,11 +22,12 @@ class ArticleModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';    
 
-    public function getData()
+    public function getData(int $articletype)
     {
         return $this->db->table('article a')
             ->select('a.*, b.categoryname')
             ->join('article_category b','b.categoryid=a.categoryid')
+            ->where('a.articletype',$articletype)
             ->get()->getResult(Article::class);
     }
 
@@ -47,15 +48,17 @@ class ArticleModel extends Model
         ->groupBy('slug')->get()->getResult();
     }
 
-    public function getArticle(int $id,?string $title)
+    public function getArticle(string $periode,?string $title)
     {
-        $where = ['articleid'=>$id];
-        if($title!==null) array_merge($where,['title'=>$title]);
-        return $this->db->table('article a')
-            ->select('a.*, ifnull(fullname,username) as name, categoryname')
-            ->join('users b','b.id = a.creatorid')
-            ->join('article_category c','c.categoryid = a.categoryid')
-            ->where($where)
-            ->get();
+        $periode = $periode.'-01';
+        // $where = ['articleid'=>$id];
+        // if($title!==null) array_merge($where,['title'=>$title]);
+        $where = ['title'=>$title];
+       
+        return $this->db->query("select a.*, ifnull(fullname,username) as name, categoryname 
+        from article a
+        join users b on b.id = a.creatorid
+        left join article_category c on c.categoryid = a.categoryid
+        where month(posted_date) = month('{$periode}') and year(posted_date) = year('{$periode}') and title = '{$title}'");
     }
 }

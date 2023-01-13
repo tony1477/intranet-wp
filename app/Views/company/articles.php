@@ -33,30 +33,33 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <h5 class="card-title">Article List <span class="text-muted fw-normal ms-2"></span></h5>
+                            <h5 class="card-title"><?=lang('Files.List_Article')?> <span class="text-muted fw-normal ms-2"></span></h5>
                         </div>
                     </div>
 
-                    <?php if(has_permission('article')):?>
+                    <!-- <?php if(has_permission('article')):?>
                     <div class="col-md-6">
                         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                             <div class="btn-group" role="group">
                                 <button id="btnGroupDrop1" type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><?=lang('Files.Manage').' '.lang('Files.Article')?> <i class="mdi mdi-chevron-down"></i>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
-                                    <li><a class="dropdown-item" href="<?=base_url()?>/article/category"><?=lang('Files.Category')?></a></li>
-                                    <li><a class="dropdown-item" href="<?=base_url()?>/article"><?=lang('Files.Article')?></a></li>
+                                    <li><a class="dropdown-item" href="#"><?=lang('Files.Category')?></a></li>
+                                    <li><a class="dropdown-item" href="#"><?=lang('Files.Article')?></a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <?php endif;?>
+                    <?php endif;?> -->
                 </div>
                 <!-- end row -->
 
                 <div class="row">
                     <div class="col-xl-8">
-                        <?php foreach($data['article'] as $article):?>
+                        <?php foreach($data['article'] as $article):
+                         $periode = date('Y-m',strtotime($article->posted_date));
+                         $title = str_replace(' ','-',$article->title);    
+                        ?>
                         <div class="card">
                             <img src="<?=base_url()?>/assets/images/gallery/article/<?=$article->image?>" alt="" class="img-fluid">
                             <div class="card-body">
@@ -64,7 +67,7 @@
                                 <h5 class=""><a href="#" class="text-dark"><?=$article->title?></a></h5>
                                 <p class="mb-0 font-size-15"><?=substr(strip_tags($article->content,['br','p']),0,100)?>...</p>
                                 <div class="mt-3">
-                                    <a href="<?=base_url()?>/article/read/<?=str_replace(' ','-',$article->title)?>/<?=$article->articleid?>" class="align-middle font-size-15">Read more <i class="mdi mdi-chevron-right"></i></a>
+                                    <a href="<?=base_url()?>/article/read/<?=$periode.'/'.$title?>" class="align-middle font-size-15">Read more <i class="mdi mdi-chevron-right"></i></a>
                                 </div>
                             </div>
                         </div> <!-- end card -->

@@ -14,7 +14,7 @@ class Gallery extends BaseController
         $this->gallery = new \App\Models\GalleryModel();
         $this->album = new \App\Models\AlbumModel();
     }
-    public function index()
+    public function GalleryFoto()
     {
         helper(['admin_helper']);
         // helper(['master_helper']);
@@ -24,14 +24,34 @@ class Gallery extends BaseController
 			'title_meta' => view('partials/title-meta', ['title' => 'Gallery_Foto']),
 			'page_title' => view('partials/page-title', ['title' => 'Gallery', 'li_1' => 'Intranet', 'li_2' => 'Gallery_Foto']),
 			'modules' => $menu,
-            'route'=>'department',
-            'menuname' => 'Department',
+            'route'=>'gallery-foto',
+            'menuname' => 'Foto',
             'data' => $album,
             
 		];
         // $gallery = $this->model->where('gallerytype',1)->findAll($limit,$offset);
 
         return view('company/album',$data);
+    }
+
+    public function GalleryVideo()
+    {
+        helper(['admin_helper']);
+        // helper(['master_helper']);
+        $video = $this->gallery->where(['gallerytype'=>2,'status'=>1])->get()->getResult();
+        $menu = getMenu($user='Admin');
+        $data = [
+			'title_meta' => view('partials/title-meta', ['title' => 'Gallery_Foto']),
+			'page_title' => view('partials/page-title', ['title' => 'Gallery', 'li_1' => 'Intranet', 'li_2' => 'Gallery_Foto']),
+			'modules' => $menu,
+            'route'=>'gallery-foto',
+            'menuname' => 'Foto',
+            'data' => $video,
+            
+		];
+        // $gallery = $this->model->where('gallerytype',1)->findAll($limit,$offset);
+
+        return view('company/video',$data);
     }
 
     public function foto($id)
@@ -121,15 +141,15 @@ class Gallery extends BaseController
 		return view('master/m_view', $data);
     }
 
-    public function manageFoto($id)
+    public function manageFoto()
     {
         if(!has_permission('gallery-permission')) return redirect()->route('gallery-foto');
         $this->entity = new \App\Entities\GalleryCategory();
         helper(['admin_helper']);
         helper(['master_helper']);
         $menu = getMenu($user='Admin');
-        $gallery = $this->gallery->getGallery($id)->getResult();
-        $categories = $this->album->where('categoryid',$id)->findAll();
+        $gallery = $this->gallery->getGallery($id=null)->getResult();
+        $categories = $this->album->findAll();
         //$submenu = getSubmenu($moduleid=0);
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Gallery_Foto']),
@@ -165,7 +185,6 @@ class Gallery extends BaseController
                     'type'=>'select',
                     'idform'=>'idkategori',
                     'form-class'=>'form-select',
-                    'disabled' => 'disabled',
                     'style' => 'col-md-10 col-xl-10',
                     'options' => array(
                         'list' => $categories,
@@ -218,6 +237,87 @@ class Gallery extends BaseController
                     'field'=>'islogin',
                     'type'=>'switch',
                     'idform'=>'isbackground',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
+                ),
+            ]
+            
+		];
+		
+		return view('master/m_view', $data);
+    }
+
+    public function manageVideo()
+    {
+        if(!has_permission('gallery-permission')) return redirect()->route('gallery-foto');
+        $this->entity = new \App\Entities\GalleryCategory();
+        helper(['admin_helper']);
+        helper(['master_helper']);
+        $menu = getMenu($user='Admin');
+        $gallery = $this->gallery->getGalleryVideo($id=null)->getResult();
+        $categories = $this->album->findAll();
+        //$submenu = getSubmenu($moduleid=0);
+		$data = [
+			'title_meta' => view('partials/title-meta', ['title' => 'Gallery_Video']),
+			'page_title' => view('partials/page-title', ['title' => 'Album', 'li_1' => 'Intranet', 'li_2' => 'Gallery_Video']),
+			'modules' => $menu,
+            'route'=>'gallery-foto/manage-video',
+            'menuname' => 'Video',
+            'data' => $gallery,
+            'modal' => 'modal-md',
+            'columns_hidden' => array('Action'),
+            'columns' => array('Action','Id','Title','Description','Link_File','Status','User_Created','User_Modified'),
+            'button' => array(
+                // 'IsHighlight' => [
+                //     'class' => 'btn-sm waves-effect waves-light',
+                //     'text' => false,
+                // ],
+                'Status' => [
+                    'class' => 'btn-sm waves-effect waves-light',
+                    'text' => false,
+                ],
+            ),
+            'forms' => [
+                # rule
+                # column_name => array(type,'name and id','class','style')
+                'galleryid' => array('type'=>'hidden','idform'=>'id','field'=>'galleryid'),
+                'title' => array(
+                    'label'=>'Title',
+                    'field'=>'title',
+                    'type'=>'text',
+                    'idform'=>'judul',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
+                ),
+                'desc' => array(
+                    'label'=>'Description',
+                    'field'=>'description',
+                    'type'=>'text',
+                    'idform'=>'deskripsi',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
+                ),
+                'url' => array(
+                    'label'=>'Link_File',
+                    'field'=>'url',
+                    'type'=>'text',
+                    'idform'=>'link_file',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
+                ),
+                // 'highlight' => array(
+                //     'label'=>'IsHighlight',
+                //     'field'=>'ishighlight',
+                //     'type'=>'switch',
+                //     'idform'=>'istampil',
+                //     'form-class'=>'form-control',
+                //     'style' => 'col-md-10 col-xl-10'
+                // ),
+                'status' => array(
+                    'label'=>'Status',
+                    'field'=>'status',
+                    'type'=>'switch',
+                    'idform'=>'isaktif',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
                 ),

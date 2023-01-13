@@ -26,7 +26,7 @@ class Article extends BaseController
     {
         helper(['admin_helper']);
         $menu = getMenu($user='Admin');
-        $article = $this->model->where(['publish'=>1,'status'=>1])->findAll(0,3);
+        $article = $this->model->where(['publish'=>1,'status'=>1,'articletype'=>1])->findAll(0,3);
         $categories = $this->category->sumPerCategory();
         $upcoming = $this->model->where(['publish'=>0,'status'=>1])->findAll();
         $popular = $this->model->findAll(0,3);
@@ -68,7 +68,7 @@ class Article extends BaseController
         $categories = $this->category->findAll();
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Category']),
-			'page_title' => view('partials/page-title', ['title' => 'Category', 'li_1' => 'Intranet', 'li_2' => 'Category']),
+			'page_title' => view('partials/page-title', ['title' => 'Article', 'li_1' => 'Intranet', 'li_2' => 'Category']),
 			'modules' => $menu,
             'route'=>'article/category',
             'menuname' => 'Category',
@@ -161,12 +161,12 @@ class Article extends BaseController
         return $response;
     }
 
-    public function article()
+    public function ManageArticle()
     {
         if(!has_permission('article')) return redirect()->route('articles');
         helper(['admin_helper']);
         $menu = getMenu($user='Admin');
-        $article = $this->model->getData();
+        $article = $this->model->getData(1);
         // if($article!=null) $article = $this->model->getData();
         $categories = $this->category->findAll();
         $data = [
@@ -174,7 +174,7 @@ class Article extends BaseController
 			'page_title' => view('partials/page-title', ['title' => 'Article', 'li_1' => 'Intranet', 'li_2' => 'Article']),
 			'modules' => $menu,
             'route'=>'article',
-            'menuname' => 'Article',
+            'menuname' => 'News',
             'data' => $article,
             'modal' => 'modal-lg',
             'columns_hidden' => array('Action'),
@@ -230,6 +230,7 @@ class Article extends BaseController
                     'label'=>'Link_File',
                     'field'=>'image',
                     'type'=>'file-image',
+                    'asset-folder' => 'images/gallery/article',
                     'idform'=>'link_image',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10',
@@ -299,6 +300,7 @@ class Article extends BaseController
                     'publish' => ($datas['ispublish']=='Y' ? 1 : 0),
                     'status' => ($datas['isaktif']=='Y' ? 1 : 0),
                     'updaterid' => user_id(),
+                    'articletype' => 1,
                     'updated_at'=>date('Y-m-d H:i:s'),
                 ];
                 if(isset($datas['link_image'])) $data = array_merge($data,['image' => $datas['link_image']]);
@@ -422,7 +424,6 @@ class Article extends BaseController
         $find = $this->comment->getComment($id,null)->getResult();
         $i=0;
         foreach($find as $row):
-            // check child
             array_push($arr,[
                 'commentid' => $row->commentid,
                 'comment' => $row->text,
@@ -434,7 +435,8 @@ class Article extends BaseController
                 'has_reply' => false,
                 ]
             );
-            
+
+            // check child
             if($getChild=$this->comment->getComment($id,$row->commentid)->getResult()):
                 $childs=[];
                 foreach($getChild as $child):
@@ -505,11 +507,11 @@ class Article extends BaseController
         return $response;
     }
 
-    public function readArticle($title,$id)
+    public function readArticle(string $periode,string $title)
     {
         $title = str_replace('-',' ',$title);
         //check article
-        if(!$article=$this->model->getArticle($id,$title)->getRow()) return redirect()->to('/articles');
+        if(!$article=$this->model->getArticle($periode,$title)->getRow()) return redirect()->to('/articles');
         
         helper(['admin_helper']);
         $menu = getMenu($user='Admin');
@@ -532,5 +534,250 @@ class Article extends BaseController
             ],
 		];
         return view('company/read_article',$data);
+    }
+
+    public function ManagePojokBerita()
+    {
+        if(!has_permission('article')) return redirect()->route('articles');
+        helper(['admin_helper']);
+        $menu = getMenu($user='Admin');
+        $article = $this->model->getData(2);
+        // if($article!=null) $article = $this->model->getData();
+        $categories = $this->category->findAll();
+        $data = [
+			'title_meta' => view('partials/title-meta', ['title' => 'Pojok_WP']),
+			'page_title' => view('partials/page-title', ['title' => 'Article', 'li_1' => 'Intranet', 'li_2' => 'Pojok_WP']),
+			'modules' => $menu,
+            'route'=>'article/pojok-wp',
+            'menuname' => 'Pojok-WP',
+            'data' => $article,
+            'modal' => 'modal-lg',
+            'columns_hidden' => array('Action'),
+            'columns' => array('Action','Id','Name_Category','Title','Content','Image','Page','Slug','Publish','Status','User_Created','User_Modified'),
+            'button' => array(
+                'Page' => [
+                    'class' => 'btn-sm waves-effect waves-light',
+                    'text' => false,
+                ],
+                'Publish' => [
+                    'class' => 'btn-sm waves-effect waves-light',
+                    'text' => false,
+                ],
+                'Status' => [
+                    'class' => 'btn-sm waves-effect waves-light',
+                    'text' => false,
+                ],
+                // 'CanComment' => [
+                //     'class' => 'btn-sm waves-effect waves-light',
+                //     'text' => false,
+                // ],
+            ),
+            'forms' => [
+                # rule
+                # column_name => array(type,'name and id','class','style')
+                'articleid' => array('type'=>'hidden','idform'=>'id','field'=>'articleid'),
+                'categoryid' => array(
+                    'label'=>'Name_Category',
+                    'field'=>'categoryid',
+                    'type'=>'select',
+                    'idform'=>'category',
+                    'form-class'=>'form-select',
+                    'style' => 'col-md-8 col-xl-8',
+                    'options' => array(
+                        'list' => $categories,
+                        'id' => 'Id',
+                        'value' => 'Name_Category',
+                    ),
+                ),
+                'judul' => array(
+                    'label'=>'Title',
+                    'field'=>'title',
+                    'type'=>'text',
+                    'idform'=>'judul',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
+                ),
+                'isi' => array(
+                    'label'=>'Content',
+                    'field'=>'content',
+                    'type'=>'textarea',
+                    'idform'=>'isi',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-12 col-xl-12'
+                ),
+                'image' => array(
+                    'label'=>'Link_File',
+                    'field'=>'image',
+                    'type'=>'file-image',
+                    'asset-folder' => 'images/gallery/article',
+                    'idform'=>'link_image',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10',
+                    'url_upload' => 'upload_image',
+                ),
+                'page' => array(
+                    'label'=>'Page',
+                    'field'=>'page',
+                    'type'=>'switch',
+                    'idform'=>'isfront',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
+                ),
+                'tag' => array(
+                    'label'=>'Slug',
+                    'field'=>'slug',
+                    'type'=>'text',
+                    'idform'=>'tag',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
+                ),
+                'publish' => array(
+                    'label'=>'Publish',
+                    'field'=>'publish',
+                    'type'=>'switch',
+                    'idform'=>'ispublish',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
+                ),
+                'status' => array(
+                    'label'=>'Status',
+                    'field'=>'status',
+                    'type'=>'switch',
+                    'idform'=>'isaktif',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
+                ),
+                // 'komen' => array(
+                //     'label'=>'CanComment',
+                //     'field'=>'iscoment',
+                //     'type'=>'switch',
+                //     'idform'=>'iskomen',
+                //     'form-class'=>'form-control',
+                //     'style' => 'col-md-10 col-xl-10'
+                // ),
+            ]
+		];
+        // $gallery = $this->model->where('gallerytype',1)->findAll($limit,$offset);
+
+        return view('master/w_view',$data);
+    }
+
+    public function postPojokBerita()
+    {
+        if(!has_permission('article')) return redirect()->route('articles');
+        header("Content-Type: application/json");
+        $arr = array(
+            'fail' => 500,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+        if($this->request->isAJAX()) {
+            try {
+                $datas = $this->request->getVar('data');
+                if(is_object($datas)) {
+                    $datas = (array) $datas;
+                }
+                $data = [
+                    'categoryid' => $datas['category'],
+                    'title' => $datas['judul'],
+                    'content' => $datas['isi'],
+                    // 'image' => ($datas['isaktif']=='Y' ? 1 : 0),
+                    'page' => ($datas['isfront']=='Y' ? 'F' : 'A'),
+                    'slug' => $datas['tag'],
+                    'publish' => ($datas['ispublish']=='Y' ? 1 : 0),
+                    'status' => ($datas['isaktif']=='Y' ? 1 : 0),
+                    'can_comment' => 1,
+                    'articletype' => 2,
+                    'updaterid' => user_id(),
+                    'updated_at'=>date('Y-m-d H:i:s'),
+                ];
+                if(isset($datas['link_image'])) $data = array_merge($data,['image' => $datas['link_image']]);
+                if($datas['id']!=='') {
+                    $this->model->update($datas['id'],$data);
+                    $message = lang('Files.Update_Success');
+                }
+                
+                if($datas['id']==='') {
+                    $newdata = [
+                        'creatorid' => user_id(),
+                        'created_at'=>date('Y-m-d H:i:s'),
+                    ];
+                    $data = array_merge($data,$newdata);
+                    $this->model->insert($data);
+                    $message = lang('Files.Save_Success');
+                }
+                
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => $message
+                );
+            }catch (\Exception $e) {
+                $arr = array(
+                    'status' => $e->getMessage(),
+                    'code' => 400
+                );
+            }
+        }
+        $response = json_encode($arr);
+        return $response;
+    }
+
+    public function PojokWP()
+    {
+        helper(['admin_helper']);
+        $menu = getMenu($user='Admin');
+        $pojokwp = $this->model->where(['publish'=>1,'status'=>1,'articletype'=>2])->findAll(0,3);
+        $categories = $this->category->sumPerCategory();
+        $upcoming = $this->model->where(['publish'=>0,'status'=>1])->findAll();
+        $popular = $this->model->findAll(0,3);
+        $tags = $this->model->findAll();
+        // $articles = $this->model->getArticles()->getResult(ArticleEntity::class);
+        $data = [
+			'title_meta' => view('partials/title-meta', ['title' => 'Pojok_WP']),
+			'page_title' => view('partials/page-title', ['title' => 'Articles', 'li_1' => 'Intranet', 'li_2' => 'Pojok_WP']),
+			'modules' => $menu,
+            'route'=>'articles',
+            'menuname' => 'Pojok_WP',
+            'data' => [
+                'pojokwp' => $pojokwp,
+                'category' => $categories,
+                'upcoming' => $upcoming,
+                'popular' => $popular,
+                'tags' => $tags,
+            ],
+		];
+        // $gallery = $this->model->where('gallerytype',1)->findAll($limit,$offset);
+
+        return view('company/pojokwp',$data);
+    }
+
+    public function readPojokWP($periode,$title)
+    {
+        $title = str_replace('-',' ',$title);
+        //check article
+        if(!$article=$this->model->getArticle($periode,$title)->getRow()) return redirect()->to('/articles');
+        
+        helper(['admin_helper']);
+        $menu = getMenu($user='Admin');
+        $categories = $this->category->sumPerCategory();
+        $upcoming = $this->model->where(['publish'=>0,'status'=>1])->findAll();
+        $popular = $this->model->findAll(0,3);
+        $tags = $this->model->findAll();
+        $data = [
+			'title_meta' => view('partials/title-meta', ['title' => 'Read_Article']),
+			'page_title' => view('partials/page-title', ['title' => 'Read_Articles', 'li_1' => 'Intranet', 'li_2' => 'Read_Articles']),
+			'modules' => $menu,
+            'route'=>'articles',
+            'menuname' => 'Read_Article',
+            'data' => [
+                'article' => $article,
+                'category' => $categories,
+                'upcoming' => $upcoming,
+                'popular' => $popular,
+                'tags' => $tags,
+            ],
+		];
+        return view('company/read_pojokwp',$data);
     }
 }

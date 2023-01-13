@@ -268,26 +268,33 @@ $routes->get('bpo/([a-z\-]+)/downloadform/(:any)','Bpo\Support::downloadform/$1/
 // $routes->get('bpo/([a-z\-]+)/viewpdf/(:any)','Bpo/Master::viewpdf/$1');
 
 ## Gallery
-$routes->get('gallery-foto','Company/Gallery::index');
+$routes->get('gallery-foto','Company/Gallery::GalleryFoto');
+$routes->get('gallery-video','Company/Gallery::galleryvideo');
 $routes->get('gallery-foto/open-album/(:num)','Company\Gallery::foto/$1');
-$routes->get('gallery-foto/manage-album','Company/Gallery::manageAlbum');
-$routes->get('gallery-foto/manage-foto/(:num)','Company\Gallery::manageFoto/$1');
+$routes->get('album/category','Company/Gallery::manageAlbum');
+$routes->get('album/foto','Company/Gallery::manageFoto');
 $routes->post('gallery-foto/manage-album/post','Company/Gallery::postAlbum');
 $routes->post('gallery-foto/manage-foto/post', 'Company/Gallery::postFoto');
 $routes->post('([a-z]+)/uploadfile/gallery-foto/manage-foto', 'Company\Gallery::uploadfile/$1');
 $routes->post('gallery-foto/manage-foto/delete','Company/Gallery::deleteFoto');
+$routes->get('album/video','Company/Gallery::manageVideo');
 
 ## Article
 $routes->get('articles','Company/Article::index');
-$routes->get('article','Company/Article::article');
+$routes->get('article/atur-berita','Company/Article::ManageArticle');
 $routes->post('article/post','Company/Article::postArticle');
-$routes->get('article/category','Company/Article::categories');
+$routes->get('article/atur-kategori','Company/Article::categories');
 $routes->post('article/category/post','Company/Article::postCategories');
+$routes->get('article/atur-pojok-wp','Company/Article::ManagePojokBerita');
+$routes->post('article/pojok-wp/post','Company/Article::postPojokBerita');
+$routes->get('pojok-wp','Company/Article::PojokWP');
+$routes->get('pojok-wp/read/(:segment)/(:segment)','Company\Article::readPojokWP/$1/$2');
 $routes->get('article/getData/(:num)','Company\Article::getData/$1');
 $routes->get('article/getCommentbyArticle/(:num)','Company\Article::getCommentbyArticle/$1');
 $routes->post('article/upload_image','Company/Article::uploadImg');
+$routes->post('article/pojok-wp/upload_image','Company/Article::uploadImg');
 $routes->post('article/postComment','Company/Article::postComment');
-$routes->get('article/read/(:segment)/(:num)','Company\Article::readArticle/$1/$2');
+$routes->get('article/read/(:segment)/(:segment)','Company\Article::readArticle/$1/$2');
 
 ## Website
 $routes->get('tentang/profil','Website/About/Profile::index');

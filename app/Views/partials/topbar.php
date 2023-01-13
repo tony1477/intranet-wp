@@ -9,7 +9,7 @@
                     </span>
                     <span class="logo-lg text-center">
                         <div class="w-100 mt-2">
-                        <img src="<?=base_url()?>/assets/images/logo-baru.png" alt="" height="78"> <div class="logo-txt" style="margin-top:-15px">Wilian Perkasa</div>
+                        <img src="<?=base_url()?>/assets/images/logo-baru.png" alt="" height="65"> <div class="logo-txt" style="margin-top:-15px">WILIAN PERKASA</div>
                         <div style="margin-top:-45px" class="slogan">be Wise be Excellent</div>
                     </div>
                     </span>

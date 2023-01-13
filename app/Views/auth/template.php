@@ -29,10 +29,10 @@
                                 <div class="d-flex flex-column h-100">
                                     <div class="mb-4 mb-md-5 text-center justify-content-center">
                                         <img src="<?=base_url() ?>/assets/images/logo-baru.png" alt="" height="88">
-                                        <a href="/" class="d-block auth-logo">
-                                             <span class="logo-txt text-center">Wilian Perkasa</span>
+                                        <a href="/" class="d-block auth-logo mt-3">
+                                             <span class="logo-txt text-center">WILIAN PERKASA</span>
                                         </a>
-                                        <span id="slogan" class="text-end">be Wise be Excellent</span>
+                                        <span id="slogan" class="text-end">" be Wise be Excellent "</span>
                                     </div>
 
                                     <?= $this->renderSection('content')?>

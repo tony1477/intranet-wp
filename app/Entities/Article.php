@@ -41,4 +41,9 @@ class Article extends Entity
         return $this->attributes['status'] == 1 ? 'YES' : 'NO';
     }
 
+    public function getCanComment()
+    {
+        return $this->attributes['can_comment'] == 1 ? 'YES' : 'NO';
+    }
+
 }

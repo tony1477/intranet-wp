@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Apple Chancery";
+  src: url('../fonts/apple_chancery-webfont.woff2') format('woff2'),
+       url('../fonts/apple_chancery-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal ;
+}
+
 .auth-full-page-content {
     height: 100vh;
     overflow: auto;
@@ -5,6 +13,7 @@
 
 .logo-txt {
     letter-spacing: 2px;
+    font-family: "Times New Roman";
 }
 
 span#slogan {
@@ -36,11 +45,13 @@ span#slogan {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    font-size: 15px;
-    font-family: "Source Sans Pro", sans-serif;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    font-family: "Apple Chancery";
     -webkit-animation: reveal 3000ms ease-in-out forwards 200ms, glow 2500ms linear infinite 2000ms;
-            animation: reveal 3000ms ease-in-out forwards 200ms, glow 2500ms linear infinite 2000ms;
+    animation: reveal 3000ms ease-in-out forwards 200ms, glow 2500ms linear infinite 2000ms;
   }
+ 
   @-webkit-keyframes reveal {
     80% {
       letter-spacing: 1.5px;

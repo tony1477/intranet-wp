@@ -135,7 +135,6 @@
                     <div class="row justify-content-xl-center justify-content-md-start">
                         <div class="col-xl-12 col-lg-12">
                             <?php foreach($data['article'] as $article):?>
-                                <input type="hidden" id="articleid" value="<?=$article->articleid?>" />
                             <div class="card">
                                 <div class="card-body">
                                     <div class="">
@@ -185,7 +184,8 @@
 
                                                 </blockquote> -->
                                             </div>
-
+                                            <?php if($article->can_comment=='YES'):?>
+                                            <input type="hidden" id="articleid" value="<?=$article->articleid?>" />
                                             <hr>
 
                                             <div class="mt-5">
@@ -227,6 +227,7 @@
                                                 </form>
                                                 </div>
                                             </div>
+                                            <?php endif;?>
                                         </div>
                                     </div>
                                 </div>

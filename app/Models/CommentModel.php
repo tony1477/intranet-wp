@@ -28,7 +28,7 @@ class CommentModel extends Model
 
     public function getComment($articleid,$parentid=null)
     {
-        $where = ['articleid'=>$articleid,'parentid'=>$parentid];
+        $where = ['articleid'=>$articleid,'parentid'=>$parentid,'a.status'=>'publish'];
         if($parentid == null) $where['parentid'] = null;
         
         return $this->db->table('article_comment a')
