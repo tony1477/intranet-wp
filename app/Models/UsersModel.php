@@ -9,7 +9,7 @@ class UsersModel extends MythModel
 {
     protected $returnType = Users::class;
     protected $allowedFields = ['email', 'username','password_hash', 'reset_hash', 'reset_at', 'reset_expires', 'activate_hash',
-    'status', 'status_message', 'active', 'force_pass_reset', 'permissions', 'deleted_at','fullname','user_image','iddivisi','iddepartment','idjabatan','phoneno'];
+    'status', 'status_message', 'active', 'force_pass_reset', 'permissions', 'deleted_at','fullname','user_image','iddivisi','iddepartment','idjabatan','phoneno','nama_jabatan'];
 
     protected $validationRules = [
         'username'      => 'required|alpha_numeric_punct|min_length[3]|max_length[30]|is_unique[users.username,id,{id}]',

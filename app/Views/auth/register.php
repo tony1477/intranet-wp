@@ -72,13 +72,18 @@
             </div>
 
             <div class="mb-3">
-                <label for="jabatan" class="form-label"><?=lang('Files.Position')?></label>
-                <select name="idjabatan" class="form-select jabatan" placeholder="<?=lang('Files.Position')?>" autocomplete="off" required>
+                <label for="jabatan" class="form-label"><?=lang('Files.Level_Position')?></label>
+                <select name="idjabatan" class="form-select jabatan" placeholder="<?=lang('Files.Level_Position')?>" autocomplete="off" required>
                     <option value=""></option>
                 </select>
                 <div class="invalid-feedback">
                     Choose Location
                 </div>       
+            </div>
+
+            <div class="mb-3">
+                <label for="nm_jabatan" class="form-label"><?=lang('Files.Name_Position')?></label>
+                <input type="text" class="form-control" name="nama_jabatan" placeholder="ex:Environment Staff, Asisten Proses, Kepala Gudang" value="<?= old('nm_jabatan') ?>" required>
             </div>
 
             <div class="mb-3">

@@ -287,7 +287,8 @@ return [
     "display-pojok-wp" => "Pojok WP",
     "Location_PT" => "Lokasi / PT",
     "Department_Division" => "Departemen / Divisi",
-    
+    "Level_Position" => "Level Jabatan",
+
     // Menu
     "group-divisi" => 'Grup Divisi',
     "divisi" => "Data Divisi",

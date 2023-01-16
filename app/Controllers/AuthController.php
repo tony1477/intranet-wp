@@ -84,7 +84,7 @@ class AuthController extends MythAuthController
         }
 
         // Save the user
-        $customField = ['fullname','iddivisi','iddepartment','idjabatan','phoneno'];
+        $customField = ['fullname','iddivisi','iddepartment','idjabatan','phoneno','nama_jabatan'];
         $allowedPostFields = array_merge(['password'], $this->config->validFields, $this->config->personalFields,$customField);
         $user              = new User($this->request->getPost($allowedPostFields));
 

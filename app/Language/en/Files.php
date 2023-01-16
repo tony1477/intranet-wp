@@ -286,6 +286,7 @@ return [
     "display-pojok-wp" => "WP's Corner",
     "Location_PT" => "Location / PT",
     "Department_Division" => "Department / Division",
+    "Level_Position" => "Level Position",
 
     // Menu
     "group-divisi" => 'Division Group',

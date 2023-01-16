@@ -45,7 +45,7 @@ class Users extends BaseController
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
             'mark_column' => array('Pwd_User'),
-            'columns' => array('Action','Id','Name_User','Fullname','Email','Location_PT','Department_Division','Name_Position','Phone','Pwd_User','Photo_User','Active'),
+            'columns' => array('Action','Id','Name_User','Fullname','Email','Location_PT','Department_Division','Level_Position','Name_Position','Phone','Pwd_User','Photo_User','Active'),
             'button' => array(
                 'Active' => [
                     'class' => 'btn-sm waves-effect waves-light',
@@ -140,7 +140,7 @@ class Users extends BaseController
                     ),
                 ),
                 'idjabatan' => array(
-                    'label'=>'Name_Position',
+                    'label'=>'Level_Position',
                     'field'=>'idjabatan',
                     'type'=>'select',
                     'idform'=>'id_jabatan',
@@ -151,6 +151,14 @@ class Users extends BaseController
                         'id' => 'Id',
                         'value' => 'Name_Position',
                     ),
+                ),
+                'nm_jabatan' => array(
+                    'label'=>'Name_Position',
+                    'field'=>'nama_jabatan',
+                    'type'=>'text',
+                    'idform'=>'jabatan',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
                 ),
                 'phone' => array(
                     'label'=>'Phone',
@@ -264,6 +272,7 @@ class Users extends BaseController
                     'iddivisi' => $datas['id_divisi'],
                     'iddepartment' => $datas['id_department'],
                     'idjabatan' => $datas['id_jabatan'],
+                    'nama_jabatan' => $datas['jabatan'],
                     'phoneno' => $datas['no_hp'],
                     // 'tgl_m'=>date('Y-m-d'),
                     // 'time_m'=>date("h:i:s a")
