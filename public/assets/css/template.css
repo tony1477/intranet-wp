@@ -28,17 +28,16 @@ div.carousel-caption::before {
 } */
 
 
-h5.judul::before {
+/* h5.judul::before {
     content: "";
     background-color: rgba(241, 233, 233, .5);
-    /* width: -moz-fit-content; */
+
     width: 170px;
     height: 25px;
     position: absolute;
-    /* top:50; */
-    /* margin-left:-20px; */
+
     border-radius: 50px;
-}
+} */
 
 span#slogan {
     background: 50% 100%/50% 50% no-repeat radial-gradient(ellipse at bottom, rgba(200,29,29,.9), transparent, transparent);

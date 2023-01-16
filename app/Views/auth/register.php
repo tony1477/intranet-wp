@@ -52,8 +52,8 @@
             </div>
 
             <div class="mb-3">
-                <label for="divisi" class="form-label"><?=lang('Files.Location')?></label>
-                <select name="iddivisi" class="form-select divisi" placeholder="<?=lang('Files.Location')?>" autocomplete="off" required>
+                <label for="divisi" class="form-label"><?=lang('Files.Location_PT')?></label>
+                <select name="iddivisi" class="form-select divisi" placeholder="<?=lang('Files.Location_PT')?>" autocomplete="off" required>
                     <option value=""></option>
                 </select>
                 <div class="invalid-feedback">
@@ -62,8 +62,8 @@
             </div>
 
             <div class="mb-3">
-                <label for="department" class="form-label"><?=lang('Files.Department')?></label>
-                <select name="iddepartment" class="form-select department" placeholder="<?=lang('Files.Department')?>" autocomplete="off" required>
+                <label for="department" class="form-label"><?=lang('Files.Department_Division')?></label>
+                <select name="iddepartment" class="form-select department" placeholder="<?=lang('Files.Department_Division')?>" autocomplete="off" required>
                     <option value=""></option>
                 </select>
                 <div class="invalid-feedback">

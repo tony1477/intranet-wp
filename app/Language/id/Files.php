@@ -285,6 +285,8 @@ return [
     "gallery-video" => "Gallery Video",
     "List_Article" => "Daftar Berita",
     "display-pojok-wp" => "Pojok WP",
+    "Location_PT" => "Lokasi / PT",
+    "Department_Division" => "Departemen / Divisi",
     
     // Menu
     "group-divisi" => 'Grup Divisi',

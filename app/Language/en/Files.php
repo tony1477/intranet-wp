@@ -284,6 +284,8 @@ return [
     "gallery-video" => "Video Gallery",
     "List_Article" => "List Article",
     "display-pojok-wp" => "WP's Corner",
+    "Location_PT" => "Location / PT",
+    "Department_Division" => "Department / Division",
 
     // Menu
     "group-divisi" => 'Division Group',

@@ -45,7 +45,7 @@ class Users extends BaseController
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
             'mark_column' => array('Pwd_User'),
-            'columns' => array('Action','Id','Name_User','Fullname','Email','Name_Divisi','Name_Department','Name_Position','Phone','Pwd_User','Photo_User','Active'),
+            'columns' => array('Action','Id','Name_User','Fullname','Email','Location_PT','Department_Division','Name_Position','Phone','Pwd_User','Photo_User','Active'),
             'button' => array(
                 'Active' => [
                     'class' => 'btn-sm waves-effect waves-light',
@@ -114,7 +114,7 @@ class Users extends BaseController
                     'style' => 'col-md-10 col-xl-10'
                 ),
                 'iddivisi' => array(
-                    'label'=>'Name_Divisi',
+                    'label'=>'Location_PT',
                     'field'=>'iddivisi',
                     'type'=>'select',
                     'idform'=>'id_divisi',
@@ -127,7 +127,7 @@ class Users extends BaseController
                     ),
                 ),
                 'iddepartment' => array(
-                    'label'=>'Name_Department',
+                    'label'=>'Department_Division',
                     'field'=>'iddepartment',
                     'type'=>'select',
                     'idform'=>'id_department',
