@@ -16,6 +16,8 @@ class UsersModel extends MythModel
         'password_hash' => 'required',
     ];
 
+    protected $beforeDelete    = ['deactived'];
+
     public function getUsers()
     {
         return $this->db->table('users a')
@@ -23,7 +25,24 @@ class UsersModel extends MythModel
             ->join('tbl_ifmdepartemen b','b.iddepartment = a.iddepartment','left')
             ->join('tbl_ifmdivisi c','c.iddivisi = a.iddivisi','left')
             ->join('tbl_ifmjabatan d','d.idjabatan = a.idjabatan','left')
+            ->where('deleted_at',null)
             ->get();
+    }
+
+    public function deactived($data)
+    {
+        $update = [
+            'id' => $data['id'][0],
+            'active' => 0
+        ];
+
+        $this->db->table('users')
+            ->set('active',0)
+            ->where('id',$data['id'][0])
+            ->update();
+        
+        return $data;
+        // var_dump($data['id'][0]);
     }
 
     /**

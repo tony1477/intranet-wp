@@ -504,6 +504,38 @@
                         Swal.fire("Failed!", e, 400);
                     }
                 }
+            <?php } 
+            if($form['type']=='file') { ?>
+                let datafile<?=$form['idform']?> = document.getElementById('file<?=$form['idform']?>').files[0];
+                if(datafile<?=$form['idform']?>!=undefined) {
+                    let name<?=$form['idform']?> = datafile<?=$form['idform']?>.name;
+                    const formData<?=$form['idform']?> = new FormData();
+                    formData<?=$form['idform']?>.append('file',datafile<?=$form['idform']?>)
+                    try {
+                        console.log('uploading...');
+                        $.ajax({
+                            url: "<?=base_url().'/'.$route.'/'.$form['url_upload']?>",
+                            enctype: 'multipart/form-data',
+                            type: 'POST',
+                            data: formData<?=$form['idform']?>,
+                            dataType: 'json',
+                            async: false,
+                            success: function (res) {
+                                data.<?=$form['idform']?> = res.filename;
+                                console.log(res.status)
+                                // $('.filesToUpload').empty();
+                            },
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                    }
+                    // data. = datafile;
+                    catch(e) {
+                        console.log('Error :',e);
+                        Swal.fire("Failed!", e, 400);
+                    }
+                }
             <?php } ?>
             <?php if($form['type']=='textarea'):?>
                 let value<?=$form['idform']?> = CKEDITOR.instances.<?=$form['idform']?>.getData()

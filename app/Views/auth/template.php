@@ -64,8 +64,8 @@
                                     <div class="carousel-item <?=$i==0 ?'active' : ''?>">
                                     <img src="<?=base_url()?>/assets/images/gallery/foto/<?=$inner->url?>" class="d-block w-100" style="min-height:100vh;" alt="...">
                                     <div class="carousel-caption d-none d-md-block">
-                                        <h5 class="text-dark judul"><?=$inner->title?></h5>
-                                        <p class="text-black-50"><?=$inner->description?></p>
+                                        <h5 class="judul"><?=$inner->title?></h5>
+                                        <?=$inner->description?>
                                     </div>
                                     </div>
                                     <?php 

@@ -211,16 +211,17 @@ class Users extends BaseController
         if($this->request->isAJAX()) {
             try {
                 $id = $this->request->getVar('id');
-                // $this->model->where('iddivisigroup',$id)->delete();
-                // if($this->model->find($id)) {
-                //     $arr = array(
-                //         'status' => 'warning',
-                //         'code' => 200,
-                //         'message' => 'Terjadi kesalahan dalam menghapus data',
-                //         // 'data' => $this->model->findAll()
-                //     );
-                //     return json_encode($arr);
-                // }
+                // $this->model->where('id',$id)->delete();
+                $this->model->delete($id);
+                if($this->model->find($id)) {
+                    $arr = array(
+                        'status' => 'warning',
+                        'code' => 200,
+                        'message' => 'Terjadi kesalahan dalam menghapus data',
+                        // 'data' => $this->model->findAll()
+                    );
+                    return json_encode($arr);
+                }
                 $arr = array(
                     'status' => 'success',
                     'code' => 200,

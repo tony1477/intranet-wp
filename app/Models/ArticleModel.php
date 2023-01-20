@@ -22,12 +22,12 @@ class ArticleModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';    
 
-    public function getData(int $articletype)
+    public function getData()
     {
         return $this->db->table('article a')
             ->select('a.*, b.categoryname')
             ->join('article_category b','b.categoryid=a.categoryid')
-            ->where('a.articletype',$articletype)
+            // ->where('a.articletype',$articletype)
             ->get()->getResult(Article::class);
     }
 

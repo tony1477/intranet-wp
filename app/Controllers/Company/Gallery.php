@@ -158,7 +158,7 @@ class Gallery extends BaseController
             'route'=>'gallery-foto/manage-foto',
             'menuname' => 'Gallery',
             'data' => $gallery,
-            'modal' => 'modal-md',
+            'modal' => 'modal-lg',
             'columns_hidden' => array('Action'),
             'columns' => array('Action','Id','Name_Category','Title','Description','Link_File','IsHighlight','Status','IsLogin','User_Created','User_Modified'),
             'button' => array(
@@ -195,7 +195,7 @@ class Gallery extends BaseController
                 'title' => array(
                     'label'=>'Title',
                     'field'=>'title',
-                    'type'=>'text',
+                    'type'=>'textarea',
                     'idform'=>'judul',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
@@ -203,7 +203,7 @@ class Gallery extends BaseController
                 'desc' => array(
                     'label'=>'Description',
                     'field'=>'description',
-                    'type'=>'text',
+                    'type'=>'textarea',
                     'idform'=>'deskripsi',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
@@ -212,9 +212,11 @@ class Gallery extends BaseController
                     'label'=>'Link_File',
                     'field'=>'url',
                     'type'=>'file-image',
+                    'asset-folder' => 'images/gallery/foto',
                     'idform'=>'nama_url',
                     'form-class'=>'form-control',
-                    'style' => 'col-md-10 col-xl-10'
+                    'style' => 'col-md-10 col-xl-10',
+                    'url_upload' => 'upload_image',
                 ),
                 'highlight' => array(
                     'label'=>'IsHighlight',
@@ -244,7 +246,7 @@ class Gallery extends BaseController
             
 		];
 		
-		return view('master/m_view', $data);
+		return view('master/w_view', $data);
     }
 
     public function manageVideo()
@@ -266,7 +268,7 @@ class Gallery extends BaseController
             'data' => $gallery,
             'modal' => 'modal-md',
             'columns_hidden' => array('Action'),
-            'columns' => array('Action','Id','Title','Description','Link_File','Status','User_Created','User_Modified'),
+            'columns' => array('Action','Id','Title','Description','Link_File','Cover_File','Status','User_Created','User_Modified'),
             'button' => array(
                 // 'IsHighlight' => [
                 //     'class' => 'btn-sm waves-effect waves-light',
@@ -305,6 +307,16 @@ class Gallery extends BaseController
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10'
                 ),
+                'sampul' => array(
+                    'label'=>'Cover_File',
+                    'field'=>'sampul_video',
+                    'type'=>'file-image',
+                    'asset-folder' => 'videos/poster',
+                    'idform'=>'nama_sampul',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10',
+                    'url_upload' => 'upload_sampul',
+                ),
                 // 'highlight' => array(
                 //     'label'=>'IsHighlight',
                 //     'field'=>'ishighlight',
@@ -325,7 +337,7 @@ class Gallery extends BaseController
             
 		];
 		
-		return view('master/m_view', $data);
+		return view('master/w_view', $data);
     }
     
     public function postAlbum()
@@ -439,6 +451,64 @@ class Gallery extends BaseController
         return $response;
     }
 
+    public function postVideo()
+    {
+        if(!has_permission('gallery-permission')) return redirect()->route('gallery-foto');
+        header("Content-Type: application/json");
+        $arr = array(
+            'fail' => 500,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+        if($this->request->isAJAX()) {
+            try {
+                $datas = $this->request->getVar('data');
+                if(is_object($datas)) {
+                    $datas = (array) $datas;
+                }
+                $data = [
+                    'gallerytype' => 2,
+                    'title' => ($datas['judul']),
+                    'description' => $datas['deskripsi'],
+                    'status' => ($datas['isaktif']=='Y' ? 1 : 0),
+                    'updatedby' => user()->username,
+                    'updated_at'=>date('Y-m-d H:i:s'),
+                ];
+                if(isset($datas['nama_url'])) $data = array_merge($data,['url' => $datas['nama_url']]);
+
+                if(isset($datas['nama_sampul'])) $data = array_merge($data,['sampul_video' => $datas['nama_sampul']]);
+                
+                if($datas['id']!=='') {
+                    $this->gallery->update($datas['id'],$data);
+                    $message = lang('Files.Update_Success');
+                }
+                
+                if($datas['id']==='') {
+                    $newdata = [
+                        'createdby' => user()->username,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                    ];
+                    $data = array_merge($data,$newdata);
+                    $this->gallery->insert($data);
+                    $message = lang('Files.Save_Success');
+                }
+                
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => $message
+                );
+            }catch (\Exception $e) {
+                $arr = array(
+                    'status' => $e->getMessage(),
+                    'code' => 400
+                );
+            }
+        }
+        $response = json_encode($arr);
+        return $response;
+    }
+
     public function deleteFoto()
     {
         header("Content-Type: application/json");
@@ -477,7 +547,45 @@ class Gallery extends BaseController
         return $response;
     }
 
-    public function uploadfile($dir)
+    public function deleteAlbum()
+    {
+        header("Content-Type: application/json");
+        $arr = array(
+            'fail' => 500,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+        if($this->request->isAJAX()) {
+            try {
+                $id = $this->request->getVar('id');
+                $this->album->where('categoryid',$id)->delete();
+                if($this->album->find($id)) {
+                    $arr = array(
+                        'status' => 'warning',
+                        'code' => 200,
+                        'message' => 'Terjadi kesalahan dalam menghapus data',
+                        // 'data' => $this->model->findAll()
+                    );
+                    return json_encode($arr);
+                }
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => 'Data Berhasil di Hapus',
+                    // 'data' =>  $this->model->findAll()
+                );
+            }catch (\Exception $e) {
+                $arr = array(
+                    'status' => $e->getMessage(),
+                    'code' => 400,
+                );
+            }
+        }
+        $response = json_encode($arr);
+        return $response;
+    }
+
+    public function uploadfile()
     {
         if(!has_permission('gallery-permission')) return redirect()->route('gallery-foto');
         header("Content-Type: application/json");
@@ -488,6 +596,44 @@ class Gallery extends BaseController
         );
         
         $loc = getcwd().'/assets/images/gallery/foto';
+        $filename = $_FILES['file']['name'];
+
+        /* Choose where to save the uploaded file */
+        $location = $loc.'/'.$filename;
+        
+        /* Save the uploaded file to the local filesystem */
+        try {
+            if(move_uploaded_file($_FILES['file']['tmp_name'], $location)) {
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => 'Uploaded File!',
+                    'filename' => $filename
+                );
+            }
+        }
+        catch(Exception $e) {
+            $arr = array(
+                'status' => 'failed',
+                'code' => 400,
+                'message' => $e->getMessage(),
+            );
+        }
+        $response = json_encode($arr);
+        return $response;
+    }
+    
+    public function uploadCover()
+    {
+        if(!has_permission('gallery-permission')) return redirect()->route('gallery-foto');
+        header("Content-Type: application/json");
+        $arr = array(
+            'status' => 'failed',
+            'code' => 400,
+            'message' => 'Error'
+        );
+        
+        $loc = getcwd().'/assets/videos/poster';
         $filename = $_FILES['file']['name'];
 
         /* Choose where to save the uploaded file */

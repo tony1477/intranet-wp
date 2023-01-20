@@ -14,6 +14,7 @@ class Article extends Entity
         'Title' => 'title',
         'Content' => 'content',
         'Image' => 'image',
+        'PDF_File' => 'pdffile',
         'Page' => 'page',        
         'Slug' => 'slug',
         'Name_Category' => 'categoryname',

@@ -166,7 +166,7 @@ class Article extends BaseController
         if(!has_permission('article')) return redirect()->route('articles');
         helper(['admin_helper']);
         $menu = getMenu($user='Admin');
-        $article = $this->model->getData(1);
+        $article = $this->model->getData();
         // if($article!=null) $article = $this->model->getData();
         $categories = $this->category->findAll();
         $data = [
@@ -178,7 +178,7 @@ class Article extends BaseController
             'data' => $article,
             'modal' => 'modal-lg',
             'columns_hidden' => array('Action'),
-            'columns' => array('Action','Id','Name_Category','Title','Content','Image','Page','Slug','Publish','Status','User_Created','User_Modified'),
+            'columns' => array('Action','Id','Name_Category','Title','Content','Image','PDF_File','Page','Slug','Publish','Status','User_Created','User_Modified'),
             'button' => array(
                 'Page' => [
                     'class' => 'btn-sm waves-effect waves-light',
@@ -235,6 +235,15 @@ class Article extends BaseController
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10',
                     'url_upload' => 'upload_image',
+                ),
+                'pdffile' => array(
+                    'label'=>'PDF_File',
+                    'field'=>'pdffile',
+                    'type'=>'file',
+                    'idform'=>'nmfile',
+                    'form-class'=>'form-control',
+                    'url_upload' => 'upload_file',
+                    'style' => 'col-md-10 col-xl-10'
                 ),
                 'page' => array(
                     'label'=>'Page',

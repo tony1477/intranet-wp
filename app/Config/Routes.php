@@ -275,13 +275,18 @@ $routes->get('album/category','Company/Gallery::manageAlbum');
 $routes->get('album/foto','Company/Gallery::manageFoto');
 $routes->post('gallery-foto/manage-album/post','Company/Gallery::postAlbum');
 $routes->post('gallery-foto/manage-foto/post', 'Company/Gallery::postFoto');
+$routes->post('gallery-foto/manage-video/post', 'Company/Gallery::postVideo');
 $routes->post('([a-z]+)/uploadfile/gallery-foto/manage-foto', 'Company\Gallery::uploadfile/$1');
+$routes->post('gallery-foto/manage-foto/upload_image','Company/Gallery::uploadfile');
 $routes->post('gallery-foto/manage-foto/delete','Company/Gallery::deleteFoto');
+$routes->post('gallery-foto/manage-album/delete','Company/Gallery::deleteAlbum');
 $routes->get('album/video','Company/Gallery::manageVideo');
+$routes->post('gallery-foto/manage-video/upload_sampul','Company/Gallery::uploadCover');
 
 ## Article
 $routes->get('articles','Company/Article::index');
 $routes->get('article/atur-berita','Company/Article::ManageArticle');
+$routes->post('article/atur-berita/upload_file','Company/Article::UploadFile');
 $routes->post('article/post','Company/Article::postArticle');
 $routes->get('article/atur-kategori','Company/Article::categories');
 $routes->post('article/category/post','Company/Article::postCategories');

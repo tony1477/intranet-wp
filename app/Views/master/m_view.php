@@ -529,9 +529,12 @@
                             console.log(data)
                             if(data.code === 200) 
                             Swal.fire("Deleted!", data.message, data.status)
+                            .then((res) => {
+                                if(res.isConfirmed) location.reload();
+                            })
                             // table.ajax.reload()
                             // Swal.clickConfirm()
-                            setTimeout(() => location.reload(), 1500)
+                            
                         })
                         .catch(err => {
                             console.log('Error',err)

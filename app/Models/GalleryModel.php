@@ -57,7 +57,7 @@ class GalleryModel extends Model
         // $where = ['g.galleryid' => '>0'];
         // if($id!==null) $where=['a.categoryid' => $id];
         return $this->db->table('gallery g')
-            ->select('galleryid as Id, `url` as Full_Link_File, `url` as Link_File, title as Title, g.description as Description, if(ishighlight=1,"YES","NO") as IsHighlight, if(g.status=1,"YES","NO") as Status, g.createdby as User_Created, g.updatedby as User_Modified, categoryname as Name_Category, if(islogin=1,"YES","NO") as IsLogin')
+            ->select('galleryid as Id, `url` as Full_Link_File, `url` as Link_File, title as Title, g.description as Description, if(ishighlight=1,"YES","NO") as IsHighlight, if(g.status=1,"YES","NO") as Status, g.createdby as User_Created, g.updatedby as User_Modified, categoryname as Name_Category, sampul_video as Cover_File, if(islogin=1,"YES","NO") as IsLogin')
             ->join('gallerycategories a','a.categoryid=g.categoryid')
             ->where('gallerytype',2)
             ->get();
