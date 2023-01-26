@@ -469,12 +469,12 @@ class Gallery extends BaseController
                 $data = [
                     'gallerytype' => 2,
                     'title' => ($datas['judul']),
+                    'url' => ($datas['link_file']),
                     'description' => $datas['deskripsi'],
                     'status' => ($datas['isaktif']=='Y' ? 1 : 0),
                     'updatedby' => user()->username,
                     'updated_at'=>date('Y-m-d H:i:s'),
                 ];
-                if(isset($datas['nama_url'])) $data = array_merge($data,['url' => $datas['nama_url']]);
 
                 if(isset($datas['nama_sampul'])) $data = array_merge($data,['sampul_video' => $datas['nama_sampul']]);
                 
@@ -559,6 +559,55 @@ class Gallery extends BaseController
             try {
                 $id = $this->request->getVar('id');
                 $this->album->where('categoryid',$id)->delete();
+                if($this->album->find($id)) {
+                    $arr = array(
+                        'status' => 'warning',
+                        'code' => 200,
+                        'message' => 'Terjadi kesalahan dalam menghapus data',
+                        // 'data' => $this->model->findAll()
+                    );
+                    return json_encode($arr);
+                }
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => 'Data Berhasil di Hapus',
+                    // 'data' =>  $this->model->findAll()
+                );
+            }catch (\Exception $e) {
+                $arr = array(
+                    'status' => $e->getMessage(),
+                    'code' => 400,
+                );
+            }
+        }
+        $response = json_encode($arr);
+        return $response;
+    }
+
+    public function deleteVideo()
+    {
+        header("Content-Type: application/json");
+        $arr = array(
+            'fail' => 500,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+        if($this->request->isAJAX()) {
+            try {
+                $id = $this->request->getVar('id');
+                // get filename to move to trash folder
+                $oldFile = $this->gallery->find($id);
+                $loc = getcwd().'/assets/videos/';
+                // move videos
+                rename($loc.$oldFile->Link_File,$loc.'trash/'.$oldFile->Link_File);
+                // move poster
+                rename($loc.'poster/'.$oldFile->Cover_File,$loc.'trash/poster/'.$oldFile->Cover_File);
+
+                // echo $loc.$oldFile->Link_File;
+
+                $this->gallery->where('galleryid',$id)->delete();
+
                 if($this->album->find($id)) {
                     $arr = array(
                         'status' => 'warning',

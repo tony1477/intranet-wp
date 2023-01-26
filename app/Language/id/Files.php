@@ -288,6 +288,9 @@ return [
     "Location_PT" => "Lokasi / PT",
     "Department_Division" => "Departemen / Divisi",
     "Level_Position" => "Level Jabatan",
+    "Code_Location" => "Kode Lokasi",
+    "Name_Location1" => "Nama Lokasi/PT (IDN)",
+    "Name_Location2" => "Nama Lokasi/PT (ENG)",
 
     // Menu
     "group-divisi" => 'Grup Divisi',

@@ -29,7 +29,7 @@ class Divisi extends BaseController
             'data' => $divisi,
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
-            'columns' => array('Action','Id','Name_GroupDivisi','Code_Divisi','Name_Divisi','Name_Divisi2','User_Created','User_Modified'),
+            'columns' => array('Action','Id','Name_GroupDivisi','Code_Location','Name_Location1','Name_Location2','User_Created','User_Modified'),
             'crudScript' => view('partials/script/divisi',['menuname' => 'Divisi']),
             'forms' => [
                 # rule
@@ -49,7 +49,7 @@ class Divisi extends BaseController
                     ),
                 ),
                 'div_kode' => array(
-                    'label'=>'Code_Divisi',
+                    'label'=>'Code_Location',
                     'field'=>'div_kode',
                     'type'=>'text',
                     'idform'=>'kode',
@@ -57,7 +57,7 @@ class Divisi extends BaseController
                     'style' => 'col-md-8 col-xl-8'
                 ),
                 'div_nama' => array(
-                    'label'=>'Name_Divisi',
+                    'label'=>'Name_Location1',
                     'field'=>'div_nama',
                     'type'=>'text',
                     'idform'=>'namadivisi',
@@ -65,7 +65,7 @@ class Divisi extends BaseController
                     'style' => 'col-md-8 col-xl-8'
                 ),
                 'div_nama2' => array(
-                    'label'=>'Name_Divisi2',
+                    'label'=>'Name_Location2',
                     'field'=>'div_nama2',
                     'type'=>'text',
                     'idform'=>'namadivisi2',

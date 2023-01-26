@@ -280,6 +280,7 @@ $routes->post('([a-z]+)/uploadfile/gallery-foto/manage-foto', 'Company\Gallery::
 $routes->post('gallery-foto/manage-foto/upload_image','Company/Gallery::uploadfile');
 $routes->post('gallery-foto/manage-foto/delete','Company/Gallery::deleteFoto');
 $routes->post('gallery-foto/manage-album/delete','Company/Gallery::deleteAlbum');
+$routes->post('gallery-foto/manage-video/delete','Company/Gallery::deleteVideo');
 $routes->get('album/video','Company/Gallery::manageVideo');
 $routes->post('gallery-foto/manage-video/upload_sampul','Company/Gallery::uploadCover');
 

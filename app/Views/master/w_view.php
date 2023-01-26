@@ -442,7 +442,7 @@
                     Swal.fire("Deleted!", data.message, data.status)
                     // table.ajax.reload()
                     // Swal.clickConfirm()
-                    setTimeout(() => location.reload(), 1500)
+                    // setTimeout(() => location.reload(), 1500)
                 })
                 .catch(err => {
                     console.log('Error',err)

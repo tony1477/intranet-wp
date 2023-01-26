@@ -287,6 +287,9 @@ return [
     "Location_PT" => "Location / PT",
     "Department_Division" => "Department / Division",
     "Level_Position" => "Level Position",
+    "Code_Location" => "Location Code",
+    "Name_Location1" => "Location Name (IDN)",
+    "Name_Location2" => "Location Name (ENG)",
 
     // Menu
     "group-divisi" => 'Division Group',

@@ -12,6 +12,7 @@ class Gallery extends Entity
         'Title' => 'title',
         'Description' => 'description',
         'Link_File' => 'url',
+        'Cover_File' => 'sampul_video',
         'IsHighlight' => 'ishighlight',
         'Status' => 'status',
         'IsLogin' => 'islogin',

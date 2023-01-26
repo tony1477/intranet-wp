@@ -7,7 +7,7 @@ function getGroupDivisi() {
 
 function getDivisi() {
     $db = db_connect();
-    return $db->query("select a.iddivisi as Id, a.div_kode as Code_Divisi, a.div_nama as Name_Divisi, a.div_nama2 as Name_Divisi2, a.user_c as User_Created, a.user_m as User_Modified, b.iddivisigroup, b.gdiv_nama as Name_GroupDivisi
+    return $db->query("select a.iddivisi as Id, a.div_kode as Code_Divisi, a.div_kode as Code_Location, a.div_nama as Name_Divisi, a.div_nama as Name_Location1, a.div_nama2 as Name_Divisi2, a.div_nama2 as Name_Location2, a.user_c as User_Created, a.user_m as User_Modified, b.iddivisigroup, b.gdiv_nama as Name_GroupDivisi
     from tbl_ifmdivisi a 
     join tbl_ifmdivisigroup b on b.iddivisigroup = a.iddivisigroup")->getResult();
 }

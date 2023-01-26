@@ -276,6 +276,9 @@
         //Buttons examples
         <?php if(!isset($bpo)):?>
         var table = $('#datatable-buttons').DataTable({
+            createdRow: function( row, data, i ) {
+                console.log(i)
+            },
             // scrollX: true,
             lengthChange: true,
             // lengthMenu: [ 10, 25, 50, 75, 100,200 ],
