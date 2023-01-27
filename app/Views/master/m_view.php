@@ -84,14 +84,17 @@
                                                 }
                                                 else {echo $list->$row;}?></td>
                                                 <?php endforeach;?>
-                                                <?php if($key[0]!==1):?>
+                                                <?php if($key[0]!==1):
+                                                    $bpo = ['kebijakan','manual','sop','instruksi-kerja','lainnya'];
+                                                    
+                                                    if(in_array($route,$bpo)):?>
                                                 <td>
                                                     <a class="btn btn-soft-danger waves-effect waves-light btn-sm edit<?=$menuname?>" title="<?=lang('Files.View')?>" target="_blank" href="<?=base_url()?>/bpo/<?=$route?>/viewpdf/<?=$list->No_SOP?>" ><i class="fas fa-file-pdf" title="<?=lang('Files.View')?>"></i></a>
                                                     <?php for($i=1; $i<=$list->hit; $i++):?>
                                                     <a class="btn btn-soft-info waves-effect waves-light btn-sm download<?=$menuname?>" title="<?=lang('Files.Download').' '.lang('Files.Form'.$i)?>" href="<?=base_url()?>/bpo/<?=$route?>/downloadform/<?=$list->No_SOP.'/'.$i?>"><i class="bx bxs-download" title="<?=lang('Files.Download').' '.lang('Files.Form'.$i)?>"></i></a>
                                                     <?php endfor;?>
                                                 </td>
-                                               <?php endif;?>
+                                               <?php endif;endif;?>
                                             </tr>
                                         <?php endforeach;?>
                                     </tbody>

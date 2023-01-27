@@ -240,6 +240,7 @@ class Strukturorg extends BaseController
         helper(['admin_helper']);
         helper(['master_helper']);
         $menu = getMenu($user='Admin');
+        $data = $this->model->where('stg_aktif',1)->findAll();
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Structure-Org']),
@@ -247,6 +248,7 @@ class Strukturorg extends BaseController
 			'modules' => $menu,
             'route'=>'struktur-organisasi',
             'menuname' => 'struktur-org',
+            'data' => $data,
         ];
         return view('company/struktur-org',$data);
     }
@@ -392,6 +394,18 @@ class Strukturorg extends BaseController
             'route'=>'struktur-organisasi',
             'menuname' => 'visimisi',
         ];
-        return view('company/visimisi',$data);
+        return view('company/visimisi2',$data);
+    }
+
+    public function getDoc($iddoc)
+    {
+        $id = substr($iddoc,strpos($iddoc,'-')+1);
+        $data = $this->model->find($id);
+        $resp = [
+            'file' => $data['stg_nmfile'],
+            'nama_struktur1' => $data['stg_nama'],
+            'nama_struktur2' => $data['stg_nama2']
+        ];
+        return json_encode($resp);
     }
 }

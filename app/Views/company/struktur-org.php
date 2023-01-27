@@ -39,70 +39,32 @@
                             </div>
                             <div class="card-body">
                                 <div class="col-12">
+                                    <?php foreach($data as $row):?>
                                     <button type="button" class="btn btn-secondary">
+                                        <a href="javascript:;" onclick="changedoc(this)" class="text-light doc-<?=$row['idstrukturorg']?>">
+                                        <?php if($row['idstrukturorg']==1):?>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-building-fill" viewBox="0 0 16 16">
-                                        <path d="M3 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h3v-3.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V16h3a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H3Zm1 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5Z"></path>
+                                            <path d="M3 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h3v-3.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V16h3a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H3Zm1 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5Z"></path>
                                         </svg>
-                                        STRUKTUR GROUP
-                                    </button>
-                                    <button type="button" class="btn btn-secondary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-pentagon-fill" viewBox="0 0 16 16">
+                                        <?php else:?>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-pentagon-fill" viewBox="0 0 16 16">
                                         <path d="M7.685.256a.5.5 0 0 1 .63 0l7.421 6.03a.5.5 0 0 1 .162.538l-2.788 8.827a.5.5 0 0 1-.476.349H3.366a.5.5 0 0 1-.476-.35L.102 6.825a.5.5 0 0 1 .162-.538l7.42-6.03Z"/>
                                         </svg>
-                                        IA & CC
+                                        <?php endif;?>
+                                        <?=$row['stg_kode']?>
+                                        </a>
                                     </button>
-                                    <button type="button" class="btn btn-secondary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-pentagon-fill" viewBox="0 0 16 16">
-                                        <path d="M7.685.256a.5.5 0 0 1 .63 0l7.421 6.03a.5.5 0 0 1 .162.538l-2.788 8.827a.5.5 0 0 1-.476.349H3.366a.5.5 0 0 1-.476-.35L.102 6.825a.5.5 0 0 1 .162-.538l7.42-6.03Z"/>
-                                        </svg>
-                                        HRGA
-                                    </button>
-                                    <button type="button" class="btn btn-secondary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-pentagon-fill" viewBox="0 0 16 16">
-                                        <path d="M7.685.256a.5.5 0 0 1 .63 0l7.421 6.03a.5.5 0 0 1 .162.538l-2.788 8.827a.5.5 0 0 1-.476.349H3.366a.5.5 0 0 1-.476-.35L.102 6.825a.5.5 0 0 1 .162-.538l7.42-6.03Z"/>
-                                        </svg>
-                                        FIN & ACC
-                                    </button>
-                                    <button type="button" class="btn btn-secondary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-pentagon-fill" viewBox="0 0 16 16">
-                                        <path d="M7.685.256a.5.5 0 0 1 .63 0l7.421 6.03a.5.5 0 0 1 .162.538l-2.788 8.827a.5.5 0 0 1-.476.349H3.366a.5.5 0 0 1-.476-.35L.102 6.825a.5.5 0 0 1 .162-.538l7.42-6.03Z"/>
-                                        </svg>
-                                        LEGAL COMP.
-                                    </button>
-                                    <button type="button" class="btn btn-secondary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-pentagon-fill" viewBox="0 0 16 16">
-                                        <path d="M7.685.256a.5.5 0 0 1 .63 0l7.421 6.03a.5.5 0 0 1 .162.538l-2.788 8.827a.5.5 0 0 1-.476.349H3.366a.5.5 0 0 1-.476-.35L.102 6.825a.5.5 0 0 1 .162-.538l7.42-6.03Z"/>
-                                        </svg>
-                                        COMMERCIAL
-                                    </button>
-                                    <button type="button" class="btn btn-secondary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-pentagon-fill" viewBox="0 0 16 16">
-                                        <path d="M7.685.256a.5.5 0 0 1 .63 0l7.421 6.03a.5.5 0 0 1 .162.538l-2.788 8.827a.5.5 0 0 1-.476.349H3.366a.5.5 0 0 1-.476-.35L.102 6.825a.5.5 0 0 1 .162-.538l7.42-6.03Z"/>
-                                        </svg>
-                                        IT
-                                    </button>
-                                    <button type="button" class="btn btn-secondary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-pentagon-fill" viewBox="0 0 16 16">
-                                        <path d="M7.685.256a.5.5 0 0 1 .63 0l7.421 6.03a.5.5 0 0 1 .162.538l-2.788 8.827a.5.5 0 0 1-.476.349H3.366a.5.5 0 0 1-.476-.35L.102 6.825a.5.5 0 0 1 .162-.538l7.42-6.03Z"/>
-                                        </svg>
-                                        MILL
-                                    </button>
-                                    <button type="button" class="btn btn-secondary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-pentagon-fill" viewBox="0 0 16 16">
-                                        <path d="M7.685.256a.5.5 0 0 1 .63 0l7.421 6.03a.5.5 0 0 1 .162.538l-2.788 8.827a.5.5 0 0 1-.476.349H3.366a.5.5 0 0 1-.476-.35L.102 6.825a.5.5 0 0 1 .162-.538l7.42-6.03Z"/>
-                                        </svg>
-                                        ESTATE
-                                    </button>
+                                    <?php endforeach;?>
                                 </div>
                                 <!-- <br /> -->
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <p>KODE STRUKTUR ORGANISASI : WPG.GROUP</p>
-                                            <p>NAMA STRUKTUR ORGANISASI : Struktur Organisasi Perusahaan Wilian Perkasa Group</p>
+                                            <!-- <p>KODE STRUKTUR ORGANISASI : WPG.GROUP</p> -->
+                                            <p id="namastruktur"></p>
                                         </div>
                                         <div class="card-body">
-                                            <embed src="http://wilianperkasa.synology.me:88/intranet/datastruktur/file/Struktur_Organisasi_Wilian_Perkasa_Group3.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0" scrolling="no" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" allowtransparency="true" style="border: none; height: 600px; width: 100%; overflow: hidden;" type="application/pdf">
+                                            <embed id="docStruktur"  scrolling="no" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" allowtransparency="true" style="border: none; height: 600px; width: 100%; overflow: hidden;" type="application/pdf">
                                         </div>
                                     </div>
                                 </div>
@@ -146,3 +108,47 @@
 <script src="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 <script src="<?=base_url()?>/assets/js/app.js"></script>
+<script>
+
+    window.addEventListener("load", (event) => {
+        const embedded = document.querySelector('#docStruktur')
+        const ptitle = document.querySelector('p#namastruktur')
+        getDoc('doc-1')
+        .then(data => {
+            embedded.src=`<?=base_url()?>/assets/protected/struktur-organisasi/${data.file}#toolbar=0&navpanes=0&scrollbar=0`
+            ptitle.innerText = 'NAMA STRUKTUR ORGANISASI : '+data.nama_struktur1
+        })
+        console.log("page is fully loaded");
+    });
+
+    function changedoc(el)
+    {
+        const embedded = document.querySelector('#docStruktur')
+        const ptitle = document.querySelector('p#namastruktur')
+        let docId = el.classList[1]
+        getDoc(docId)
+        .then(data => {
+            // embedded.src = `<?=base_url()?>/assets/protected/struktur-organisasi/${data}#toolbar=0&navpanes=0&scrollbar=0`
+            let clone = embedded.cloneNode(true)
+            clone.setAttribute('src',`<?=base_url()?>/assets/protected/struktur-organisasi/${data.file}#toolbar=0&navpanes=0&scrollbar=0`)
+            embedded.parentNode.replaceChild(clone,embedded)
+            ptitle.innerText = 'NAMA STRUKTUR ORGANISASI : '+data.nama_struktur1
+            // console.log(embedded)
+        })
+    }
+
+    async function getDoc(id) {
+        const response = await fetch(`<?=base_url()?>/struktur-organisasi/getDoc/${id}`,{
+            method:'GET',
+            mode:'cors',
+            cache:'no-cache',
+            creadentials:'same-origin',
+            headers: {
+                'Content-Type':'application/json',
+                "X-Requested-With": "XMLHttpRequest"
+            },
+        })
+
+        return response.json()
+    }
+</script>

@@ -42,7 +42,11 @@
                 <!-- end row -->
 
                 <div class="row">
-                    <?php foreach($data as $row):?>
+                    <?php foreach($data as $row):
+                        if($row->categoryid==99):
+                            if(!has_permission('gallery-permission')) continue;
+                        endif;
+                    ?>
                     <div class="col-md-6 container">
                         <h4 class="text-center"><?=$row->categoryname?></h4>
                         <div class="card-stack">

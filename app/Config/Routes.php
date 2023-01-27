@@ -201,6 +201,7 @@ $routes->get('struktur-organisasi', 'Master/Bpo/Strukturorg::index');
 $routes->post('struktur-organisasi/delete', 'Master/Bpo/Strukturorg::delete');
 $routes->post('struktur-organisasi/post', 'Master/Bpo/Strukturorg::save');
 $routes->get('struktur-organisasi/display', 'Master/Bpo/Strukturorg::display');
+$routes->get('struktur-organisasi/getDoc/(:segment)', 'Master\Bpo\Strukturorg::getDoc/$1');
 $routes->add('struktur-organisasi/view/(:any)', 'Master\Bpo\Strukturorg::view/$1');
 // $routes->add('struktur-organisasi/viewbyfile/(:any)', 'Master\Bpo\Strukturorg::viewbyfile/$1');
 // $routes->post('struktur-organisasi/uploadfile', 'Master/Bpo/Strukturorg::uploadfile');
@@ -301,6 +302,10 @@ $routes->post('article/upload_image','Company/Article::uploadImg');
 $routes->post('article/pojok-wp/upload_image','Company/Article::uploadImg');
 $routes->post('article/postComment','Company/Article::postComment');
 $routes->get('article/read/(:segment)/(:segment)','Company\Article::readArticle/$1/$2');
+
+## Helpdesk
+$routes->get('list-helpdesk','Helpdesk/Ticketing::index');
+$routes->get('create-helpdesk','Helpdesk/Ticketing::create');
 
 ## Website
 $routes->get('tentang/profil','Website/About/Profile::index');
