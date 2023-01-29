@@ -61,4 +61,13 @@ class ArticleModel extends Model
         left join article_category c on c.categoryid = a.categoryid
         where month(posted_date) = month('{$periode}') and year(posted_date) = year('{$periode}') and title = '{$title}'");
     }
+
+    public function updateRead(int $id)
+    {
+        $query = 'call upadateReadArticle(?)';
+        if($this->db->query($query,[$id]))
+            return true;
+        
+        return false;
+    }
 }

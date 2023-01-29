@@ -291,6 +291,8 @@ return [
     "Code_Location" => "Kode Lokasi",
     "Name_Location1" => "Nama Lokasi/PT (IDN)",
     "Name_Location2" => "Nama Lokasi/PT (ENG)",
+    "List_Category" => "Daftar Kategori",
+
 
     // Menu
     "group-divisi" => 'Grup Divisi',

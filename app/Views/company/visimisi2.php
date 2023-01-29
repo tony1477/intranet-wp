@@ -45,12 +45,12 @@
                                     <div class="row">
                                         <div class="col-6 visi-misi  d-flex justify-content-center" >
                                             <!-- <div class="logo-visi-misi d-flex justify-content-center"> -->
-                                                <img src="<?=base_url()?>/assets/images/3.png">
+                                                <img src="<?=base_url()?>/assets/images/3.png" alt="Vision Image" title="Image of Visi">
                                             <!-- </div> -->
                                         </div>
                                         <div class="col-6 visi-misi  d-flex justify-content-center">
                                             <!-- <div class="logo-visi-misi d-flex justify-content-center"> -->
-                                                <img src="<?=base_url()?>/assets/images/4.png">
+                                                <img src="<?=base_url()?>/assets/images/4.png" alt="Mission Image" title="Image of Mission">
                                             <!-- </div> -->
                                         </div>
                                     </div>
@@ -72,12 +72,12 @@
                                     </div>
                                     <div class="row values">
                                         <h3 class="text-center">Nilai Luhur</h3>
-                                        <img src="<?=base_url()?>/assets/images/core-values/w.png" class="imgmodal" id="wisdom" onclick="showModal(this)">
-                                        <img src="<?=base_url()?>/assets/images/core-values/i.png" class="imgmodal" id="intellectual" onclick="showModal(this)">
-                                        <img src="<?=base_url()?>/assets/images/core-values/l.png" class="imgmodal" id="loyal" onclick="showModal(this)">
-                                        <img src="<?=base_url()?>/assets/images/core-values/in.png" class="imgmodal" id="integrity" onclick="showModal(this)">
-                                        <img src="<?=base_url()?>/assets/images/core-values/a.png" class="imgmodal" id="accomplished" onclick="showModal(this)">
-                                        <img src="<?=base_url()?>/assets/images/core-values/n.png" class="imgmodal" id="noble" onclick="showModal(this)">
+                                        <img src="<?=base_url()?>/assets/images/core-values/w.png" class="imgmodal" id="wisdom" onclick="showModal(this)" alt="Wisdom's Image">
+                                        <img src="<?=base_url()?>/assets/images/core-values/i.png" class="imgmodal" id="intellectual" onclick="showModal(this)" alt="Intellectual's Image">
+                                        <img src="<?=base_url()?>/assets/images/core-values/l.png" class="imgmodal" id="loyal" onclick="showModal(this)" alt="Loyal's Image">
+                                        <img src="<?=base_url()?>/assets/images/core-values/in.png" class="imgmodal" id="integrity" onclick="showModal(this)" alt="Integrity's Image">
+                                        <img src="<?=base_url()?>/assets/images/core-values/a.png" class="imgmodal" id="accomplished" onclick="showModal(this)" alt="Accomplished's Image">
+                                        <img src="<?=base_url()?>/assets/images/core-values/n.png" class="imgmodal" id="noble" onclick="showModal(this)" alt="Noble's Image">
                                     </div>
 
                                     <div class="modal fade" id="wisdomModal">

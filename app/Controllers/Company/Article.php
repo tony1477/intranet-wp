@@ -26,10 +26,10 @@ class Article extends BaseController
     {
         helper(['admin_helper']);
         $menu = getMenu($user='Admin');
-        $article = $this->model->where(['publish'=>1,'status'=>1,'articletype'=>1])->findAll(0,3);
+        $article = $this->model->where(['publish'=>1,'status'=>1])->findAll(3);
         $categories = $this->category->sumPerCategory();
         $upcoming = $this->model->where(['publish'=>0,'status'=>1])->findAll();
-        $popular = $this->model->findAll(0,3);
+        $popular = $this->model->orderBy('sum_read','desc')->orderBy('posted_date','desc')->findAll(5);
         $tags = $this->model->findAll();
         // $articles = $this->model->getArticles()->getResult(ArticleEntity::class);
         $data = [
@@ -523,10 +523,12 @@ class Article extends BaseController
         if(!$article=$this->model->getArticle($periode,$title)->getRow()) return redirect()->to('/articles');
         
         helper(['admin_helper']);
+        // update sum_read +1 when user access this page
+        $this->model->updateRead($article->articleid);
         $menu = getMenu($user='Admin');
         $categories = $this->category->sumPerCategory();
         $upcoming = $this->model->where(['publish'=>0,'status'=>1])->findAll();
-        $popular = $this->model->findAll(0,3);
+        $popular = $this->model->orderBy('sum_read','desc')->orderBy('posted_date','desc')->findAll(5);
         $tags = $this->model->findAll();
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Read_Article']),
@@ -542,7 +544,7 @@ class Article extends BaseController
                 'tags' => $tags,
             ],
 		];
-        return view('company/read_article',$data);
+        return view('company/read_article',$data);  
     }
 
     public function ManagePojokBerita()
@@ -788,5 +790,37 @@ class Article extends BaseController
             ],
 		];
         return view('company/read_pojokwp',$data);
+    }
+
+    public function Category($category)
+    {
+        helper(['admin_helper']);
+        $menu = getMenu($user='Admin');
+        $getData = $this->category->where('categoryname',$category)->find();
+        $article = $this->model->where(['publish'=>1,'status'=>1,'categoryid'=>2,'categoryid'=>$getData[0]->Id])->findAll(3);
+        if(count($article)<=0) return redirect()->to('/articles');
+        $categories = $this->category->sumPerCategory();
+        $upcoming = $this->model->where(['publish'=>0,'status'=>1])->findAll();
+        $popular = $this->model->findAll(3);
+        $tags = $this->model->findAll();
+        // $articles = $this->model->getArticles()->getResult(ArticleEntity::class);
+        $data = [
+			'title_meta' => view('partials/title-meta', ['title' => 'Category']),
+			'page_title' => view('partials/page-title', ['title' => 'Category', 'li_1' => 'Article', 'li_2' => 'Category']),
+			'modules' => $menu,
+            'route'=>'category',
+            'menuname' => 'Articles',
+            'data' => [
+                'article' => $article,
+                'category' => $categories,
+                'upcoming' => $upcoming,
+                'popular' => $popular,
+                'tags' => $tags,
+                'judul' => $category
+            ],
+		];
+        // $gallery = $this->model->where('gallerytype',1)->findAll($limit,$offset);
+
+        return view('company/category',$data);
     }
 }

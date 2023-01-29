@@ -33,23 +33,16 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <h5 class="card-title"><?=lang('Files.List_Article')?> <span class="text-muted fw-normal ms-2"></span></h5>
+                            <h5 class="card-title"><?=lang('Files.List_Category').' : <span class="text-muted">'.ucfirst($data['judul']).'</span>'?> <span class="text-muted fw-normal ms-2"></span></h5>
                         </div>
                     </div>
 
                     <?php //if(has_permission('article')):?>
-                    <!-- <div class="col-md-6">
+                    <div class="col-md-6">
                         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
-                            <div class="btn-group" role="group">
-                                <button id="btnGroupDrop1" type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><?=lang('Files.Manage').' '.lang('Files.Article')?> <i class="mdi mdi-chevron-down"></i>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
-                                    <li><a class="dropdown-item" href="#"><?=lang('Files.Category')?></a></li>
-                                    <li><a class="dropdown-item" href="#"><?=lang('Files.Article')?></a></li>
-                                </ul>
-                            </div>
+                            <a href="#" onclick="history.back()" class="btn btn-primary"><i class="bx bx-arrow-back me-1"></i> Kembali</a>
                         </div>
-                    </div> -->
+                    </div>
                     <?php //endif;?>
                 </div>
                 <!-- end row -->
@@ -275,4 +268,5 @@
     }
 </script>
 </body>
+
 </html>

@@ -290,6 +290,7 @@ return [
     "Code_Location" => "Location Code",
     "Name_Location1" => "Location Name (IDN)",
     "Name_Location2" => "Location Name (ENG)",
+    "List_Category" => "List Category of",
 
     // Menu
     "group-divisi" => 'Division Group',

@@ -11,6 +11,7 @@ class Article extends Entity
     protected $datamap = [
         'Id' => 'articleid',
         'Name_Category' => 'categoryid',
+        'CategoryId' => 'categoryid',
         'Title' => 'title',
         'Content' => 'content',
         'Image' => 'image',

@@ -7,7 +7,7 @@
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
-                <li class="menu-title" data-key="t-menu"><?= lang('Files.Menu') ?></li>
+                <li class="menu-title fs-5" data-key="t-menu"><?= lang('Files.Menu') ?></li>
 
                 <?php foreach($modules as $module): ?>
                 <li>
