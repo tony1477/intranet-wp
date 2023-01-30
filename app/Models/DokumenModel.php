@@ -73,7 +73,7 @@ class DokumenModel extends Model
 
     public function getViewDoc(array $data)
     {
-        $sql = "select dok_nmfile
+        $sql = "select a.iddokumen, dok_nmfile
             from sop_ifmdokumen a
             join userdokumen b on b.iddokumen = a.iddokumen
             join users c on c.id = b.idusers
@@ -154,5 +154,23 @@ class DokumenModel extends Model
         }
         $response = json_encode($arr);
         return $response;
+    }
+
+    public function updateViewPdf(int $id)
+    {
+        $query = 'call UpdateViewPdf(?)';
+        if($this->db->query($query,[$id]))
+            return true;
+        
+        return false;
+    }
+
+    public function updateDownForm(int $id,int $urut)
+    {
+        $query = 'call UpdateDownForm(?,?)';
+        if($this->db->query($query,[$id,$urut]))
+            return true;
+        
+        return false;
     }
 }

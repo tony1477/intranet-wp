@@ -92,18 +92,14 @@
                                         <?php foreach($data['category'] as $category):?>
                                         <li><a href="javascript:;" class="text-dark py-3 d-block border-bottom" id="category" data-value="<?=$category->jum?>" data-name="<?=strtolower($category->categoryname)?>"><?=$category->categoryname?><span class="badge badge-soft-primary badge-pill float-end ms-1 font-size-12"><?=$category->jum?></span></a></li>
                                         <?php endforeach;?>
-                                        <!-- <div style="min-height: 110px;" class="top-0 end-0"> -->
                                             <div class="toast fade hide" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true" id="toastcategory">
                                                 <div class="toast-header">
                                                     <img src="assets/images/logo-baru.png" alt="" class="me-2" height="18">
                                                     <strong class="me-auto">Notifikasi</strong>
-                                                    <!-- <small class="text-muted">11 mins ago</small> -->
                                                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                                                 </div>
                                                 <div class="toast-body"></div>
                                             </div>
-                                            <!--end toast-->
-                                        <!-- </div> -->
                                     </ul>
                                 </div>
                                 <?php if(count($data['upcoming'])>0):?>

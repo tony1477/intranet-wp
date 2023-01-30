@@ -287,6 +287,7 @@ class Support extends BaseController
             'username' => user()->username,
         ];
         if($row = $this->model->getViewDoc($cond)->getRowArray()) {
+            $this->model->updateViewPdf($row['iddokumen']);
             $_SESSION['filePdf'] = $row['dok_nmfile'];
             return view('master/bpo/viewpdf');
         }
@@ -306,6 +307,7 @@ class Support extends BaseController
             // $_SESSION['filePdf'] = $row['dok_nmfile'];
             // return view('master/bpo/viewpdf');
             $name = $row['dok_nmfile'.$urut];
+            $this->model->UpdateDownForm($row['iddokumen'],$urut);
             $loc = getcwd().'/assets/protected/dokumen-sop/form';
             $filename = $loc.'/'.$name;
             if(file_exists($filename)) {
