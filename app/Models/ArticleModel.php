@@ -64,7 +64,7 @@ class ArticleModel extends Model
 
     public function updateRead(int $id)
     {
-        $query = 'call upadateReadArticle(?)';
+        $query = 'call upadteReadArticle(?)';
         if($this->db->query($query,[$id]))
             return true;
         
