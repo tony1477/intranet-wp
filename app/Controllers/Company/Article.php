@@ -38,6 +38,7 @@ class Article extends BaseController
 			'modules' => $menu,
             'route'=>'articles',
             'menuname' => 'Articles',
+            'page'=>'',
             'data' => [
                 'article' => $article,
                 'category' => $categories,
@@ -536,12 +537,15 @@ class Article extends BaseController
 			'modules' => $menu,
             'route'=>'articles',
             'menuname' => 'Read_Article',
+            'page'=>'',
             'data' => [
                 'article' => $article,
                 'category' => $categories,
                 'upcoming' => $upcoming,
                 'popular' => $popular,
                 'tags' => $tags,
+                'title' => $title,
+                'periode' => $periode
             ],
 		];
         return view('company/read_article',$data);  
@@ -810,6 +814,7 @@ class Article extends BaseController
 			'modules' => $menu,
             'route'=>'category',
             'menuname' => 'Articles',
+            'page'=>$category,
             'data' => [
                 'article' => $article,
                 'category' => $categories,

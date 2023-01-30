@@ -37,7 +37,7 @@ function getDocument() {
     return $db->query("select a.iddokumen as Id, dok_nosop as No_SOP, dok_nmsop as Name_Document, dok_nmsop2 as Name_Document2, c.dep_kode as Code_Department, c.dep_nama as Name_Department, 
     if(dok_nmfile<>'',concat(substr(dok_nmfile,1,10),'...',substr(dok_nmfile,-5,5)),'') as Name_File, dok_nmfile as Full_Name_File, 
     if(dok_nmfile2<>'',concat(substr(dok_nmfile2,1,10),'...',substr(dok_nmfile2,-5,5)),'') as Name_File2, dok_nmfile2 as Full_Name_File2, 
-    if(dok_nmfile3<>'',concat(substr(dok_nmfile3,1,10),'...',substr(dok_nmfile3,-5,5)),'') as Name_File3,dok_nmfile3 as Full_Name_File3, b.kat_kode as Code_Category,kat_nama as Name_Category, if(dok_publish='Y','YES','NO') as Publish, if(dok_aktif='Y','YES','NO') as Status, dok_cover as Cover2
+    if(dok_nmfile3<>'',concat(substr(dok_nmfile3,1,10),'...',substr(dok_nmfile3,-5,5)),'') as Name_File3,dok_nmfile3 as Full_Name_File3, b.kat_kode as Code_Category,kat_nama as Name_Category, if(dok_publish='Y','YES','NO') as Publish, if(dok_aktif='Y','YES','NO') as Status, dok_cover as Cover2,ifnull(view_pdf,0) as View_Pdf, ifnull(count_downfile1,0) as Count_File1, ifnull(count_downfile2,'null') as Count_File2
     from sop_ifmdokumen a
     join sop_ifmkategori b on b.idkategory = a.idkategory
     join tbl_ifmdepartemen c on c.iddepartment = a.iddepartment")->getResult();

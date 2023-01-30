@@ -7,7 +7,7 @@
 .demo-gallery > ul > li {
     float: left;
     margin-bottom: 15px;
-    margin-right: 20px;
+    /* margin-right: 20px; */
     /* width: 200px; */
 }
 .demo-gallery > ul > li a {

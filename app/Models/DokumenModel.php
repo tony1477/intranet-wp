@@ -172,5 +172,6 @@ class DokumenModel extends Model
             return true;
         
         return false;
+        // var_dump($id,$urut);
     }
 }

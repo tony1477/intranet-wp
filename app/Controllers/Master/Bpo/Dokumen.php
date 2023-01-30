@@ -25,6 +25,7 @@ class Dokumen extends BaseController
 			'title_meta' => view('partials/title-meta', ['title' => 'Document']),
 			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Document']),
 			'modules' => $menu,
+            'scriptdatatable'=> view('master/_partials/script/dokumen.js'),
             'route'=>'dokumen-sop',
             'menuname' => 'Document',
             'data' => $document,
@@ -51,7 +52,7 @@ class Dokumen extends BaseController
                 // ],
             ),
             'columns_hidden' => array('Action'),
-            'columns' => array('Action','Id','Name_Department','No_SOP','Name_Document','Name_Document2','Name_Category','Name_File','Name_File2','Name_File3','Publish','Status','Cover2'),
+            'columns' => array('Action','Id','Name_Department','No_SOP','Name_Document','Name_Document2','Name_Category','Name_File','Name_File2','Name_File3','Publish','Status','Cover2','View_Pdf','Count_File1','Count_File2'),
             'button' => array(
                 'Publish' => [
                     'class' => 'btn-sm waves-effect waves-light',

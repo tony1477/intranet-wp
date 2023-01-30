@@ -291,6 +291,7 @@ return [
     "Name_Location1" => "Location Name (IDN)",
     "Name_Location2" => "Location Name (ENG)",
     "List_Category" => "List Category of",
+    "location" => "Location",
 
     // Menu
     "group-divisi" => 'Division Group',

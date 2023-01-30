@@ -55,9 +55,8 @@
                     <div class="demo-gallery">
                         <ul id="lightgallery" class="list-unstyled row">
                         <?php $j=1; foreach($data as $row):?>
-                            <li class="col-xs-6 col-sm-4 col-md-4 col-lg-4 col-xl4" data-sub-html="<?=$row->title?>" data-html="#video<?=$j?>" >
-                                <a href="">
-                                <img class="img-responsive bg-secondary border border-primary border rounded opacity-25" src="<?=base_url()?>/assets/videos/poster/<?=$row->sampul_video?>" /></a>
+                            <li class="col-xs-6 col-sm-4 col-md-4 col-lg-4 col-xl4" data-sub-html="<?=$row->title?>" data-html="#video<?=$j?>" data-poster="<?=base_url()?>/assets/videos/poster/<?=$row->sampul_video?>">
+                                <img class="img-responsive bg-secondary border border-primary border rounded opacity-25 w-100" src="<?=base_url()?>/assets/videos/poster/<?=$row->sampul_video?>" />
                                 <div class="text-center">
                                 <h5><?=$row->title?></h5></div>
                             </li>                            

@@ -8,6 +8,8 @@
     <?= $this->include('partials/head-css') ?>
     <link rel="stylesheet" href="<?=base_url()?>/assets/css/gallery.css" />
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/lightgallery/css/lightgallery.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/lightgallery/css/lg-transitions.min.css" />
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -42,9 +44,9 @@
                         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                             <div>
                                 <a href="#" onclick="history.back()" class="btn btn-primary"><i class="bx bx-arrow-back me-1"></i> <?=lang('Files.Back')?></a>
-                                <?php if(has_permission('gallery-permission')): ?>
-                                <a href="<?=base_url()?>/gallery-foto/manage-foto/<?=$categoryid?>" class="btn btn-light"><i class="bx bxs-photo-album me-1"></i> <?=lang('Files.Manage_Photo')?></a>
-                                <?php endif;?>
+                                <?php //if(has_permission('gallery-permission')): ?>
+                                <!-- <a href="<?=base_url()?>/gallery-foto/manage-foto/<?=$categoryid?>" class="btn btn-light"><i class="bx bxs-photo-album me-1"></i> <?=lang('Files.Manage_Photo')?></a> -->
+                                <?php //endif;?>
                             </div>
                         </div>
 
@@ -69,7 +71,7 @@
                     <?php endforeach;?>     
                 </div> -->
 
-                <div class="row">
+                <!-- <div class="row">
                     <section id="portfolio">
                         <?php foreach($data as $row):?>
                         <div class="project">
@@ -90,6 +92,13 @@
                         </div>
                         </div>
                     </section>
+                </div> -->
+                <div id="custom-transitions" class="photogallery">
+                <?php foreach($data as $row):?>
+                    <a href="<?=base_url().'/assets/images/gallery/foto/'.$row->url?>" alt="Foto-<?=strip_tags($row->title)?>" data-sub-html="<?=strip_tags($row->title)?><br /><?=strip_tags($row->description)?>">
+                        <img src="<?=base_url().'/assets/images/gallery/foto/'.$row->url?>" alt="Foto-<?=strip_tags($row->title)?>" />
+                    </a>
+                <?php endforeach;?>
                 </div>
                 <!-- end row -->
                 <?= $pager->links('gallery','custom_pager') ?>
@@ -113,7 +122,20 @@
 <?= $this->include('partials/vendor-scripts') ?>
 
 <script src="<?=base_url()?>/assets/js/app.js"></script>
-<script type="text/javascript">
+<script src="<?=base_url()?>/assets/lightgallery/js/lightgallery.min.js"></script>
+<script src="<?=base_url()?>/assets/lightgallery/js/lg-pager.min.js"></script>
+<script src="<?=base_url()?>/assets/lightgallery/js/lg-fullscreen.min.js"></script>
+<script src="<?=base_url()?>/assets/lightgallery/js/lg-share.min.js"></script>
+<script src="<?=base_url()?>/assets/lightgallery/js/lg-thumbnail.min.js"></script>
+<script src="<?=base_url()?>/assets/lightgallery/js/lg-autoplay.min.js"></script>
+<script src="<?=base_url()?>/assets/lightgallery/js/lg-rotate.min.js"></script>
+<script>
+    lightGallery(document.getElementById('custom-transitions'), {
+        mode: 'lg-slide-circular',
+        subHtmlSelectorRelative: true
+    })
+</script>
+<!-- <script type="text/javascript">
 const buttons = document.querySelectorAll('.project');
 const overlay = document.querySelector('.overlay');
 const overlayImage = document.querySelector('.overlay__inner img');
@@ -138,7 +160,7 @@ overlay.addEventListener('click', close);
 
 
 
-</script>
+</script> -->
 </body>
 
 </html>

@@ -59,7 +59,7 @@ class Gallery extends BaseController
         helper(['admin_helper']);
         helper(['master_helper']);
         $menu = getMenu($user='Admin');
-        $limit = 8;
+        $limit = 10;
         $offset = 0;
         $gallery = $this->gallery->where(['gallerytype'=>1,'categoryid'=>$id,'status'=>1]);
         //$submenu = getSubmenu($moduleid=0);
