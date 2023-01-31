@@ -186,6 +186,19 @@
                                                 </div>
                                             </form>
                                         </div> -->
+                                        <?php if($article->pdffile != ''):?>
+                                        <div class="row justify-content-end">
+                                            <div class="col-xl-2 col-6">
+                                                <div class="card">
+                                                    <i class="bx bxs-download fs-1 text-center"></i>
+                                                    <div class="py-2 text-center">
+                                                        <a download="<?=$article->pdffile?>" href="<?=base_url()?>/assets/protected/article/<?=$article->pdffile?>" class="fw-medium">Download</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php endif;?>
+
                                         <button type="button" class="btn btn-soft-primary waves-effect waves-light"><i class="bx bx-left-arrow-alt font-size-16 align-middle me-2"></i> Sebelumnya</button>
 
                                         <button type="button" class="btn btn-soft-primary waves-effect waves-light float-end">Selanjutnya <i class="bx bx-right-arrow-alt font-size-16 align-middle me-2"></i></button>

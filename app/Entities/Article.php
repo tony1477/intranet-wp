@@ -19,6 +19,7 @@ class Article extends Entity
         'Page' => 'page',        
         'Slug' => 'slug',
         'Name_Category' => 'categoryname',
+        'Posted_Date' => 'posted_data'
     ];
     protected $dates   = ['created_at', 'updated_at', 'deleted_at'];
     protected $casts   = [];

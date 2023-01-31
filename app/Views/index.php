@@ -136,11 +136,11 @@
                         <div class="col-xl-12 col-lg-12">
                             <?php foreach($data['article'] as $article):?>
                             <div class="card">
+                                <div class="card-header bg-info rounded">
+                                    <h4 class="card-title flex-grow-1 fs-3 text-center text-white"><?=$article->title?></h4>
+                                </div>
                                 <div class="card-body">
                                     <div class="">
-                                        <div class="text-center mb-3">
-                                            <h4><?=$article->title?></h4>
-                                        </div>
                                         <div class="mb-4">
                                             <img src="<?=base_url()?>/assets/images/gallery/article/<?=$article->image?>" alt="" class="img-thumbnail mx-auto d-block">
                                         </div>

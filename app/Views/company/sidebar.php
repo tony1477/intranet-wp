@@ -56,7 +56,7 @@
                 <h5 class="mb-3">Popular Post</h5>
                 <div class="list-group list-group-flush">
                     <?php foreach($data['popular'] as $popular):?>
-                    <a href="<?=base_url()?>/article/read/<?=$periode.'/'.$title?>" class="list-group-item text-muted pb-3 pt-0 px-2">
+                    <a href="<?=base_url()?>/article/read/<?=date('Y-m',strtotime($popular->posted_date)).'/'.str_replace(' ','-',$popular->title)?>" class="list-group-item text-muted pb-3 pt-0 px-2">
                         <div class="d-flex align-items-center">
                             <div class="flex-shrink-0 me-3">
                                 <img src="<?=base_url()?>/assets/images/gallery/article/<?=$popular->image?>" alt="" class="avatar-xl h-auto d-block rounded">

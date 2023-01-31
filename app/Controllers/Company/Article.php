@@ -314,6 +314,9 @@ class Article extends BaseController
                     'updated_at'=>date('Y-m-d H:i:s'),
                 ];
                 if(isset($datas['link_image'])) $data = array_merge($data,['image' => $datas['link_image']]);
+
+                if(isset($datas['nmfile'])) $data = array_merge($data,['pdffile' => $datas['nmfile']]);
+                
                 if($datas['id']!=='') {
                     $this->model->update($datas['id'],$data);
                     $message = lang('Files.Update_Success');
@@ -356,6 +359,44 @@ class Article extends BaseController
         );
         
         $loc = getcwd().'/assets/images/gallery/article';
+        $filename = $_FILES['file']['name'];
+
+        /* Choose where to save the uploaded file */
+        $location = $loc.'/'.$filename;
+        
+        /* Save the uploaded file to the local filesystem */
+        try {
+            if(move_uploaded_file($_FILES['file']['tmp_name'], $location)) {
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => 'Uploaded File!',
+                    'filename' => $filename
+                );
+            }
+        }
+        catch(Exception $e) {
+            $arr = array(
+                'status' => 'failed',
+                'code' => 400,
+                'message' => $e->getMessage(),
+            );
+        }
+        $response = json_encode($arr);
+        return $response;
+    }
+
+    public function UploadFile()
+    {
+        if(!has_permission('article')) return redirect()->route('articles');
+        header("Content-Type: application/json");
+        $arr = array(
+            'status' => 'failed',
+            'code' => 400,
+            'message' => 'Error'
+        );
+        
+        $loc = getcwd().'/assets/protected/article';
         $filename = $_FILES['file']['name'];
 
         /* Choose where to save the uploaded file */

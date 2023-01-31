@@ -14,7 +14,7 @@ class ArticleModel extends Model
     protected $returnType       = Article::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['categoryid','title','content','image','page','slug','publish','status','sum_comment','sum_read','can_comment','articletype','creatorid','updaterid'];
+    protected $allowedFields    = ['categoryid','title','content','image','pdffile','page','slug','publish','status','sum_comment','sum_read','can_comment','articletype','creatorid','updaterid'];
 
     // Dates
     protected $useTimestamps = true;

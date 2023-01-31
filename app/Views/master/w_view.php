@@ -146,7 +146,7 @@
                                                         <div class="<?=$form['style']?>">
                                                             <div class="form-group mb-3">
                                                                 <label><?=lang('Files.'.$form['label'])?></label>
-                                                            <input type="file" name="<?=$form['idform']?>" id="<?=$form['idform']?>" class="<?=$form['form-class']?>" required value="" />
+                                                            <input type="file" name="file<?=$form['idform']?>" id="file<?=$form['idform']?>" class="<?=$form['form-class']?>" value="" />
                                                             </div>
                                                         </div>
                                                         <?php }
@@ -265,6 +265,10 @@
                                 if(instanceCKeditor<?=$form['idform']?>) CKEDITOR.instances.<?=$form['idform']?>.destroy();
                                 CKEDITOR.replace( '<?=$form['idform']?>')
                                 CKEDITOR.instances.<?=$form['idform']?>.setData('');
+                            <?php break; ?>
+                            case 'file': ?>
+                                document.getElementById("file<?=$form['idform']?>").value = '';
+                                document.getElementById("f<?=$form['idform']?>").innerHTML = '';
                             <?php break; ?>
                             <?php case 'file-image': ?>
                                 document.getElementById("file<?=$form['idform']?>").value='';

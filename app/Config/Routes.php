@@ -288,7 +288,7 @@ $routes->post('gallery-foto/manage-video/upload_sampul','Company/Gallery::upload
 ## Article
 $routes->get('articles','Company/Article::index');
 $routes->get('article/atur-berita','Company/Article::ManageArticle');
-$routes->post('article/atur-berita/upload_file','Company/Article::UploadFile');
+$routes->post('article/upload_file','Company/Article::UploadFile');
 $routes->post('article/post','Company/Article::postArticle');
 $routes->get('article/atur-kategori','Company/Article::categories');
 $routes->post('article/category/post','Company/Article::postCategories');
