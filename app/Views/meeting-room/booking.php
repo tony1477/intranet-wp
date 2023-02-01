@@ -7,7 +7,7 @@
 
     <!-- twitter-bootstrap-wizard css -->
     <link rel="stylesheet" href="<?=base_url()?>/assets/libs/twitter-bootstrap-wizard/prettify.css">
-    <link href="<?=base_url()?>/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="<?=base_url()?>/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" /> -->
     <!-- <link rel="stylesheet" href="/assets/libs/flatpickr/flatpickr.min.css"> -->
 
     <?= $this->include('partials/head-css') ?>
@@ -43,7 +43,7 @@
                             <div class="card-header">
                                 <h4 class="card-title mb-0"><?=lang('Files.Form_Request_Room')?> <?=$nama != '' ? $nama : 'Meeting'?></h4>
                             </div>
-                            <div class="card-body" style="border:0px solid #000; height:70vh">
+                            <div class="card-body" style="border:0px solid #000;">
                                 <div id="basic-pills-wizard" class="twitter-bs-wizard">
                                     <ul class="twitter-bs-wizard-nav">
                                         <li class="nav-item">
@@ -103,7 +103,7 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-phoneno-input" class="form-label"><?=lang('Files.Department')?></label>
-                                                            <select disabled class="form-select iddepartment" id="choices-single-no-sorting" name="iddepartment">
+                                                            <select disabled class="form-select iddepartment" id="" name="iddepartment">
                                                                 <option selected>- Pilih -</option>
                                                                 <?php foreach($department as $list): ?>
                                                                 <option value="<?=$list->Id?>" <?=($list->Id==user()->iddepartment ? 'selected' : '')?>><?=$list->Name_Department.' ('.$list->Name_Divisi.')'?>
@@ -182,10 +182,84 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                    <div class="col-lg-6">
+                                                        <div class="col-lg-6">
                                                             <div class="mb-3">
-                                                                <label for="basicpill-companyuin-input" class="form-label"><?=lang('Files.Name_Participant')?></label>
-                                                                <input class="form-control nameparti" id="choices-text-unique-values" type="text" value="" placeholder="This is a placeholder"  name="nameparti" />
+                                                                <label for="basicpill-cstno-input"class="form-label">Peserta Meeting</label>
+                                                                <button type="button" class="btn-rounded btn-sm btn-soft-primary waves-effect waves-light addParticipant"><i class="fas fa-plus font-size-12"></i></button>
+                                                            </div>
+                                                            <div class="row formParticipant" style="display:none">                                   
+                                                                <div class="col-md-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="nama-peserta">Nama Peserta</label>
+                                                                        <input type="text" class="form-control namepeserta" id="nama-peserta" placeholder="Nama Peserta">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="bagian-department">Bagian</label>
+                                                                        <input type="text" class="form-control bagianpeserta" id="bagian-department" placeholder="Bagian/Department">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="email-peserta">Email</label>
+                                                                        <input type="email" class="form-control emailpeserta" id="email-peserta" placeholder='Jika tidak ada email diisi "-"'>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mt-4 d-flex justify-content-end">
+                                                                    <button type="submit" class="btn btn-primary w-md submitParticipant">Submit</button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="table-responsive">
+                                                                <table class="table align-middle mb-0">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>Nama Peserta</th>
+                                                                            <th>Bagian</th>
+                                                                            <th>Email</th>
+                                                                            <th>Aksi</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <!-- <tr>
+                                                                            <th scope="row">1</th>
+                                                                            <td>Mark Mark Mark</td>
+                                                                            <td>Otto</td>
+                                                                            <td>emailpanjang@wilianperkasa.com</td><td>
+                                                                                <button type="button" class="btn btn-soft-danger btn-sm btn-rounded waves-effect waves-light">
+                                                                                    <i class="fas fa-times font-size-16 align-middle"></i>
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">2</th>
+                                                                            <td>Jacob</td>
+                                                                            <td>Thornton</td>
+                                                                            <td>
+                                                                                <button type="button" class="btn btn-light btn-sm">
+                                                                                    <i class="bx bx-trash font-size-16 align-middle me-2"></i>
+                                                                                Hapus</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">3</th>
+                                                                            <td>Larry</td>
+                                                                            <td>the Bird</td>
+                                                                            <td>
+                                                                                <button type="button" class="btn btn-light btn-sm">View</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">4</th>
+                                                                            <td>Jacob</td>
+                                                                            <td>Thornton</td>
+                                                                            <td>
+                                                                                <button type="button" class="btn btn-light btn-sm">View</button>
+                                                                            </td>
+                                                                        </tr> -->
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
@@ -224,18 +298,39 @@
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
-                                                                <label for="basicpill-namecard-input" class="form-label"><?=lang('Files.Requirement')?></label>
-                                                                <input type="text" class="form-control" name="kebutuhan" id="requirement" >
+                                                                <label for="basicpill-cardno-input" class="form-label"><?=lang('Files.Notulis')?></label>
+                                                                <input type="text" class="form-control" name="notulen" id="notulen">
                                                             </div>
                                                         </div>
 
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-6">
-                                                            <div class="mb-3">
-                                                                <label for="basicpill-cardno-input" class="form-label"><?=lang('Files.Notulis')?></label>
-                                                                <input type="text" class="form-control" name="notulen" id="notulen">
+                                                        <fieldset class="form-group border p-3">
+                                                            <legend class="form-group px-2 " style="font-size:14px;">- Kebutuhan - </legend>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" name="kebutuhan" id="weekly" value="weekly">
+                                                                <label class="form-check-label" for="weekly">Zoom Meeting</label>
                                                             </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" name="kebutuhan" id="daily" value="daily">
+                                                                <label class="form-check-label" for="daily">Laptop</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" name="kebutuhan" id="weekly" value="weekly">
+                                                                <label class="form-check-label" for="weekly">Proyektor</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" name="kebutuhan" id="weekly" value="weekly">
+                                                                <label class="form-check-label" for="weekly">Link Zoom</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" name="kebutuhan" id="weekly" value="weekly">
+                                                                <label class="form-check-label" for="weekly">Lainnya</label> 
+                                                                <input type="text" class="form-control" name="notulen" id="notulen" style="border-top:0px;
+                                                                border-right:0px; border-left:0px; display:none">
+                                                            </div>
+                                                        </fieldset>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -305,7 +400,7 @@
 <script src="<?=base_url()?>/assets/libs/twitter-bootstrap-wizard/prettify.js"></script>
 
 <!-- form wizard init -->
-<script src="<?=base_url()?>/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
+
 <?= $this->include('partials/script/booking') ?>
 
 <!-- Sweet Alerts js -->
@@ -329,7 +424,7 @@
     const requirement = document.querySelector('#requirement')
     const notulen = document.querySelector('#notulen')
     const submitted = document.querySelector('.submitted')
-    const el = new Choices(nameparti)
+    // const el = new Choices(nameparti)
     
     function nextTab1()
     {
@@ -364,7 +459,7 @@
             console.log(data)
             if(data.code === 200) {
                 // release localstorage
-                // localStorage.clear()
+                localStorage.clear()
                 Swal.fire("Success!",data.message, data.status).then(function(){
                     location.href = '<?=base_url()?>/meeting-schedule';
                 });
@@ -389,5 +484,4 @@
     }
 </script>
 </body>
-
 </html>
