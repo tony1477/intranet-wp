@@ -47,6 +47,8 @@
                     <div style="display:none;" id="video<?=$i?>">
                         <video class="lg-video-object lg-html5" controls preload="none">
                             <source src="<?=base_url()?>/assets/videos/<?=$row->url?>" type="video/mp4">
+                            <track src="<?=base_url()?>/assets/videos/subtitle/EN_file.vtt" label="English" kind="subtitles" srclang="EN-US" >
+                            <track src="<?=base_url()?>/assets/videos/subtitle/ID_file.vtt" label="Indonesia" kind="subtitles" srclang="ID" default>
                             Your browser does not support HTML5 video.
                         </video>
                     </div>
