@@ -17,7 +17,8 @@
     color: rgba(60, 80,138,1);
     font-size: 25px;
     margin-left:10px;
-    font-family: "Open Sans", 'Montserrat'
+    position: relative;
+    /* font-family: "Open Sans", 'Montserrat' */
 }
 
 .text-visi::before {
@@ -25,8 +26,8 @@
     font-family: "Font Awesome 5 Free";
     font-weight: 600;
     position: absolute;
-    left: 0px;
-    top: 60px;
+    left: -15px;
+    /* top: 60px; */
 
 }
 
@@ -39,8 +40,8 @@ ul.text-misi {
 }
 
 ul.text-misi li {
-    font-size: 1rem;
-    font-family: "Open Sans","Montserrat";
+    font-size: 1.15rem;
+    /* font-family: "Open Sans","Montserrat"; */
     /* padding-left: 10px; */
     line-height: 1.5    rem;
     position: relative;
@@ -86,7 +87,7 @@ ul.text-misi li::before {
 }
 
 .modal-values {
-    font-family: "Open Sans","Montserrat";
+    /* font-family: "Open Sans","Montserrat"; */
     padding-left: 30px;
 }
 

@@ -26,7 +26,7 @@ class Article extends BaseController
     {
         helper(['admin_helper']);
         $menu = getMenu($user='Admin');
-        $article = $this->model->where(['publish'=>1,'status'=>1])->findAll(3);
+        $article = $this->model->where(['publish'=>1,'status'=>1])->orderBy('posted_date','desc')->findAll(3);
         $categories = $this->category->sumPerCategory();
         $upcoming = $this->model->where(['publish'=>0,'status'=>1])->findAll();
         $popular = $this->model->orderBy('sum_read','desc')->orderBy('posted_date','desc')->findAll(5);

@@ -60,7 +60,7 @@
                                             <p id="namastruktur"></p>
                                         </div>
                                         <div class="card-body">
-                                            <embed id="docStruktur"  scrolling="no" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" allowtransparency="true" style="border: none; height: 600px; width: 100%; overflow: hidden;" type="application/pdf">
+                                            <embed id="docStruktur" scrolling="no" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" allowtransparency="true" style="border: none; height: 600px; width: 100%; overflow: hidden;" type="application/pdf">
                                         </div>
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@
         getDoc('doc-1')
         .then(data => {
             embedded.src=`<?=base_url()?>/assets/protected/struktur-organisasi/${data.file}#toolbar=0&navpanes=0&scrollbar=0`
-            ptitle.innerText = 'NAMA STRUKTUR ORGANISASI : '+data.nama_struktur1
+            ptitle.innerText = data.nama_struktur1
         })
         console.log("page is fully loaded");
     });
@@ -128,7 +128,7 @@
             let clone = embedded.cloneNode(true)
             clone.setAttribute('src',`<?=base_url()?>/assets/protected/struktur-organisasi/${data.file}#toolbar=0&navpanes=0&scrollbar=0`)
             embedded.parentNode.replaceChild(clone,embedded)
-            ptitle.innerText = 'NAMA STRUKTUR ORGANISASI : '+data.nama_struktur1
+            ptitle.innerText = data.nama_struktur1
             // console.log(embedded)
         })
     }

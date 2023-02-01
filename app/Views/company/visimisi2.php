@@ -39,38 +39,32 @@
                                 <h4 class="card-title"><?= lang('Files.'.$menuname)?></h4>
                             </div>
                             <div class="card-body">
-                                <div class="px-4 py-5 mb-5 text-center">
-                                    <img class="d-block mx-auto mb-4" src="<?=base_url()?>/assets/images/logo-baru.png" alt="Logo WP" title="Logo Wilian Perkasa" width="128" >
-                                    
-                                    <div class="row">
-                                        <div class="col-6 visi-misi  d-flex justify-content-center" >
-                                            <!-- <div class="logo-visi-misi d-flex justify-content-center"> -->
-                                                <img src="<?=base_url()?>/assets/images/3.png" alt="Vision Image" title="Image of Visi">
-                                            <!-- </div> -->
+                                <div class="px-4 py-5 mb-5 text-center">                                    
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="card visi-misi border-0" style="width:35vw; align-items:center">
+                                            <img src="<?=base_url()?>/assets/images/3.png" class="card-img-top" alt="Vision Image" title="Image of Visi"/>
+                                            <div class="card-body">
+                                                <h5 class="card-title text-visi-misi">VISI</h5>
+                                                <p class="card-text text-visi">Meningkatkan kualitas hidup melalui pengembangan multi industri dan  menjadi perusahaan yang dipercaya.</p>
+                                            </div>
                                         </div>
-                                        <div class="col-6 visi-misi  d-flex justify-content-center">
-                                            <!-- <div class="logo-visi-misi d-flex justify-content-center"> -->
-                                                <img src="<?=base_url()?>/assets/images/4.png" alt="Mission Image" title="Image of Mission">
-                                            <!-- </div> -->
-                                        </div>
+                                        
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-6" >
-                                            <h3 class="text-center pb-5 text-visi-misi">VISI</h3>
-                                            <p class="text-visi">Meningkatkan kualitas hidup melalui pengembangan multi industri dan  menjadi perusahaan yang dipercaya.</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <h3 class="text-center pb-5 text-visi-misi">MISI</h3>
-                                            <ul class="text-misi">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="card visi-misi border-0" style="width:35vw; align-items:center">
+                                            <img src="<?=base_url()?>/assets/images/4.png" class="card-img-top" alt="Mission Image" title="Image of Mission">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-visi-misi">MISI</h5>
+                                                <ul class="text-misi">
                                                 <li>Menyediakan produk alami untuk bisnis maupun pelanggan dengan memberikan harga yang kompetitif dan mutu yang baik.</li>
                                                 <li>Menyediakan berbagai kesempatan bagi karyawan dan komunitas lokal agar mereka mempunyai standar kehidupan yang lebih baik.</li>
                                                 <li>Bertransformasi menjadi perusahaan dengan manajemen yang profesional dan sistem yang terintegrasi.</li>
                                             </ul>
-                                            </h3>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="row values">
+
+                                    <div class="row values justify-content-center">
                                         <h3 class="text-center">Nilai Luhur</h3>
                                         <img src="<?=base_url()?>/assets/images/core-values/w.png" class="imgmodal" id="wisdom" onclick="showModal(this)" alt="Wisdom's Image">
                                         <img src="<?=base_url()?>/assets/images/core-values/i.png" class="imgmodal" id="intellectual" onclick="showModal(this)" alt="Intellectual's Image">
