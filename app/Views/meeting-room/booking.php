@@ -157,7 +157,7 @@
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="basicpill-cstno-input" class="form-label"><?=lang('Files.Amount_Participant')?></label>
-                                                                <input type="number" class="form-control" name="participant" id="participant">
+                                                                <input type="number" class="form-control" name="participant" id="participant" disabled>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -165,13 +165,19 @@
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="basicpill-servicetax-input" class="form-label"><?=lang('Files.ParticipantBase')?></label>
-                                                                <select class="form-select" id="location">
-                                                                    <option selected>- Pilih -</option>
-                                                                    <option value="HO">HO</option>
-                                                                    <option value="Unit PS">Unit PKS</option>
-                                                                    <option value="Unit Kebun">Unit Kebun</option>
-                                                                    <option value="External">Pihak Eksternal</option>
-                                                                </select>
+                                                                <div class="d-flex justify-content-start gap-3">
+                                                                    <input class="form-check-input lokasi" type="checkbox" name="asalpeserta" id="kantorho" value="kantorho">
+                                                                    <label class="form-check-label" for="kantorho">HO</label>
+
+                                                                    <input class="form-check-input lokasi" type="checkbox" name="asalpeserta" id="pabrik" value="pabrik">
+                                                                    <label class="form-check-label" for="pabrik">Unit PKS</label>
+
+                                                                    <input class="form-check-input lokasi" type="checkbox" name="asalpeserta" id="kebun" value="kebun">
+                                                                    <label class="form-check-label" for="kebun">Unit Kebun</label>
+
+                                                                    <input class="form-check-input lokasi" type="checkbox" name="asalpeserta" id="eksternal" value="eksternal">
+                                                                    <label class="form-check-label" for="eksternal">Pihak External</label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
@@ -211,53 +217,16 @@
                                                                 </div>
                                                             </div>
                                                             <div class="table-responsive">
-                                                                <table class="table align-middle mb-0">
+                                                                <table class="table align-middle mb-0 daftarpeserta">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>#</th>
                                                                             <th>Nama Peserta</th>
                                                                             <th>Bagian</th>
                                                                             <th>Email</th>
                                                                             <th>Aksi</th>
                                                                         </tr>
                                                                     </thead>
-                                                                    <tbody>
-                                                                        <!-- <tr>
-                                                                            <th scope="row">1</th>
-                                                                            <td>Mark Mark Mark</td>
-                                                                            <td>Otto</td>
-                                                                            <td>emailpanjang@wilianperkasa.com</td><td>
-                                                                                <button type="button" class="btn btn-soft-danger btn-sm btn-rounded waves-effect waves-light">
-                                                                                    <i class="fas fa-times font-size-16 align-middle"></i>
-                                                                                </button>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th scope="row">2</th>
-                                                                            <td>Jacob</td>
-                                                                            <td>Thornton</td>
-                                                                            <td>
-                                                                                <button type="button" class="btn btn-light btn-sm">
-                                                                                    <i class="bx bx-trash font-size-16 align-middle me-2"></i>
-                                                                                Hapus</button>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th scope="row">3</th>
-                                                                            <td>Larry</td>
-                                                                            <td>the Bird</td>
-                                                                            <td>
-                                                                                <button type="button" class="btn btn-light btn-sm">View</button>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th scope="row">4</th>
-                                                                            <td>Jacob</td>
-                                                                            <td>Thornton</td>
-                                                                            <td>
-                                                                                <button type="button" class="btn btn-light btn-sm">View</button>
-                                                                            </td>
-                                                                        </tr> -->
+                                                                    <tbody class="tbodydata">
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -307,26 +276,26 @@
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                         <fieldset class="form-group border p-3">
-                                                            <legend class="form-group px-2 " style="font-size:14px;">- Kebutuhan - </legend>
+                                                            <legend class="form-group px-2 " style="font-size:14px; font-weight:600">- Kebutuhan - </legend>
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" name="kebutuhan" id="weekly" value="weekly">
-                                                                <label class="form-check-label" for="weekly">Zoom Meeting</label>
+                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="zoom" value="Zoom">
+                                                                <label class="form-check-label" for="zoom">Zoom Meeting Lengkap (Kamera,Link Zoom, Speaker, Mic)</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" name="kebutuhan" id="daily" value="daily">
-                                                                <label class="form-check-label" for="daily">Laptop</label>
+                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="laptop" value="laptop">
+                                                                <label class="form-check-label" for="laptop">Laptop</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" name="kebutuhan" id="weekly" value="weekly">
-                                                                <label class="form-check-label" for="weekly">Proyektor</label>
+                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="proyektor" value="proyektor">
+                                                                <label class="form-check-label" for="proyektor">Proyektor</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" name="kebutuhan" id="weekly" value="weekly">
-                                                                <label class="form-check-label" for="weekly">Link Zoom</label>
+                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="link" value="link">
+                                                                <label class="form-check-label" for="link">Link Zoom (Tanpa Ruangan)</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" name="kebutuhan" id="weekly" value="weekly">
-                                                                <label class="form-check-label" for="weekly">Lainnya</label> 
+                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="others" value="others">
+                                                                <label class="form-check-label" for="others">Lainnya</label> 
                                                                 <input type="text" class="form-control" name="notulen" id="notulen" style="border-top:0px;
                                                                 border-right:0px; border-left:0px; display:none">
                                                             </div>
@@ -416,7 +385,7 @@
     const starttime = document.querySelector('#starttime')
     const endtime = document.querySelector('#endtime')
     const participant = document.querySelector('#participant')
-    const lokasi = document.querySelector('#location')
+    // const lokasi = document.querySelectorAll('.lokasi')
     const speaker = document.querySelector('#speaker')
     const nameparti = document.querySelector('.nameparti')
     const agenda = document.querySelector('#agenda')
@@ -437,31 +406,44 @@
     function nextTab2()
     {
         // const items = { ...localStorage };
+        // let mrkcheckbox = document.getElementsByName('asalpeserta')
+        let mrkcheckbox = document.querySelectorAll('.lokasi')
+        let lokasi;
+        mrkcheckbox.forEach((item)=> {
+            if(item.checked) lokasi = (lokasi != undefined ? lokasi +','+item.value : item.value)
+            // console.log(item.checked)
+        })
         localStorage.setItem('startdate',startdate.value)
         localStorage.setItem('starttime',starttime.value)
         localStorage.setItem('endtime',endtime.value)
         localStorage.setItem('participant',participant.value)
-        localStorage.setItem('location',lokasi.value)
+        localStorage.setItem('location',lokasi)
         localStorage.setItem('speaker',speaker.value)
         // localStorage.setItem('nameparti',nameparti.val())
-        localStorage.setItem('nameparti',el.getValue(true))
+        // localStorage.setItem('nameparti',el.getValue(true))
         localStorage.setItem('agenda',agenda.value)
     }
 
     submitted.addEventListener('click', (e) => {
         localStorage.setItem('room',room.value)
-        localStorage.setItem('requirement',requirement.value)
         localStorage.setItem('notulen',notulen.value)
-        const items = { ...localStorage };
+        let reqcheckbox = document.querySelectorAll('.requirement')
+        let requirement;
+        reqcheckbox.forEach((item)=> {
+            if(item.checked) requirement = (requirement != undefined ? requirement +','+item.value : item.value)
+        })
+        localStorage.setItem('requirement',requirement)
+        
+        const items = { ...localStorage};
         // console.log(items)
         postData('<?=base_url()?>/meeting-schedule/booking/request',{'data':items})
         .then(data => {
             console.log(data)
             if(data.code === 200) {
                 // release localstorage
-                localStorage.clear()
                 Swal.fire("Success!",data.message, data.status).then(function(){
-                    location.href = '<?=base_url()?>/meeting-schedule';
+                    // localStorage.clear()
+                    // location.href = '<?=base_url()?>/meeting-schedule';
                 });
             }
         })

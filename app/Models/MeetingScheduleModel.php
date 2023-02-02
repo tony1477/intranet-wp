@@ -15,7 +15,7 @@ class MeetingScheduleModel extends Model
     protected $returnType       = MeetingSchedule::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['userid','idruangan','tgl_mulai','jam_mulai','act_tgl_selesai','act_jam_selesai','iddepartment','jumlah_peserta','asal_peserta','agenda','pemateri','nama_peserta','kebutuhan','notulis','status','approveby','rejectedby'];
+    protected $allowedFields    = ['userid','idruangan','tgl_mulai','jam_mulai','jam_selesai','act_tgl_selesai','act_jam_selesai','iddepartment','jumlah_peserta','asal_peserta','agenda','pemateri','nama_peserta','kebutuhan','notulis','status','approveby','rejectedby'];
 
     // Dates
     protected $useTimestamps = false;
@@ -40,4 +40,16 @@ class MeetingScheduleModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function insertPeserta($id,$datas)
+    {
+        $sql='';
+        foreach($datas as $data):
+            $sql = ($sql != '' ? $sql.",(".$id.",'".$data->nama."','".$data->bagian."','".$data->email."')" : "(".$id.",'".$data->nama."','".$data->bagian."','".$data->email."')");
+        endforeach;
+
+        $values = "VALUES".$sql;
+        // var_dump($values);
+        $this->db->query("insert into peserta_meeting(idpeminjaman,nama_peserta,bagian,email) {$values}");
+    }
 }

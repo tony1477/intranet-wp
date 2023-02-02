@@ -4,6 +4,7 @@ namespace App\Controllers\Meeting;
 
 use App\Controllers\BaseController;
 use Config\Services as Config;
+use Config\Email;
 
 class MeetingSchedule extends BaseController
 {
@@ -112,7 +113,7 @@ class MeetingSchedule extends BaseController
                     'asal_peserta' => $datas['location'],
                     'agenda' => $datas['agenda'],
                     'pemateri' => $datas['speaker'],
-                    'nama_peserta' => $datas['nameparti'],
+                    // 'nama_peserta' => $datas['nameparti'],
                     'kebutuhan' => $datas['requirement'],
                     'notulis' => $datas['notulen'],
                     'status' => 1,
@@ -121,8 +122,11 @@ class MeetingSchedule extends BaseController
                     // 'time_m'=>date("h:i:s a")
                 ];
                 // var_dump($data);
+                $datapeserta = json_decode($datas['table']);
                 $this->model->insert($data);
-                $message = lang('Files.Save_Success');
+                $last_insert_id = $this->model->getInsertID();
+
+                $pesertamodel = $this->model->insertPeserta($last_insert_id,$datapeserta);
                 // if($datas['id']!=='') {
                 //     $newdata = ['id' => $datas['id'], 'password_hash' => $hash];
                 //     $data = array_merge($data,$newdata);
@@ -130,19 +134,21 @@ class MeetingSchedule extends BaseController
                 //     $message = lang('Files.Update_Success');
                 // }
                 
-                // if($datas['id']==='') {
-                //     $newdata = [
-                //         // 'user_c' => $this->session->user_kode,
-                //         // 'tgl_c'=>date('Y-m-d'),
-                //         // 'time_c'=>date("h:i:s a")
-                //         'password_hash' => $hash,
-                //     ];
-                //     $data = array_merge($data,$newdata);
-                //     $this->model->withGroup($this->config->defaultUserGroup);
-                //     $this->model->insert($data);
-                //     $message = lang('Files.Save_Success');
-                // }
-                
+                //send email to admin HRGA
+                $emailto = 'martoni.firman@wilianperkasa.com';
+                $email  = service('email');
+                $config = new Email();
+                $fromEmail = 'dont-reply@wilianperkasa.com';
+                $fromName = 'Email Service WP';
+
+                $sent = $email->setFrom($fromEmail, $fromName)
+                    ->setTo($emailto)
+                    ->setSubject('Info Peminjaman Ruangan')
+                    ->setMessage(view('email/booking_ruangan',['data'=>$datas]))
+                    ->setMailType('html')
+                    ->send();
+
+                $message = lang('Files.Save_Success');
                 $arr = array(
                     'status' => 'success',
                     'code' => 200,
