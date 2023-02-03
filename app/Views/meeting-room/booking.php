@@ -12,8 +12,9 @@
 
     <?= $this->include('partials/head-css') ?>
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/booking.css" />
     <!-- Sweet Alert-->
-    <link href="<?=base_url()?>/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />    
 
 </head>
 
@@ -33,6 +34,7 @@
        <?php if(logged_in()==TRUE): ?>
         <div class="page-content">
             <div class="container-fluid">
+            
                 <!-- start page title -->
                 <?= $page_title ?>
                 <!-- end page title -->
@@ -282,15 +284,15 @@
                                                                 <label class="form-check-label" for="zoom">Zoom Meeting Lengkap (Kamera,Link Zoom, Speaker, Mic)</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="laptop" value="laptop">
+                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="laptop" value="Laptop">
                                                                 <label class="form-check-label" for="laptop">Laptop</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="proyektor" value="proyektor">
+                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="proyektor" value="Proyektor">
                                                                 <label class="form-check-label" for="proyektor">Proyektor</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="link" value="link">
+                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="link" value="Link Zoom">
                                                                 <label class="form-check-label" for="link">Link Zoom (Tanpa Ruangan)</label>
                                                             </div>
                                                             <div class="form-check">
@@ -345,6 +347,22 @@
                     <div class="modal-footer justify-content-center">
                         <button type="button" class="btn btn-light w-md" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary w-md submitted" data-bs-dismiss="modal">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade loadingModal" tabindex="-1" aria-hidden="true" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false"  aria-labelledby="staticBackdropLabel">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Sedang Menyiapkan Permintaan Anda</h5>
+                    </div>
+                    <div class="modal-body text-center text-primary">
+                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <br />
+                        <strong>Loading...</strong>
                     </div>
                 </div>
             </div>
@@ -426,6 +444,7 @@
 
     submitted.addEventListener('click', (e) => {
         localStorage.setItem('room',room.value)
+        localStorage.setItem('roomname',room.options[room.selectedIndex].text)
         localStorage.setItem('notulen',notulen.value)
         let reqcheckbox = document.querySelectorAll('.requirement')
         let requirement;
@@ -434,16 +453,23 @@
         })
         localStorage.setItem('requirement',requirement)
         
-        const items = { ...localStorage};
-        // console.log(items)
+        const items = { ...localStorage};        
+        const loadingModal = new bootstrap.Modal(document.getElementById('myModal'), {
+            keyboard: false
+        })
+        loadingModal.show()
+        console.log(items)
         postData('<?=base_url()?>/meeting-schedule/booking/request',{'data':items})
         .then(data => {
             console.log(data)
             if(data.code === 200) {
                 // release localstorage
                 Swal.fire("Success!",data.message, data.status).then(function(){
-                    // localStorage.clear()
-                    // location.href = '<?=base_url()?>/meeting-schedule';
+                    localStorage.clear()
+                    loadingModal.hide()
+                    setTimeout((e) => {
+                        location.href = '<?=base_url()?>/meeting-schedule';
+                    }, 1000)
                 });
             }
         })

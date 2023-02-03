@@ -52,4 +52,9 @@ class MeetingScheduleModel extends Model
         // var_dump($values);
         $this->db->query("insert into peserta_meeting(idpeminjaman,nama_peserta,bagian,email) {$values}");
     }
+
+    public function getPesertaMeeting($idpeminjaman)
+    {
+        return $this->db->query("select nama_peserta,bagian,email from peserta_meeting where idpeminjaman = ".$idpeminjaman);
+    }
 }

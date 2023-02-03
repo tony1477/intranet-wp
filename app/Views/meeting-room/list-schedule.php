@@ -10,7 +10,8 @@
 
     <!-- Responsive datatable examples -->
     <link href="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-
+    
+    <link href="<?=base_url()?>/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" />
     <?= $this->include('partials/head-css') ?>
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
 
@@ -132,7 +133,8 @@
                                             <?php if($list->status == 1):?>
                                                 <?php if(has_permission('approval-meeting')):?>
                                                 <div class="dropdown-divider"></div>
-                                                <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/approve/<?=$list->idpeminjaman?>"><i class="btn-success btn-rounded bx bx-check label-icon waves-effect waves-light"></i> Approve</a></li>
+                                                <!-- <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/approve/<?=$list->idpeminjaman?>"><i class="btn-success btn-rounded bx bx-check label-icon waves-effect waves-light"></i> Approve</a></li> -->
+                                                <li><a class="dropdown-item" href="javascript:;" onclick="approveMeeting(<?=$list->idpeminjaman?>)"><i class="btn-success btn-rounded bx bx-check label-icon waves-effect waves-light" ></i> Approve</a></li>
                                                 <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/batal/<?=$list->idpeminjaman?>"><i class="btn-danger btn-rounded bx bx-block label-icon waves-effect waves-light"></i> Batal</a></li>
                                             <?php endif;?>
                                             <?php elseif($list->status == 2): ?>
@@ -156,6 +158,29 @@
             </div> <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
+        <div class="modal fade" tabindex="-1" id="approvemeeting" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Approve Peminjaman Ruangan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="w-100">
+                        <div class="mb-3">
+                            <label for="choices-text-remove-button" class="form-label font-size-13 text-muted">Daftar Blast Email </label>
+                            <input class="form-control pesertameeting" id="choices-text-remove-button" type="text" value="" placeholder="Enter something" />
+                            <input class="idmeeting" type="hidden" value="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary kirimEmail">Approve dan Kirim Email</button>
+                </div>
+                </div>
+            </div>
+        </div>
 
         <?= $this->include('partials/footer') ?>
     </div>
@@ -181,7 +206,74 @@
 <script src="<?=base_url()?>/assets/js/pages/datatable-pages.init.js"></script>
 
 <script src="<?=base_url()?>/assets/js/app.js"></script>
+<script src="assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
+<script>
+// new Choices(document.getElementById("choices-text-remove-button"), { delimiter: ",", editItems: !0, removeItemButton: !0, duplicateItemsAllowed: !1});
+const btnKirim = document.querySelector('.kirimEmail')
+function approveMeeting(id)
+{
+    fetch(`<?=base_url()?>/meeting-schedule/approveMeeting/${id}`,{
+        method:'GET',
+        mode:'cors',
+        cache:'no-cache',
+        creadentials:'same-origin',
+        headers: {
+            'Content-Type':'application/json',
+            'X-Requested-With': "XMLHttpRequest",
+        }
+    })
+    .then((response) => response.json())
+    .then(data => {
+        const pesertameeting = document.querySelector('#choices-text-remove-button')
+        const idmeeting = document.querySelector('.idmeeting')
+        const myModal = new bootstrap.Modal(document.getElementById('approvemeeting'), {
+            keyboard: false
+        })
+        myModal.show()
+        // let emailAddress;
+        // data.forEach(item => {
+        //     emailAddress =  (emailAddress == undefined ? item.email : `${emailAddress},${item.email}`)
+        // })
+        // document.querySelector('#choices-text-remove-button').value = emailAddress
+        const daftarPeserta = new Choices(document.getElementById("choices-text-remove-button"))
+        daftarPeserta.setValue(data);
+        idmeeting.value = id
+    })
+}
+
+btnKirim.addEventListener('click', e => {
+    const listEmail = document.querySelector('.pesertameeting')
+    const id = document.querySelector('.idmeeting')
+    data = {
+        'email':listEmail.value,
+        'idpeminjaman' : id.value
+    }
+    fetch('<?=base_url()?>/meeting-schedule/sendmeeting',{
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': "XMLHttpRequest",
+        },
+        body: JSON.stringify(data)
+    })
+    .then((response) => response.json())
+    .then(result => {
+        const myModal = new bootstrap.Modal(document.getElementById('approvemeeting'), {
+            keyboard: false
+        })
+        console.log(myModal.hide)
+        if(result.status == 'success') {
+            const myModal = new bootstrap.Modal(document.getElementById('approvemeeting'))
+            myModal.hide()
+        }
+    })
+})
+
+
+</script>
 
 </body>
-
 </html>

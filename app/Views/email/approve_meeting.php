@@ -1,3 +1,4 @@
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
@@ -46,15 +47,14 @@
         return $str;
     }
 ?>
-<h4>Kepada Yth</h3>
-<h4>GA Division</h4>
+<h4>Kepada Yth Bapak/Ibu Peserta Meeting</h3>
 
-Berikut informasi peminjaman ruangan meeting yang diajukan oleh : <strong><?=$data['fullname']?></strong><br />
-untuk melakukan peminjaman ruangan meeting pada : <br /><br />
 
-Tanggal Meeting  : <?=hariIndo(date('D',strtotime($data['startdate'])))?>, <?=date('d-m-Y',strtotime($data['startdate']))?> <br />
-Jam Meeting : <?=date('H:i',strtotime($data['starttime']))?> <br />
-Pembicara : <?=$data['speaker']?><br />
+Berikut informasi penggunaan ruangan meeting yang telah disetujui oleh GA.<br />
+
+Tanggal Meeting  : <?=hariIndo(date('D',strtotime($data->tgl_mulai)))?>, <?=date('d-m-Y',strtotime($data->tgl_mulai))?> <br />
+Jam Meeting : <?=date('H:i',strtotime($data->jam_mulai))?> <br />
+Pembicara : <?=$data->pemateri?><br />
 Peserta Meeting :  <br />
 <table class="table table-striped">
     <thead>
@@ -62,13 +62,11 @@ Peserta Meeting :  <br />
             <th scope="col">#</th>
             <th scope="col">Nama Lengkap</th>
             <th scope="col">Bagian/Department</th>
-            <th scope="col">Email</th>
         </tr>
     </thead>
     <tbody>
 <?php 
     $i=1;
-    $peserta = json_decode($data['table']);
     // $roomname = 'Intellectual';
     // $peserta[] = (object) array(
     //     'nama' => 'Test',
@@ -83,21 +81,19 @@ Peserta Meeting :  <br />
     foreach($peserta as $row):?>
         <tr>
             <td><?=$i?></td>
-            <td><?=$row->nama?></td>
+            <td><?=$row->nama_peserta?></td>
             <td><?=$row->bagian?></td>
-            <td><?=$row->email?></td>
         </tr>
     <?php $i++; endforeach;?>
     </tbody>
 </table>
-Agenda Meeting : <strong><?=$data['agenda']?></strong><br />
-Ruangan : <?=$data['roomname']?><br />
-Kebutuhan : <?=$data['requirement']?><br />
-Link untuk Review dan Approval : <a href="<?=base_url()?>/meeting-schedule">Disini</a>
+Agenda Meeting : <strong><?=$data->agenda?></strong><br />
+Ruangan : <?=$room['nama_ruangan']?><br />
+Kebutuhan : <?=$data->kebutuhan?><br />
 <br /><br />
 
 Kindly Regards,<br /></br /><br />
 
 Intranet Service Wilian Perkasa<br />
-<h4>Wilian Perkasa</h4>
-<em>be Wise be Excellent</em>
+<h4>Wilian Perkasa</h4><br />
+<h5><em>be Wise be Excellent</em></h5>

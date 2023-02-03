@@ -5,9 +5,11 @@ namespace App\Controllers\Meeting;
 use App\Controllers\BaseController;
 use Config\Services as Config;
 use Config\Email;
+use CodeIgniter\API\ResponseTrait;
 
 class MeetingSchedule extends BaseController
 {
+    use ResponseTrait;
     protected $request;
     protected $model;
     public function __construct() {
@@ -101,7 +103,6 @@ class MeetingSchedule extends BaseController
                     $datas = (array) $datas;
                 }
 
-                // $participant = explode(',',$datas['parti']);
                 $data = [
                     'idruangan' => $datas['room'],
                     'userid' => user()->id,
@@ -121,25 +122,17 @@ class MeetingSchedule extends BaseController
                     // 'tgl_m'=>date('Y-m-d'),
                     // 'time_m'=>date("h:i:s a")
                 ];
-                // var_dump($data);
                 $datapeserta = json_decode($datas['table']);
                 $this->model->insert($data);
                 $last_insert_id = $this->model->getInsertID();
-
-                $pesertamodel = $this->model->insertPeserta($last_insert_id,$datapeserta);
-                // if($datas['id']!=='') {
-                //     $newdata = ['id' => $datas['id'], 'password_hash' => $hash];
-                //     $data = array_merge($data,$newdata);
-                //     $this->model->save($data);
-                //     $message = lang('Files.Update_Success');
-                // }
-                
+                $this->model->insertPeserta($last_insert_id,$datapeserta);
+                                
                 //send email to admin HRGA
                 $emailto = 'martoni.firman@wilianperkasa.com';
+                // $emailto = 'admin.hrga@wilianperkasa.com';
                 $email  = service('email');
-                $config = new Email();
                 $fromEmail = 'dont-reply@wilianperkasa.com';
-                $fromName = 'Email Service WP';
+                $fromName = 'Email Service Wilian Perkasa';
 
                 $sent = $email->setFrom($fromEmail, $fromName)
                     ->setTo($emailto)
@@ -190,5 +183,85 @@ class MeetingSchedule extends BaseController
         if($arr!=null) $data = array_merge($data,$arr);
         $this->model->update($id,$data);
         return redirect()->to('/meeting-schedule');
+    }
+
+    public function ApproveMeeting(int $id)
+    {
+        header("Content-Type: application/json");
+        $data = $this->model->getPesertaMeeting($id)->getResult();
+        $i=0;
+        foreach($data as $row):
+            if($row->email!='') {
+                $mail[$i] = $row->email;
+                $i++;
+            }
+        endforeach;
+        return $this->respond($mail,200);
+    }
+
+    public function sendMeeting()
+    {
+        $roomModel = new \App\Models\MeetingRoomModel();
+        
+        header("Content-Type: application/json");
+        $arr = array(
+            'fail' => 500,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+        if($this->request->isAJAX()) {
+            try {
+                $listemail = $this->request->getVar('email');
+                $idpeminjaman = $this->request->getVar('idpeminjaman');
+                if(is_object($listemail)) {
+                    $listemail = (array) $listemail;
+                    $idpeminjaman = (array) $idpeminjaman;
+                }
+
+                // $datapeserta = json_decode($datas['table']);
+                // $this->model->insert($data);
+                // $last_insert_id = $this->model->getInsertID();
+                // $this->model->insertPeserta($last_insert_id,$datapeserta);
+                $data = $this->model->find($idpeminjaman);
+                $peserta = $this->model->getPesertaMeeting($idpeminjaman)->getResult();
+                $room = $roomModel->find($data->idruangan);
+                                
+                // var_dump($listemail);
+                //send email to admin HRGA
+                // $emailto = 'martoni.firman@wilianperkasa.com';
+                // $adminga = 'admin.hrga@wilianperkasa.com';
+                // $email  = service('email');
+                // $fromEmail = 'dont-reply@wilianperkasa.com';
+                // $fromName = 'Email Service Wilian Perkasa';
+
+                // $sent = $email->setFrom($fromEmail, $fromName)
+                //     ->setTo($listemail)
+                //     // ->setCC($adminga)
+                //     ->setSubject('Info Peminjaman Ruangan')
+                //     ->setMessage(view('email/approve_meeting',['data' => $data,'peserta'=>$peserta,'room'=>$room]))
+                //     ->setMailType('html')
+                //     ->send();
+
+                // return view('email/approve_meeting',['data' => $data,'peserta'=>$peserta,'room'=>$room]);
+                $message = lang('Files.Save_Success');
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => $message
+                );
+            }catch (\Exception $e) {
+                $arr = array(
+                    'status' => $e->getMessage(),
+                    'code' => 400,
+                );
+            }
+        }
+        $response = json_encode($arr);
+        return $response;
+    }
+
+    public function emailservice()
+    {
+        return view('email/booking_ruangan');
     }
 }
