@@ -20,8 +20,9 @@ class Home extends BaseController
     /**
      * @var Session
      */
-    protected $session;
+	protected $session;
 	private $model;
+	private $meeting;
 
 	public function __construct()
     {

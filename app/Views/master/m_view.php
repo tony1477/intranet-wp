@@ -314,6 +314,7 @@
             var table = $('#datatable-buttons').DataTable({
             // scrollX: true,
             lengthChange: true,
+            <?=isset($scriptdatatable) ? $scriptdatatable:''?>
         });
         <?php endif;?> 
         // var column = table.column('ID'.attr('data-column'));

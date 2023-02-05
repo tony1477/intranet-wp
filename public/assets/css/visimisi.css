@@ -44,6 +44,7 @@ ul.text-misi li {
     /* font-family: "Open Sans","Montserrat"; */
     /* padding-left: 10px; */
     line-height: 1.5    rem;
+    color: crimson;
     position: relative;
     text-align: left;
 }

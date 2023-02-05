@@ -293,6 +293,9 @@ return [
     "Name_Location2" => "Nama Lokasi/PT (ENG)",
     "List_Category" => "Daftar Kategori",
     "location" => "Lokasi",
+    "visi" => "Visi",
+    "misi" => "Misi",
+    "Core_Values" => "Nilai Luhur",
 
 
     // Menu

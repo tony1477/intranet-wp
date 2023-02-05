@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 
 class Dokumen extends BaseController
 {
+    public $model;
     public function __construct()
     {
         $this->model = new \App\Models\DokumenModel();

@@ -292,6 +292,9 @@ return [
     "Name_Location2" => "Location Name (ENG)",
     "List_Category" => "List Category of",
     "location" => "Location",
+    "visi" => "Vision",
+    "misi" => "Mission",
+    "Core_Values" => "Core Values",
 
     // Menu
     "group-divisi" => 'Division Group',

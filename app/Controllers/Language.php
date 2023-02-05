@@ -12,7 +12,10 @@ class Language extends BaseController
         $locale = service('request')->getLocale();
         $session->remove('lang');
         $session->set('lang',$locale);
+        $agent = $this->request->getUserAgent();
+        $ref = $agent->getReferrer();
         // return redirect()->back();
-        return redirect()->route('/');
+        if($ref == base_url().'/') return redirect()->route('/');
+        return redirect()->back();
 	}
 }
