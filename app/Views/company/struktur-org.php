@@ -23,7 +23,7 @@
     <!-- Start right Content here -->
     <!-- ============================================================== -->
     <div class="main-content">
-
+        <?php $session = session()?>
         <div class="page-content">
             <div class="container-fluid">
 
@@ -112,7 +112,7 @@
         getDoc('doc-1')
         .then(data => {
             embedded.src=`<?=base_url()?>/assets/protected/struktur-organisasi/${data.file}#toolbar=0&navpanes=0&scrollbar=0`
-            ptitle.innerText = data.nama_struktur1
+            ptitle.innerText = data.<?=$session->get('lang') == 'en' ? 'nama_struktur2' : 'nama_struktur1'?>
         })
         console.log("page is fully loaded");
     });
@@ -128,7 +128,7 @@
             let clone = embedded.cloneNode(true)
             clone.setAttribute('src',`<?=base_url()?>/assets/protected/struktur-organisasi/${data.file}#toolbar=0&navpanes=0&scrollbar=0`)
             embedded.parentNode.replaceChild(clone,embedded)
-            ptitle.innerText = data.nama_struktur1
+            ptitle.innerText = data.<?=$session->get('lang') == 'en' ? 'nama_struktur2' : 'nama_struktur1'?>
             // console.log(embedded)
         })
     }
