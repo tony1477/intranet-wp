@@ -215,7 +215,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="mt-4 d-flex justify-content-end">
-                                                                    <button type="submit" class="btn btn-primary w-md submitParticipant">Submit</button>
+                                                                    <button type="submit" class="btn btn-primary w-md submitParticipant">Tambah Peserta</button>
                                                                 </div>
                                                             </div>
                                                             <div class="table-responsive">

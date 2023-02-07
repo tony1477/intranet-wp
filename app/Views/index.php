@@ -48,7 +48,7 @@
                                         foreach($data['foto'] as $foto): ?>
 
                                             <div class="carousel-item <?=$i==0 ? 'active' : ''?>">
-                                            <img class="d-block img-fluid mx-auto" src="<?=base_url()?>/assets/images/gallery/foto/<?=$foto->url?>" alt="<?=$foto->title?>">
+                                            <img class="d-block img-fluid mx-auto" src="<?=base_url()?>/assets/images/gallery/foto/<?=$foto->url?>" alt="<?=strip_tags($foto->title)?>">
                                             <?php $i++;?>
                                         </div>
                                         <?php endforeach;?>
