@@ -11,6 +11,9 @@
     <!-- Responsive datatable examples -->
     <link href="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     
+    <!-- Sweet Alert-->
+    <link href="<?=base_url()?>/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    
     <link href="<?=base_url()?>/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" />
     <?= $this->include('partials/head-css') ?>
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
@@ -158,7 +161,7 @@
             </div> <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
-        <div class="modal fade" tabindex="-1" id="approvemeeting" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" tabindex="-1" id="approvemeeting" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -205,10 +208,12 @@
 <!-- init js -->
 <script src="<?=base_url()?>/assets/js/pages/datatable-pages.init.js"></script>
 
+<!-- Sweet Alerts js -->
+<script src="<?=base_url()?>/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 <script src="<?=base_url()?>/assets/js/app.js"></script>
 <script src="assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
+
 <script>
-// new Choices(document.getElementById("choices-text-remove-button"), { delimiter: ",", editItems: !0, removeItemButton: !0, duplicateItemsAllowed: !1});
 const btnKirim = document.querySelector('.kirimEmail')
 function approveMeeting(id)
 {
@@ -226,24 +231,27 @@ function approveMeeting(id)
     .then(data => {
         const pesertameeting = document.querySelector('#choices-text-remove-button')
         const idmeeting = document.querySelector('.idmeeting')
-        const myModal = new bootstrap.Modal(document.getElementById('approvemeeting'), {
-            keyboard: false
-        })
-        myModal.show()
+        // const myModal = new bootstrap.Modal(document.getElementById('approvemeeting'), {
+        //     keyboard: false
+        // })
+        // myModal.show()
+        $('#approvemeeting').modal('show'); 
         // let emailAddress;
         // data.forEach(item => {
         //     emailAddress =  (emailAddress == undefined ? item.email : `${emailAddress},${item.email}`)
         // })
-        // document.querySelector('#choices-text-remove-button').value = emailAddress
-        const daftarPeserta = new Choices(document.getElementById("choices-text-remove-button"))
+        const daftarPeserta = new Choices(document.getElementById("choices-text-remove-button"),
+        {delimiter:",",editItems:!0,duplicateItemsAllowed:!1,removeItemButton:!0})
         daftarPeserta.setValue(data);
         idmeeting.value = id
     })
 }
 
 btnKirim.addEventListener('click', e => {
+    $('#approvemeeting').modal('hide')
     const listEmail = document.querySelector('.pesertameeting')
     const id = document.querySelector('.idmeeting')
+    const myModal = new bootstrap.Modal(document.getElementById('approvemeeting'))
     data = {
         'email':listEmail.value,
         'idpeminjaman' : id.value
@@ -261,13 +269,11 @@ btnKirim.addEventListener('click', e => {
     })
     .then((response) => response.json())
     .then(result => {
-        const myModal = new bootstrap.Modal(document.getElementById('approvemeeting'), {
-            keyboard: false
-        })
-        console.log(myModal.hide)
-        if(result.status == 'success') {
-            const myModal = new bootstrap.Modal(document.getElementById('approvemeeting'))
-            myModal.hide()
+        if(result.status=='success') {
+            Swal.fire("Success!", result.message, result.status)
+            .then(function(){
+                location.reload();
+            });
         }
     })
 })

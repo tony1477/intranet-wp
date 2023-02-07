@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/booking.css" />
     <!-- Sweet Alert-->
-    <link href="<?=base_url()?>/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />    
+    <link href="<?=base_url()?>/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
 </head>
 

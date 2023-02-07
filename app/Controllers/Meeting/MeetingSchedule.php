@@ -218,31 +218,27 @@ class MeetingSchedule extends BaseController
                     $idpeminjaman = (array) $idpeminjaman;
                 }
 
-                // $datapeserta = json_decode($datas['table']);
-                // $this->model->insert($data);
-                // $last_insert_id = $this->model->getInsertID();
-                // $this->model->insertPeserta($last_insert_id,$datapeserta);
                 $data = $this->model->find($idpeminjaman);
                 $peserta = $this->model->getPesertaMeeting($idpeminjaman)->getResult();
                 $room = $roomModel->find($data->idruangan);
                                 
-                // var_dump($listemail);
-                //send email to admin HRGA
+                // send email to admin HRGA
                 // $emailto = 'martoni.firman@wilianperkasa.com';
-                // $adminga = 'admin.hrga@wilianperkasa.com';
-                // $email  = service('email');
-                // $fromEmail = 'dont-reply@wilianperkasa.com';
-                // $fromName = 'Email Service Wilian Perkasa';
+                $adminga = 'admin.hrga@wilianperkasa.com';
+                $email  = service('email');
+                $fromEmail = 'dont-reply@wilianperkasa.com';
+                $fromName = 'Email Service Wilian Perkasa';
 
-                // $sent = $email->setFrom($fromEmail, $fromName)
-                //     ->setTo($listemail)
-                //     // ->setCC($adminga)
-                //     ->setSubject('Info Peminjaman Ruangan')
-                //     ->setMessage(view('email/approve_meeting',['data' => $data,'peserta'=>$peserta,'room'=>$room]))
-                //     ->setMailType('html')
-                //     ->send();
+                $sent = $email->setFrom($fromEmail, $fromName)
+                    ->setTo($listemail)
+                    ->setCC($adminga)
+                    ->setSubject('Info Peminjaman Ruangan')
+                    ->setMessage(view('email/approve_meeting',['data' => $data,'peserta'=>$peserta,'room'=>$room]))
+                    ->setMailType('html')
+                    ->send();
 
-                // return view('email/approve_meeting',['data' => $data,'peserta'=>$peserta,'room'=>$room]);
+                $this->action('approve',$idpeminjaman);
+
                 $message = lang('Files.Save_Success');
                 $arr = array(
                     'status' => 'success',
