@@ -100,7 +100,7 @@
                                                     <th scope="row"><?=$i?></th>
                                                     <td><?=$person->nama_peserta?></td>
                                                     <td><?=$person->bagian?></td>
-                                                    <td><?=$person->exif_thumbnail?></td>
+                                                    <td><?=$person->email?></td>
                                                 </tr>
                                                 <?php $i++; endforeach;?>
                                             </tbody>
