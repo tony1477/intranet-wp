@@ -92,7 +92,7 @@ Peserta Meeting :  <br />
 </table>
 Agenda Meeting : <strong><?=$data['agenda']?></strong><br />
 Ruangan : <?=$data['roomname']?><br />
-Kebutuhan : <?=$data['requirement']?><br />
+Kebutuhan : <?=($data['requirement']!='undefined' ? $data['requirement'] : '')?><br />
 Link untuk Review dan Approval : <a href="<?=base_url()?>/meeting-schedule">Disini</a>
 <br /><br />
 
