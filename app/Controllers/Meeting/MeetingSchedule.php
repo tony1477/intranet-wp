@@ -215,9 +215,11 @@ class MeetingSchedule extends BaseController
             try {
                 $listemail = $this->request->getVar('email');
                 $idpeminjaman = $this->request->getVar('idpeminjaman');
+                $ccemail = $this->request->getVar('ccemail');
                 if(is_object($listemail)) {
                     $listemail = (array) $listemail;
                     $idpeminjaman = (array) $idpeminjaman;
+                    $ccemail = (array) $ccemail;
                 }
 
                 $data = $this->model->find($idpeminjaman);
@@ -225,7 +227,7 @@ class MeetingSchedule extends BaseController
                 $room = $roomModel->find($data->idruangan);
                                 
                 // send email to admin HRGA
-                // $emailto = 'martoni.firman@wilianperkasa.com';
+                $emailto = 'martoni.firman@wilianperkasa.com';
                 $adminga = 'admin.hrga@wilianperkasa.com';
                 $email  = service('email');
                 $fromEmail = 'dont-reply@wilianperkasa.com';
@@ -233,8 +235,8 @@ class MeetingSchedule extends BaseController
 
                 $sent = $email->setFrom($fromEmail, $fromName)
                     ->setTo($listemail)
-                    ->setCC($adminga)
-                    ->setSubject('Info Peminjaman Ruangan')
+                    ->setCC($ccemail)
+                    ->setSubject('Undangan Meeting ')
                     ->setMessage(view('email/approve_meeting',['data' => $data,'peserta'=>$peserta,'room'=>$room]))
                     ->setMailType('html')
                     ->send();

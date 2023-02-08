@@ -171,9 +171,15 @@
                 <div class="modal-body">
                     <div class="w-100">
                         <div class="mb-3">
-                            <label for="choices-text-remove-button" class="form-label font-size-13 text-muted">Daftar Blast Email </label>
+                            <label for="choices-text-remove-button" class="form-label font-size-13 text-muted">Daftar Blast Email To </label>
                             <input class="form-control pesertameeting" id="choices-text-remove-button" type="text" value="" placeholder="Enter something" />
                             <input class="idmeeting" type="hidden" value="" />
+                        </div>
+                    </div>
+                    <div class="w-100">
+                        <div class="mb-3">
+                            <label for="choices-text-remove-button" class="form-label font-size-13 text-muted">Daftar Blast Email CC </label>
+                            <input class="form-control ccmeeting" id="choices-text-remove-button1" type="text" value="" placeholder="Masukkan email Pembicara meeting, GA, IT, dll yg dianggap perlu" />
                         </div>
                     </div>
                 </div>
@@ -242,6 +248,8 @@ function approveMeeting(id)
         // })
         const daftarPeserta = new Choices(document.getElementById("choices-text-remove-button"),
         {delimiter:",",editItems:!0,duplicateItemsAllowed:!1,removeItemButton:!0})
+        const ccMeeting = new Choices(document.getElementById("choices-text-remove-button1"),
+        {delimiter:",",editItems:!0,duplicateItemsAllowed:!1,removeItemButton:!0,placeholderValue:"Masukkan email pembicara meeting, GA, IT, dll yg dianggap perlu"})
         daftarPeserta.setValue(data);
         idmeeting.value = id
     })
@@ -250,11 +258,13 @@ function approveMeeting(id)
 btnKirim.addEventListener('click', e => {
     $('#approvemeeting').modal('hide')
     const listEmail = document.querySelector('.pesertameeting')
+    const ccEmail = document.querySelector('.ccmeeting')
     const id = document.querySelector('.idmeeting')
     const myModal = new bootstrap.Modal(document.getElementById('approvemeeting'))
     data = {
         'email':listEmail.value,
-        'idpeminjaman' : id.value
+        'idpeminjaman' : id.value,
+        'ccemail':ccEmail.value,
     }
     fetch('<?=base_url()?>/meeting-schedule/sendmeeting',{
         method: 'POST',

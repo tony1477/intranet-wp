@@ -1,5 +1,5 @@
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!DOCTYPE html>
+<head>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 </style>
@@ -8,9 +8,30 @@
         font-family: 'Nunito', sans-serif !important;
     }
     table {
-        max-width: 75vw;
+        width: 75vw;
+    }
+    p,b,em,h1,h2,h3,h4,h5,table,thead,tbody,tr,th,td {
+        margin:0;
+        padding:0;
+        /* line-height:auto; */
+        border:0;
+        font-size: 100%;
+    	font: inherit;
+    	vertical-align: baseline;
+    }
+    div {
+        display: inline;
+    }
+    .bold {
+        font-weight: bold;
+    }
+
+    .italic {
+        font-style: italic;
     }
 </style>
+</head>
+<body>
 <?php
     // $date = '2023-02-03';
 
@@ -47,21 +68,43 @@
         return $str;
     }
 ?>
-<h4>Kepada Yth Bapak/Ibu Peserta Meeting</h3>
+<p class="bold">Kepada Yth</p>
+<p class="bold">Bapak/ Ibu Peserta Meeting</p>
+<p>di Tempat</p><br />
 
-
-Berikut informasi penggunaan ruangan meeting yang telah disetujui oleh GA.<br />
-
-Tanggal Meeting  : <?=hariIndo(date('D',strtotime($data->tgl_mulai)))?>, <?=date('d-m-Y',strtotime($data->tgl_mulai))?> <br />
-Jam Meeting : <?=date('H:i',strtotime($data->jam_mulai))?> <br />
-Pembicara : <?=$data->pemateri?><br />
-Peserta Meeting :  <br />
-<table class="table table-striped">
+<p>Dengan hormat,</p><br />
+<p>Bersama ini saya undang Bapak/Ibu untuk dapat hadir pada meeting yang akan dilaksanakan pada : </p><br />
+<table>
+    <tbody>
+        <tr>
+            <td>Hari / Tanggal </td>
+            <td>: <span class="bold"><?=hariIndo(date('D',strtotime($data->tgl_mulai)))?> / <?=date('d F Y',strtotime($data->tgl_mulai))?></td>
+        </tr>
+        <tr>
+            <td>Jam</td>
+            <td>: <?=date('H:i',strtotime($data->jam_mulai))?> s/d <?=date('H:i',strtotime($data->jam_selesai))?></td>
+        </tr>
+        <tr>
+            <td>Tempat</td>
+            <td>: <?=$room['nama_ruangan']?></td>
+        </tr>
+        <tr>
+            <td>Pemateri</td>
+            <td>: <?=$data->pemateri?></td>
+        </tr>
+        <tr>
+            <td>Agenda</td>
+            <td>: <span class="bold"><?=$data->agenda?></span></td>
+        </tr>
+    </tbody>
+</table><br />
+Untuk peserta yang mengikuti meeting, antara lain : <br />
+</table>
+<table>
     <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nama Lengkap</th>
-            <th scope="col">Bagian/Department</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -80,20 +123,23 @@ Peserta Meeting :  <br />
     // );
     foreach($peserta as $row):?>
         <tr>
-            <td><?=$i?></td>
-            <td><?=$row->nama_peserta?></td>
-            <td><?=$row->bagian?></td>
+            <td style="text-align:right"><?=$i?>.</td>
+            <td><?=$row->nama_peserta?>&nbsp;&nbsp;(<?=$row->bagian?>)</span></td>
         </tr>
     <?php $i++; endforeach;?>
     </tbody>
 </table>
-Agenda Meeting : <strong><?=$data->agenda?></strong><br />
-Ruangan : <?=$room['nama_ruangan']?><br />
-Kebutuhan : <?=$data->kebutuhan?><br />
-<br /><br />
+<br />
+<p class="bold">Notulis : <?=$data->notulis?></p>
+<?php if($data->kebutuhan!= '' || $data->kebutuhan!='undefined'):?>
+<p>Note untuk Tim IT : <?=$data->kebutuhan?></p><br />
+<?php endif;?>
+<p>Demikian hal ini disampaikan, atas perhatian dan kerjasama dari Bapak/Ibu saya ucapkan terimakasih.</p><br />
 
-Kindly Regards,<br /></br /><br />
+<p class="italic">Regards,</p><br />
 
-Intranet Service Wilian Perkasa<br />
-<h4>Wilian Perkasa</h4><br />
-<h5><em>be Wise be Excellent</em></h5>
+<p>Intranet Service</p>
+<p class="bold">Wilian Perkasa</p>
+<p class="italic">be Wise be Excellent</p>
+</body>
+</html>

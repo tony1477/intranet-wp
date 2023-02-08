@@ -15,7 +15,7 @@ class MeetingScheduleModel extends Model
     protected $returnType       = MeetingSchedule::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['userid','idruangan','tgl_mulai','jam_mulai','jam_selesai','act_tgl_selesai','act_jam_selesai','iddepartment','jumlah_peserta','asal_peserta','agenda','pemateri','nama_peserta','kebutuhan','notulis','status','approveby','rejectedby'];
+    protected $allowedFields    = ['userid','idruangan','tgl_mulai','jam_mulai','jam_selesai','act_tgl_selesai','act_jam_selesai','iddepartment','jumlah_peserta','asal_peserta','agenda','pemateri','ccemail','nama_peserta','kebutuhan','notulis','status','approveby','rejectedby'];
 
     // Dates
     protected $useTimestamps = false;
