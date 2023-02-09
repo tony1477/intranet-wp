@@ -16,6 +16,7 @@ class Gallery extends Entity
         'IsHighlight' => 'ishighlight',
         'Status' => 'status',
         'IsLogin' => 'islogin',
+        'IsCover' => 'iscover',
         'User_Created' => 'created_by',
         'User_Modified' => 'updated_by',
     ];
@@ -35,6 +36,11 @@ class Gallery extends Entity
     public function getIsLogin()
     {
         return ($this->attributes['islogin'] == 1 ? 'YES' : 'NO');
+    }
+
+    public function getIsCover()
+    {
+        return ($this->attributes['iscover'] == 1 ? 'YES' : 'NO');
     }
 
 }
