@@ -472,6 +472,11 @@
                     }, 1000)
                 });
             }
+            else {
+                Swal.fire("Warning!",data.message, data.status).then(function(){
+                    loadingModal.hide()
+                });
+            }
         })
     })
 
