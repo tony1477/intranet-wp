@@ -297,7 +297,7 @@
             let i=1;
             let rowData = table.row( this ).data();
             let ix = table.row( this ).index();
-            // console.log(rowData)
+            console.log(rowData)
 
             <?php foreach($forms as $form): ?>
                 <?php switch($form['type']) {
