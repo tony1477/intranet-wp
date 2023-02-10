@@ -302,7 +302,7 @@
             <?php foreach($forms as $form): ?>
                 <?php switch($form['type']) {
                     case 'select': ?>
-                    let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
+                    let <?=$form['idform']?> = rowData[i].replace('&amp;','&').replace('<br>','');
                     let select<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>');
                     let option<?=$form['idform']?> = Array.from(select<?=$form['idform']?>.options);
                     let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
