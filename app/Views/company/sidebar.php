@@ -2,14 +2,14 @@
     <div class="card">
         <div class="card-body">
             <div class="search-box">
-                <h5 class="mb-3">Search</h5>
+                <h5 class="mb-3"><?=lang('Files.Search')?></h5>
                 <div class="position-relative px-2">
                     <input type="text" class="form-control rounded bg-light border-light" placeholder="Search...">
                     <i class="mdi mdi-magnify search-icon"></i>
                 </div>
             </div>
             <div class="mt-5">
-                <h5 class="mb-3">Categories</h5>
+                <h5 class="mb-3"><?=lang('Files.Categories')?></h5>
                 <ul class="list-unstyled fw-medium px-2">
                     <?php foreach($data['category'] as $category):?>
                     <li><a href="javascript:;" class="text-dark py-3 d-block border-bottom" id="category" data-value="<?=$category->jum?>" data-name="<?=strtolower($category->categoryname)?>" data-page="<?=$page?>"><?=$category->categoryname?><span class="badge badge-soft-primary badge-pill float-end ms-1 font-size-12"><?=$category->jum?></span></a></li>
@@ -53,7 +53,7 @@
             <?php endif;?>
             <?php if(count($data['popular'])>0):?>
             <div class="mt-5">
-                <h5 class="mb-3">Popular Post</h5>
+                <h5 class="mb-3"><?=lang('Files.Popular_Post')?></h5>
                 <div class="list-group list-group-flush">
                     <?php foreach($data['popular'] as $popular):?>
                     <a href="<?=base_url()?>/article/read/<?=date('Y-m',strtotime($popular->posted_date)).'/'.str_replace(' ','-',$popular->title)?>" class="list-group-item text-muted pb-3 pt-0 px-2">
@@ -98,12 +98,12 @@
             </div> -->
 
             <div class="mt-5">
-                <h5 class="mb-3">Email Newsletter</h5>
+                <h5 class="mb-3"><?=lang('Files.Email_Newsletter')?></h5>
                 <div class="">
                     <div class="input-group mb-0 px-2">
-                        <input type="text" class="form-control" placeholder="Sedang dalam pengembangan" readonly>
+                        <input type="text" class="form-control" placeholder="masukkan alamat e-mail anda" value="<?=user()->email?>">
                         <div class="input-group-append">
-                            <span class="input-group-text"><i class="mdi mdi-send-outline"></i></span>
+                            <button class="input-group-text"><i class="mdi mdi-send-outline emailsubs"></i></button>
                         </div>
                     </div>
                 </div>

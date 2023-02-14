@@ -455,6 +455,9 @@
         localStorage.setItem('notulen',notulen.value)
         let reqcheckbox = document.querySelectorAll('.requirement')
         let requirement;
+        if(speakeremail.value=='' || speakeremail.value == undefined) {
+            return Swal.fire("Info",'Email Pemateri Harus diisi','warning');
+        }
         reqcheckbox.forEach((item)=> {
             if(item.checked) requirement = (requirement != undefined ? requirement +','+item.value : item.value)
         })

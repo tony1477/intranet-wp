@@ -155,6 +155,7 @@ return [
     "Name_Category" => "Nama Kategory (IDN)",
     "Name_Category2" => "Nama Kategory (ENG)",
     "Category" => "Kategory",
+    "Categories" => "Kategori",
 
     // Document
 
@@ -313,6 +314,8 @@ return [
     "Speaker_Email" => "Email Pemateri",
     "Needed_Item" => "Kebutuhan",
     "Room_Used" => "Pemakaian Ruangan",
+    "Popular_Post" => "Posting Terpopuler",
+    "Email_Newsletter" => "Berlangganan Berita",
 
     // Menu
     "group-divisi" => 'Grup Divisi',

@@ -155,7 +155,8 @@ return [
     "Code_Category" => "Category Code",
     "Name_Category" => "Category Name (IDN)",
     "Name_Category2" => "Category Name (ENG)",
-    "Category" => "Category ",
+    "Category" => "Category",
+    "Categories" => "Categories",
 
     // Position
     "Code_Position" => "Position Code",
@@ -312,6 +313,8 @@ return [
     "Speaker_Email" => "Speaker's Email",
     "Needed_Item" => "Item Needed",
     "Room_Used" => "Room Used",
+    "Popular_Post" => "Popular Post",
+    "Email_Newsletter" => "Email Newsletter",
 
     // Menu
     "group-divisi" => 'Division Group',

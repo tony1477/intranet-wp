@@ -297,6 +297,7 @@ $routes->get('article/atur-kategori','Company/Article::categories');
 $routes->post('article/category/post','Company/Article::postCategories');
 $routes->get('article/atur-pojok-wp','Company/Article::ManagePojokBerita');
 $routes->post('article/pojok-wp/post','Company/Article::postPojokBerita');
+$routes->post('article/addemailsubs','Company/Article::addEmailSubs');
 $routes->get('pojok-wp','Company/Article::PojokWP');
 $routes->get('pojok-wp/read/(:segment)/(:segment)','Company\Article::readPojokWP/$1/$2');
 $routes->get('article/getData/(:num)','Company\Article::getData/$1');

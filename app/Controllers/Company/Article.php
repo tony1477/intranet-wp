@@ -869,4 +869,49 @@ class Article extends BaseController
 
         return view('company/category',$data);
     }
+
+    public function addEmailSubs()
+    {
+        $email = $this->request->getVar('data');
+        $model = new \App\Models\ArticleSubsModel();
+        $user = new \App\Models\UsersModel();
+        // check email user first
+        $fail = array(
+            'message' => 'Email tidak terdaftar',
+            'status' => 'warning',
+            'code' => 400
+        );
+        if(!$user->where('email',$email)->first()) return $this->respond($fail,200);
+        
+        $find = $model->where('subs_email',$email)->first();
+        $arr = array(
+            'message' => 'Data Sudah tersedia',
+            'status' => 'warning',
+            'code' => 400
+        );
+        if(!$find):
+            $data = [
+                'userid' => user_id(),
+                'fullname' => user()->fullname,
+                'subs_email' => $email,
+                'status' => 1
+            ];
+            try {
+                $model->save($data);
+                $message = lang('Files.Save_Success');
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => $message
+                );
+            }
+            catch (\Exception $e){
+                $arr = array(
+                    'status' => $e->getMessage(),
+                    'code' => 400
+                );
+            }
+        endif;
+        return $this->respond($arr,200);
+    }
 }

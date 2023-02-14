@@ -7,6 +7,7 @@
 
     <?= $this->include('partials/head-css') ?>
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <?= $this->include('partials/sweetalert-css') ?>
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -267,6 +268,9 @@
 <!-- JAVASCRIPT -->
 <?= $this->include('partials/vendor-scripts') ?>
 
+<!-- SweetAlert -->
+<?= $this->include('partials/sweetalert') ?>
+
 <script src="<?=base_url()?>/assets/js/app.js"></script>
 <script>
     const category = document.querySelectorAll('#category')
@@ -291,6 +295,26 @@
             // $('#toastcategory').show('slow')
         })
     }
+
+    const emailSubsBtn = document.querySelector('.emailsubs')
+    emailSubsBtn.addEventListener('click', (e) => {
+        let parentEl = e.target.parentElement.parentElement.previousElementSibling
+        fetch('<?=base_url()?>/article/addemailsubs',{
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type' : 'application/json',
+            },
+            body: JSON.stringify({'data':parentEl.value})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.status=='warning') return Swal.fire("Info!", data.message, data.status)
+            if(data.status=='success') return Swal.fire("Success!", data.message, data.status)
+        })
+    })
 </script>
 </body>
 </html>
