@@ -42,7 +42,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <h5 class="card-title"> <span class="text-muted fw-normal ms-2">List_Schedule_of_Meeting</span></h5>
+                            <!-- <h5 class="card-title"> <span class="text-muted fw-normal ms-2">List_Schedule_of_Meeting</span></h5> -->
                         </div>
                     </div>
 
@@ -241,6 +241,7 @@ function approveMeeting(id)
         //     keyboard: false
         // })
         // myModal.show()
+        console.log(data)
         $('#approvemeeting').modal('show'); 
         // let emailAddress;
         // data.forEach(item => {
@@ -250,7 +251,8 @@ function approveMeeting(id)
         {delimiter:",",editItems:!0,duplicateItemsAllowed:!1,removeItemButton:!0})
         const ccMeeting = new Choices(document.getElementById("choices-text-remove-button1"),
         {delimiter:",",editItems:!0,duplicateItemsAllowed:!1,removeItemButton:!0,placeholderValue:"Masukkan email pembicara meeting, GA, IT, dll yg dianggap perlu"})
-        daftarPeserta.setValue(data);
+        daftarPeserta.setValue(data['mailto']);
+        ccMeeting.setValue(data['mailcc']);
         idmeeting.value = id
     })
 }

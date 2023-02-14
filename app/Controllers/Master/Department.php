@@ -22,7 +22,7 @@ class Department extends BaseController
         //$submenu = getSubmenu($moduleid=0);
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Department']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Department']),
+			'page_title' => view('partials/page-title', ['title' => 'master_data', 'li_1' => 'Intranet', 'li_2' => 'Department']),
 			'modules' => $menu,
             'route'=>'department',
             'menuname' => 'Department',

@@ -37,7 +37,7 @@ class Users extends BaseController
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'User']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'User']),
+			'page_title' => view('partials/page-title', ['title' => 'master_data', 'li_1' => 'Intranet', 'li_2' => 'User']),
 			'modules' => $menu,
             'route' => 'users',
             'menuname' => 'User',

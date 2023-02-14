@@ -53,7 +53,7 @@ return [
     "Tabs_n_Accordions" => "Tabs & Accordions",
     "Typography" => "Typography",
     "Video" => "Video",
-    "General" => "General",
+    "General" => "Umum",
     "Colors" => "Colors",
     "Extended" => "Extended",
     "Lightbox" => "Lightbox",
@@ -240,7 +240,7 @@ return [
     "View_Schedule" => "Lihat Jadwal",
     "Finish" => "Selesai",
     "Meeting" => "Meeting",
-    "Form_Request_Room" => "Form Peminjman Ruangan",
+    "Form_Request_Room" => "Form Peminjaman Ruangan",
     "Date" => "Tanggal",
     "Time" => "Jam",
     "Amount_Participant" => "Jumlah Peserta",
@@ -297,6 +297,22 @@ return [
     "misi" => "Misi",
     "Core_Values" => "Nilai Luhur",
     "Show_All" => "Tampilkan semua",
+    "Company_Profile" => "Profil Perusahaan",
+    "Next" => "Selanjutnya",
+    "Previous" => "Sebelumnya",
+    "Fill_Data" => "Lengkapi ",
+    "Personal" => "Peminjam",
+    "Data_Personal" => "Data Diri",
+    "Participant" => "Peserta",
+    "Data_Participant" => "Data Peserta",
+    "Room" => "Ruangan",
+    "Data_Room" => "Data Ruangan",
+    "Meeting_Participant" => "Peserta Meeting",
+    "Add_Participant" => "Tambah Peserta",
+    "Speaker_Name" => "Pemateri",
+    "Speaker_Email" => "Email Pemateri",
+    "Needed_Item" => "Kebutuhan",
+    "Room_Used" => "Pemakaian Ruangan",
 
     // Menu
     "group-divisi" => 'Grup Divisi',
@@ -325,5 +341,6 @@ return [
     "instruksi" => "Instruksi Kerja",
     "others" => "Lain Lain",
     'lain' => "Lainnya",
+    "master_data" => "Master Data"
 
 ];

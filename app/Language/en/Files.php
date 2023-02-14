@@ -120,7 +120,7 @@ return [
     "Utility" => "Utility",
 
     // Grup Divisi
-    // "Group_Divisi" => "Division Group",
+    "Group_Divisi" => "Division Group",
     "Group_Name" => "Group Name",    
     "Code_GroupDivisi" => "Division Group Code",
     "Name_GroupDivisi" => "Division Group Name (IDN)",
@@ -239,7 +239,7 @@ return [
     "View_Schedule" => "View Schedule",
     "Finish" => "Finish",
     "Meeting" => "Meeting",
-    "Form_Request_Room" => "Request Room Form",
+    "Form_Request_Room" => "Form Request Meeting Room",
     "Date" => "Date",
     "Time" => "Time",
     "Amount_Participant" => "Amount Participant",
@@ -267,7 +267,7 @@ return [
     "Room_Status" => "Status Room",
     "available" => "Available",
     "Meeting_Room" => "Meeting Room",
-    "Notulis" => "Notulis",
+    "Notulis" => "Note Taker",
     "Start_Time" => "Start Time",
     "End_Time" => "End Time",
     "Date_Request" => "Requested Date",
@@ -296,6 +296,22 @@ return [
     "misi" => "Mission",
     "Core_Values" => "Core Values",
     "Show_All" => "Show All",
+    "Company_Profile" => "Company Profile",
+    "Next" => "Next",
+    "Previous" => "Previous",
+    "Fill_Data" => "Fill up",
+    "Personal" => "Personal",
+    "Data_Personal" => "Personal Info",
+    "Participant" => "Participant",
+    "Data_Participant" => "Participant Data",
+    "Room" => "Room",
+    "Data_Room" => "Room Data",
+    "Meeting_Participant" => "Meeting Participant",
+    "Add_Participant" => "Add Participant",
+    "Speaker_Name" => "Speaker's Name",
+    "Speaker_Email" => "Speaker's Email",
+    "Needed_Item" => "Item Needed",
+    "Room_Used" => "Room Used",
 
     // Menu
     "group-divisi" => 'Division Group',
@@ -324,5 +340,6 @@ return [
     "instruksi" => "Work Instruction",
     "others" => "Others",
     'lain' => "Others",
+    "master_data" => "Master Data"
 
 ];

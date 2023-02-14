@@ -22,7 +22,7 @@ class Strukturorg extends BaseController
         
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Structure-Org']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Structure-Org']),
+			'page_title' => view('partials/page-title', ['title' => 'bpo', 'li_1' => 'Intranet', 'li_2' => 'Structure-Org']),
 			'modules' => $menu,
             'route'=>'struktur-organisasi',
             'menuname' => 'Structure-Org',
@@ -244,7 +244,7 @@ class Strukturorg extends BaseController
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Structure-Org']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Structure-Org']),
+			'page_title' => view('partials/page-title', ['title' => 'Company_Profile', 'li_1' => 'Intranet', 'li_2' => 'Structure-Org']),
 			'modules' => $menu,
             'route'=>'struktur-organisasi',
             'menuname' => 'struktur-org',
@@ -389,7 +389,7 @@ class Strukturorg extends BaseController
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Structure-Org']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Structure-Org']),
+			'page_title' => view('partials/page-title', ['title' => 'Company_Profile', 'li_1' => 'Intranet', 'li_2' => 'Structure-Org']),
 			'modules' => $menu,
             'route'=>'struktur-organisasi',
             'menuname' => 'visimisi',

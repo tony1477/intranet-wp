@@ -30,7 +30,7 @@ class GroupUser extends BaseController
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Group_User']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Group_User']),
+			'page_title' => view('partials/page-title', ['title' => 'master_data', 'li_1' => 'Intranet', 'li_2' => 'Group_User']),
 			'modules' => $menu,
             'route' => 'group-user',
             'menuname' => 'Group_User',

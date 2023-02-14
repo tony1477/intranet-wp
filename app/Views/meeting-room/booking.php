@@ -43,7 +43,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title mb-0"><?=lang('Files.Form_Request_Room')?> <?=$nama != '' ? $nama : 'Meeting'?></h4>
+                                <h4 class="card-title mb-0"><?=lang('Files.Form_Request_Room')?> <?=$nama != '' ? $nama : ''?></h4>
                             </div>
                             <div class="card-body" style="border:0px solid #000;">
                                 <div id="basic-pills-wizard" class="twitter-bs-wizard">
@@ -77,8 +77,8 @@
                                     <div class="tab-content twitter-bs-wizard-tab-content">
                                         <div class="tab-pane" id="seller-details">
                                             <div class="text-center mb-4">
-                                                <h5>Data Diri</h5>
-                                                <p class="card-title-desc">Lengkapi Data Peminjaman</p>
+                                                <h5><?=lang('Files.Data_Personal')?></h5>
+                                                <p class="card-title-desc"><?=lang('Files.Fill_Data')?> <?=lang('Files.Data_Personal')?></p>
                                             </div>
                                             <form>
                                                 <div class="row">
@@ -122,28 +122,28 @@
                                                 </div>
                                             </form>
                                             <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                                <li class="next"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab1()">Next <i class="bx bx-chevron-right ms-1"></i></a></li>
+                                                <li class="next"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab1()"><?=lang('Files.Next')?> <i class="bx bx-chevron-right ms-1"></i></a></li>
                                             </ul>
                                         </div>
                                         <!-- tab pane -->
                                         <div class="tab-pane" id="company-document">
                                             <div>
                                                 <div class="text-center mb-4">
-                                                    <h5>Data Peserta</h5>
-                                                    <p class="card-title-desc">Lengkapi Data Peserta</p>
+                                                    <h5><?=lang('Files.Data_Participant')?></h5>
+                                                    <p class="card-title-desc"><?=lang('Files.Fill_Data')?> <?=lang('Files.Data_Participant')?></p>
                                                 </div>
                                                 <form action="" method="post">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
-                                                                <label for="basicpill-pancard-input" class="form-label"><?=lang('Files.Date')?></label>
+                                                                <label for="startdate" class="form-label"><?=lang('Files.Date')?></label>
                                                                 <input type="date" class="form-control" name="startdate" id="startdate">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
-                                                                <label for="basicpill-vatno-input" class="form-label"><?=lang('Files.Start_Time')?></label>
+                                                                <label for="starttime" class="form-label"><?=lang('Files.Start_Time')?></label>
                                                                 <input type="time" class="form-control" name="starttime" id="starttime">
                                                             </div>
                                                         </div>
@@ -151,14 +151,14 @@
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
-                                                                <label for="basicpill-cstno-input" class="form-label"><?=lang('Files.End_Time')?></label>
+                                                                <label for="endtime" class="form-label"><?=lang('Files.End_Time')?></label>
                                                                 <input type="time" class="form-control" name="endtime" id="endtime">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
-                                                                <label for="basicpill-cstno-input" class="form-label"><?=lang('Files.Amount_Participant')?></label>
+                                                                <label for="participant" class="form-label"><?=lang('Files.Amount_Participant')?></label>
                                                                 <input type="number" class="form-control" name="participant" id="participant" disabled>
                                                             </div>
                                                         </div>
@@ -169,7 +169,7 @@
                                                                 <label for="basicpill-servicetax-input" class="form-label"><?=lang('Files.ParticipantBase')?></label>
                                                                 <div class="d-flex justify-content-start gap-3">
                                                                     <input class="form-check-input lokasi" type="checkbox" name="asalpeserta" id="kantorho" value="kantorho">
-                                                                    <label class="form-check-label" for="kantorho">HO</label>
+                                                                    <label class="form-check-label" for="kantorho">Head Office</label>
 
                                                                     <input class="form-check-input lokasi" type="checkbox" name="asalpeserta" id="pabrik" value="pabrik">
                                                                     <label class="form-check-label" for="pabrik">Unit PKS</label>
@@ -183,49 +183,55 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
-                                                            <div class="mb-3">
-                                                                <label for="basicpill-servicetax-input" class="form-label"><?=lang('Files.Speaker')?></label>
-                                                                <input type="text" class="form-control" name="speaker" id="speaker">
+                                                            <div class="row mb-3">
+                                                                <div class="col-6">
+                                                                    <label for="speaker" class="form-label"><?=lang('Files.Speaker_Name')?></label>
+                                                                    <input type="text" class="form-control" name="speaker" id="speaker">
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <label for="speakeremail" class="form-label"><?=lang('Files.Speaker_Email')?></label>
+                                                                    <input type="email" class="form-control" name="speakeremail" id="speakeremail">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
-                                                                <label for="basicpill-cstno-input"class="form-label">Peserta Meeting</label>
+                                                                <label for="basicpill-cstno-input"class="form-label"><?=lang('Files.Meeting_Participant')?></label>
                                                                 <button type="button" class="btn-rounded btn-sm btn-soft-primary waves-effect waves-light addParticipant"><i class="fas fa-plus font-size-12"></i></button>
                                                             </div>
                                                             <div class="row formParticipant" style="display:none">                                   
                                                                 <div class="col-md-4">
                                                                     <div class="mb-3">
-                                                                        <label class="form-label" for="nama-peserta">Nama Peserta</label>
+                                                                        <label class="form-label" for="nama-peserta"><?=lang('Files.Fullname')?></label>
                                                                         <input type="text" class="form-control namepeserta" id="nama-peserta" placeholder="Nama Peserta">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <div class="mb-3">
-                                                                        <label class="form-label" for="bagian-department">Bagian</label>
+                                                                        <label class="form-label" for="bagian-department"><?=lang('Files.Department')?></label>
                                                                         <input type="text" class="form-control bagianpeserta" id="bagian-department" placeholder="Bagian/Department">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <div class="mb-3">
-                                                                        <label class="form-label" for="email-peserta">Email</label>
+                                                                        <label class="form-label" for="email-peserta"><?=lang('Files.Email')?></label>
                                                                         <input type="email" class="form-control emailpeserta" id="email-peserta" placeholder='Jika tidak ada email diisi "-"'>
                                                                     </div>
                                                                 </div>
                                                                 <div class="mt-4 d-flex justify-content-end">
-                                                                    <button type="submit" class="btn btn-primary w-md submitParticipant">Tambah Peserta</button>
+                                                                    <button type="submit" class="btn btn-primary w-md submitParticipant"><?=lang('Files.Add_Participant')?></button>
                                                                 </div>
                                                             </div>
                                                             <div class="table-responsive">
                                                                 <table class="table align-middle mb-0 daftarpeserta">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>Nama Peserta</th>
-                                                                            <th>Bagian</th>
-                                                                            <th>Email</th>
-                                                                            <th>Aksi</th>
+                                                                            <th><?=lang('Files.Fullname')?></th>
+                                                                            <th><?=lang('Files.Department')?></th>
+                                                                            <th><?=lang('Files.Email')?></th>
+                                                                            <th><?=lang('Files.Action')?></th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="tbodydata">
@@ -235,15 +241,15 @@
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
-                                                                <label for="basicpill-agenda-input" class="form-label"><?=lang('Files.Agenda')?></label>
+                                                                <label for="agenda" class="form-label"><?=lang('Files.Agenda')?></label>
                                                                 <textarea id="agenda" class="form-control" placeholder="Agenda Meeting" rows="3" ></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </form>
                                                 <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                                    <li class="previous"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()"><i class="bx bx-chevron-left me-1"></i> Previous</a></li>
-                                                    <li class="next"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab2()">Next <i class="bx bx-chevron-right ms-1"></i></a></li>
+                                                    <li class="previous"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()"><i class="bx bx-chevron-left me-1"></i> <?=lang('Files.Previous')?></a></li>
+                                                    <li class="next"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab2()"><?=lang('Files.Next')?> <i class="bx bx-chevron-right ms-1"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -251,8 +257,8 @@
                                         <div class="tab-pane" id="bank-detail">
                                             <div>
                                                 <div class="text-center mb-4">
-                                                    <h5>Data Ruangan</h5>
-                                                    <p class="card-title-desc">Lengkapi Kebutuhan</p>
+                                                    <h5><?=lang('Files.Data_Room')?></h5>
+                                                    <p class="card-title-desc"><?=lang('Files.Fill_Data')?> <?=lang('Files.Data_Room')?></p>
                                                 </div>
                                                 <form>
                                                     <div class="row">
@@ -278,7 +284,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                         <fieldset class="form-group border p-3">
-                                                            <legend class="form-group px-2 " style="font-size:14px; font-weight:600">- Kebutuhan - </legend>
+                                                            <legend class="form-group px-2 " style="font-size:14px; font-weight:600">- <?=lang('Files.Needed_Item')?> - </legend>
                                                             <div class="form-check">
                                                                 <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="zoom" value="Zoom">
                                                                 <label class="form-check-label" for="zoom">Zoom Meeting Lengkap (Kamera,Link Zoom, Speaker, Mic)</label>
@@ -306,9 +312,8 @@
                                                     </div>
                                                 </form>
                                                 <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                                    <li class="previous"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()"><i class="bx bx-chevron-left me-1"></i> Previous</a></li>
-                                                    <li class="float-end"><a href="javascript: void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".confirmModal">Save
-                                                            Changes</a></li>
+                                                    <li class="previous"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()"><i class="bx bx-chevron-left me-1"></i> <?=lang('Files.Previous')?></a></li>
+                                                    <li class="float-end"><a href="javascript: void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".confirmModal"><?=lang('Files.Save')?></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -405,6 +410,7 @@
     const participant = document.querySelector('#participant')
     // const lokasi = document.querySelectorAll('.lokasi')
     const speaker = document.querySelector('#speaker')
+    const speakeremail = document.querySelector('#speakeremail')
     const nameparti = document.querySelector('.nameparti')
     const agenda = document.querySelector('#agenda')
     const room = document.querySelector('#room')
@@ -437,6 +443,7 @@
         localStorage.setItem('participant',participant.value)
         localStorage.setItem('location',lokasi)
         localStorage.setItem('speaker',speaker.value)
+        localStorage.setItem('speakeremail',speakeremail.value)
         // localStorage.setItem('nameparti',nameparti.val())
         // localStorage.setItem('nameparti',el.getValue(true))
         localStorage.setItem('agenda',agenda.value)

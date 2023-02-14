@@ -21,8 +21,8 @@ class Divisi extends BaseController
         //$submenu = getSubmenu($moduleid=0);
         
 		$data = [
-			'title_meta' => view('partials/title-meta', ['title' => 'Divisi']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Divisi']),
+			'title_meta' => view('partials/title-meta', ['title' => 'Location']),
+			'page_title' => view('partials/page-title', ['title' => 'master_data', 'li_1' => 'Intranet', 'li_2' => 'Divisi']),
 			'modules' => $menu,
             'route'=>'divisi',
             'menuname' => 'Divisi',

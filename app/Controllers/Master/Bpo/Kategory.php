@@ -30,7 +30,7 @@ class Kategory extends BaseController
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Category']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Category']),
+			'page_title' => view('partials/page-title', ['title' => 'bpo', 'li_1' => 'Intranet', 'li_2' => 'Category']),
 			'modules' => $menu,
             'route' => 'kategory',
             'menuname' => 'Category',

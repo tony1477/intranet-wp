@@ -116,6 +116,7 @@ class MeetingSchedule extends BaseController
                     'asal_peserta' => $datas['location'],
                     'agenda' => $datas['agenda'],
                     'pemateri' => $datas['speaker'],
+                    'ccemail' => $datas['speakeremail'],
                     // 'nama_peserta' => $datas['nameparti'],
                     'kebutuhan' => ($datas['requirement']!='undefined' ? $datas['requirement'] : ''),
                     'notulis' => $datas['notulen'],
@@ -203,7 +204,12 @@ class MeetingSchedule extends BaseController
                 $i++;
             }
         endforeach;
-        return $this->respond($mail,200);
+        $getSpeaker = $this->model->where('idpeminjaman',$id)->find();
+        $mailto = ['mailto'=>$mail];
+        $spakeremail = array($getSpeaker[0]->ccemail);
+        $mailcc = ['mailcc' => $spakeremail];
+        $response = array_merge($mailto,$mailcc);
+        return $this->respond($response,200);
     }
 
     public function sendMeeting()

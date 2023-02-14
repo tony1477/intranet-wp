@@ -21,7 +21,7 @@ class Support extends BaseController
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Category']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Policy']),
+			'page_title' => view('partials/page-title', ['title' => 'bpo', 'li_1' => 'Intranet', 'li_2' => 'Policy']),
 			'modules' => $menu,
             'scriptdatatable'=> view('master/_partials/script/sop.php'),
             'route' => 'kebijakan',
@@ -75,7 +75,7 @@ class Support extends BaseController
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Category']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'manual']),
+			'page_title' => view('partials/page-title', ['title' => 'bpo', 'li_1' => 'Intranet', 'li_2' => 'manual']),
 			'modules' => $menu,
             'scriptdatatable'=> view('master/_partials/script/sop.php'),
             'route' => 'manual',
@@ -129,7 +129,7 @@ class Support extends BaseController
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Category']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'sop']),
+			'page_title' => view('partials/page-title', ['title' => 'bpo', 'li_1' => 'Intranet', 'li_2' => 'sop']),
 			'modules' => $menu,
             'scriptdatatable'=> view('master/_partials/script/sop.php'),
             'route' => 'sop',
@@ -183,7 +183,7 @@ class Support extends BaseController
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Category']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'instruksi']),
+			'page_title' => view('partials/page-title', ['title' => 'bpo', 'li_1' => 'Intranet', 'li_2' => 'instruksi']),
 			'modules' => $menu,
             'scriptdatatable'=> view('master/_partials/script/sop.php'),
             'route' => 'kebijakan',
@@ -237,7 +237,7 @@ class Support extends BaseController
 
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Category']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'lain']),
+			'page_title' => view('partials/page-title', ['title' => 'bpo', 'li_1' => 'Intranet', 'li_2' => 'lain']),
 			'modules' => $menu,
             'scriptdatatable'=> view('master/_partials/script/sop.php'),
             'route' => 'lainnya',

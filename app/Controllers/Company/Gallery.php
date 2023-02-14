@@ -22,7 +22,7 @@ class Gallery extends BaseController
         $menu = getMenu($user='Admin');
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Gallery_Foto']),
-			'page_title' => view('partials/page-title', ['title' => 'Gallery', 'li_1' => 'Intranet', 'li_2' => 'Gallery_Foto']),
+			'page_title' => view('partials/page-title', ['title' => 'Gallery', 'li_1' => 'Intranet', 'li_2' => 'Photo']),
 			'modules' => $menu,
             'route'=>'gallery-foto',
             'menuname' => 'Foto',
@@ -42,7 +42,7 @@ class Gallery extends BaseController
         $menu = getMenu($user='Admin');
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Gallery_Foto']),
-			'page_title' => view('partials/page-title', ['title' => 'Gallery', 'li_1' => 'Intranet', 'li_2' => 'Gallery_Foto']),
+			'page_title' => view('partials/page-title', ['title' => 'Gallery', 'li_1' => 'Intranet', 'li_2' => 'Video']),
 			'modules' => $menu,
             'route'=>'gallery-foto',
             'menuname' => 'Foto',
@@ -93,10 +93,10 @@ class Gallery extends BaseController
         //$submenu = getSubmenu($moduleid=0);
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Gallery_Foto']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Gallery_Foto']),
+			'page_title' => view('partials/page-title', ['title' => 'Album', 'li_1' => 'Intranet', 'li_2' => 'Gallery_Foto']),
 			'modules' => $menu,
             'route'=>'gallery-foto/manage-album',
-            'menuname' => 'Gallery',
+            'menuname' => 'Category',
             'data' => $album,
             'modal' => 'modal-md',
             'columns_hidden' => array('Action'),
@@ -156,7 +156,7 @@ class Gallery extends BaseController
 			'page_title' => view('partials/page-title', ['title' => 'Album', 'li_1' => 'Intranet', 'li_2' => 'Gallery_Foto']),
 			'modules' => $menu,
             'route'=>'gallery-foto/manage-foto',
-            'menuname' => 'Gallery',
+            'menuname' => 'Photo',
             'data' => $gallery,
             'modal' => 'modal-lg',
             'columns_hidden' => array('Action'),

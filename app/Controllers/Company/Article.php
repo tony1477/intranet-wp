@@ -175,7 +175,7 @@ class Article extends BaseController
 			'page_title' => view('partials/page-title', ['title' => 'Article', 'li_1' => 'Intranet', 'li_2' => 'Article']),
 			'modules' => $menu,
             'route'=>'article',
-            'menuname' => 'News',
+            'menuname' => 'berita',
             'data' => $article,
             'modal' => 'modal-lg',
             'columns_hidden' => array('Action'),

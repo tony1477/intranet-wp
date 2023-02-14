@@ -21,7 +21,7 @@ class MeetingRoom extends BaseController
         $meetingroom = getRoom();
         $data = [
             'title_meta' => view('partials/title-meta', ['title' => 'Meeting_Room']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Meeting_Room']),
+			'page_title' => view('partials/page-title', ['title' => 'Meeting_Room', 'li_1' => 'Intranet', 'li_2' => 'Meeting_Room']),
 			'modules' => $menu,
             'data' => $meetingroom,
         ];

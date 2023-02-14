@@ -24,7 +24,7 @@ class Dokumen extends BaseController
         
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Document']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Document']),
+			'page_title' => view('partials/page-title', ['title' => 'bpo', 'li_1' => 'Intranet', 'li_2' => 'Document']),
 			'modules' => $menu,
             'scriptdatatable'=> view('master/_partials/script/dokumen.js'),
             'route'=>'dokumen-sop',
