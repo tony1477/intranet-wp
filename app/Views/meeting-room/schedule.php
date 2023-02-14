@@ -40,7 +40,7 @@
                                 <h4 class=" card-title mt-2">Jadwal Ruangan <?=$nama?></h4>
                                 </div>
                                 <div class="col-5 text-end">
-                                <button class="btn btn-light waves-effect waves-light" onclick="history.back()"><i class="bx bx-arrow-back font-size-16 align-middle me-2"></i>Kembali</button>
+                                <button class="btn btn-light waves-effect waves-light" onclick="history.back()"><i class="bx bx-arrow-back font-size-16 align-middle me-2"></i><?=lang('Files.Back')?></button>
                                 </div>
                                 </div>
                             </div><!-- end card header -->

@@ -296,7 +296,7 @@ return [
     "visi" => "Visi",
     "misi" => "Misi",
     "Core_Values" => "Nilai Luhur",
-
+    "Show_All" => "Tampilkan semua",
 
     // Menu
     "group-divisi" => 'Grup Divisi',

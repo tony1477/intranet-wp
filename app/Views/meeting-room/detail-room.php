@@ -141,7 +141,14 @@
                     <div class="col-xl-3 col-lg-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title mb-3"><?=lang('Files.Last_Used')?></h5>
+                            <?php if($row->dep_kode != '') { ?>
+                                <div class="position-relative">
+                                    <h5 class="card-title mb-3"><?=lang('Files.Last_Used')?>
+                                    <a href="<?=base_url()?>/meeting-schedule/<?=$param?>"><span class="badge rounded-pill bg-primary position-relative" style="top:-10px">
+                                        <?=lang('Files.Show_All')?>
+                                    </span></a></h5>
+                                </div>
+                            <?php } ?>
                                 <div class="d-flex flex-wrap gap-2 font-size-16">
                                     <?php if($row->dep_kode!='') {
                                         $arr = explode(',',$row->dep_kode);
@@ -161,15 +168,23 @@
                                 <h5 class="card-title mb-3"><?=lang('Files.Room_Status')?></h5>
 
                                 <div>
-                                    <button class="btn btn-success "> Available</button>
+                                    <?php if(isset($statusroom->tgl_mulai)):?>
+                                        <button class="btn btn-light waves-effect waves-light">
+                                        <i class="bx bx-hourglass font-size-16 align-middle me-2"></i> Sedang Digunakan
+                                        </button>
+                                    <?php else:?>
+                                        <button class="btn btn-success waves-effect waves-light">
+                                        <i class="bx bx-check-double font-size-16 align-middle me-2"></i> Available
+                                        </button>
+                                    <?php endif;?>
                                     <ul class="list-unstyled mb-0">
                                         <!-- <li>
                                             <span class="font-size-14  mb-1">IACC</span> - 10:30</a>
                                         </li>
                                         <li>
                                             <span class="font-size-14  mb-1">IT</span> - 10:30</a>
-                                        </li> -->
-                                        <!-- <li>
+                                        </li> 
+                                         <li>
                                             <a href="#" class="py-2 d-block text-muted"><i class="mdi mdi-web text-primary me-1"></i> IT - 13:30</a>
                                         </li> -->
                                     </ul>
@@ -177,6 +192,54 @@
                             </div>
                             <!-- end card body -->
                         </div>
+                        <!-- <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3"><?=lang('Files.Next_Schedule')?></h5>
+                                <div class="list-group list-group-flush">
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-sm flex-shrink-0 me-3">
+                                                <img src="<?=base_url()?>/assets/images/users/avatar-1.jpg" alt="" class="img-thumbnail rounded-circle">
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div>
+                                                    <h5 class="font-size-14 mb-1">James Nix</h5>
+                                                    <p class="font-size-13 text-muted mb-0">Full Stack Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-sm flex-shrink-0 me-3">
+                                                <img src="assets/images/users/avatar-3.jpg" alt="" class="img-thumbnail rounded-circle">
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div>
+                                                    <h5 class="font-size-14 mb-1">Darlene Smith</h5>
+                                                    <p class="font-size-13 text-muted mb-0">UI/UX Designer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-sm flex-shrink-0 me-3">
+                                                <div class="avatar-title bg-light-subtle text-light rounded-circle font-size-22">
+                                                    <i class="bx bxs-user-circle"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div>
+                                                    <h5 class="font-size-14 mb-1">William Swift</h5>
+                                                    <p class="font-size-13 text-muted mb-0">Backend Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div> -->
                         <!-- end card -->
 
                         <!-- end card -->

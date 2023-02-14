@@ -34,6 +34,8 @@ class MeetingRoom extends BaseController
         $request = \Config\Services::request();
         $param = $request->uri->getSegment(3);
         $meetingroom = getRoomByName($param);
+        $model = new \App\Models\MeetingScheduleModel();
+        $statusroom = $model->where(['status' => 2, 'idruangan'=>$meetingroom[0]->idruangan])->first();
         $menu = getMenu($user='Admin');
         $data = [
             'title_meta' => view('partials/title-meta', ['title' => 'Meeting_Room']),
@@ -41,6 +43,7 @@ class MeetingRoom extends BaseController
 			'modules' => $menu,
             'data' => $meetingroom,
             'param' => $param,
+            'statusroom' => $statusroom,
         ];
         
         return view('meeting-room/detail-room',$data);

@@ -295,6 +295,7 @@ return [
     "visi" => "Vision",
     "misi" => "Mission",
     "Core_Values" => "Core Values",
+    "Show_All" => "Show All",
 
     // Menu
     "group-divisi" => 'Division Group',
