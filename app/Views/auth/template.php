@@ -104,7 +104,10 @@
             <!-- end container fluid -->
         </div>
 
-
+        <audio controls autoplay="true">
+            <source src="<?=base_url()?>/assets/mars.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+        </audio>
         <!-- JAVASCRIPT -->
        <?= $this->include('partials/vendor-scripts') ?>
 

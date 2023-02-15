@@ -103,7 +103,7 @@
             <div class="dropdown d-none d-lg-inline-block ms-1">
             </div>
 
-            <div class="dropdown d-inline-block">
+            <!-- <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item noti-icon position-relative" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i data-feather="bell" class="icon-lg"></i>
                     <span class="badge bg-danger rounded-pill">5</span>
@@ -188,7 +188,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item right-bar-toggle me-2">
