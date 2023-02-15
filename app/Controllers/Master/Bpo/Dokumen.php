@@ -89,7 +89,6 @@ class Dokumen extends BaseController
                     'label'=>'No_SOP',
                     'field'=>'dok_nosop',
                     'type'=>'text',
-                    'attr' => 'readonly',
                     'idform'=>'nosop',
                     'form-class'=>'form-control',
                     'style' => 'col-md-10 col-xl-10',
