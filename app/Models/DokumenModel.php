@@ -14,7 +14,7 @@ class DokumenModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['dok_nosop','dok_nmsop','dok_nmsop2','dep_kode','iddepartment','dok_nmfile','dok_nmfile2','dok_nmfile3','dok_nmfile4','dok_nmfile5','kat_kode','dok_cover','dok_cover2','dep_key','dok_publish','dok_aktif','user_c','user_m','time_c','time_m','tgl_c','tgl_m'];
+    protected $allowedFields    = ['dok_nosop','dok_nmsop','dok_nmsop2','dep_kode','iddepartment','dok_nmfile','dok_nmfile2','dok_nmfile3','dok_nmfile4','dok_nmfile5','idkategory','kat_kode','dok_cover','dok_cover2','dep_key','dok_publish','dok_aktif','user_c','user_m','time_c','time_m','tgl_c','tgl_m'];
 
     // Dates
     protected $useTimestamps = false;
