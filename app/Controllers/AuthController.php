@@ -102,4 +102,57 @@ class AuthController extends MythAuthController
         // Success!
         return redirect()->route('login')->with('message',lang('Auth.WaitActivation'));       
     }
+
+    public function forgotPassword()
+    {
+        if ($this->config->activeResetter === null) {
+            return redirect()->route('login')->with('error', lang('Auth.forgotDisabled'));
+        }
+
+        return $this->_render($this->config->views['forgot'], ['config' => $this->config]);
+    }
+
+    /**
+     * Attempts to find a user account with that password
+     * and send password reset instructions to them.
+     */
+    public function attemptForgot()
+    {
+        if ($this->config->activeResetter === null) {
+            return redirect()->route('login')->with('error', lang('Auth.forgotDisabled'));
+        }
+
+        $rules = [
+            'email' => [
+                'label' => lang('Auth.emailAddress'),
+                'rules' => 'required|valid_email',
+            ],
+        ];
+
+        if (! $this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $users = model(UserModel::class);
+
+        $user = $users->where('email', $this->request->getPost('email'))->first();
+
+        if (null === $user) {
+            return redirect()->back()->with('error', lang('Auth.forgotNoUser'));
+        }
+
+        // Save the reset hash /
+        $user->generateResetHash();
+        $users->save($user);
+
+        $resetter = service('resetter');
+        $sent     = $resetter->send($user);
+
+        if (! $sent) {
+            return redirect()->back()->withInput()->with('error', $resetter->error() ?? lang('Auth.unknownError'));
+        }
+
+        // return redirect()->route('reset-password')->with('message', lang('Auth.forgotEmailSent'));
+        return $this->_render($this->config->views['confirmMail'], ['config' => $this->config,'email'=>$this->request->getPost('email')]);
+    }
 }

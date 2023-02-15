@@ -10,10 +10,14 @@ class Auth extends \Myth\Auth\Config\Auth
     public $views = [
         'login'           => 'App\Views\Auth\login',
         'register'        => 'App\Views\Auth\register',
+        'forgot'          => 'App\Views\Auth\forgot',
+        'reset'           => 'App\Views\Auth\reset',
+        'emailForgot'     => 'App\Views\email\forgot',
+        'confirmMail'    => 'App\Views\Auth\confirm',
     ];    
     
     public $requireActivation = null;
 
-    public $activeResetter = null;
+    public $activeResetter = 'Myth\Auth\Authentication\Resetters\EmailResetter';
 
 }

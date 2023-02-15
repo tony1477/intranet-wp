@@ -37,6 +37,10 @@ $routes->group('', ['namespace' => 'App\Controllers'], static function ($routes)
     // Registration
     $routes->get('register', 'AuthController::register', ['as' => 'register']);
     $routes->post('register', 'AuthController::attemptRegister');
+
+    // Reset Password
+    $routes->get('forgot', 'AuthController::forgotPassword', ['as' => 'forgot']);
+    $routes->post('forgot', 'AuthController::attemptForgot');
 });
 
 /*
