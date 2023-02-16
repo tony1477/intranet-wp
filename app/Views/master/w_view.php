@@ -263,12 +263,12 @@
                                 let instanceCKeditor<?=$form['idform']?> = CKEDITOR.instances['<?=$form['idform']?>'];
                                 // if(instanceCKeditor) CKEDITOR.remove(CKEDITOR.instances['<?=$form['idform']?>']);
                                 if(instanceCKeditor<?=$form['idform']?>) CKEDITOR.instances.<?=$form['idform']?>.destroy();
-                                CKEDITOR.replace( '<?=$form['idform']?>')
+                                CKEDITOR.replace('<?=$form['idform']?>')
                                 CKEDITOR.instances.<?=$form['idform']?>.setData('');
                             <?php break; ?>
-                            case 'file': ?>
+                            <?php case 'file': ?>
                                 document.getElementById("file<?=$form['idform']?>").value = '';
-                                document.getElementById("f<?=$form['idform']?>").innerHTML = '';
+                                // document.getElementById("f<?=$form['idform']?>").innerHTML = '';
                             <?php break; ?>
                             <?php case 'file-image': ?>
                                 document.getElementById("file<?=$form['idform']?>").value='';
