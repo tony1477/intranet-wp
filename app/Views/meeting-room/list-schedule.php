@@ -217,7 +217,7 @@
 <!-- Sweet Alerts js -->
 <script src="<?=base_url()?>/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 <script src="<?=base_url()?>/assets/js/app.js"></script>
-<script src="assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="<?=base_url()?>/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
 
 <script>
 const btnKirim = document.querySelector('.kirimEmail')

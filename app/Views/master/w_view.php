@@ -53,6 +53,15 @@
                                                 <td>
                                                     <a class="btn btn-soft-secondary waves-effect waves-light btn-sm edit<?=$menuname?>" title="Edit" data-bs-toggle="modal" data-bs-target="#edit<?=$menuname?>"><i class="fas fa-pencil-alt" title="<?=lang('Files.Edit')?>"></i></a>
                                                     <a class="btn btn-soft-danger waves-effect waves-light btn-sm delete<?=$menuname?>" title="Hapus" ><i class="fas fa-trash-alt" title="<?=lang('Files.Delete')?>"></i></a>
+                                                    <?php if(isset($custombutton)):
+                                                        foreach($custombutton as $btn):
+                                                        if(!empty($btn['toggle'])):?>
+                                                        <a class="<?=$btn['class']?> <?=$btn['name']?>" data-bs-toggle="modal" data-bs-target="#<?=$btn['id']?>" title="<?=$btn['title']?>"><i class="<?=$btn['icon-class']?>" title="<?=$btn['title']?>"></i></a>
+                                                    <?php else: ?>
+                                                        <a class="<?=$btn['class']?>" title="<?=$btn['title']?>"><i class="<?=$btn['icon-class']?>" title="<?=$btn['title']?>"></i></a>
+                                                    <?php endif;
+                                                     endforeach;
+                                                    endif;?>
                                                 </td>
                                                
                                                 <?php foreach($rows as $row):?>
@@ -72,6 +81,17 @@
                                         <?php endforeach;?>
                                     </tbody>
                                 </table>
+                                <?php
+                                if(!empty($custombutton)):
+                                foreach($custombutton as $button):
+                                if(isset($button['loadfile']) && $button['loadfile']!==null)
+                                    $data['id'] = $button['id'];
+                                    $data['title'] = $button['title'];
+                                    echo view($button['loadfile'],$data);
+                                endforeach;
+                                endif;
+                                ?>
+                                <?php if(empty($bpo)):?>
                                 <div class="modal fade" id="edit<?=$menuname?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="static<?=$menuname?>Label" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered <?php echo $modal=$modal??'';?>" role="document">
                                         <div class="modal-content">
@@ -190,13 +210,15 @@
                                                     endforeach; ?>
                                                 </form>
                                             </div>
-                                            <div class="modal-footer d-flex justify-content-center">
+                                            <div class="modal-footer">
                                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal"><?=lang('Files.Close')?></button>
                                                 <button type="submit" class="btn btn-primary save"><?=lang('Files.Save')?></button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <?php endif;?>
+
                             </div>
                         </div>
                     </div> <!-- end col -->
@@ -297,7 +319,7 @@
             let i=1;
             let rowData = table.row( this ).data();
             let ix = table.row( this ).index();
-            console.log(rowData)
+            // console.log(rowData)
 
             <?php foreach($forms as $form): ?>
                 <?php switch($form['type']) {
@@ -308,6 +330,12 @@
                     let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
                     selectedOpt<?=$form['idform']?>.selected = true;
                     // console.log(<?=$form['idform']?>)
+                <?php break; ?>
+                <?php case 'file': ?>
+                    let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
+                    // console.log(full<?=$form['idform']?>)
+                    document.getElementById("file<?=$form['idform']?>").value = '';
+                    // document.getElementById("f<?=$form['idform']?>").innerHTML = '';
                 <?php break; ?>
                 <?php case 'file-image': ?>
                     let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
@@ -342,7 +370,7 @@
             <?php endforeach;?>
             // console.log(str.html)
             <?php foreach($forms as $form) :
-                if($form['type']!='select' && $form['type']!='file-image' && $form['type']!='switch') { ?>
+                if($form['type']!='select' && $form['type']!='file-image' && $form['type']!='switch' && $form['type']!='file') { ?>
                     // console.log(<?=$form['idform']?>)
                     document.getElementById("<?=$form['idform']?>").value = <?=$form['idform']?>;
                 <?php } ?>
@@ -565,6 +593,13 @@
         })
     })
 </script>
+<?php if(isset($custombutton) && $custombutton!=='' ):
+    foreach($custombutton as $button):
+        $data['class'] = $button['name'];
+        echo view($button['scriptfile'],$data);
+    endforeach;
+    endif;
+?>
 </body>
 
 </html>

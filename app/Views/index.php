@@ -91,7 +91,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-grow-1 overflow-hidden me-4">
                                                     <h5 class="font-size-14 mb-1"><?=date('d-M-Y',strtotime($meeting->tgl_mulai))?>, <?=$meeting->jam_mulai?></h5>
-                                                    <p class="text-truncate text-muted font-size-13"><?=$meeting->nama_peserta?></p>
+                                                    <p class="text-truncate text-muted "><?=$meeting->agenda?></p>
                                                 </div>
                                                 <div class="flex-shrink-0 text-end me-3">
                                                     <h6 class="mb-1"><?=lang('Files.Speaker')?> </h6>

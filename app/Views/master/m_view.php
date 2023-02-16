@@ -8,6 +8,7 @@
     <?= $this->include('partials/sweetalert-css') ?>
     <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <link href="<?=base_url()?>/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -148,6 +149,14 @@
                                                         </div>
                                                     </div>
                                                     <?php }
+                                                    if($form['type']=='textarea') { ?>
+                                                        <div class="<?=$form['style']?>">
+                                                            <div class="form-group mb-3">
+                                                                <label><?=lang('Files.'.$form['label'])?></label>
+                                                            <textarea id="<?=$form['idform']?>" name="<?=$form['idform']?>" class=<?=$form['form-class']?>></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <?php }
                                                     if($form['type']=='password') { ?>
                                                         <div class="<?=$form['style']?>">
                                                             <div class="form-group mb-3">
@@ -272,6 +281,8 @@
 <script src="<?=base_url()?>/assets/js/app.js"></script>
 <script src="<?=base_url()?>/assets/js/multiselect.min.js"></script>
 <?php //echo $crudScript;?>
+<script src="<?=base_url()?>/assets/ckeditor/ckeditor.js"></script>
+<script src="<?=base_url()?>/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#datatable').DataTable();
@@ -290,6 +301,13 @@
                     str.innerHTML = '<?=  lang('Files.Add'),' ',lang('Files.'.$menuname)  ?>'
                     <?php foreach($forms as $form):
                         switch($form['type']) {
+                        case 'textarea' : ?>
+                            let instanceCKeditor<?=$form['idform']?> = CKEDITOR.instances['<?=$form['idform']?>'];
+                            // if(instanceCKeditor) CKEDITOR.remove(CKEDITOR.instances['<?=$form['idform']?>']);
+                            if(instanceCKeditor<?=$form['idform']?>) CKEDITOR.instances.<?=$form['idform']?>.destroy();
+                            CKEDITOR.replace('<?=$form['idform']?>')
+                            CKEDITOR.instances.<?=$form['idform']?>.setData('');
+                        <?php break; ?>
                         case 'file': ?>
                         document.getElementById("file<?=$form['idform']?>").value = '';
                         document.getElementById("f<?=$form['idform']?>").innerHTML = '';
@@ -374,6 +392,17 @@
                     let id<?=$form['idform']?> = dom<?=$form['idform']?>.getElementsByClassName('btn btn-success').length;
                     if(id<?=$form['idform']?> == 1) s<?=$form['idform']?>.checked = true
                 <?php break;  ?>
+                <?php case 'textarea': ?>
+                    // get full content
+                    // fetch(`<?=base_url().'/'.$route?>/getData/${rowData[1]}`)
+                    // .then(response => response.json())
+                    // .then(data => {
+                    //     console.log(data)
+                    // })
+                    CKEDITOR.replace('<?=$form['idform']?>')
+                    let <?=$form['idform']?>TextArea = rowData[i];
+                    CKEDITOR.instances.<?=$form['idform']?>.setData(<?=$form['idform']?>TextArea);
+                <?php break; ?>
                 <?php default: ?>
                     let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
                 <?php } ?>

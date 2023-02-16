@@ -194,6 +194,18 @@ class Article extends BaseController
                     'text' => false,
                 ],
             ),
+            'custombutton' => array(
+                'Button1' => [
+                    'toggle' => true,
+                    'id' => 'sendarticle',
+                    'name' => 'articlesend',
+                    'title' => lang('Files.Send_Article'),
+                    'class' => 'btn btn-soft-primary waves-effect waves-light btn-sm',
+                    'icon-class' => 'dripicons-broadcast',
+                    'loadfile' => 'master/_partials/sendarticle',
+                    'scriptfile' => 'master/_partials/script/sendarticle',
+                ],
+            ),
             'forms' => [
                 # rule
                 # column_name => array(type,'name and id','class','style')
@@ -239,6 +251,7 @@ class Article extends BaseController
                 ),
                 'pdffile' => array(
                     'label'=>'PDF_File',
+                    'label2'=>'PDF_File',
                     'field'=>'pdffile',
                     'type'=>'file',
                     'idform'=>'nmfile',
@@ -282,7 +295,7 @@ class Article extends BaseController
 		];
         // $gallery = $this->model->where('gallerytype',1)->findAll($limit,$offset);
 
-        return view('master/w_view',$data);
+        return view('master/m_view',$data);
     }
 
     public function postArticle()
@@ -913,5 +926,40 @@ class Article extends BaseController
             }
         endif;
         return $this->respond($arr,200);
+    }
+
+    public function sendSubs()
+    {
+        $datas = $this->request->getVar('data');
+        if(is_object($datas)) {
+            $datas = (array) $datas;
+        }
+        $subsemail='';
+        // var_dump($datas['email']);
+        if($datas['email']=='all') :
+            $model = new \App\Models\ArticleSubsModel();
+            $listemail = $model->where('status',1)->findAll();
+            foreach($listemail as $row):
+                $subsemail = ($subsemail == '' ? $row->subs_email : $subsemail.', '.$row->subs_email);
+            endforeach;
+        else:
+            $subsemail = $datas['email'];
+        endif;
+
+        $data = $this->model->find($datas['id']);
+        var_dump($data);
+
+        $email  = service('email');
+        $fromEmail = 'dont-reply@wilianperkasa.com';
+        $fromName = 'Newsletter From Wilian Perkasa';
+
+        // $sent = $email->setFrom($fromEmail, $fromName)
+        //     ->setTo($subsemail)
+        //     // ->setCC($ccemail)
+        //     ->setSubject('Pengumuman Berita Terbaru')
+        //     ->setMessage(view('email/approve_meeting',['data' => $data,'peserta'=>$peserta,'room'=>$room]))
+        //     ->setMailType('html')
+        //     ->send();
+        
     }
 }

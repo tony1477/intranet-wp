@@ -311,7 +311,7 @@ $routes->post('article/pojok-wp/upload_image','Company/Article::uploadImg');
 $routes->post('article/postComment','Company/Article::postComment');
 $routes->get('article/read/(:segment)/(:segment)','Company\Article::readArticle/$1/$2');
 $routes->get('article/(:alpha)','Company\Article::Category/$1');
-
+$routes->post('article/sendsubs','Company/Article::sendSubs');
 $routes->get('mailsubs','Master/Mailsubs::index');
 $routes->post('mailsubs/post','Master/Mailsubs::save');
 

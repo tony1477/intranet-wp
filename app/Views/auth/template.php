@@ -104,7 +104,7 @@
             <!-- end container fluid -->
         </div>
 
-        <audio controls autoplay="true">
+        <audio controls autoplay="true" id="myAudio" style="display:none">
             <source src="<?=base_url()?>/assets/mars.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
         </audio>
@@ -112,6 +112,15 @@
        <?= $this->include('partials/vendor-scripts') ?>
 
        <?=$this->renderSection('customjs')?>
+
+       <script>
+        window.onload = (event) => {
+            const form = document.querySelector('input[name="login"]')
+            form.addEventListener('click', e => {
+                myAudio.play();
+            })
+        };
+       </script>
 
     </body>
 
