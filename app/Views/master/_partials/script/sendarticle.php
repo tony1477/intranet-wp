@@ -1,5 +1,6 @@
 <script>
-   
+    CKEDITOR.replace('emailtext');
+
     if ($.fn.dataTable.isDataTable('#datatable-buttons')) {
         console.log('ada')
         table = $('#datatable-buttons').DataTable();
@@ -26,6 +27,7 @@
         
         let list = document.querySelector('#custom-email')
         let id = document.querySelector('input[name="idarticle"]').value
+        let txt = CKEDITOR.instances.emailtext.getData()
         let radios = document.querySelectorAll('input[name="formRadios"]')
         let email;
         radios.forEach((e,i) => {
@@ -40,7 +42,8 @@
 
         const data = {
             'id':id,
-            'email': email
+            'email': email,
+            'text': txt
         }
         sendEmailSubs('<?=base_url()?>/<?=$route?>/sendsubs',{'data':data})
             .then(data => {

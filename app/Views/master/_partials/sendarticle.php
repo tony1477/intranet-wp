@@ -8,8 +8,11 @@
       <div class="modal-body">
         <!-- <form > -->
         <div class="row">
-          <div class="col-md-12">
-            <div>                          
+          <div class="col-12">
+              <div class="mb-3">
+                  <label for="example-text-input" class="form-label">Text Email</label>
+                  <textarea id="emailtext" class="form-control" name="emailtext"></textarea>
+              </div>
               <div class="form-check mb-3">
                   <input type="hidden" name="idarticle" value="">
                   <input class="form-check-input" type="radio" name="formRadios" id="formRadios1" checked="" value="subs">
@@ -22,8 +25,9 @@
               <div class="mt-3 customemail" style="display:none">
                 <input class="form-control" id="custom-email" type="text" value="" placeholder="" />
               </div>
-            </div>
           </div>
+        </div>
+         
         <!-- </form> -->
       </div>
       <div class="modal-footer">

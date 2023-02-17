@@ -314,6 +314,7 @@ $routes->get('article/(:alpha)','Company\Article::Category/$1');
 $routes->post('article/sendsubs','Company/Article::sendSubs');
 $routes->get('mailsubs','Master/Mailsubs::index');
 $routes->post('mailsubs/post','Master/Mailsubs::save');
+$routes->get('mailsubs/email','Master/Mailsubs::email');
 
 ## Helpdesk
 $routes->get('list-helpdesk','Helpdesk/Ticketing::index');

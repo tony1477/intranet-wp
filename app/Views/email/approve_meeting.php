@@ -5,7 +5,7 @@
 </style>
 <style>
     body {
-        font-family: 'Nunito', sans-serif !important;
+        /* font-family: 'Nunito', sans-serif !important; */
     }
     table {
         width: 75vw;

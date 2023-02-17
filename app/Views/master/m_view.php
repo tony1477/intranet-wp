@@ -8,7 +8,6 @@
     <?= $this->include('partials/sweetalert-css') ?>
     <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
-    <link href="<?=base_url()?>/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -282,7 +281,6 @@
 <script src="<?=base_url()?>/assets/js/multiselect.min.js"></script>
 <?php //echo $crudScript;?>
 <script src="<?=base_url()?>/assets/ckeditor/ckeditor.js"></script>
-<script src="<?=base_url()?>/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#datatable').DataTable();

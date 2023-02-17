@@ -117,4 +117,9 @@ class Mailsubs extends BaseController
         $response = json_encode($arr);
         return $response;
     }
+
+    public function email()
+    {
+        return view('email/newsletter');
+    }
 }

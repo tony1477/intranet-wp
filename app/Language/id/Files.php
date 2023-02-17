@@ -316,6 +316,10 @@ return [
     "Room_Used" => "Pemakaian Ruangan",
     "Popular_Post" => "Posting Terpopuler",
     "Email_Newsletter" => "Berlangganan Berita",
+    "mail-newsletter" => "Email Langganan",
+    "Newsletter" => "Langganan",
+    "Subs_Date" => "Tanggal Berlangganan",
+    "Send_Article" => "Blast Email",
 
     // Menu
     "group-divisi" => 'Grup Divisi',

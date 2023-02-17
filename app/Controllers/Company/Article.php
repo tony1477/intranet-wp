@@ -175,7 +175,7 @@ class Article extends BaseController
 			'page_title' => view('partials/page-title', ['title' => 'Article', 'li_1' => 'Intranet', 'li_2' => 'Article']),
 			'modules' => $menu,
             'route'=>'article',
-            'menuname' => 'berita',
+            'menuname' => 'News',
             'data' => $article,
             'modal' => 'modal-lg',
             'columns_hidden' => array('Action'),
@@ -251,7 +251,6 @@ class Article extends BaseController
                 ),
                 'pdffile' => array(
                     'label'=>'PDF_File',
-                    'label2'=>'PDF_File',
                     'field'=>'pdffile',
                     'type'=>'file',
                     'idform'=>'nmfile',
@@ -295,7 +294,7 @@ class Article extends BaseController
 		];
         // $gallery = $this->model->where('gallerytype',1)->findAll($limit,$offset);
 
-        return view('master/m_view',$data);
+        return view('master/w_view',$data);
     }
 
     public function postArticle()
@@ -935,7 +934,6 @@ class Article extends BaseController
             $datas = (array) $datas;
         }
         $subsemail='';
-        // var_dump($datas['email']);
         if($datas['email']=='all') :
             $model = new \App\Models\ArticleSubsModel();
             $listemail = $model->where('status',1)->findAll();
@@ -947,19 +945,27 @@ class Article extends BaseController
         endif;
 
         $data = $this->model->find($datas['id']);
-        var_dump($data);
 
         $email  = service('email');
         $fromEmail = 'dont-reply@wilianperkasa.com';
         $fromName = 'Newsletter From Wilian Perkasa';
 
-        // $sent = $email->setFrom($fromEmail, $fromName)
-        //     ->setTo($subsemail)
-        //     // ->setCC($ccemail)
-        //     ->setSubject('Pengumuman Berita Terbaru')
-        //     ->setMessage(view('email/approve_meeting',['data' => $data,'peserta'=>$peserta,'room'=>$room]))
-        //     ->setMailType('html')
-        //     ->send();
+        $sent = $email->setFrom($fromEmail, $fromName)
+            ->setTo($subsemail)
+            // ->setCC($ccemail)
+            ->setSubject('Pengumuman Berita Terbaru')
+            ->setMessage(view('email/newsletter',['data' => $data,'text'=>$datas['text']]))
+            ->setMailType('html')
+            ->send();
+
+        $message = lang('Files.Save_Success');
+        $arr = array(
+            'status' => 'success',
+            'code' => 200,
+            'message' => $message
+        );
+        
+        return $this->respond($arr,200);
         
     }
 }

@@ -315,6 +315,10 @@ return [
     "Room_Used" => "Room Used",
     "Popular_Post" => "Popular Post",
     "Email_Newsletter" => "Email Newsletter",
+    "mail-newsletter" => "Mail Newsletter",
+    "Newsletter" => "Newsletter",
+    "Subs_Date" => "Subscription Date",
+    "Send_Article" => "Kirim Blast Email",
 
     // Menu
     "group-divisi" => 'Division Group',
