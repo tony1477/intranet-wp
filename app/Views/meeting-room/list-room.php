@@ -77,7 +77,7 @@
                                     <?=$row->nama_ruangan?></a>
                                 </td>
                                 <td><?=$row->lokasi_ruangan?></td>
-                                <td><?=$row->status?></td>
+                                <td><button class="btn <?=($row->status=='Available' ? 'btn-success' : 'btn-secondary')?>"><?=$row->status?></button></td>
                                 <td>
                                     <?php if($row->dept_peminjam):
                                         $str = explode(',',$row->dept_peminjam);?>
