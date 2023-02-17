@@ -63,7 +63,7 @@
                                 <th scope="col"><?=lang('Files.Room_Name')?></th>
                                 <th scope="col"><?=lang('Files.Area')?></th>
                                 <th scope="col"><?=lang('Files.Status')?></th>
-                                <th scope="col"><?=lang('Files.Requester')?></th>
+                                <th scope="col"><?=lang('Files.Last_Used')?></th>
                                 <th style="width: 80px; min-width: 80px;"><?=lang('Files.Action')?></th>
                             </tr>
                         </thead>
@@ -77,7 +77,7 @@
                                     <?=$row->nama_ruangan?></a>
                                 </td>
                                 <td><?=$row->lokasi_ruangan?></td>
-                                <td>Available</td>
+                                <td><?=$row->status?></td>
                                 <td>
                                     <?php if($row->dept_peminjam):
                                         $str = explode(',',$row->dept_peminjam);?>

@@ -1,7 +1,7 @@
 <?php
 function getRoom() {
     $db = db_connect();
-    return $db->query("select a.idruangan,nama_ruangan,lokasi_ruangan,jumlah_peserta,keterangan,foto_ruangan, GetLastUsedRoom(a.idruangan,3) as dept_peminjam
+    return $db->query("select a.idruangan,nama_ruangan,lokasi_ruangan,jumlah_peserta,keterangan,foto_ruangan, GetLastUsedRoom(a.idruangan,3) as dept_peminjam, getStatusRoom(a.idruangan) as status
     from data_ruangan a 
     where a.status=1 order by idruangan asc ")->getResult();
 }
@@ -31,7 +31,7 @@ function getScheduleByName($name) {
     return $db->query("select a.tgl_mulai,jam_mulai,jam_selesai,a.jumlah_peserta, asal_peserta,agenda,pemateri,nama_peserta,kebutuhan, b.nama_ruangan
     from peminjaman_ruangan a
     join data_ruangan b on b.idruangan = a.idruangan
-    where b.nama_ruangan = '{$name}' order by tgl_mulai desc limit 15")->getResult();
+    where b.nama_ruangan = '{$name}' order by tgl_mulai,jam_mulai desc limit 15")->getResult();
 }
 
 function getListSchedule() {
