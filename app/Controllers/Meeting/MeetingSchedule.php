@@ -204,9 +204,21 @@ class MeetingSchedule extends BaseController
                 $i++;
             }
         endforeach;
+        $list_cctoIT = ['Zoom','Laptop','Proyektor','Link Zoom'];
         $getSpeaker = $this->model->where('idpeminjaman',$id)->find();
+        $kebutuhan = explode(',',$getSpeaker[0]->kebutuhan);
+        $mailtoIt = false;
+        for($i=0; $i<count($kebutuhan); $i++) :
+            if(in_array($kebutuhan[$i],$list_cctoIT)):
+                $mailtoIt = true;
+            endif;
+        endfor;
         $mailto = ['mailto'=>$mail];
         $spakeremail = array($getSpeaker[0]->ccemail);
+        if($mailtoIt==true) {
+            if($spakeremail != null) array_push($spakeremail,'it@wilianperkasa.com');
+            $spakeremail = array('it@wiianperkasa.com');
+        }
         $mailcc = ['mailcc' => $spakeremail];
         $response = array_merge($mailto,$mailcc);
         return $this->respond($response,200);

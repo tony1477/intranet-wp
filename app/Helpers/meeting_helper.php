@@ -37,7 +37,12 @@ function getScheduleByName($name) {
 function getListSchedule() {
     $db = db_connect();
     return $db->query("select a.*, b.foto_ruangan, b.nama_ruangan, c.dep_nama, dep_kode,
-    case when a.status = 1 then 'Menunggu Approval' when a.status = 2 then 'Sedang Digunakan' when a.status = 3 then 'Selesai' else 'Batal' end as status_kode
+    case 
+	 when a.status = 1 then 'Menunggu Approval' 	 
+	 when ((a.tgl_mulai = CURDATE() AND CURTIME() >= a.jam_mulai AND a.tgl_mulai = CURDATE() AND CURTIME() <= a.jam_selesai AND a.status = 2) OR (a.tgl_mulai = CURDATE() AND CURTIME() >= a.jam_mulai AND a.act_jam_selesai IS NULL)) then 'Sedang Digunakan'
+	 when a.status = 2 then 'Sudah di Booking' 
+	 when a.status = 3 then 'Selesai'
+	 else 'Batal' end as status_kode
     from peminjaman_ruangan a 
     join data_ruangan b on b.idruangan = a.idruangan
     join tbl_ifmdepartemen c on c.iddepartment = a.iddepartment
