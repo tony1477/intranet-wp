@@ -31,7 +31,7 @@ function getScheduleByName($name) {
     return $db->query("select a.tgl_mulai,jam_mulai,jam_selesai,a.jumlah_peserta, asal_peserta,agenda,pemateri,nama_peserta,kebutuhan, b.nama_ruangan
     from peminjaman_ruangan a
     join data_ruangan b on b.idruangan = a.idruangan
-    where b.nama_ruangan = '{$name}' order by tgl_mulai,jam_mulai desc limit 15")->getResult();
+    where b.nama_ruangan = '{$name}' order by tgl_mulai desc, jam_mulai desc limit 15")->getResult();
 }
 
 function getListSchedule() {
