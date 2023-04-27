@@ -66,7 +66,7 @@
                 <!-- end row -->
 
                 <div class="table-responsive mb-4">
-                    <table class="table align-middle datatable dt-responsive table-check nowrap" style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
+                    <table class="table align-middle datatable dt-responsive table-check" style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
                         <thead>
                             <tr>
                                 <th scope="col" style="width: 50px;">

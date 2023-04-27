@@ -46,7 +46,7 @@ function getListSchedule() {
     from peminjaman_ruangan a 
     join data_ruangan b on b.idruangan = a.idruangan
     join tbl_ifmdepartemen c on c.iddepartment = a.iddepartment
-    order by tgl_mulai desc")->getResult();
+    order by FIELD(a.status,1,2,3,0) ,tgl_mulai desc")->getResult();
 }
 
 function getListSchedulebyDay($day=1) {
