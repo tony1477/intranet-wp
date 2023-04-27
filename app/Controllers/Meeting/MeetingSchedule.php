@@ -217,7 +217,7 @@ class MeetingSchedule extends BaseController
         $spakeremail = array($getSpeaker[0]->ccemail);
         if($mailtoIt==true) {
             if($spakeremail != null) array_push($spakeremail,'it@wilianperkasa.com');
-            $spakeremail = array('it@wiianperkasa.com');
+            $spakeremail = array('it@wilianperkasa.com');
         }
         $mailcc = ['mailcc' => $spakeremail];
         $response = array_merge($mailto,$mailcc);
@@ -256,7 +256,8 @@ class MeetingSchedule extends BaseController
                 $fromEmail = 'dont-reply@wilianperkasa.com';
                 $fromName = 'Email Service Wilian Perkasa';
 
-                $sent = $email->setFrom($fromEmail, $fromName)
+                // $email->setFrom($fromEmail, $fromName)
+                $email->setFrom('it@wilianperkasa.com', 'Email Service Wilian Perkasa')
                     ->setTo($listemail)
                     ->setCC($ccemail)
                     ->setSubject('Undangan Meeting ')
