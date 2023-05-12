@@ -34,14 +34,14 @@ See https://github.com/adobe-type-tools/cmap-resources
     <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.0.279/build/pdf.worker.min.js" integrity="sha256-I6ANrW9Xo6Woi1bOHiR8R45wFegqOFqH0Mg19jc1v0A=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.0.279/build/pdf.sandbox.min.js" integrity="sha256-2Je1pvMbmcAfGMghB8IgUZ6X10DxdCjMwzftvGVmfwI=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.0.279/web/pdf_viewer.css" integrity="sha256-s959po0L0JgHliXFTmhpxKRkesqnq6C9ypUL9Zo3IDo=" crossorigin="anonymous"> -->
-    <link rel="stylesheet" href="<?=base_url()?>/assets/js/pdfjs/web/viewer.css">
-    <script src="<?=base_url()?>/assets/js/pdfjs/build/pdf.js"></script>
+    <link rel="stylesheet" href="<?=base_url()?>/public/assets/js/pdfjs/web/viewer.css">
+    <script src="<?=base_url()?>/public/assets/js/pdfjs/build/pdf.js"></script>
     <script type="text/javascript">
-    localStorage.setItem('pdfFile','<?=$_SESSION['filePdf']?>')
+    sessionStorage.setItem('pdfFile','<?=$_SESSION['filePdf']?>')
     
     <?php //$row['dok_nmfile']?>
     </script>
-    <script src="<?=base_url()?>/assets/js/pdfjs/web/viewer.js"></script>
+    <script src="<?=base_url()?>/public/assets/js/pdfjs/web/viewer.js"></script>
 </head>
 <body tabindex="1">
 <div id="outerContainer">

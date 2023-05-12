@@ -8,7 +8,7 @@
 
     <?= $this->include('partials/head-css') ?>
     <?= $this->include('partials/sweetalert-css') ?>
-    <link rel="stylesheet" href="<?=base_url()?>/assets/css/index.css" type="text/css" />
+    <link rel="stylesheet" href="<?=base_url()?>/public/assets/css/index.css" type="text/css" />
     
 </head>
 
@@ -48,7 +48,7 @@
                                         foreach($data['foto'] as $foto): ?>
 
                                             <div class="carousel-item <?=$i==0 ? 'active' : ''?>">
-                                            <img class="d-block img-fluid mx-auto" src="<?=base_url()?>/assets/images/gallery/foto/<?=$foto->url?>" alt="<?=strip_tags($foto->title)?>">
+                                            <img class="d-block img-fluid mx-auto" src="<?=base_url()?>/public/assets/images/gallery/foto/<?=$foto->url?>" alt="<?=strip_tags($foto->title)?>">
                                             <?php $i++;?>
                                         </div>
                                         <?php endforeach;?>
@@ -104,7 +104,7 @@
                                                             <i class="mdi mdi-dots-vertical"></i>
                                                         </a>
     
-                                                        <div class="dropdown-menu dropdown-menu-end" style="">
+                                                        <div class="dropdown-menu dropdown-menu-end" >
                                                             <a class="dropdown-item" href="<?=base_url().'/meeting-schedule/detail/'.$meeting->idpeminjaman?>">Lihat Detail</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item" href="#">Selesai Meeting</a>
@@ -142,7 +142,7 @@
                                 <div class="card-body">
                                     <div class="">
                                         <div class="mb-4">
-                                            <img src="<?=base_url()?>/assets/images/gallery/article/<?=$article->image?>" alt="" class="img-thumbnail mx-auto d-block">
+                                            <img src="<?=base_url()?>/public/assets/images/gallery/article/<?=$article->image?>" alt="" class="img-thumbnail mx-auto d-block">
                                         </div>
 
                                         <div class="text-center">
@@ -254,7 +254,7 @@
 <!-- SweetAlert -->
 <?= $this->include('partials/sweetalert') ?>
 <!-- App js -->
-<script src="assets/js/app.js"></script>
+<script src="<?=base_url()?>/public/assets/js/app.js"></script>
 <script>
     const articleId = document.querySelector('#articleid')
     async function getCommentbyArticleId() {
@@ -275,7 +275,7 @@
                 div.innerHTML = `
                     <div class="flex-shrink-0 me-3">
                         <div class="avatar-xs">
-                            <img src="<?=base_url()?>/assets/images/users/${row.image}" alt="" class="img-fluid d-block rounded-circle">
+                            <img src="<?=base_url()?>/public/assets/images/users/${row.image}" alt="" class="img-fluid d-block rounded-circle">
                         </div>
                     </div>
                     <div class="flex-grow-1">
@@ -296,7 +296,7 @@
                         divChild.innerHTML = `
                         <div class="flex-shrink-0 me-3">
                             <div class="avatar-xs">
-                                <img src="<?=base_url()?>/assets/images/users/${child.image}" alt="" class="img-fluid d-block rounded-circle">
+                                <img src="<?=base_url()?>/public/assets/images/users/${child.image}" alt="" class="img-fluid d-block rounded-circle">
                             </div>
                         </div>
                         <div class="flex-grow-1">

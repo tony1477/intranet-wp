@@ -47,21 +47,21 @@ class Email extends BaseConfig
      *
      * @var string
      */
-    public $SMTPHost = 'srv42.niagahoster.com';
+    public $SMTPHost = '';
 
     /**
      * SMTP Username
      *
      * @var string
      */
-    public $SMTPUser = 'it@wilianperkasa.com';
+    public $SMTPUser = '';
 
     /**
      * SMTP Password
      *
      * @var string
      */
-    public $SMTPPass = 'Lsp1234';
+    public $SMTPPass = '';
 
     /**
      * SMTP Port

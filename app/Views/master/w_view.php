@@ -6,8 +6,8 @@
     <?= $this->include('partials/_datatables-css') ?>
     <?= $this->include('partials/head-css') ?>
     <?= $this->include('partials/sweetalert-css') ?>
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
-    <link href="<?=base_url()?>/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" />
+    <?= $this->include('partials/_home-css') ?>
+    <link href="<?=base_url()?>/public/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -245,25 +245,25 @@
 <?= $this->include('partials/sweetalert') ?>
 
 <!-- Required datatable js -->
-<script src="<?=base_url()?>/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
-<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/jszip/jszip.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/pdfmake/build/pdfmake.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/pdfmake/build/vfs_fonts.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/jszip/jszip.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
 <!-- Responsive examples -->
-<script src="<?=base_url()?>/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
-<script src="<?=base_url()?>/assets/js/app.js"></script>
-<script src="<?=base_url()?>/assets/ckeditor/ckeditor.js"></script>
-<script src="<?=base_url()?>/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="<?=base_url()?>/public/assets/js/app.js"></script>
+<script src="<?=base_url()?>/public/assets/ckeditor/ckeditor.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
 <script>  
 </script>
 <?php //echo $crudScript;?>
@@ -331,11 +331,11 @@
                     let option<?=$form['idform']?> = Array.from(select<?=$form['idform']?>.options);
                     let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
                     selectedOpt<?=$form['idform']?>.selected = true;
-                    // console.log(<?=$form['idform']?>)
+                    
                 <?php break; ?>
                 <?php case 'file': ?>
                     let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
-                    // console.log(full<?=$form['idform']?>)
+                    
                     document.getElementById("file<?=$form['idform']?>").value = '';
                     // document.getElementById("f<?=$form['idform']?>").innerHTML = '';
                 <?php break; ?>
@@ -343,7 +343,7 @@
                     let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
                     document.getElementById("file<?=$form['idform']?>").value = '';
                     if(<?=$form['idform']?>!='') {
-                        document.querySelector(".f<?=$form['idform']?>").src = "<?=base_url()?>/assets/<?=$form['asset-folder']?>/"+<?=$form['idform']?>;
+                        document.querySelector(".f<?=$form['idform']?>").src = "<?=base_url()?>/public/assets/<?=$form['asset-folder']?>/"+<?=$form['idform']?>;
                     }
                 <?php break; ?>
                 <?php case 'switch':  ?>
@@ -436,23 +436,8 @@
             if(charlength>=100) Swal.fire("Error","Filename too long!!","error")
         })
     }
-    // const selected = document.querySelectorAll("input#kode");
-    // const $select = document.querySelector('#idgroup')
-    // const $option = Array.from($select.options)
     let ix; let offset=10;
-    // for (let i = 0; i < editButton.length; i++) {
-    //     editButton[i].addEventListener("click", function() {
-            
-    //         // let id = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(1).innerHTML
-    //         // let group = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(2).innerHTML
-    //         // let kode = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(3).innerHTML
-    //         // let nama = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(4).innerHTML
-    //         ix = Math.floor(i/offset);
-    //         let j = i - (offset*ix);
-    //         let n=1; 
-    
-
-    //     
+      
 
     for(let i=0; i< deleteButton.length; i++) {
         deleteButton[i].addEventListener("click", function() {
@@ -466,9 +451,7 @@
             cancelButtonColor: "#fd625e",
             confirmButtonText: "<?=lang('Files.Yes')?>"
             }).then(function (result) {
-            // const reqbody = {'kode':kode}
             if (result.value) {
-                // console.log(id)
                 deleteData('<?=base_url()?>/<?=$route?>/delete', {'id':id})
                 .then(data => {
                     console.log(data)
@@ -481,7 +464,6 @@
                 .catch(err => {
                     console.log('Error',err)
                 })
-                // console.log(table)
             }
         });
         });
@@ -575,13 +557,8 @@
                 let value<?=$form['idform']?> = CKEDITOR.instances.<?=$form['idform']?>.getData()
                 data.<?=$form['idform']?> = value<?=$form['idform']?>
             <?php endif;?>
-            //data[<?=$form['idform']?>] = value<?=$form['idform']?>;
-            // data.<?=$form['idform']?> = value<?=$form['idform']?>;
         <?php endforeach;?>
-        // const id =  document.forms["<?=$menuname?>"]["id"].value;
-        // const kode =  document.forms["<?=$menuname?>"]["kode"].value;
-        // const nama =  document.forms["<?=$menuname?>"]["namadivisi"].value;
-        // data = [id, kode, nama] 
+        
         postData('<?=base_url()?>/<?=$route?>/post',{'data':data})
         .then(data => {
             if(data.code === 200) {

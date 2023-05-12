@@ -10,10 +10,10 @@
         <meta content="Themesbrand" name="author" />
         <meta content="Martoni F" name="creator" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="<?=base_url()?>/assets/images/logo.png">
+        <link rel="shortcut icon" href="<?=base_url()?>/public/assets/images/logo.png">
 
         <?= $this->include('partials/head-css') ?>
-        <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/template.css" />
+        <link rel="stylesheet" type="text/css" href="<?=base_url()?>/public/assets/css/template.css" />
 
 </head>
 
@@ -28,8 +28,8 @@
                             <div class="w-100">
                                 <div class="d-flex flex-column h-100">
                                     <div class="mb-4 mb-md-5 text-center justify-content-center">
-                                        <img src="<?=base_url() ?>/assets/images/logo-baru.png" alt="" height="88">
-                                        <a href="/" class="d-block auth-logo mt-3">
+                                        <img src="<?=base_url() ?>/public/assets/images/logo-baru.png" alt="Logo WP" height="88">
+                                        <a href="<?=base_url()?>" class="d-block auth-logo mt-3">
                                              <span class="logo-txt text-center">WILIAN PERKASA</span>
                                         </a>
                                         <span id="slogan" class="text-end">" be Wise be Excellent "</span>
@@ -62,7 +62,7 @@
                                     $i=0;
                                     foreach($image_slide as $inner):?>
                                     <div class="carousel-item <?=$i==0 ?'active' : ''?>">
-                                    <img src="<?=base_url()?>/assets/images/gallery/foto/<?=$inner->url?>" class="d-block w-100" style="min-height:100vh;" alt="...">
+                                    <img src="<?=base_url()?>/public/assets/images/gallery/foto/<?=$inner->url?>" class="d-block w-100" style="min-height:100vh;" alt="...">
                                     <div class="carousel-caption d-none d-md-block">
                                         <h5 class="judul"><?=$inner->title?></h5>
                                         <?=$inner->description?>
@@ -105,7 +105,7 @@
         </div>
 
         <audio controls autoplay="true" id="myAudio" style="display:none">
-            <source src="<?=base_url()?>/assets/mars.mp3" type="audio/mpeg">
+            <source src="<?=base_url()?>/public/assets/mars.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
         </audio>
         <!-- JAVASCRIPT -->

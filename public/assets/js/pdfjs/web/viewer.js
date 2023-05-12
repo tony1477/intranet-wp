@@ -55,7 +55,7 @@ const OptionKind = {
   WORKER: 0x08,
   PREFERENCE: 0x80
 };
-let filePdf = localStorage.getItem('pdfFile')
+let filePdf = sessionStorage.getItem('pdfFile')
 exports.OptionKind = OptionKind;
 const defaultOptions = {
   annotationMode: {

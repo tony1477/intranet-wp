@@ -6,17 +6,17 @@
     <?= $title_meta ?>
 
     <!-- DataTables -->
-    <link href="<?=base_url()?>/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>/public/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Responsive datatable examples -->
-    <link href="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>/public/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     
     <!-- Sweet Alert-->
-    <link href="<?=base_url()?>/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>/public/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
     
-    <link href="<?=base_url()?>/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>/public/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" />
     <?= $this->include('partials/head-css') ?>
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <?=$this->include('partials/_home-css') ?>
 
 </head>
 
@@ -94,7 +94,7 @@
                                     </div>
                                 </th>
                                 <td>
-                                    <img src="<?=base_url()?>/assets/images/meeting-rooms/<?=$list->foto_ruangan?>" alt="" class="avatar-sm rounded-circle me-2">
+                                    <img src="<?=base_url()?>/public/assets/images/meeting-rooms/<?=$list->foto_ruangan?>" alt="" class="avatar-sm rounded-circle me-2">
                                     <a href="<?=base_url()?>/meeting-schedule/detail/<?=$list->idpeminjaman?>" class="text-body"><?=$list->nama_ruangan?></a>
                                 </td>
                                 <td><?=date('d F Y H:i', strtotime($list->tgl_mulai.' '.$list->jam_mulai))?></td>
@@ -204,19 +204,19 @@
 <?= $this->include('partials/vendor-scripts') ?>
 
 <!-- Required datatable js -->
-<script src="<?=base_url()?>/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 
 <!-- Responsive examples -->
-<script src="<?=base_url()?>/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 <!-- init js -->
-<script src="<?=base_url()?>/assets/js/pages/datatable-pages.init.js"></script>
+<script src="<?=base_url()?>/public/assets/js/pages/datatable-pages.init.js"></script>
 
 <!-- Sweet Alerts js -->
-<script src="<?=base_url()?>/assets/libs/sweetalert2/sweetalert2.min.js"></script>
-<script src="<?=base_url()?>/assets/js/app.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+<?=$this->include('partials/_home-js')?>
 <script src="<?=base_url()?>/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
 
 <script>

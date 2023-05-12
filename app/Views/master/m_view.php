@@ -7,7 +7,7 @@
     <?= $this->include('partials/head-css') ?>
     <?= $this->include('partials/sweetalert-css') ?>
     <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/public/assets/css/index.css" />
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -261,26 +261,26 @@
 <?= $this->include('partials/sweetalert') ?>
 
 <!-- Required datatable js -->
-<script src="<?=base_url()?>/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
-<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/jszip/jszip.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/pdfmake/build/pdfmake.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/pdfmake/build/vfs_fonts.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/jszip/jszip.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
 <!-- Responsive examples -->
-<script src="<?=base_url()?>/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
-<script src="<?=base_url()?>/assets/js/app.js"></script>
-<script src="<?=base_url()?>/assets/js/multiselect.min.js"></script>
+<script src="<?=base_url()?>/public/assets/js/app.js"></script>
+<script src="<?=base_url()?>/public/assets/js/multiselect.min.js"></script>
 <?php //echo $crudScript;?>
-<script src="<?=base_url()?>/assets/ckeditor/ckeditor.js"></script>
+<script src="<?=base_url()?>/public/assets/ckeditor/ckeditor.js"></script>
 <script>
     $(document).ready(function() {
         $('#datatable').DataTable();
@@ -305,7 +305,7 @@
                             if(instanceCKeditor<?=$form['idform']?>) CKEDITOR.instances.<?=$form['idform']?>.destroy();
                             CKEDITOR.replace('<?=$form['idform']?>')
                             CKEDITOR.instances.<?=$form['idform']?>.setData('');
-                        <?php break; ?>
+                        <?php break; 
                         case 'file': ?>
                         document.getElementById("file<?=$form['idform']?>").value = '';
                         document.getElementById("f<?=$form['idform']?>").innerHTML = '';
@@ -379,7 +379,7 @@
                     let <?=$form['idform']?> = rowData[i].replace('&amp;','&');
                     document.getElementById("file<?=$form['idform']?>").value = '';
                     if(<?=$form['idform']?>!='') {
-                        document.querySelector(".f<?=$form['idform']?>").src = "<?=base_url()?>/assets/images/gallery/foto/"+<?=$form['idform']?>;
+                        document.querySelector(".f<?=$form['idform']?>").src = "<?=base_url()?>/public/assets/images/gallery/foto/"+<?=$form['idform']?>;
                     }
                 <?php break; ?>
                 <?php case 'switch':  ?>
@@ -481,61 +481,6 @@
     // const $select = document.querySelector('#idgroup')
     // const $option = Array.from($select.options)
     let ix; let offset=10;
-    // EDIT DIBAWAH TIDAK DIPAKAI LAGI
-    // for (let i = 0; i < editButton.length; i++) {
-    //     editButton[i].addEventListener("click", function() {
-    
-    //         // var table = $('#datatable-buttons').DataTable();
- 
-    //         // $('#datatable-buttons tbody').on( 'click', 'td', function () {
-    //         //     var idx = table.cell( this ).index().column;
-    //         //     var title = table.column( idx ).header();
-            
-    //         //     alert( 'Column title clicked on: '+$(title).html() );
-    //         // } );
-            
-    //         // let idx = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(1).innerHTML
-    //         // console.log(idx)
-    //         // let group = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(2).innerHTML
-    //         // let kode = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(3).innerHTML
-    //         // let nama = document.querySelector('table.<?=$menuname?>').rows.item(i+1).cells.item(4).innerHTML
-    //         ix = Math.floor(i/offset);
-    //         let j = i - (offset*ix);
-    //         let n=1;
-
-    
-    //         <?php foreach($forms as $form): ?>
-    //             let <?=$form['idform']?> = document.querySelector('table.<?=$menuname?>').rows.item(j+1).cells.item(n).innerText;
-    //             <?php if($form['type']=='select' ) { ?>
-    //                 let select<?=$form['idform']?> = document.querySelector('#<?=$form['idform']?>');
-    //                 let option<?=$form['idform']?> = Array.from(select<?=$form['idform']?>.options);
-    //                 let selectedOpt<?=$form['idform']?> = option<?=$form['idform']?>.find(item => item.text == <?=$form['idform']?>);
-    //                 selectedOpt<?=$form['idform']?>.selected = true;
-    //                 // console.log(option<?=$form['idform']?>)
-    //             <?php } ?>
-    //             <?php if($form['type']=='file') { ?>
-    //                 // let <?=$form['field']?> = <?=$form['field']?>;
-    //                 document.getElementById("file<?=$form['idform']?>").value = '';
-    //                 document.getElementById("f<?=$form['idform']?>").innerHTML = <?=$form['idform']?>;
-    //                 document.getElementById("f<?=$form['idform']?>").setAttribute('target','_blank');
-    //                 document.getElementById("f<?=$form['idform']?>").href = "<?=base_url()?>/struktur-organisasi/viewbyfile/"+<?=$form['idform']?>+"/<?=$form['field']?>"
-    //             <?php } ?>
-    //             n++;
-    //         <?php endforeach;?>
-
-    //         let str = document.querySelector('#static<?=$menuname?>Label')
-    //                 // console.log(str.html)
-    //         str.innerHTML = '<?=lang('Files.Edit'),' ',lang('Files.'.$menuname)?>'
-    //         <?php foreach($forms as $form) :
-    //             if($form['type']!='select' && $form['type']!='file') { ?>
-    //                 document.getElementById("<?=$form['idform']?>").value = <?=$form['idform']?>;
-    //             <?php //} ?>
-    //         <?php endforeach;?>
-    //         ix++;
-    //     });
-    // }
-
-    // var table = $('#datatable-buttons').DataTable();
 
     for(let i=0; i< deleteButton.length; i++) {
         deleteButton[i].addEventListener("click", function() {
@@ -609,41 +554,6 @@
                     formData<?=$form['idform']?>.append('file',datafile<?=$form['idform']?>)
                     try {
                         console.log('uploading...');
-                        // uploadFile('<?=base_url()?>/<?=$route?>/uploadfile',{data:formData})
-                        // .then(data => {
-                        //     console.log(data)
-                        // });
-                        // fetch('<?=base_url()?>/<?=$route?>/uploadfile', {
-                        //     method: 'POST',
-                        //     mode: 'cors',
-                        //     cache: 'no-cache',
-                        //     body: formData
-                        // })
-                        // .then(response => response.json())
-                        // .then(datas => {
-                        //         // console.log(data)
-                        //         if(datas.status == 'success') {
-                        //             data.<?=$form['idform']?> = datas.filename;
-                        //             postData('<?=base_url()?>/<?=$route?>/post',{'data':data})
-                        //             .then(data => {
-                        //                 if(data.code === 200) {
-                        //                     $('#editDivisi').modal('hide'); 
-                        //                     Swal.fire("Success!", data.message, data.status);
-                        //                 }
-                        //                 // table.ajax.reload()
-                        //                 // Swal.clickConfirm()
-                        //                 //setTimeout(() => location.reload(), 1500)
-                        //             })
-                        //         }
-                        //         if(data.status!='success') Swal.fire("Failed!", data.message, data.status)
-                        //     }
-                        // )
-                        // .catch(e => {
-                        //         console.log(e);
-                        //         Swal.fire("Failed!", e, 400);
-                        //     }
-                        // )
-
                         $.ajax({
                             url: "<?=base_url()?>/dokumen/uploadfile/<?=$route?>",
                             enctype: 'multipart/form-data',
@@ -702,25 +612,19 @@
             <?php } ?>
         <?php endforeach;?>
         // console.log(data)
-        // const id =  document.forms["<?=$menuname?>"]["id"].value;
-        // const kode =  document.forms["<?=$menuname?>"]["kode"].value;
-        // const nama =  document.forms["<?=$menuname?>"]["namadivisi"].value;
-        // data = [id, kode, nama]
-        // if(status == 1) {
-            postData('<?=base_url()?>/<?=$route?>/post',{'data':data})
-            .then(data => {
-                if(data.code === 200) {
-                    $('#editDivisi').modal('hide'); 
-                    Swal.fire("Success!", data.message, data.status)
-                    .then(function(){
-                        location.reload();
-                    });
-                }
-                // table.ajax.reload()
-                // Swal.clickConfirm()
-                // setTimeout(() => location.reload(), 1500)
-            })
-        // }
+        postData('<?=base_url()?>/<?=$route?>/post',{'data':data})
+        .then(data => {
+            if(data.code === 200) {
+                $('#editDivisi').modal('hide'); 
+                Swal.fire("Success!", data.message, data.status)
+                .then(function(){
+                    location.reload();
+                });
+            }
+            // table.ajax.reload()
+            // Swal.clickConfirm()
+            // setTimeout(() => location.reload(), 1500)
+        })        
     })
     <?php endif;?>
 </script>

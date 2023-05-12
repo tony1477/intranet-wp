@@ -6,15 +6,15 @@
     <?= $title_meta ?>
 
     <!-- twitter-bootstrap-wizard css -->
-    <link rel="stylesheet" href="<?=base_url()?>/assets/libs/twitter-bootstrap-wizard/prettify.css">
+    <link rel="stylesheet" href="<?=base_url()?>/public/assets/libs/twitter-bootstrap-wizard/prettify.css">
     <!-- <link href="<?=base_url()?>/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" /> -->
     <!-- <link rel="stylesheet" href="/assets/libs/flatpickr/flatpickr.min.css"> -->
 
     <?= $this->include('partials/head-css') ?>
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/booking.css" />
+    <?= $this->include('partials/_home-css') ?>
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/public/assets/css/booking.css" />
     <!-- Sweet Alert-->
-    <link href="<?=base_url()?>/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>/public/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -388,17 +388,17 @@
 <?= $this->include('partials/vendor-scripts') ?>
 
 <!-- twitter-bootstrap-wizard js -->
-<script src="<?=base_url()?>/assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/twitter-bootstrap-wizard/prettify.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/twitter-bootstrap-wizard/prettify.js"></script>
 
-<!-- form wizard init -->
+<!-- form wizard init -->/public/assets
 
 <?= $this->include('partials/script/booking') ?>
 
 <!-- Sweet Alerts js -->
-<script src="<?=base_url()?>/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 
-<script src="<?=base_url()?>/assets/js/app.js"></script>
+<?=$this->include('partials/_home-js')?>
 <script text="text/javascript">
     const fullname = document.querySelector('#fullname')
     const position = document.querySelector('#position')
@@ -421,10 +421,10 @@
     
     function nextTab1()
     {
-        localStorage.setItem('fullname',fullname.value)
-        localStorage.setItem('position',position.value)
-        localStorage.setItem('department',department.value)
-        localStorage.setItem('email',email.value)
+        sessionStorage.setItem('fullname',fullname.value)
+        sessionStorage.setItem('position',position.value)
+        sessionStorage.setItem('department',department.value)
+        sessionStorage.setItem('email',email.value)
     }
 
     function nextTab2()
@@ -437,22 +437,22 @@
             if(item.checked) lokasi = (lokasi != undefined ? lokasi +','+item.value : item.value)
             // console.log(item.checked)
         })
-        localStorage.setItem('startdate',startdate.value)
-        localStorage.setItem('starttime',starttime.value)
-        localStorage.setItem('endtime',endtime.value)
-        localStorage.setItem('participant',participant.value)
-        localStorage.setItem('location',lokasi)
-        localStorage.setItem('speaker',speaker.value)
-        localStorage.setItem('speakeremail',speakeremail.value)
+        sessionStorage.setItem('startdate',startdate.value)
+        sessionStorage.setItem('starttime',starttime.value)
+        sessionStorage.setItem('endtime',endtime.value)
+        sessionStorage.setItem('participant',participant.value)
+        sessionStorage.setItem('location',lokasi)
+        sessionStorage.setItem('speaker',speaker.value)
+        sessionStorage.setItem('speakeremail',speakeremail.value)
         // localStorage.setItem('nameparti',nameparti.val())
         // localStorage.setItem('nameparti',el.getValue(true))
-        localStorage.setItem('agenda',agenda.value)
+        sessionStorage.setItem('agenda',agenda.value)
     }
 
     submitted.addEventListener('click', (e) => {
-        localStorage.setItem('room',room.value)
-        localStorage.setItem('roomname',room.options[room.selectedIndex].text)
-        localStorage.setItem('notulen',notulen.value)
+        sessionStorage.setItem('room',room.value)
+        sessionStorage.setItem('roomname',room.options[room.selectedIndex].text)
+        sessionStorage.setItem('notulen',notulen.value)
         let reqcheckbox = document.querySelectorAll('.requirement')
         let requirement;
         if(speakeremail.value=='' || speakeremail.value == undefined) {
@@ -461,9 +461,9 @@
         reqcheckbox.forEach((item)=> {
             if(item.checked) requirement = (requirement != undefined ? requirement +','+item.value : item.value)
         })
-        localStorage.setItem('requirement',requirement)
+        sessionStorage.setItem('requirement',requirement)
         
-        const items = { ...localStorage};        
+        const items = { ...sessionStorage};        
         const loadingModal = new bootstrap.Modal(document.getElementById('myModal'), {
             keyboard: false
         })
@@ -475,7 +475,7 @@
             if(data.code === 200) {
                 // release localstorage
                 Swal.fire("Success!",data.message, data.status).then(function(){
-                    localStorage.clear()
+                    sessionStorage.clear()
                     loadingModal.hide()
                     setTimeout((e) => {
                         location.href = '<?=base_url()?>/meeting-schedule';

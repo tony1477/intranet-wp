@@ -5,11 +5,11 @@
             <div class="navbar-brand-box h-100">
                 <a href="/" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="<?=base_url()?>/assets/images/logo-baru.png" alt="" height="33">
+                        <img src="<?=base_url()?>/public/assets/images/logo-baru.png" alt="Logo WP" height="33">
                     </span>
                     <span class="logo-lg text-center">
                         <div class="w-100 mt-2">
-                        <img src="<?=base_url()?>/assets/images/logo-baru.png" alt="" height="65"> <div class="logo-txt" style="margin-top:-15px">WILIAN PERKASA</div>
+                        <img src="<?=base_url()?>/public/assets/images/logo-baru.png" alt="Logo WP" height="65"> <div class="logo-txt" style="margin-top:-15px">WILIAN PERKASA</div>
                         <div style="margin-top:-45px" class="slogan">be Wise be Excellent</div>
                         </div>
                     </span>
@@ -17,11 +17,11 @@
 
                 <a href="/" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="<?=base_url()?>/assets/images/logo-baru.png" alt="" height="33">
+                        <img src="<?=base_url()?>/public/assets/images/logo-baru.png" alt="Logo WP" height="33">
                     </span>
                     <span class="logo-lg text-center">
                         <div class="w-100 mt-2">
-                        <img src="<?=base_url()?>/assets/images/logo-baru.png" alt="" height="65"> <div class="logo-txt" style="margin-top:-15px">WILIAN PERKASA</div>
+                        <img src="<?=base_url()?>/public/assets/images/logo-baru.png" alt="Logo WP" height="65"> <div class="logo-txt" style="margin-top:-15px">WILIAN PERKASA</div>
                         <div style="margin-top:-45px" class="slogan">be Wise be Excellent</div>
                         </div>
                     </span>
@@ -68,13 +68,13 @@
                     $lang = $session->get('lang');
                     switch ($lang) {
                         case 'id':
-                            echo '<img src="'.base_url().'/assets/images/flags/id.jpg" alt="Header Language" height="16">';
+                            echo '<img src="'.base_url().'/public/assets/images/flags/id.jpg" alt="Header Language" height="16">';
                             break;
                         case 'en':
-                            echo '<img src="'.base_url().'/assets/images/flags/us.jpg" alt="Header Language" height="16">';
+                            echo '<img src="'.base_url().'/public/assets/images/flags/us.jpg" alt="Header Language" height="16">';
                             break;
                         default:
-                            echo '<img src="'.base_url().'/assets/images/flags/id.jpg" alt="Header Language" height="16">';
+                            echo '<img src="'.base_url().'/public/assets/images/flags/id.jpg" alt="Header Language" height="16">';
                     }
                     ?>
                 </button>
@@ -83,11 +83,11 @@
                     <!-- item-->
                     
                         <a href="<?= base_url('lang/id'); ?>" class="dropdown-item notify-item language" data-lang="id">
-                            <img src="<?=base_url()?>/assets/images/flags/id.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Bahasa</span>
+                            <img src="<?=base_url()?>/public/assets/images/flags/id.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Bahasa</span>
                         </a>
 
                         <a href="<?= base_url('lang/en'); ?>" class="dropdown-item notify-item language" data-lang="en">
-                            <img src="<?=base_url()?>/assets/images/flags/us.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">English</span>
+                            <img src="<?=base_url()?>/public/assets/images/flags/us.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">English</span>
                         </a>
 
                 </div>
@@ -123,7 +123,7 @@
                         <a href="#!" class="text-reset notification-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
-                                    <img src="<?=base_url()?>/assets/images/users/avatar-3.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                    <img src="<?=base_url()?>/public/assets/images/users/avatar-3.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                 </div>
                                 <div class="flex-grow-1">
                                     <h6 class="mb-1"><?= lang('Files.James_Lemire') ?></h6>
@@ -170,7 +170,7 @@
                         <a href="#!" class="text-reset notification-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
-                                    <img src="<?=base_url()?>/assets/images/users/avatar-6.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                    <img src="<?=base_url()?>/public/assets/images/users/avatar-6.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                 </div>
                                 <div class="flex-grow-1">
                                     <h6 class="mb-1"><?= lang('Files.Salena_Layfield') ?></h6>
@@ -198,7 +198,7 @@
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="<?=base_url()?>/assets/images/users/<?=user()->user_image?>" alt="Header Avatar">
+                    <img class="rounded-circle header-profile-user" src="<?=base_url()?>/public/assets/images/users/<?=user()->user_image?>" alt="Header Avatar">
                     <span class="d-none d-xl-inline-block ms-1 fw-medium"><?= (user()->fullname != '') ? user()->fullname : 'Isi Nama Anda';?></span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>

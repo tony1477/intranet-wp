@@ -17,7 +17,7 @@
                     <!-- <div style="min-height: 110px;" class="top-0 end-0"> -->
                         <div class="toast fade hide" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true" id="toastcategory">
                             <div class="toast-header">
-                                <img src="<?=base_url()?>/assets/images/logo-baru.png" alt="" class="me-2" height="18">
+                                <img src="<?=base_url()?>/public/assets/images/logo-baru.png" alt="Logo WP" class="me-2" height="18">
                                 <strong class="me-auto">Notifikasi</strong>
                                 <!-- <small class="text-muted">11 mins ago</small> -->
                                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -36,7 +36,7 @@
                     <a href="javascript: void(0);" class="list-group-item text-muted pb-3 pt-0 px-2">
                         <div class="d-flex align-items-center">
                             <div class="flex-shrink-0 me-3">
-                                <img src="<?=base_url()?>/assets/images/gallery/article/<?=$upcoming->image?>" alt="" class="avatar-lg h-auto d-block rounded">
+                                <img src="<?=base_url()?>/public/assets/images/gallery/article/<?=$upcoming->image?>" alt="Image's <?=$upcoming->title?>" class="avatar-lg h-auto d-block rounded">
                             </div>
                             <div class="flex-grow-1 overflow-hidden">
                                 <h5 class="font-size-13 text-truncate"><?=$upcoming->title?></h5>
@@ -59,7 +59,7 @@
                     <a href="<?=base_url()?>/article/read/<?=date('Y-m',strtotime($popular->posted_date)).'/'.str_replace(' ','-',$popular->title)?>" class="list-group-item text-muted pb-3 pt-0 px-2">
                         <div class="d-flex align-items-center">
                             <div class="flex-shrink-0 me-3">
-                                <img src="<?=base_url()?>/assets/images/gallery/article/<?=$popular->image?>" alt="" class="avatar-xl h-auto d-block rounded">
+                                <img src="<?=base_url()?>/public/assets/images/gallery/article/<?=$popular->image?>" alt="Image's <?=$popular->title?>" class="avatar-xl h-auto d-block rounded">
                             </div>
                             <div class="flex-grow-1 overflow-hidden">
                                 <h5 class="font-size-13 text-truncate"><?=$popular->title?></h5>

@@ -6,8 +6,8 @@
     <?= $title_meta ?>
 
     <?= $this->include('partials/head-css') ?>
-    <link rel="stylesheet" href="<?=base_url()?>/assets/libs/glightbox/css/glightbox.min.css">
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <link rel="stylesheet" href="<?=base_url()?>/public/assets/libs/glightbox/css/glightbox.min.css">
+    <?=$this->include('partials/_home-css') ?>
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -42,7 +42,7 @@
                                         <div class="d-flex align-items-start mt-3 mt-sm-0">
                                             <div class="flex-shrink-0">
                                                 <div class="avatar-xl me-3">
-                                                    <img src="<?=base_url()?>/assets/images/meeting-rooms/<?=$row->foto_ruangan?>" alt="" class="img-fluid">
+                                                    <img src="<?=base_url()?>/public/assets/images/meeting-rooms/<?=$row->foto_ruangan?>" alt="" class="img-fluid">
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1">
@@ -117,8 +117,8 @@
                                                     </div>
                                                     <div class="col-xl">
                                                         <div class="text-muted">
-                                                        <a href="<?=base_url()?>/assets/images/meeting-rooms/<?=$row->foto_ruangan?>" class="image-popup">
-                                                        <img src="<?=base_url()?>/assets/images/meeting-rooms/<?=$row->foto_ruangan?>" class="img-fluid me-2">
+                                                        <a href="<?=base_url()?>/public/assets/images/meeting-rooms/<?=$row->foto_ruangan?>" class="image-popup">
+                                                        <img src="<?=base_url()?>/public/assets/images/meeting-rooms/<?=$row->foto_ruangan?>" class="img-fluid me-2">
                                                         </a>
                                                         </div>
                                                     </div>
@@ -267,8 +267,9 @@
 <!-- JAVASCRIPT -->
 <?= $this->include('partials/vendor-scripts') ?>
 
-<script src="<?=base_url()?>/assets/js/app.js"></script>
-<script src="<?=base_url()?>/assets/libs/glightbox/js/glightbox.min.js"></script>
+<?= $this->include('partials/_home-js') ?>
+
+<script src="<?=base_url()?>/public/assets/libs/glightbox/js/glightbox.min.js"></script>
 <script type="text/javascript">
     var lightbox=GLightbox({selector:".image-popup",title:!1})
 </script>

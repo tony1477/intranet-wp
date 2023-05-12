@@ -6,8 +6,7 @@
     <?= $this->include('partials/_datatables-css') ?>
     <?= $this->include('partials/head-css') ?>
     <?= $this->include('partials/sweetalert-css') ?>
-    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <?= $this->include('partials/_home-css') ?>
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -87,23 +86,23 @@
 <?= $this->include('partials/sweetalert') ?>
 
 <!-- Required datatable js -->
-<script src="<?=base_url()?>/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
-<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/jszip/jszip.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/pdfmake/build/pdfmake.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/pdfmake/build/vfs_fonts.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/jszip/jszip.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
 <!-- Responsive examples -->
-<script src="<?=base_url()?>/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
-<script src="<?=base_url()?>/assets/js/app.js"></script>
+<?=$this->include('partials/_home-js')?>
 <script>
 
     window.addEventListener("load", (event) => {
@@ -111,7 +110,7 @@
         const ptitle = document.querySelector('p#namastruktur')
         getDoc('doc-1')
         .then(data => {
-            embedded.src=`<?=base_url()?>/assets/protected/struktur-organisasi/${data.file}#toolbar=0&navpanes=0&scrollbar=0`
+            embedded.src=`<?=base_url()?>/public/assets/protected/struktur-organisasi/${data.file}#toolbar=0&navpanes=0&scrollbar=0`
             ptitle.innerText = data.<?=$session->get('lang') == 'en' ? 'nama_struktur2' : 'nama_struktur1'?>
         })
         console.log("page is fully loaded");
@@ -126,7 +125,7 @@
         .then(data => {
             // embedded.src = `<?=base_url()?>/assets/protected/struktur-organisasi/${data}#toolbar=0&navpanes=0&scrollbar=0`
             let clone = embedded.cloneNode(true)
-            clone.setAttribute('src',`<?=base_url()?>/assets/protected/struktur-organisasi/${data.file}#toolbar=0&navpanes=0&scrollbar=0`)
+            clone.setAttribute('src',`<?=base_url()?>/public/assets/protected/struktur-organisasi/${data.file}#toolbar=0&navpanes=0&scrollbar=0`)
             embedded.parentNode.replaceChild(clone,embedded)
             ptitle.innerText = data.<?=$session->get('lang') == 'en' ? 'nama_struktur2' : 'nama_struktur1'?>
             // console.log(embedded)

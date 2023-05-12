@@ -6,9 +6,9 @@
     <?= $title_meta ?>
 
     <?= $this->include('partials/head-css') ?>
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/lightgallery/css/lightgallery.min.css" />
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/lightgallery/css/custom.css" />
+    <?= $this->include('partials/_home-css') ?>
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/public/assets/lightgallery/css/lightgallery.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/public/assets/lightgallery/css/custom.css" />
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -46,10 +46,10 @@
                     <!-- Hidden video div -->
                     <div style="display:none;" id="video<?=$i?>">
                         <video class="lg-video-object lg-html5" controls preload="none">
-                            <source src="<?=base_url()?>/assets/videos/<?=$row->url?>" type="video/mp4">
+                            <source src="<?=base_url()?>/public/assets/videos/<?=$row->url?>" type="video/mp4">
                             <?php if($row->title=='Mars Wilian Perkasa'):?>
-                            <track src="<?=base_url()?>/assets/videos/subtitle/EN_file.vtt" label="English" kind="subtitles" srclang="EN-US" >
-                            <track src="<?=base_url()?>/assets/videos/subtitle/ID_file.vtt" label="Indonesia" kind="subtitles" srclang="ID" default>
+                            <track src="<?=base_url()?>/public/assets/videos/subtitle/EN_file.vtt" label="English" kind="subtitles" srclang="EN-US" >
+                            <track src="<?=base_url()?>/public/assets/videos/subtitle/ID_file.vtt" label="Indonesia" kind="subtitles" srclang="ID" default>
                             <?php endif;?>
                             Your browser does not support HTML5 video.
                         </video>
@@ -59,17 +59,12 @@
                     <div class="demo-gallery">
                         <ul id="lightgallery" class="list-unstyled row">
                         <?php $j=1; foreach($data as $row):?>
-                            <li class="col-xs-6 col-sm-4 col-md-4 col-lg-4 col-xl4" data-sub-html="<?=$row->title?>" data-html="#video<?=$j?>" data-poster="<?=base_url()?>/assets/videos/poster/<?=$row->sampul_video?>">
-                                <img class="img-responsive bg-secondary border border-primary border rounded opacity-25 w-100" src="<?=base_url()?>/assets/videos/poster/<?=$row->sampul_video?>" />
+                            <li class="col-xs-6 col-sm-4 col-md-4 col-lg-4 col-xl4" data-sub-html="<?=$row->title?>" data-html="#video<?=$j?>" data-poster="<?=base_url()?>/public/assets/videos/poster/<?=$row->sampul_video?>">
+                                <img class="img-responsive bg-secondary border border-primary border rounded opacity-25 w-100" src="<?=base_url()?>/public/assets/videos/poster/<?=$row->sampul_video?>" />
                                 <div class="text-center">
                                 <h5><?=$row->title?></h5></div>
                             </li>                            
                             <?php $j++; endforeach;?>
-                            <!-- <li class="col-xs-6 col-sm-4 col-md-4 col-lg-4 col-xl4" data-src="<?=base_url()?>/assets/videos/poster/4-1600.jpg" data-sub-html="<h4>Bowness Bay</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy I was passing the right place at the right time....</p>" data-pinterest-text="Pin it1" data-tweet-text="share on twitter 1">
-                                <a href="">
-                                    <img class="img-responsive" src="<?=base_url()?>/assets/videos/poster/thumb-1.jpg" alt="Thumb-4">
-                                </a>
-                            </li> -->
                         </ul>
                     </div>
                 </div>
@@ -121,13 +116,14 @@
 <!-- JAVASCRIPT -->
 <?= $this->include('partials/vendor-scripts') ?>
 
-<script src="<?=base_url()?>/assets/js/app.js"></script>
-<script src="<?=base_url()?>/assets/lightgallery/js/lightgallery.min.js"></script>
-<script src="<?=base_url()?>/assets/lightgallery/js/lg-pager.min.js"></script>
-<script src="<?=base_url()?>/assets/lightgallery/js/lg-fullscreen.min.js"></script>
-<script src="<?=base_url()?>/assets/lightgallery/js/lg-share.min.js"></script>
-<script src="<?=base_url()?>/assets/lightgallery/js/lg-video.min.js"></script>
-<script src="<?=base_url()?>/assets/lightgallery/js/lg-thumbnail.min.js"></script>
+<?= $this->include('partials/_home-js') ?>
+
+<script src="<?=base_url()?>/public/assets/lightgallery/js/lightgallery.min.js"></script>
+<script src="<?=base_url()?>/public/assets/lightgallery/js/lg-pager.min.js"></script>
+<script src="<?=base_url()?>/public/assets/lightgallery/js/lg-fullscreen.min.js"></script>
+<script src="<?=base_url()?>/public/assets/lightgallery/js/lg-share.min.js"></script>
+<script src="<?=base_url()?>/public/assets/lightgallery/js/lg-video.min.js"></script>
+<script src="<?=base_url()?>/public/assets/lightgallery/js/lg-thumbnail.min.js"></script>
 <script>
     lightGallery(document.getElementById('lightgallery'),{
         mode: 'lg-fade',

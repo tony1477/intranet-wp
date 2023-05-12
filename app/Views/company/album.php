@@ -6,8 +6,8 @@
     <?= $title_meta ?>
 
     <?= $this->include('partials/head-css') ?>
-    <link rel="stylesheet" href="<?=base_url()?>/assets/css/album.css" />
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <?= $this->include('partials/_home-css') ?>
+    <link rel="stylesheet" href="<?=base_url()?>/public/assets/css/album.css" />
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -55,35 +55,21 @@
                             $exp = explode(',',$row->cover); ?>
                             <ul class="card-list" onclick="openAlbum(<?=$row->categoryid?>)">
                             <?php for($i=0; $i<count($exp); $i++):?>
-                                <li><img src="<?=base_url()?>/assets/images/gallery/foto/<?=$exp[$i]?>" class="img-stack" alt="<?=$row->categoryname?>" /></li>
+                                <li><img src="<?=base_url()?>/public/assets/images/gallery/foto/<?=$exp[$i]?>" class="img-stack" alt="<?=$row->categoryname?>" /></li>
                             <?php endfor;?>
                             </ul>
-                            <a class="buttons next" href="#">></a>
+                            <a class="buttons next" href="#"></a>
                             <?php
                             else : ?>
                             <ul class="card-list" onclick="openAlbum(<?=$row->categoryid?>)">
                             <li>
                                 <h3 style="position:absolute; left:50%; top:50%; transform: translate(-50%, -50%) rotate(-45deg); color: rgba(10,20,10,.5)"><?=lang('Files.Empty')?></h3>
-                                <img src="<?=base_url()?>/assets/images/gallery/default.jpeg" class="img-stack" alt="<?=lang('Files.Empty')?>"/></li>
+                                <img src="<?=base_url()?>/public/assets/images/gallery/default.jpeg" class="img-stack" alt="<?=lang('Files.Empty')?>"/></li>
                             </ul>
                             <?php endif;?>
                         </div>
                     </div>
                     <?php endforeach;?>
-                    <!--
-                    <div class="col-md-6 container">
-                        <div class="card-stack">
-                            <a class="buttons prev" href="#"><</a>
-                            <ul class="card-list">
-                                <li class="cards-li" style="background-color: #4CD964;"></li>
-                                <li class="cards-li" style="background-color: #FFCC00;"></li>
-                                <li class="cards-li" style="background-color: #FF3B30;"></li>
-                                <li class="cards-li" style="background-color: #34AADC;"></li>					
-                                <li class="cards-li" style="background-color: #FF9500;"></li>
-                            </ul>	
-                            <a class="buttons next" href="#">></a>
-                        </div>
-                    </div> -->
                 </div>
                 
                 <!-- DI KOMEN SEMENTARA WAKTU -->
@@ -133,7 +119,8 @@
 <!-- JAVASCRIPT -->
 <?= $this->include('partials/vendor-scripts') ?>
 
-<script src="<?=base_url()?>/assets/js/app.js"></script>
+<?= $this->include('partials/_home-js') ?>
+
 <script type="text/javascript">
      
     function openAlbum(id)

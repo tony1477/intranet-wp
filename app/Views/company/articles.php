@@ -6,7 +6,7 @@
     <?= $title_meta ?>
 
     <?= $this->include('partials/head-css') ?>
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <?= $this->include('partials/_home-css') ?>
     <?= $this->include('partials/sweetalert-css') ?>
 </head>
 
@@ -75,7 +75,7 @@
                                 </div>
                                 <?php if($article->image != ''):?>
                                 <div class="col-md-4 d-flex justify-content-center" style="flex-direction: column;">
-                                    <img src="<?=base_url()?>/assets/images/gallery/article/<?=$article->image?>" alt="Gambar Article <?=$article->title?>" class="rounded" width="75%">
+                                    <img src="<?=base_url()?>/public/assets/images/gallery/article/<?=$article->image?>" alt="Gambar Article <?=$article->title?>" class="rounded" width="75%">
                                 </div>
                                 <?php endif;?>
                             </div>
@@ -142,7 +142,7 @@
 
 <!-- SweetAlert -->
 <?= $this->include('partials/sweetalert') ?>
-<script src="<?=base_url()?>/assets/js/app.js"></script>
+<?= $this->include('partials/_home-js') ?>
 <script>
     const category = document.querySelectorAll('#category')
     for(let i of category) {

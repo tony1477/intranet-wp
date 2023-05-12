@@ -6,10 +6,10 @@
     <?= $title_meta ?>
 
     <?= $this->include('partials/head-css') ?>
-    <link rel="stylesheet" href="<?=base_url()?>/assets/css/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/lightgallery/css/lightgallery.min.css" />
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/lightgallery/css/lg-transitions.min.css" />
+    <?= $this->include('partials/_home-css') ?>
+    <link rel="stylesheet" href="<?=base_url()?>/public/assets/css/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/public/assets/lightgallery/css/lightgallery.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/public/assets/lightgallery/css/lg-transitions.min.css" />
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -54,49 +54,10 @@
                 </div>
                 <!-- end row -->
 
-                <!-- <div class="row">
-                    <?php foreach($data as $row):?>
-                    <div class="col-xl-4 col-sm-6">
-                        <div class="card">
-                            <div class="">
-                                <img src="<?=base_url()?>/assets/images/gallery/foto/<?=$row->url?>" alt="" class="img-fluid">
-                            </div>
-                            <div class="card-body">
-                                <p class="text-muted mb-2"><?=$row->updated_at?></p>
-                                <h5 class=""><a href="#" class="text-dark"><?=$row->title?></a></h5>
-                                <p class="mb-0 font-size-15"><?=$row->description?></p>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endforeach;?>     
-                </div> -->
-
-                <!-- <div class="row">
-                    <section id="portfolio">
-                        <?php foreach($data as $row):?>
-                        <div class="project">
-                            <img class="project__image" src="<?=base_url().'/assets/images/gallery/foto/'.$row->url?>" alt="Foto-<?=$row->title?>" />
-                            <p class="img-title"><?=$row->title?></p>
-                            <h3 class="grid__title d-none"> <?=$row->description?></h3>
-                            <div class="grid__overlay">
-                                <button class="viewbutton"><?=lang('Files.open_details')?></button>
-                            </div>
-                        </div>
-                        <?php endforeach;?>
-                        
-                        <div class="overlay">
-                        <div class="overlay__inner">
-                            <button class="close"><?=lang('Files.Close')?> X</button>
-                            <img>
-                            <div id="img-caption"></div>
-                        </div>
-                        </div>
-                    </section>
-                </div> -->
                 <div id="custom-transitions" class="photogallery">
                 <?php foreach($data as $row):?>
-                    <a href="<?=base_url().'/assets/images/gallery/foto/'.$row->url?>" alt="Foto-<?=strip_tags($row->title)?>" data-sub-html="<?=strip_tags($row->title)?><br /><?=strip_tags($row->description)?>">
-                        <img src="<?=base_url().'/assets/images/gallery/foto/'.$row->url?>" alt="Foto-<?=strip_tags($row->title)?>" />
+                    <a href="<?=base_url().'/public/assets/images/gallery/foto/'.$row->url?>" alt="Foto-<?=strip_tags($row->title)?>" data-sub-html="<?=strip_tags($row->title)?><br /><?=strip_tags($row->description)?>">
+                        <img src="<?=base_url().'/public/assets/images/gallery/foto/'.$row->url?>" alt="Foto-<?=strip_tags($row->title)?>" />
                     </a>
                 <?php endforeach;?>
                 </div>
@@ -121,46 +82,20 @@
 <!-- JAVASCRIPT -->
 <?= $this->include('partials/vendor-scripts') ?>
 
-<script src="<?=base_url()?>/assets/js/app.js"></script>
-<script src="<?=base_url()?>/assets/lightgallery/js/lightgallery.min.js"></script>
-<script src="<?=base_url()?>/assets/lightgallery/js/lg-pager.min.js"></script>
-<script src="<?=base_url()?>/assets/lightgallery/js/lg-fullscreen.min.js"></script>
-<script src="<?=base_url()?>/assets/lightgallery/js/lg-share.min.js"></script>
-<script src="<?=base_url()?>/assets/lightgallery/js/lg-thumbnail.min.js"></script>
-<script src="<?=base_url()?>/assets/lightgallery/js/lg-autoplay.min.js"></script>
-<script src="<?=base_url()?>/assets/lightgallery/js/lg-rotate.min.js"></script>
+<?= $this->include('partials/_home-js') ?>
+<script src="<?=base_url()?>/public/assets/lightgallery/js/lightgallery.min.js"></script>
+<script src="<?=base_url()?>/public/assets/lightgallery/js/lg-pager.min.js"></script>
+<script src="<?=base_url()?>/public/assets/lightgallery/js/lg-fullscreen.min.js"></script>
+<script src="<?=base_url()?>/public/assets/lightgallery/js/lg-share.min.js"></script>
+<script src="<?=base_url()?>/public/assets/lightgallery/js/lg-thumbnail.min.js"></script>
+<script src="<?=base_url()?>/public/assets/lightgallery/js/lg-autoplay.min.js"></script>
+<script src="<?=base_url()?>/public/assets/lightgallery/js/lg-rotate.min.js"></script>
 <script>
     lightGallery(document.getElementById('custom-transitions'), {
         mode: 'lg-slide-circular',
         subHtmlSelectorRelative: true
     })
 </script>
-<!-- <script type="text/javascript">
-const buttons = document.querySelectorAll('.project');
-const overlay = document.querySelector('.overlay');
-const overlayImage = document.querySelector('.overlay__inner img');
-const imgCaption = document.querySelector('#img-caption')
-
-function open(e) {
-  overlay.classList.add('open');
-  const src= e.currentTarget.querySelector('img').src;
-  const imgTitle = e.currentTarget.querySelector('.img-title');
-  const deskripsi = e.currentTarget.querySelector('.grid__title').innerText
-  imgCaption.innerText = deskripsi
-  overlayImage.src = src;
-  overlayImage.alt = imgTitle.innerText
-}
-
-function close() {
-  overlay.classList.remove('open');
-}
-
-buttons.forEach(button => button.addEventListener('click', open));
-overlay.addEventListener('click', close);
-
-
-
-</script> -->
 </body>
 
 </html>

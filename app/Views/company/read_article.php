@@ -6,7 +6,7 @@
     <?= $title_meta ?>
 
     <?= $this->include('partials/head-css') ?>
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <?= $this->include('partials/_home-css') ?>
     <?= $this->include('partials/sweetalert-css') ?>
 </head>
 
@@ -52,7 +52,7 @@
                                         <h4><?=$article->title?></h4>
                                     </div>
                                     <div class="mb-4">
-                                        <img src="<?=base_url()?>/assets/images/gallery/article/<?=$article->image?>" alt="" class="img-thumbnail mx-auto d-block">
+                                        <img src="<?=base_url()?>/public/assets/images/gallery/article/<?=$article->image?>" alt="Image's <?=$article->title?>" class="img-thumbnail mx-auto d-block">
                                     </div>
                                     <div class="text-center">
                                         <div class="row">
@@ -193,7 +193,7 @@
                                                 <div class="card">
                                                     <i class="bx bxs-download fs-1 text-center"></i>
                                                     <div class="py-2 text-center">
-                                                        <a download="<?=$article->pdffile?>" href="<?=base_url()?>/assets/protected/article/<?=$article->pdffile?>" class="fw-medium">Download</a>
+                                                        <a download="<?=$article->pdffile?>" href="<?=base_url()?>/public/assets/protected/article/<?=$article->pdffile?>" class="fw-medium">Download</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -271,7 +271,8 @@
 <!-- SweetAlert -->
 <?= $this->include('partials/sweetalert') ?>
 
-<script src="<?=base_url()?>/assets/js/app.js"></script>
+<?= $this->include('partials/_home-js') ?>
+
 <script>
     const category = document.querySelectorAll('#category')
     for(let i of category) {

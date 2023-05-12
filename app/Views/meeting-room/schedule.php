@@ -6,7 +6,7 @@
     <?= $title_meta ?>
 
     <?= $this->include('partials/head-css') ?>
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <?= $this->include('partials/_home-css') ?>
 
 </head>
 
@@ -145,7 +145,8 @@
 <!-- JAVASCRIPT -->
 <?= $this->include('partials/vendor-scripts') ?>
 
-<script src="<?=base_url()?>/assets/js/app.js"></script>
+<?= $this->include('partials/_home-js') ?>
+
 
 </body>
 

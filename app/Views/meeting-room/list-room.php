@@ -6,13 +6,13 @@
     <?= $title_meta ?>
 
     <!-- DataTables -->
-    <link href="<?=base_url()?>/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>/public/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Responsive datatable examples -->
-    <link href="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>/public/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
     <?= $this->include('partials/head-css') ?>
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <?= $this->include('partials/_home-css') ?>
 
 </head>
 
@@ -73,7 +73,7 @@
                                 <td><?=$row->idruangan?></td>
                                 <td>
                                     <a href="<?=base_url().'/room-meeting/detail/'.str_replace(' ','-',strtolower($row->nama_ruangan))?>" class="text-body">
-                                    <img src="<?=base_url()?>/assets/images/meeting-rooms/<?=$row->foto_ruangan?>" alt="" class="avatar-md rounded-circle me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="<?=lang('Files.View_Detail')?>">
+                                    <img src="<?=base_url()?>/public/assets/images/meeting-rooms/<?=$row->foto_ruangan?>" alt="Image's <?=$row->nama_ruangan?>" class="avatar-md rounded-circle me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="<?=lang('Files.View_Detail')?>">
                                     <?=$row->nama_ruangan?></a>
                                 </td>
                                 <td><?=$row->lokasi_ruangan?></td>
@@ -103,31 +103,6 @@
                                 </td>
                             </tr>
                             <?php endforeach;?>
-                            <!-- <tr>
-                                <td>
-                                    <img src="assets/images/users/avatar-2.jpg" alt="" class="avatar-sm rounded-circle me-2">
-                                    <a href="#" class="text-body">Martoni Firman</a>
-                                </td>
-                                <td>Web Design</td>
-                                <td>martonif1107@minia.com</td>
-                                <td>
-                                    <div class="d-flex gap-2">
-                                        <a href="#" class="badge badge-soft-primary">php</a>
-                                        <a href="#" class="badge badge-soft-primary">html5</a>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button class="btn btn-link font-size-16 shadow-none py-0 text-muted dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bx bx-dots-horizontal-rounded"></i>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a class="dropdown-item" href="#">Lihat Jadwal</a></li>
-                                            <li><a class="dropdown-item" href="#">Ajukan Peminjaman</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr> -->
                         </tbody>
                     </table>
                     <!-- end table -->
@@ -153,17 +128,17 @@
 <?= $this->include('partials/vendor-scripts') ?>
 
 <!-- Required datatable js -->
-<script src="<?=base_url()?>/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 
 <!-- Responsive examples -->
-<script src="<?=base_url()?>/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="<?=base_url()?>/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?=base_url()?>/public/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 <!-- init js -->
-<script src="<?=base_url()?>/assets/js/pages/datatable-pages.init.js"></script>
+<script src="<?=base_url()?>/public/assets/js/pages/datatable-pages.init.js"></script>
 
-<script src="<?=base_url()?>/assets/js/app.js"></script>
+<?=$this->include('partials/_home-js')?>
 
 </body>
 
