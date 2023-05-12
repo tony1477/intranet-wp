@@ -5,9 +5,9 @@
     <?= $title_meta ?>
     <?= $this->include('partials/head-css') ?>
     <?= $this->include('partials/sweetalert-css') ?>
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/home.css" />
-    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/public/assets/css/home.css" />
+    <?= $this->include('partials/_home-css') ?>
+    
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -40,7 +40,7 @@
                             <div class="card-body">
                                 <div class="row mb-3 g-0">
                                     <div class="col-sm-4">
-                                        <img src="<?=base_url()?>/assets/images/users/<?=user()->user_image?>" class="img-fluid rounded-circle border border-light img-upload" alt="">
+                                        <img src="<?=base_url()?>/public/assets/images/users/<?=user()->user_image?>" class="img-fluid rounded-circle border border-light img-upload" alt="">
                                         <input type="file" id="user_image" name="user_image" style="display: none;" />
                                         <div>
                                             <button class="btn btn-info mt-4" id="uploadfoto">Upload</button>
@@ -136,7 +136,8 @@
 <!-- SweetAlert -->
 <?= $this->include('partials/sweetalert') ?>
 
-<script src="<?=base_url()?>/assets/js/app.js"></script>
+<?= $this->include('partials/_home-js') ?>
+
 <script type="text/javascript">
 const uploadButton = document.querySelector('#uploadfoto')
 const updateBtn = document.querySelector('.updateprofile')
