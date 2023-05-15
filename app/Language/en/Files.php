@@ -319,6 +319,7 @@ return [
     "Newsletter" => "Newsletter",
     "Subs_Date" => "Subscription Date",
     "Send_Article" => "Kirim Blast Email",
+    "Update" => "Update",
 
     // Menu
     "group-divisi" => 'Division Group',

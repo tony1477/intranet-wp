@@ -137,14 +137,14 @@
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="startdate" class="form-label"><?=lang('Files.Date')?></label>
-                                                                <input type="date" class="form-control" name="startdate" id="startdate">
+                                                                <input type="date" class="form-control" name="startdate" id="startdate" value="<?=($edited==true ? $data[0]->tgl_mulai : '')?>">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="starttime" class="form-label"><?=lang('Files.Start_Time')?></label>
-                                                                <input type="time" class="form-control" name="starttime" id="starttime">
+                                                                <input type="time" class="form-control" name="starttime" id="starttime" value="<?=($edited==true ? date('H:i',strtotime($data[0]->jam_mulai)) : '')?>">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -152,14 +152,14 @@
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="endtime" class="form-label"><?=lang('Files.End_Time')?></label>
-                                                                <input type="time" class="form-control" name="endtime" id="endtime">
+                                                                <input type="time" class="form-control" name="endtime" id="endtime" value="<?=($edited==true ? date('H:i',strtotime($data[0]->jam_selesai)) : '')?>">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="participant" class="form-label"><?=lang('Files.Amount_Participant')?></label>
-                                                                <input type="number" class="form-control" name="participant" id="participant" disabled>
+                                                                <input type="number" class="form-control" name="participant" id="participant" value="<?=($edited==true ? count($participant) : '')?>" disabled>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -168,16 +168,16 @@
                                                             <div class="mb-3">
                                                                 <label for="basicpill-servicetax-input" class="form-label"><?=lang('Files.ParticipantBase')?></label>
                                                                 <div class="d-flex justify-content-start gap-3">
-                                                                    <input class="form-check-input lokasi" type="checkbox" name="asalpeserta" id="kantorho" value="kantorho">
+                                                                    <input class="form-check-input lokasi" type="checkbox" name="asalpeserta" id="kantorho" value="kantorho" <?=($edited==true && $data[0]->asal_peserta == 'kantorho' ? 'checked' : '')?> >
                                                                     <label class="form-check-label" for="kantorho">Head Office</label>
 
-                                                                    <input class="form-check-input lokasi" type="checkbox" name="asalpeserta" id="pabrik" value="pabrik">
+                                                                    <input class="form-check-input lokasi" type="checkbox" name="asalpeserta" id="pabrik" value="pabrik" <?=($edited==true && $data[0]->asal_peserta == 'pabrik' ? 'checked' : '')?> >
                                                                     <label class="form-check-label" for="pabrik">Unit PKS</label>
 
-                                                                    <input class="form-check-input lokasi" type="checkbox" name="asalpeserta" id="kebun" value="kebun">
+                                                                    <input class="form-check-input lokasi" type="checkbox" name="asalpeserta" id="kebun" value="kebun" <?=($edited==true && $data[0]->asal_peserta == 'kebun' ? 'checked' : '')?> >
                                                                     <label class="form-check-label" for="kebun">Unit Kebun</label>
 
-                                                                    <input class="form-check-input lokasi" type="checkbox" name="asalpeserta" id="eksternal" value="eksternal">
+                                                                    <input class="form-check-input lokasi" type="checkbox" name="asalpeserta" id="eksternal" value="eksternal" <?=($edited==true && $data[0]->asal_peserta == 'eksternal' ? 'checked' : '')?> >
                                                                     <label class="form-check-label" for="eksternal">Pihak External</label>
                                                                 </div>
                                                             </div>
@@ -186,11 +186,11 @@
                                                             <div class="row mb-3">
                                                                 <div class="col-6">
                                                                     <label for="speaker" class="form-label"><?=lang('Files.Speaker_Name')?></label>
-                                                                    <input type="text" class="form-control" name="speaker" id="speaker">
+                                                                    <input type="text" class="form-control" name="speaker" id="speaker" value="<?=($edited==true ? $data[0]->pemateri : '')?>">
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <label for="speakeremail" class="form-label"><?=lang('Files.Speaker_Email')?></label>
-                                                                    <input type="email" class="form-control" name="speakeremail" id="speakeremail">
+                                                                    <input type="email" class="form-control" name="speakeremail" id="speakeremail" value="<?=($edited==true ? $data[0]->ccemail : '')?>">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -242,7 +242,7 @@
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="agenda" class="form-label"><?=lang('Files.Agenda')?></label>
-                                                                <textarea id="agenda" class="form-control" placeholder="Agenda Meeting" rows="3" ></textarea>
+                                                                <textarea id="agenda" class="form-control" placeholder="Agenda Meeting" rows="3"><?=($edited==true ? $data[0]->agenda : '')?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -268,7 +268,7 @@
                                                                 <select class="form-select" id="room">
                                                                     <option selected>- Pilih -</option>
                                                                     <?php foreach($room as $list)  : ?>
-                                                                    <option value="<?=$list->idruangan?>"><?=$list->nama_ruangan?></option>
+                                                                    <option value="<?=$list->idruangan?>" <?=($edited == true && $list->idruangan == $data[0]->idruangan ? 'selected' : '')?> ><?=$list->nama_ruangan?></option>
                                                                     <?php endforeach;?>
                                                                 </select>
                                                             </div>
@@ -276,33 +276,38 @@
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="basicpill-cardno-input" class="form-label"><?=lang('Files.Notulis')?></label>
-                                                                <input type="text" class="form-control" name="notulen" id="notulen">
+                                                                <input type="text" class="form-control" name="notulen" id="notulen" value="<?=$edited==true ? $data[0]->notulis : ''?>">
                                                             </div>
                                                         </div>
 
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-6">
+                                                            <?php 
+                                                            $exp=null;
+                                                            if($edited==true):
+                                                            if($data[0]->kebutuhan!='') $exp = explode(',',$data[0]->kebutuhan);
+                                                        endif;?>
                                                         <fieldset class="form-group border p-3">
                                                             <legend class="form-group px-2 " style="font-size:14px; font-weight:600">- <?=lang('Files.Needed_Item')?> - </legend>
                                                             <div class="form-check">
-                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="zoom" value="Zoom">
+                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="zoom" value="Zoom" <?=($exp!=null && in_array('Zoom',$exp) ? 'checked' : '')?> >
                                                                 <label class="form-check-label" for="zoom">Zoom Meeting Lengkap (Kamera,Link Zoom, Speaker, Mic)</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="laptop" value="Laptop">
+                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="laptop" value="Laptop" <?=($exp!=null && in_array('Laptop',$exp) ? 'checked' : '')?> >
                                                                 <label class="form-check-label" for="laptop">Laptop</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="proyektor" value="Proyektor">
+                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="proyektor" value="Proyektor" <?=($exp!=null && in_array('Proyektor',$exp) ? 'checked' : '')?> >
                                                                 <label class="form-check-label" for="proyektor">Proyektor</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="link" value="Link Zoom">
+                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="link" value="Link Zoom" <?=($exp!=null && in_array('Link Zoom',$exp) ? 'checked' : '')?> >
                                                                 <label class="form-check-label" for="link">Link Zoom (Tanpa Ruangan)</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="others" value="others">
+                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="others" value="others" <?=($exp!=null && in_array('others',$exp) ? 'checked' : '')?> >
                                                                 <label class="form-check-label" for="others">Lainnya</label> 
                                                                 <input type="text" class="form-control" name="notulen" id="notulen" style="border-top:0px;
                                                                 border-right:0px; border-left:0px; display:none">
@@ -313,7 +318,7 @@
                                                 </form>
                                                 <ul class="pager wizard twitter-bs-wizard-pager-link">
                                                     <li class="previous"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()"><i class="bx bx-chevron-left me-1"></i> <?=lang('Files.Previous')?></a></li>
-                                                    <li class="float-end"><a href="javascript: void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".confirmModal"><?=lang('Files.Save')?></a></li>
+                                                    <li class="float-end"><a href="javascript: void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".confirmModal"><?=($edited==true ? lang('Files.Update') : lang('Files.Save'))?></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -391,7 +396,7 @@
 <script src="<?=base_url()?>/public/assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
 <script src="<?=base_url()?>/public/assets/libs/twitter-bootstrap-wizard/prettify.js"></script>
 
-<!-- form wizard init -->/public/assets
+<!-- form wizard init -->
 
 <?= $this->include('partials/script/booking') ?>
 

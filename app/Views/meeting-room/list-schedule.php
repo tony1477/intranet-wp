@@ -140,6 +140,11 @@
                                                 <li><a class="dropdown-item" href="javascript:;" onclick="approveMeeting(<?=$list->idpeminjaman?>)"><i class="btn-success btn-rounded bx bx-check label-icon waves-effect waves-light" ></i> Approve</a></li>
                                                 <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/batal/<?=$list->idpeminjaman?>"><i class="btn-danger btn-rounded bx bx-block label-icon waves-effect waves-light"></i> Batal</a></li>
                                             <?php endif;?>
+                                            <?php if($list->userid === user_id()):?>
+                                                <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/edit/<?=$list->idpeminjaman?>"><i class="btn-info btn-rounded bx bxs-edit-alt label-icon waves-effect waves-light"></i> Edit</a></li>
+                                                <hr/>
+                                                <li><a class="dropdown-item" href="<?=base_url()?>/meeting-schedule/batal/<?=$list->idpeminjaman?>"><i class="btn-danger btn-rounded bx bx-block label-icon waves-effect waves-light"></i> Batal</a></li>
+                                            <?php endif;?>
                                             <?php elseif($list->status == 2): ?>
                                                 <?php if(has_permission('approval-meeting') || $list->userid === user_id()):?>
                                                 <div class="dropdown-divider"></div>

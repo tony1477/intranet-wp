@@ -4,6 +4,26 @@
         $('#basic-pills-wizard').bootstrapWizard({
             'tabClass': 'nav nav-pills nav-justified'
         });
+
+        <?php if($edited===true):?>
+            sessionStorage.clear();
+            let data=[
+            <?php foreach($participant as $row):?>
+                {
+                    'nama':'<?=$row->nama_peserta?>',
+                    'bagian':'<?=$row->bagian?>',
+                    'email':'<?=$row->email?>'
+                },
+        <?php endforeach;?>
+        ]
+        sessionStorage.setItem('table',JSON.stringify(data))
+        <?php endif;?>
+        const dataTable = sessionStorage.getItem('table')
+        if(dataTable !== null) {
+            const numberParticipant = JSON.parse(sessionStorage.getItem('table')).length
+            document.querySelector('#participant').value = numberParticipant
+            displayToTable()
+        }
     });
 
     // Active tab pane on nav link
@@ -70,11 +90,11 @@
 
     function addToTable(data)
     {
-        const dataTable = localStorage.getItem('table') !== null ? JSON.parse(localStorage.getItem('table')) : [];
+        const dataTable = sessionStorage.getItem('table') !== null ? JSON.parse(sessionStorage.getItem('table')) : [];
         let indexNumber = dataTable.length ?? 0;
         data.number = indexNumber
         dataTable.push(data)
-        localStorage.setItem('table',JSON.stringify(dataTable))
+        sessionStorage.setItem('table',JSON.stringify(dataTable))
         displayToTableV2(data)
         const numberparticipant = document.querySelector('#participant')
         numberparticipant.value = indexNumber+1
@@ -82,7 +102,7 @@
 
     function displayToTable()
     {
-        let data = JSON.parse(localStorage.getItem('table'))
+        let data = JSON.parse(sessionStorage.getItem('table'))
         let i = 1;
         data.forEach((item) => {
             const tableHeader = document.querySelector('.daftarpeserta')
@@ -91,9 +111,9 @@
             let tr = document.createElement('tr')
             tbody.append(tr)
 
-            let tdno = document.createElement('td')
-            tdno.innerHTML = i
-            tr.appendChild(tdno)
+            // let tdno = document.createElement('td')
+            // tdno.innerHTML = i
+            // tr.appendChild(tdno)
 
             let tdnama = document.createElement('td')
             tdnama.innerHTML = item.nama
@@ -106,6 +126,15 @@
             let tdemail = document.createElement('td')
             tdemail.innerHTML = item.email
             tr.appendChild(tdemail)
+
+            let tdaksi = document.createElement('td')
+            // let btn = document.createElement('button')
+            // btn.className = 'btn btn-soft-danger btn-sm btn-rounded waves-effect waves-light'
+            tdaksi.innerHTML = `<input type="hidden" name="jumlah" value="${data.number}" />
+                <button type="button" class="btn btn-soft-danger btn-sm btn-rounded waves-effect waves-light" onclick="removeData(this)">
+                    <i class="fas fa-times font-size-16 align-middle"></i>
+                </button>`
+            tr.appendChild(tdaksi)
 
             i++;
         })
@@ -147,16 +176,16 @@
         let tr = el.parentNode.parentNode
         let id = el.previousElementSibling
         // console.log(id)
-        let arr = JSON.parse(localStorage.getItem('table'))
+        let arr = JSON.parse(sessionStorage.getItem('table'))
         arr.splice(tr.rowIndex-1,1)
         
         // arr.filter((e,i) => {
-        localStorage.removeItem('table')
+        sessionStorage.removeItem('table')
         arr.map((el,i) => {
             el.number = i
         })
         let ixNumber = arr.length
-        localStorage.setItem('table',JSON.stringify(arr))
+        sessionStorage.setItem('table',JSON.stringify(arr))
 
         tr.parentNode.removeChild(tr);
         const numberparticipant = document.querySelector('#participant')

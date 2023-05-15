@@ -61,6 +61,7 @@ class MeetingSchedule extends BaseController
             if($getRoom==null) return redirect()->to('room-meeting'); 
         }
         $data = [
+            'edited'=>false,
             'title_meta' => view('partials/title-meta', ['title' => 'Meeting_Room']),
 			'page_title' => view('partials/page-title', ['title' => 'Meeting_Room', 'li_1' => 'Intranet', 'li_2' => 'Meeting_Schedule']),
 			'modules' => $menu,
@@ -137,7 +138,7 @@ class MeetingSchedule extends BaseController
                     // $emailto = 'martoni.firman@wilianperkasa.com';
                     $emailto = 'admin.hrga@wilianperkasa.com';
                     $email  = service('email');
-                    $fromEmail = 'dont-reply@wilianperkasa.com';
+                    $fromEmail = 'it@wilianperkasa.com';
                     $fromName = 'Email Service Wilian Perkasa';
 
                     $sent = $email->setFrom($fromEmail, $fromName)
@@ -166,6 +167,30 @@ class MeetingSchedule extends BaseController
         return $response;
     }
 
+    public function edit()
+    {
+        helper(['admin_helper','meeting_helper','master_helper']);
+        $menu = getMenu($user='Admin');
+        $param = $this->request->uri->getSegment(3);
+        $getDepartment = getDepartment();
+        $getPosition = getPosition();
+        $participant = $this->model->getPesertaMeeting($param)->getResult();
+        $detail = getDetailSchedule($param) ;
+        $rooms = getRoom();
+        $data = [
+            'title_meta' => view('partials/title-meta', ['title' => 'Meeting_Room']),
+			'page_title' => view('partials/page-title', ['title' => 'Meeting_Room', 'li_1' => 'Intranet', 'li_2' => 'Meeting_Schedule']),
+			'modules' => $menu,
+            'data' => $detail,
+            'participant' => $participant,
+            'nama' => '',
+            'department' => $getDepartment,
+            'position' => $getPosition,
+            'room' => $rooms,
+            'edited'=>true
+        ];
+        return view('meeting-room/booking',$data);
+    }
     public function action(string $action, int $id)
     {
         if(!has_permission('approval-meeting')):

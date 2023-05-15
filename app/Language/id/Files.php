@@ -320,6 +320,7 @@ return [
     "Newsletter" => "Langganan",
     "Subs_Date" => "Tanggal Berlangganan",
     "Send_Article" => "Blast Email",
+    "Update" => "Perbarui",
 
     // Menu
     "group-divisi" => 'Grup Divisi',

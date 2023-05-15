@@ -260,6 +260,7 @@ $routes->post('meeting-schedule/booking/request','Meeting/MeetingSchedule::reque
 $routes->get('meeting-schedule/booking/:any','Meeting/MeetingSchedule::booking');
 $routes->get('meeting-schedule/detail/:num','Meeting/MeetingSchedule::detail');
 $routes->post('meeting-schedule/sendmeeting','Meeting/MeetingSchedule::SendMeeting');
+$routes->get('meeting-schedule/edit/(:num)','Meeting/MeetingSchedule::edit');
 $routes->get('meeting-schedule/([a-z]+)/(:num)','Meeting\MeetingSchedule::action/$1/$2');
 $routes->get('meeting-schedule/email','Meeting/MeetingSchedule::emailservice');
 $routes->get('meeting-schedule/approveMeeting/(:num)','Meeting\MeetingSchedule::ApproveMeeting/$1');
