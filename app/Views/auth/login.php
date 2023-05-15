@@ -78,5 +78,7 @@
             $(this).siblings('input').attr('type') == "password" ? $(this).siblings('input').attr('type', 'input') : $(this).siblings('input').attr('type', 'password');
         }
     })
+    sessionStorage.clear()
+    localStorage.clear()
 </script>
 <?= $this->endSection()?>

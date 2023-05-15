@@ -142,7 +142,9 @@
                                 <div class="card-body">
                                     <div class="">
                                         <div class="mb-4">
-                                            <img src="<?=base_url()?>/public/assets/images/gallery/article/<?=$article->image?>" alt="" class="img-thumbnail mx-auto d-block">
+                                            <?php if($article->image!=null && $article!=''):?>
+                                            <img src="<?=base_url()?>/public/assets/images/gallery/article/<?=$article->image?>" alt="Image's <?=$article->title?>" class="img-thumbnail mx-auto d-block">
+                                            <?php endif;?>
                                         </div>
 
                                         <div class="text-center">
