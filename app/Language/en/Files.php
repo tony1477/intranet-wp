@@ -320,6 +320,7 @@ return [
     "Subs_Date" => "Subscription Date",
     "Send_Article" => "Kirim Blast Email",
     "Update" => "Update",
+    "Type_Name" => "Type Name Here",
 
     // Menu
     "group-divisi" => 'Division Group',

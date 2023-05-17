@@ -321,6 +321,7 @@ return [
     "Subs_Date" => "Tanggal Berlangganan",
     "Send_Article" => "Blast Email",
     "Update" => "Perbarui",
+    "Type_Name" => "Ketik Nama",
 
     // Menu
     "group-divisi" => 'Grup Divisi',

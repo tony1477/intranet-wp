@@ -39,6 +39,8 @@ class Home extends BaseController
 	
 	public function index()
 	{
+		// check credentials
+		if(user()->isguest==1) return $this->guest();
 		// getMenu
         helper(['admin_helper']);
         $menu = getMenu($user='Admin');
@@ -65,6 +67,19 @@ class Home extends BaseController
 		];
 		
 		return view('index', $data);
+	}
+
+	public function guest() {
+		helper(['admin_helper']);
+        $menu = getMenu($user='Admin');
+		$data = [
+			'title_meta' => view('partials/title-meta', ['title' => 'Dashboard']),
+			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Dashboard']),
+			'modules' => $menu,
+			// 'data_meeting' => 
+			// 'session' => $sess
+		];
+		return view('guest', $data);
 	}
 
 	public function login() {

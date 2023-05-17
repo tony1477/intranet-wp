@@ -7,7 +7,7 @@ use App\Models\PositionModel as JabatanModel;
 
 class CommonApi extends ResourceController {
     use ResponseTrait;
-    // private $table;
+    private $table;
     // private $model;
 
     public function setTable($tablename='tablename')
@@ -20,10 +20,22 @@ class CommonApi extends ResourceController {
         return $this->table;
     }
 
-    public function getAuthorized()
+    private function getAuthorized()
     {
         $headers = getallheaders();
+        if(!isset($headers['Authorization'])) return $this->failUnauthorized('NOT AUTHORIZED!');
         $hash = hash('sha256',(getenv('SECRET_KEY').date('Y-m-d H:i')));
+        $request = substr($headers['Authorization'],7);
+        if($hash !== $request) return $this->failUnauthorized('NOT AUTHORIZED!');
+        return true;
+    }
+
+    private function getAuthorizedCustom()
+    {
+        $headers = getallheaders();
+        if(!isset($headers['Authorization'])) return $this->failUnauthorized('NOT AUTHORIZED!');
+        if($headers===null) return $this->failUnauthorized('NOT AUTHORIZED!');
+        $hash = hash('sha256',(getenv('SECRET_KEY').date('Y-m-d')));
         $request = substr($headers['Authorization'],7);
         if($hash !== $request) return $this->failUnauthorized('NOT AUTHORIZED!');
         return true;
@@ -57,6 +69,28 @@ class CommonApi extends ResourceController {
             $model = new JabatanModel();
             $data = $model->select('idjabatan,jab_nama')->orderBy('no_urut','asc')->findAll();
             $data = array_merge(['status'=>'success'],$data);
+            return $this->respond($data,200);
+        }
+        return $this->failUnauthorized('NOT AUTHORIZED!');
+    }
+
+    public function getKaryawan() {
+        if($this->getAuthorizedCustom()===true) 
+        {
+            $model = new \App\Models\UserModel();
+            $data = $model->select('ifnull(fullname,"") as fullname,id')->where('active',1)->whereNotIn('fullname',['Administrator'])->orderBy('fullname','asc')->findAll();
+            // $data = array_merge(['status'=>'success'],$data)
+            return $this->respond($data,200);
+        }
+        return $this->failUnauthorized('NOT AUTHORIZED!');
+    }
+
+    public function getInfoKaryawanbyId($id) {
+        if($this->getAuthorizedCustom()===true) 
+        {
+            $model = new \App\Models\UserModel();
+            $data = $model->select('fullname,id,dep_nama,email')->join('tbl_ifmdepartemen a','a.iddepartment = users.iddepartment')->where('users.active',1)->where('id',$id)->orderBy('fullname','asc')->find();
+            // $data = array_merge(['status'=>'success'],$data)
             return $this->respond($data,200);
         }
         return $this->failUnauthorized('NOT AUTHORIZED!');

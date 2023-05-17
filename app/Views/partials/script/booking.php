@@ -24,6 +24,47 @@
             document.querySelector('#participant').value = numberParticipant
             displayToTable()
         }
+        const namapeserta = new Choices(document.getElementById("namapeserta"), {removeItems: true})
+        .setChoices(function() {
+            return fetch('<?=base_url()?>/api/getKaryawan',{
+                method:'GET',
+                headers: {
+                    'Content-Type':'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Authorization' : 'Bearer <?=hash('sha256',getenv('SECRET_KEY').date('Y-m-d'))?>',
+                },
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(datas) {
+                return datas.map(function(data) {
+                    return { value: data.id, label: data.fullname };
+                });
+                // console.log(data)
+            });
+        })
+
+        const element = document.getElementById('namapeserta');
+        element.addEventListener(
+        'change',
+        function(event) {
+            fetch('<?=base_url()?>/api/getInfoKaryawanbyId/'+event.target.value,{
+                method:'GET',
+                headers:{
+                    'Content-Type':'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Authorization' : 'Bearer <?=hash('sha256',getenv('SECRET_KEY').date('Y-m-d'))?>',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                bagian.value = data[0].dep_nama;
+                emailpeserta.value = data[0].email;
+            })
+        },
+        false);
+
     });
 
     // Active tab pane on nav link
@@ -38,22 +79,11 @@
         })
     })
 
-    document.addEventListener('DOMContentLoaded', function () {
-        // const textUniqueVals = new Choices('#choices-text-unique-values', {
-        // paste: false,
-        //     duplicateItemsAllowed: false,
-        //     editItems: true,
-        //     removeItemButton: true,
-        // });
-
-        // const noSorting = new Choices("#choices-single-no-sorting",{shouldSort:!1})
-    });
-
     const addParticipant = document.querySelector('.addParticipant');
     const btnSubmit = document.querySelector('.submitParticipant')
     addParticipant.addEventListener('click',(e) => {
         const formParticipant = document.querySelector('.formParticipant')
-        clearField()
+        // clearField()
         formParticipant.style.display === 'none' ? formParticipant.style.display = "flex" : formParticipant.style.display = "none"
     })
 
@@ -67,21 +97,19 @@
     function clearField()
     {
         const formParticipant = document.querySelector('.formParticipant')
-        const nama = formParticipant.querySelector('.namepeserta')
         const bagian = formParticipant.querySelector('.bagianpeserta')
         const email = formParticipant.querySelector('.emailpeserta')
-        nama.value = '';bagian.value = '';email.value = '';
+        bagian.value = '';email.value = '';
     }
 
     function getInputValue()
     {
         const formParticipant = document.querySelector('.formParticipant')
-        const nama = formParticipant.querySelector('.namepeserta')
+        const nama = document.getElementById('namapeserta')
         const bagian = formParticipant.querySelector('.bagianpeserta')
         const email = formParticipant.querySelector('.emailpeserta')
-
         const data = {
-            'nama' : nama.value,
+            'nama' : nama.selectedOptions[0].text,
             'bagian': bagian.value,
             'email' : email.value,
         }
@@ -190,5 +218,48 @@
         tr.parentNode.removeChild(tr);
         const numberparticipant = document.querySelector('#participant')
         numberparticipant.value = ixNumber
+    }
+
+    // const inputField = document.getElementById('namapeserta');
+    
+    // inputField.addEventListener('input', function() {
+    // const inputValue = inputField.value;
+
+    // if(inputValue.length>=3) {
+    //     getApiData('<?=base_url()?>/api/getKaryawan/'+inputValue)
+    //     .then(resp => {
+    //         console.log(resp)
+    //         // const key = Object.keys(resp)
+    //         // const data = Object.values(resp)
+    //         // const lengthdata = data.length-1;
+
+    //         // let opt = []
+    //         // if(data[lengthdata]=='success') {
+    //         //     const index = data.indexOf(data[lengthdata]);
+    //         //     if (index > -1) data.splice(index, 1); 
+    //         //     for(let i of data) {
+    //         //         opt[i] = new Option(i.div_nama,i.iddivisi);
+    //         //         listDivisi.add(opt[i]);
+    //         //     }
+    //         // }
+    //     });
+    // }
+    // // console.log(inputvalue.length)
+    // });
+
+    async function getApiData(url='') 
+    {
+        const resp = await fetch(url, {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            creadentials: 'same-origin',
+            headers: {
+                'Content-Type':'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization' : 'Bearer <?=hash('sha256',getenv('SECRET_KEY').date('Y-m-d H:i'))?>',
+            },  
+        })
+        return resp.json()
     }
 </script>

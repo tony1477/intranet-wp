@@ -7,7 +7,7 @@
 
     <!-- twitter-bootstrap-wizard css -->
     <link rel="stylesheet" href="<?=base_url()?>/public/assets/libs/twitter-bootstrap-wizard/prettify.css">
-    <!-- <link href="<?=base_url()?>/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" /> -->
+    <link href="<?=base_url()?>/public/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" />
     <!-- <link rel="stylesheet" href="/assets/libs/flatpickr/flatpickr.min.css"> -->
 
     <?= $this->include('partials/head-css') ?>
@@ -204,20 +204,22 @@
                                                             <div class="row formParticipant" style="display:none">                                   
                                                                 <div class="col-md-4">
                                                                     <div class="mb-3">
-                                                                        <label class="form-label" for="nama-peserta"><?=lang('Files.Fullname')?></label>
-                                                                        <input type="text" class="form-control namepeserta" id="nama-peserta" placeholder="Nama Peserta">
+                                                                    <label for="namapeserta">Nama Peserta</label>
+                                                                    <select class="form-control" name="namapeserta" id="namapeserta">
+                                                                        <option value=""><?=lang('Files.Type_Name')?></option>
+                                                                    </select>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <div class="mb-3">
-                                                                        <label class="form-label" for="bagian-department"><?=lang('Files.Department')?></label>
-                                                                        <input type="text" class="form-control bagianpeserta" id="bagian-department" placeholder="Bagian/Department">
+                                                                        <label class="form-label" for="bagian"><?=lang('Files.Department')?></label>
+                                                                        <input type="text" class="form-control bagianpeserta" id="bagian" placeholder="Bagian/Department" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <div class="mb-3">
                                                                         <label class="form-label" for="email-peserta"><?=lang('Files.Email')?></label>
-                                                                        <input type="email" class="form-control emailpeserta" id="email-peserta" placeholder='Jika tidak ada email diisi "-"'>
+                                                                        <input type="email" class="form-control emailpeserta" id="emailpeserta" placeholder='Jika tidak ada email diisi "-"' disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="mt-4 d-flex justify-content-end">
@@ -402,7 +404,7 @@
 
 <!-- Sweet Alerts js -->
 <script src="<?=base_url()?>/public/assets/libs/sweetalert2/sweetalert2.min.js"></script>
-
+<script src="<?=base_url()?>/public/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
 <?=$this->include('partials/_home-js')?>
 <script text="text/javascript">
     const fullname = document.querySelector('#fullname')

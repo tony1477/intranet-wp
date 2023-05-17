@@ -6,7 +6,7 @@
     <?= $title_meta ?>
 
     <?= $this->include('partials/head-css') ?>
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/public/assets/css/index.css" />
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -139,7 +139,7 @@
 <!-- JAVASCRIPT -->
 <?= $this->include('partials/vendor-scripts') ?>
 
-<script src="<?=base_url()?>/assets/js/app.js"></script>
+<script src="<?=base_url()?>/public/assets/js/app.js"></script>
 </body>
 
 </html>
