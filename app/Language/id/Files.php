@@ -322,6 +322,14 @@ return [
     "Send_Article" => "Blast Email",
     "Update" => "Perbarui",
     "Type_Name" => "Ketik Nama",
+    "IT_Form" => 'Formulir IT',
+    "Form" => 'Formulir',
+    "Add_Items" => "Tambah Item",
+    "Description" => "Uraian",
+    "Spesification" => "Spesifikasi",
+    "Amount" => "Jumlah",
+    "Note" => "Catatan",
+    "Submit" => "Submit",
 
     // Menu
     "group-divisi" => 'Grup Divisi',
@@ -350,6 +358,7 @@ return [
     "instruksi" => "Instruksi Kerja",
     "others" => "Lain Lain",
     'lain' => "Lainnya",
-    "master_data" => "Master Data"
+    "master_data" => "Master Data",
+    "Helpdesk" => "Helpdesk",
 
 ];

@@ -322,6 +322,10 @@ $routes->get('mailsubs/email','Master/Mailsubs::email');
 ## Helpdesk
 $routes->get('list-helpdesk','Helpdesk/Ticketing::index');
 $routes->get('create-helpdesk','Helpdesk/Ticketing::create');
+$routes->post('create-helpdesk/user/(:alpha)/form','Helpdesk\Ticketing::form/$1');
+$routes->post('helpdesk/nextquestion','Helpdesk/Ticketing::nextquestion');
+$routes->post('helpdesk/prevquestion','Helpdesk/Ticketing::prevquestion');
+// $routes->get('create-helpdesk/user/(:alpha)/(:segment)','Helpdesk\Ticketing::form/$1/$2');
 
 ## Website
 $routes->get('tentang/profil','Website/About/Profile::index');

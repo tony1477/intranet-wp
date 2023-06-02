@@ -7,6 +7,10 @@ use App\Models\HelpdeskModel;
 use App\Models\HelpdeskCategoryModel;
 use App\Models\DivisiModel;
 use App\Models\DepartmentModel;
+use App\Models\HelpdeskChoiceModel;
+use App\Models\ItHelpdeskModel;
+use CodeIgniter\Files\File;
+use Exception;
 
 class Ticketing extends BaseController
 {
@@ -14,12 +18,13 @@ class Ticketing extends BaseController
     private $category;
     private $divisi;
     private $department;
+    private $listservice;
+    private $model;
     public function __construct()
     {
         $this->ticketing = new HelpdeskModel();
         $this->category = new HelpdeskCategoryModel();
-        // $this->divisi = new DivisiModel();
-        // $this->department = new DepartmentModel();
+        $this->listservice = new HelpdeskChoiceModel();
     }
 
     public function index()
@@ -122,24 +127,159 @@ class Ticketing extends BaseController
 
     public function create()
     {
-        helper(['admin_helper']);
-        helper(['master_helper']);
+        helper(['admin_helper','master_helper','form']);
         $menu = getMenu($user='Admin');
-        $limit = 8;
-        $offset = 0;
-        // $gallery = $this->gallery->where(['gallerytype'=>1,'categoryid'=>$id,'status'=>1]);
-        //$submenu = getSubmenu($moduleid=0);
+        $list = $this->listservice->getChoiceHelpdesk($id=null);
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Create_Ticket']),
-			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Ticketing']),
+			'page_title' => view('partials/page-title', ['title' => 'Helpdesk', 'li_1' => 'Intranet', 'li_2' => 'Ticketing']),
 			'modules' => $menu,
             'route'=>'create-helpdesk',
-            'menuname' => 'IT_Helpdesk',
-            // 'data' => $gallery->paginate($limit,'gallery'),
-            // 'pager' => $gallery->pager,
-            // 'categoryid' => $id,
+            'menuname' => 'IT_Helpdesk',           
+            'listhelpdesk' => $list,
 		];
 		
 		return view('helpdesk/create', $data);
+    }
+
+    public function form($user)
+    {
+        if ($this->request->getMethod(true)!=='POST') return redirect()->to('create-helpdesk');
+        if(csrf_hash() !== $this->request->getVar(csrf_token())) return redirect()->to('create-helpdesk');
+
+        $this->model = new ItHelpdeskModel();
+        $datas = $this->request->getPost();
+        $user = $datas['username'];
+        $phone = $datas['usertelp'];
+        $req = $datas['requesttext'];
+        $reason = $datas['reasontext'];
+        
+        /* 
+        $type = $datas['type'];
+        switch($type) {
+            case 1:
+                $filename = 'hsm-4';
+                break;
+
+            case 2:
+                $filename = 'hsm-10';
+                break;
+            
+            case 3:
+                $filename = 'hsm-12';
+                break;
+
+            case 4:
+                $filename = 'hsm-15';
+                break;
+
+            case 5:
+                $filename = 'hsd-7';
+                break;
+
+            default:
+                $filename = 'hsm-15';
+                break;
+        } 
+        */
+        helper(['admin_helper','master_helper','myth_auth_helper']);
+        $files = $this->request->getFiles('formFile');
+        $attachment=null;
+        if(!$files['formFile']->hasMoved() && $files['formFile']->isValid()) {
+            //$filepath = WRITEPATH . 'uploads/' . $files['formFile']->store();
+            $nameFile= strlen($files['formFile']->getName())<100 ? $files['formFile']->getName() : $files['formFile']->getRandomName();
+            $files['formFile']->store(ROOTPATH.'public/assets/protected/helpdesk',$nameFile);      
+            $attachment=$nameFile;
+        }
+        
+        // save to db
+        $data = [
+            'ticketdate' => date('Y-m-d H:i:s'),
+            'userid_req' => get_id($user),
+            'user_phone' => $phone,
+            'categoryid' => '',
+            'categoryname' => '',
+            'user_request' => $req,
+            'user_reason' => $reason
+        ];
+        if($attachment!==null) $data['user_attachment']=$attachment;
+        var_dump($data);
+        // if($this->model->save($data)) echo 'berhasil';
+        // $menu = getMenu($user='Admin');
+        // $data = [
+        //     'title_meta' => view('partials/title-meta', ['title' => 'IT_Form']),
+		// 	'page_title' => view('partials/page-title', ['title' => 'Helpdesk', 'li_1' => 'Intranet', 'li_2' => 'Ticketing']),
+		// 	'modules' => $menu,
+        //     'route'=>'create-helpdesk',
+        //     'menuname' => 'IT_Helpdesk',
+        //     'data' => $datas,
+        //     'filename' => $filename,
+        // ];
+        // return view('helpdesk/'.$filename,$data);
+    }
+
+    public function nextquestion()
+    {
+        header("Content-Type: application/json");
+        $arr = array(
+            'fail' => 500,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+        $list=[];
+        try {
+            $datas = (array) $this->request->getVar('data');
+            $id = $datas['opt'];
+            $list = $this->listservice->getChoiceHelpdesk($id);
+
+            // check if list was last choice
+            if(count($list)===0) $list=['last'=>1];
+
+            $message = lang('Files.Save_Success');
+            $arr = array(
+                'status' => 'success',
+                'code' => 200,
+                'message'=> $message,
+                'data' => $list
+            );
+        }
+        catch(Exception $e) {
+            $arr = array(
+                'code' => '400',
+                'message'=> $e->getMessage(),
+            );
+        }
+        return json_encode($arr);
+    }
+
+    public function prevquestion()
+    {
+        header("Content-Type: application/json");
+        $arr = array(
+            'fail' => 500,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+        try {
+            $datas = (array) $this->request->getVar('data');
+            $id = $datas['opt'];
+            $list = $this->listservice->getChoiceHelpdesk($id);
+            
+
+            $message = lang('Files.Save_Success');
+            $arr = array(
+                'status' => 'success',
+                'code' => 200,
+                'message'=> $message,
+                'data' => $list
+            );
+        }
+        catch(Exception $e) {
+            $arr = array(
+                'code' => '400',
+                'message'=> $e->getMessage(),
+            );
+        }
+        return json_encode($arr);
     }
 }
