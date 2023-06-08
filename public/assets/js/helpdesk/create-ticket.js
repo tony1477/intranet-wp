@@ -4,7 +4,6 @@ const toggleLoading = () => {
     question.classList.toggle('d-none')
     loading.classList.toggle('d-none')
 }
-
 const checkRadioInput = () => {
     idopt = document.querySelector('input[name="parentoption"]:checked')
     if(idopt===null) return Swal.fire('Warning','Harap Pilih Salah Satu','warning')
@@ -181,14 +180,13 @@ const prevQuestion = () => {
     })
     toggleLoading();
 }
-
 const gotoForm = () => {
     const question = document.querySelector('.questionHelpdesk')
     const submitForm = document.querySelector('.submitForm')
     const nextPage = document.querySelector('.nextPage')
     
     const h3El = document.createElement('h3')
-    h3El.innerHTML = 'Tulisan Uraian dengan Lengkap dan Jelas :'
+    h3El.innerHTML = 'Tuliskan Uraian dengan Lengkap dan Jelas :'
     question.replaceChildren(h3El)
     let number = sessionStorage.getItem('number')
     const divCat = document.createElement('div')
@@ -219,16 +217,35 @@ const gotoForm = () => {
     div3.innerHTML = `<label for="formFile" class="form-label">Upload BA / Dokumen pendukung lainnya</label>
     <input class="form-control fileRequest" type="file" id="formFile" name="formFile">`
 
+    const data = {
+        id:[],
+        value:[]
+    }
+    getData(data);
+    
+    const div4 = document.createElement('div')
+    div4.className = 'mb-3'
+    div4.innerHTML = `<input type="hidden" name="data_id" value="${data.id}"> <input type="hidden" name="data_value" value="${data.value}">`
+    
     question.appendChild(div1)
     question.appendChild(div2)
     question.appendChild(div3)
+    question.appendChild(div4)
     nextPage.classList.add('d-none')
     submitForm.classList.remove('d-none')
     submitForm.classList.add('d-flex')
 }
+const getData = (data) => {
+    let number = sessionStorage.getItem('number')
+    for(let i=1; i<=number; i++) {
+        data.id.push(sessionStorage.getItem('question'+i))
+        data.value.push(sessionStorage.getItem('question'+i+'value'))
+    }
+}
 
 const btnNext = document.querySelector('.btnNext')
 const btnPrev = document.querySelector('.btnPrev')
+const btnSubmit = document.querySelector('.btnSubmit')
 
 btnNext.addEventListener('click', () => nextQuestion())
 btnPrev.addEventListener('click', () => prevQuestion())

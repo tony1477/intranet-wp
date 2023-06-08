@@ -320,7 +320,8 @@ $routes->post('mailsubs/post','Master/Mailsubs::save');
 $routes->get('mailsubs/email','Master/Mailsubs::email');
 
 ## Helpdesk
-$routes->get('list-helpdesk','Helpdesk/Ticketing::index');
+// $routes->get('list-helpdesk','Helpdesk/Ticketing::index');
+$routes->get('list-helpdesk','Helpdesk/Ticketing::listHelpdesk');
 $routes->get('create-helpdesk','Helpdesk/Ticketing::create');
 $routes->post('create-helpdesk/user/(:alpha)/form','Helpdesk\Ticketing::form/$1');
 $routes->post('helpdesk/nextquestion','Helpdesk/Ticketing::nextquestion');

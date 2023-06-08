@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Controllers\Helpdesk;
-
+use App\Entities\ItHelpdesk;
 use App\Controllers\BaseController;
-use App\Models\HelpdeskModel;
 use App\Models\HelpdeskCategoryModel;
 use App\Models\DivisiModel;
 use App\Models\DepartmentModel;
@@ -22,7 +21,7 @@ class Ticketing extends BaseController
     private $model;
     public function __construct()
     {
-        $this->ticketing = new HelpdeskModel();
+        $this->ticketing = new ItHelpdeskModel();
         $this->category = new HelpdeskCategoryModel();
         $this->listservice = new HelpdeskChoiceModel();
     }
@@ -125,6 +124,20 @@ class Ticketing extends BaseController
 		return view('master/m_view', $data);
     }
 
+    public function listHelpdesk()
+    {
+        helper(['admin_helper','master_helper','form']);
+        $menu = getMenu($user='Admin');
+		$data = [
+			'title_meta' => view('partials/title-meta', ['title' => 'Create_Ticket']),
+			'page_title' => view('partials/page-title', ['title' => 'Helpdesk', 'li_1' => 'Intranet', 'li_2' => 'Ticketing']),
+			'modules' => $menu,
+            'route'=>'create-helpdesk',
+            'menuname' => 'IT_Helpdesk',           
+		];
+        return view('helpdesk/list',$data);
+    }
+
     public function create()
     {
         helper(['admin_helper','master_helper','form']);
@@ -147,13 +160,20 @@ class Ticketing extends BaseController
         if ($this->request->getMethod(true)!=='POST') return redirect()->to('create-helpdesk');
         if(csrf_hash() !== $this->request->getVar(csrf_token())) return redirect()->to('create-helpdesk');
 
-        $this->model = new ItHelpdeskModel();
+        $arr = array(
+            'fail' => 500,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+
         $datas = $this->request->getPost();
         $user = $datas['username'];
         $phone = $datas['usertelp'];
         $req = $datas['requesttext'];
         $reason = $datas['reasontext'];
-        
+        $dataid = $datas['data_id'];
+        $datavalue = $datas['data_value'];
+        $send = service('email');
         /* 
         $type = $datas['type'];
         switch($type) {
@@ -188,8 +208,8 @@ class Ticketing extends BaseController
         if(!$files['formFile']->hasMoved() && $files['formFile']->isValid()) {
             //$filepath = WRITEPATH . 'uploads/' . $files['formFile']->store();
             $nameFile= strlen($files['formFile']->getName())<100 ? $files['formFile']->getName() : $files['formFile']->getRandomName();
-            $files['formFile']->store(ROOTPATH.'public/assets/protected/helpdesk',$nameFile);      
-            $attachment=$nameFile;
+            $files['formFile']->move(ROOTPATH.'public/assets/protected/helpdesk',$nameFile);
+            $attachment=$files['formFile']->getName();
         }
         
         // save to db
@@ -197,25 +217,40 @@ class Ticketing extends BaseController
             'ticketdate' => date('Y-m-d H:i:s'),
             'userid_req' => get_id($user),
             'user_phone' => $phone,
-            'categoryid' => '',
-            'categoryname' => '',
+            'categoryid' => $dataid,
+            'categoryname' => $datavalue,
             'user_request' => $req,
             'user_reason' => $reason
         ];
         if($attachment!==null) $data['user_attachment']=$attachment;
-        var_dump($data);
-        // if($this->model->save($data)) echo 'berhasil';
-        // $menu = getMenu($user='Admin');
-        // $data = [
-        //     'title_meta' => view('partials/title-meta', ['title' => 'IT_Form']),
-		// 	'page_title' => view('partials/page-title', ['title' => 'Helpdesk', 'li_1' => 'Intranet', 'li_2' => 'Ticketing']),
-		// 	'modules' => $menu,
-        //     'route'=>'create-helpdesk',
-        //     'menuname' => 'IT_Helpdesk',
-        //     'data' => $datas,
-        //     'filename' => $filename,
-        // ];
-        // return view('helpdesk/'.$filename,$data);
+        if(!$save=$this->ticketing->savedata($data)) {
+            $message = lang('Files.Save_Failed');
+            $arr = array(
+                'status' => 'error',
+                'code' => 400,
+                'message'=> $message,
+            );
+            return redirect()->to('salahurl');
+        }
+        
+        // send email to head_of_user
+        $send->setFrom('it@wilianperkasa.com','IT Helpdesk');
+        $send->setTo('martoni.firman@wilianperkasa.com');
+        $send->setSubject('Permohonan Bantuan IT Helpdesk');
+        $send->setMessage('Pesan dalam Email');
+
+        $email = $this->ticketing->find($save);
+        if($send->send()) $email->isemailcreate = 1;
+        else $email->isemailcreate=0;
+        $this->ticketing->save($email);        
+
+        $message = lang('Files.Save_Success');
+        $arr = array(
+            'status' => 'success',
+            'code' => 200,
+            'message'=> $message,
+        );
+        return redirect()->to('list-helpdesk');
     }
 
     public function nextquestion()
