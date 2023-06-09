@@ -326,6 +326,7 @@ $routes->get('create-helpdesk','Helpdesk/Ticketing::create');
 $routes->post('create-helpdesk/user/(:alpha)/form','Helpdesk\Ticketing::form/$1');
 $routes->post('helpdesk/nextquestion','Helpdesk/Ticketing::nextquestion');
 $routes->post('helpdesk/prevquestion','Helpdesk/Ticketing::prevquestion');
+$routes->post('helpdesk/list-newticket','Helpdesk/Ticketing::listNewTicket');
 // $routes->get('create-helpdesk/user/(:alpha)/(:segment)','Helpdesk\Ticketing::form/$1/$2');
 
 ## Website

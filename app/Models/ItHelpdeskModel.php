@@ -59,5 +59,34 @@ class ItHelpdeskModel extends Model
             return false;
         }
         return $insertID;
-    }    
+    }
+    
+    public function getAllDatabyType(int $type)
+    {
+        $this->select('ifnull(count(1),0) as total');
+        $this->where('recordstatus',$type);
+        return $this->get();
+    }
+
+    public function getDataFromDT(int $type)
+    {
+        $sql = $this->db->table('ithelpdesk a')
+            ->select('a.ticketdate, ifnull(a.user_attachment,"") as attachment, a.user_reason, a.user_request, user_phone,(select b.categoryname from helpdesk_issue b
+            join helpdesk_choice c on c.choiceid = b.categoryid
+            where b.helpdeskid = a.helpdeskid and c.parentid is null) as categoryname, (select group_concat(b.categoryname separator " > ") from helpdesk_issue b
+            join helpdesk_choice c on c.choiceid = b.categoryid
+            where b.helpdeskid = a.helpdeskid ) as level, (select fullname from users u where u.id=a.userid_req) as user_fullname, (select fullname from users u where u.id=a.userid_head) as head_user, a.user_phone')
+            ->where('a.recordstatus',$type);
+        return $sql->get();
+
+        // $where = '';
+        // $sql = $this->query("select * from (select a.ticketdate, ifnull(a.user_attachment,'') as attachment, a.user_reason, a.user_request, user_phone,(select b.categoryname from helpdesk_issue b
+        //     join helpdesk_choice c on c.choiceid = b.categoryid
+        //     where b.helpdeskid = a.helpdeskid and c.parentid is null) as categoryname, (select fullname from users u where u.id=a.userid_head) as head_user
+        // from ithelpdesk a 
+        // where a.recordstatus = {$type}) z {$where}");
+        
+        // // if($filtered!='') $where = " where z.fullname like '%{$filtered}%'";
+        // return $sql->getResultArray();
+    }
 }

@@ -317,4 +317,62 @@ class Ticketing extends BaseController
         }
         return json_encode($arr);
     }
+
+    public function listNewTicket()
+    {
+        header('Content-Type: application/json');
+        // Process the AJAX request
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['draw'])) {
+            $draw = $_POST['draw'];
+            $start = $_POST['start'];
+            $length = $_POST['length'];
+            $searchValue = $_POST['search']['value'];
+            $filteredData = [];
+            
+            // Apply any necessary filtering or searching to your data
+            $data = $this->ticketing->getDataFromDT(1); // Example: No filtering applied
+            $alldata = $this->ticketing->getAllDatabyType(1);
+
+            // Prepare the data to be sent as a response
+            $response = [
+                "draw" => intval($draw),
+                "recordsTotal" => intval($alldata->getRow()->total),
+                "recordsFiltered" => count($data->getResultArray()),
+                "data" => []
+            ];
+
+            if (!empty($searchValue)) {
+                foreach ($data->getResultArray() as $row) {
+                    if (stripos($row['ticketdate'], $searchValue) !== false || stripos($row['categoryname'], $searchValue) !== false || stripos($row['head_user'], $searchValue) !== false || stripos($row['user_request'], $searchValue) !== false) {
+                        $filteredData[] = $row;
+                    }
+                }
+            } else {
+                $filteredData = $data->getResultArray(); // If no search value, use the original data
+            }           
+
+            // Slice the data based on the requested start and length
+            $pagedData = array_slice($filteredData, $start, $length);
+
+            // Loop through the sliced data and format it for the response
+            foreach ($pagedData as $row) {
+                $response['data'][] = [
+                    "tanggal" => date('d/m/Y H:i',strtotime($row['ticketdate'])),
+                    "phone" => $row['user_phone'],
+                    "nama" => $row['user_fullname'],
+                    "request" => $row['user_request'],
+                    "atasan" => $row['head_user'],
+                    "attachment" => $row['attachment'], 
+                    "level" => $row['level'], 
+                    "reason" => $row['user_reason'], 
+                    "detail" => '<a href="#"><i class="fas fa-info btn btn-secondary rounded-circle"></i> Detail</a>',
+                    "action" => '<a href="#"><button type="button" class="btn btn-light waves-effect btn-label waves-light"><i class="far fa-edit label-icon"></i> Edit</button></a> <a href="#"><button type="button" class="btn btn-success waves-effect btn-label waves-light"><i class="fas fa-check label-icon"></i> Approve</button></a>'
+                ];
+            }
+            
+            // Send the JSON response
+            echo json_encode($response);
+            exit;
+        }
+    }
 }
