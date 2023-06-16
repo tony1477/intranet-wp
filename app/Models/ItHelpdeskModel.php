@@ -34,7 +34,7 @@ class ItHelpdeskModel extends Model
     protected $allowCallbacks = true;
     protected $afterInsert    = [];
 
-    public function savedata($data)
+    public function savedata($data) :?int
     {
         $this->db->transStart();
         $attachment = null;
@@ -61,32 +61,59 @@ class ItHelpdeskModel extends Model
         return $insertID;
     }
     
-    public function getAllDatabyType(int $type)
+    private function getUsersbyId(int $userid) :?array
     {
+        // $this->query("call getUsersStructurebyUserid(".$userid.",@list)");
+        $sql = "call getUsersStructurebyUserid(?,@?)";
+        $this->query($sql,[$userid,"list"]);
+        $list = $this->query('select @list')->getRowArray();
+        return explode(',',$list['@list']);
+    }
+
+    public function getSummStatusbyType(int $userid, ?string $status) 
+    {
+        $usersid = $this->getUsersbyId($userid);
+        $recordstatus = explode(',',$status);
         $this->select('ifnull(count(1),0) as total');
-        $this->where('recordstatus',$type);
+        $this->whereIn('recordstatus',$recordstatus);
+        $this->whereIn('userid_req',$usersid);
         return $this->get();
     }
 
-    public function getDataFromDT(int $type)
+    public function getDataFromDT(int $userid, ?string $status) 
     {
+        $usersid = $this->getUsersbyId($userid);
+        $recordstatus = explode(',',$status);
         $sql = $this->db->table('ithelpdesk a')
-            ->select('a.ticketdate, ifnull(a.user_attachment,"") as attachment, a.user_reason, a.user_request, user_phone,(select b.categoryname from helpdesk_issue b
+            ->select('a.helpdeskid, a.ticketdate, ifnull(a.user_attachment,"") as attachment, a.user_reason, a.user_request, user_phone,(select b.categoryname from helpdesk_issue b
             join helpdesk_choice c on c.choiceid = b.categoryid
             where b.helpdeskid = a.helpdeskid and c.parentid is null) as categoryname, (select group_concat(b.categoryname separator " > ") from helpdesk_issue b
             join helpdesk_choice c on c.choiceid = b.categoryid
             where b.helpdeskid = a.helpdeskid ) as level, (select fullname from users u where u.id=a.userid_req) as user_fullname, (select fullname from users u where u.id=a.userid_head) as head_user, a.user_phone')
-            ->where('a.recordstatus',$type);
+            ->whereIn('a.recordstatus',$recordstatus)
+            ->whereIn('a.userid_req',$usersid);
         return $sql->get();
+    }
 
-        // $where = '';
-        // $sql = $this->query("select * from (select a.ticketdate, ifnull(a.user_attachment,'') as attachment, a.user_reason, a.user_request, user_phone,(select b.categoryname from helpdesk_issue b
-        //     join helpdesk_choice c on c.choiceid = b.categoryid
-        //     where b.helpdeskid = a.helpdeskid and c.parentid is null) as categoryname, (select fullname from users u where u.id=a.userid_head) as head_user
-        // from ithelpdesk a 
-        // where a.recordstatus = {$type}) z {$where}");
-        
-        // // if($filtered!='') $where = " where z.fullname like '%{$filtered}%'";
-        // return $sql->getResultArray();
+    public function getDataListTicket(int $userid)
+    {
+        $usersid = $this->getUsersbyId($userid);
+        $usersid = implode(',',$usersid);
+        return $this->query("select helpdeskid, sum(newticket) as newticket, sum(waiting) as waiting, sum(onprogress) as onprogress, sum(`close`) as `close`, sum(cancel) as cancel
+        from (select z.*, 
+            (select if(recordstatus=1,1,0)) as newticket, 
+            (select if(recordstatus=2 or recordstatus=3,1,0)) as waiting,
+            (select if(recordstatus=4 or recordstatus=5 or recordstatus=6 or recordstatus=7 or recordstatus=8 or recordstatus=9,1,0)) as onprogress,
+            (select if(recordstatus=10,1,0)) as `close`,
+            (select if(recordstatus=0,1,0)) as cancel
+            from (select helpdeskid,ticketdate,recordstatus
+        from ithelpdesk i 
+        where i.userid_req in({$usersid})) z ) zz")->getRow();
+    }
+
+    public function approveHelpdesk($data)
+    {
+        $sql = 'call approveItHelpdesk(:vid:,:vuserid:)';
+        return $this->db->query($sql,['vid'=>$data['id'],'vuserid'=>$data['userid']]);
     }
 }

@@ -51,17 +51,17 @@
                 <div class="accordion" id="accordionPanelsStayOpen">
                     <div class="accordion-item my-3">
                         <h2 class="accordion-header position-relative" id="panelsNewTicket">
-                            <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> 0 Ticket</div>
+                            <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$listticket->newticket?> Ticket<?=($listticket->newticket>1 ? 's' : '')?></div>
                             <button class="accordion-button bg-secondary text-light fs-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#panelsNewTicket-collapse" aria-expanded="true" aria-controls="panelsNewTicket-collapse">
                             New Ticket
                             </button>
                         </h2>
                         <div id="panelsNewTicket-collapse" class="accordion-collapse collapse show" aria-labelledby="panelsNewTicket">
-                        <div class="accordion-body">
-                        <table id="datatable-newTicket" class="table table-bordered dt-responsive  w-100">
+                            <div class="accordion-body">
+                                <table id="datatable-NewTicket" class="table table-bordered dt-responsive w-100">
                                     <thead>
                                         <tr>
-                                            <!-- <th>No</th> -->
+                                            <th>No</th>
                                             <th>Tanggal Pembuatan</th>
                                             <th>Nama Pemohon</th>
                                             <th width="35%">Permohonan</th>
@@ -76,55 +76,119 @@
                                         
                                     </tbody>
                                 </table>
-                        </div>
+                            </div>
                         </div>
                     </div>
                     <div class="accordion-item my-3">
-                        <h2 class="accordion-header" id="panelsWaitingHead">
-                        <button class="accordion-button bg-primary text-white fs-3 fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsWaitingHead-collapse" aria-expanded="false" aria-controls="panelsWaitingHead-collapse">
+                        <h2 class="accordion-header position-relative" id="panelsWaitingHead">
+                            <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$listticket->waiting?> Ticket<?=($listticket->waiting>1 ? 's' : '')?></div>
+                            <button class="accordion-button bg-primary text-white fs-3 fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsWaitingHead-collapse" aria-expanded="false" aria-controls="panelsWaitingHead-collapse">
                             Waiting Approval
-                        </button>
+                            </button>
                         </h2>
                         <div id="panelsWaitingHead-collapse" class="accordion-collapse collapse" aria-labelledby="panelsWaitingHead">
-                        <div class="accordion-body">
-                            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
+                            <div class="accordion-body">
+                                <table id="datatable-WaitingHead" class="table table-bordered dt-responsive  w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Tanggal Pembuatan</th>
+                                            <th>Nama Pemohon</th>
+                                            <th width="35%">Permohonan</th>
+                                            <th>Atasan Langsung</th>
+                                            <th width="10%">Detail</th>
+                                            <th width="15%">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="accordion-item my-3">
-                        <h2 class="accordion-header" id="panelsOnProgress">
+                        <h2 class="accordion-header position-relative" id="panelsOnProgress">
+                        <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$listticket->onprogress?> Ticket<?=($listticket->onprogress>1 ? 's' : '')?></div>
                         <button class="accordion-button bg-info text-white fs-3 fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false" aria-controls="panelsOnProgress-collapse">
                             On Progress IT
                         </button>
                         </h2>
                         <div id="panelsOnProgress-collapse" class="accordion-collapse collapse" aria-labelledby="panelsOnProgress">
-                        <div class="accordion-body">
-                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
+                            <div class="accordion-body">
+                                <table id="datatable-OnProgress" class="table table-bordered dt-responsive  w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Tanggal Pembuatan</th>
+                                            <th>Nama Pemohon</th>
+                                            <th width="35%">Permohonan</th>
+                                            <th>Atasan Langsung</th>
+                                            <th width="10%">Detail</th>
+                                            <th width="15%">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="accordion-item my-3">
-                        <h2 class="accordion-header" id="panelsSuccess">
+                        <h2 class="accordion-header position-relative" id="panelsSuccess">
+                        <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$listticket->close?> Ticket<?=($listticket->close>1 ? 's' : '')?></div>
                         <button class="accordion-button bg-success text-white fw-bold fs-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsSuccess-collapse" aria-expanded="false" aria-controls="panelsSuccess-collapse">
                             Ticket Closed
                         </button>
                         </h2>
                         <div id="panelsSuccess-collapse" class="accordion-collapse collapse" aria-labelledby="panelsSuccess">
-                        <div class="accordion-body">
-                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
+                            <div class="accordion-body">
+                                <table id="datatable-Success" class="table table-bordered dt-responsive  w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Tanggal Pembuatan</th>
+                                            <th>Nama Pemohon</th>
+                                            <th width="35%">Permohonan</th>
+                                            <th>Atasan Langsung</th>
+                                            <th width="10%">Detail</th>
+                                            <th width="15%">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="accordion-item my-3">
-                        <h2 class="accordion-header" id="panelsCancel">
+                        <h2 class="accordion-header position-relative" id="panelsCancel">
+                        <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$listticket->cancel?> Ticket<?=($listticket->cancel>1 ? 's' : '')?></div>
                         <button class="accordion-button bg-danger text-white fw-bold fs-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsCancel-collapse" aria-expanded="false" aria-controls="panelsCancel-collapse">
                             Ticket Reject/Cancel
                         </button>
                         </h2>
                         <div id="panelsCancel-collapse" class="accordion-collapse collapse" aria-labelledby="panelsCancel">
-                        <div class="accordion-body">
-                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
+                            <div class="accordion-body">
+                                <table id="datatable-Cancel" class="table table-bordered dt-responsive  w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Tanggal Pembuatan</th>
+                                            <th>Nama Pemohon</th>
+                                            <th width="35%">Permohonan</th>
+                                            <th>Atasan Langsung</th>
+                                            <th width="10%">Detail</th>
+                                            <th width="15%">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -144,5 +208,18 @@
 <script src="<?=base_url()?>/public/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?=base_url()?>/public/assets/js/app.js"></script>
 <script src="<?=base_url()?>/public/assets/js/helpdesk/list-helpdesk.js"></script>
+<script>
+    $(document).ready(function() {
+        getDtTable('panelsNewTicket')
+    });
+    
+    document.addEventListener('shown.bs.collapse', function (event) {
+        let accordionItem = event.target.closest('.accordion-item');
+        let accordionItemId = accordionItem.childNodes[1].getAttribute('id');        
+        getDtTable(accordionItemId)
+    });
+
+    
+</script>
 </body>
 </html>

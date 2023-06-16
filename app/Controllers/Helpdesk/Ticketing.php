@@ -128,12 +128,14 @@ class Ticketing extends BaseController
     {
         helper(['admin_helper','master_helper','form']);
         $menu = getMenu($user='Admin');
+        $listticket = $this->ticketing->getDataListTicket(user_id());
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Create_Ticket']),
 			'page_title' => view('partials/page-title', ['title' => 'Helpdesk', 'li_1' => 'Intranet', 'li_2' => 'Ticketing']),
 			'modules' => $menu,
             'route'=>'create-helpdesk',
-            'menuname' => 'IT_Helpdesk',           
+            'menuname' => 'IT_Helpdesk',
+            'listticket' => $listticket
 		];
         return view('helpdesk/list',$data);
     }
@@ -318,9 +320,34 @@ class Ticketing extends BaseController
         return json_encode($arr);
     }
 
-    public function listNewTicket()
+    public function listTicket(string $type) :?string
     {
         header('Content-Type: application/json');
+        switch($type) {
+            case 'new':
+                $stt = 1;
+                break;
+
+            case 'waiting':
+                $stt = '2,3';
+                break;
+
+            case 'onprogress':
+                $stt='4,5,6,7,8,9';
+                break;
+
+            case 'close':
+                $stt = 10;
+                break;
+
+            case 'cancel':
+                $stt = 0;
+                break;
+            
+            default:
+                $stt = '1';
+                break;
+        }
         // Process the AJAX request
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['draw'])) {
             $draw = $_POST['draw'];
@@ -330,8 +357,8 @@ class Ticketing extends BaseController
             $filteredData = [];
             
             // Apply any necessary filtering or searching to your data
-            $data = $this->ticketing->getDataFromDT(1); // Example: No filtering applied
-            $alldata = $this->ticketing->getAllDatabyType(1);
+            $data = $this->ticketing->getDataFromDT(user_id(),$stt); // Example: No filtering applied
+            $alldata = $this->ticketing->getSummStatusbyType(user_id(),$stt);
 
             // Prepare the data to be sent as a response
             $response = [
@@ -357,6 +384,7 @@ class Ticketing extends BaseController
             // Loop through the sliced data and format it for the response
             foreach ($pagedData as $row) {
                 $response['data'][] = [
+                    "id" => $row['helpdeskid'],
                     "tanggal" => date('d/m/Y H:i',strtotime($row['ticketdate'])),
                     "phone" => $row['user_phone'],
                     "nama" => $row['user_fullname'],
@@ -365,14 +393,31 @@ class Ticketing extends BaseController
                     "attachment" => $row['attachment'], 
                     "level" => $row['level'], 
                     "reason" => $row['user_reason'], 
-                    "detail" => '<a href="#"><i class="fas fa-info btn btn-secondary rounded-circle"></i> Detail</a>',
-                    "action" => '<a href="#"><button type="button" class="btn btn-light waves-effect btn-label waves-light"><i class="far fa-edit label-icon"></i> Edit</button></a> <a href="#"><button type="button" class="btn btn-success waves-effect btn-label waves-light"><i class="fas fa-check label-icon"></i> Approve</button></a>'
+                    "detail" => '<a href="javascript:void(0)"><i class="fas fa-info btn btn-secondary rounded-circle"></i> Detail</a>',
+                    "action" => '<a href="javascript:void(0)"><button type="button" class="btn btn-light edit-button waves-effect btn-label waves-light"><i class="far fa-edit label-icon"></i> Edit</button></a> <a href="javascript:void(0)"><button type="button" class="btn btn-success approve-button waves-effect btn-label waves-light"><i class="fas fa-check label-icon"></i> Approve</button></a>'
                 ];
             }
             
             // Send the JSON response
-            echo json_encode($response);
-            exit;
+            return json_encode($response);
         }
+    }
+
+    public function approveTicket()
+    {
+        header('Content-Type: application/json');
+        if($this->request->getMethod()==='post')
+        {
+            $id = $this->request->getVar('id');
+            $userid = user_id();
+            $data = ['id'=>$id,'userid'=>$userid];
+            $app = $this->approveHelpdesk($data)->getResult();
+            
+        }
+    }
+
+    private function approveHelpdesk($data)
+    {
+        return $this->ticketing->approveHelpdesk($data);
     }
 }

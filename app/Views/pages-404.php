@@ -9,17 +9,17 @@
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="<?=base_url()?>/assets/images/favicon.ico">
+        <link rel="shortcut icon" href="<?=base_url()?>/public/assets/images/logo.png">
 
         <!-- preloader css -->
-        <link rel="stylesheet" href="<?=base_url()?>/assets/css/preloader.min.css" type="text/css" />
+        <link rel="stylesheet" href="<?=base_url()?>/public/assets/css/preloader.min.css" type="text/css" />
 
         <!-- Bootstrap Css -->
-        <link href="<?=base_url()?>/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>/public/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
-        <link href="<?=base_url()?>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>/public/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <!-- App Css-->
-        <link href="<?=base_url()?>/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>/public/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
 
     </head>
 
@@ -44,7 +44,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-xl-8">
                         <div>
-                            <img src="<?=base_url()?>/assets/images/error-img.png" alt="" class="img-fluid">
+                            <img src="<?=base_url()?>/public/assets/images/error-img.png" alt="" class="img-fluid">
                         </div>
                     </div>
                     <!-- end row -->
@@ -56,16 +56,16 @@
         <!-- end content -->
 
         <!-- JAVASCRIPT -->
-        <script src="<?=base_url()?>/assets/libs/jquery/jquery.min.js"></script>
-        <script src="<?=base_url()?>/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="<?=base_url()?>/assets/libs/metismenu/metisMenu.min.js"></script>
-        <script src="<?=base_url()?>/assets/libs/simplebar/simplebar.min.js"></script>
-        <script src="<?=base_url()?>/assets/libs/node-waves/waves.min.js"></script>
-        <script src="<?=base_url()?>/assets/libs/feather-icons/feather.min.js"></script>
+        <script src="<?=base_url()?>/public/assets/libs/jquery/jquery.min.js"></script>
+        <script src="<?=base_url()?>/public/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="<?=base_url()?>/public/assets/libs/metismenu/metisMenu.min.js"></script>
+        <script src="<?=base_url()?>/public/assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="<?=base_url()?>/public/assets/libs/node-waves/waves.min.js"></script>
+        <script src="<?=base_url()?>/public/assets/libs/feather-icons/feather.min.js"></script>
         <!-- pace js -->
-        <script src="<?=base_url()?>/assets/libs/pace-js/pace.min.js"></script>
+        <script src="<?=base_url()?>/public/assets/libs/pace-js/pace.min.js"></script>
 
-        <script src="<?=base_url()?>/assets/js/app.js"></script>
+        <script src="<?=base_url()?>/public/assets/js/app.js"></script>
 
     </body>
 </html>
