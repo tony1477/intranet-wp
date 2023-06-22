@@ -7,7 +7,9 @@ use App\Models\HelpdeskCategoryModel;
 use App\Models\DivisiModel;
 use App\Models\DepartmentModel;
 use App\Models\HelpdeskChoiceModel;
+use App\Models\HelpdeskDetailModel;
 use App\Models\ItHelpdeskModel;
+use App\Models\UserModel;
 use CodeIgniter\Files\File;
 use Exception;
 
@@ -24,6 +26,7 @@ class Ticketing extends BaseController
         $this->ticketing = new ItHelpdeskModel();
         $this->category = new HelpdeskCategoryModel();
         $this->listservice = new HelpdeskChoiceModel();
+        helper(['helpdesk_helper']);
     }
 
     public function index()
@@ -323,25 +326,31 @@ class Ticketing extends BaseController
     public function listTicket(string $type) :?string
     {
         header('Content-Type: application/json');
+        $addedstatus = false;
         switch($type) {
             case 'new':
                 $stt = 1;
+                $addedstatus = false;
                 break;
 
             case 'waiting':
                 $stt = '2,3';
+                $addedstatus = 'listhelpdesk';
                 break;
 
             case 'onprogress':
                 $stt='4,5,6,7,8,9';
+                $addedstatus = 'listhelpdesk';
                 break;
 
             case 'close':
                 $stt = 10;
+                $addedstatus = false;
                 break;
 
             case 'cancel':
                 $stt = 0;
+                $addedstatus = false;
                 break;
             
             default:
@@ -357,8 +366,8 @@ class Ticketing extends BaseController
             $filteredData = [];
             
             // Apply any necessary filtering or searching to your data
-            $data = $this->ticketing->getDataFromDT(user_id(),$stt); // Example: No filtering applied
-            $alldata = $this->ticketing->getSummStatusbyType(user_id(),$stt);
+            $data = $this->ticketing->getDataFromDT(user_id(),$stt,$addedstatus); // Example: No filtering applied
+            $alldata = $this->ticketing->getSummStatusbyType(user_id(),$stt,$addedstatus);
 
             // Prepare the data to be sent as a response
             $response = [
@@ -383,6 +392,35 @@ class Ticketing extends BaseController
 
             // Loop through the sliced data and format it for the response
             foreach ($pagedData as $row) {
+                switch($row['recordstatus']){
+                    case '1' :
+                        $action = '<a href="javascript:void(0)"><button type="button" class="btn btn-light edit-button waves-effect btn-label waves-light"><i class="far fa-edit label-icon"></i> Edit</button></a>
+                        <a href="javascript:void(0)"><button type="button" class="btn btn-success approve-button waves-effect btn-label waves-light"><i class="fas fa-check label-icon"></i> Approve</button></a>';
+                        break;
+                    
+                    case '2':
+                    case '3':
+                    case '4':
+                        $action = '<a href="javascript:void(0)"><button type="button" class="btn btn-light edit-button waves-effect btn-label waves-light"><i class="far fa-edit label-icon"></i> Edit</button></a>
+                        <a href="javascript:void(0)"><button type="button" class="btn btn-success approve-button waves-effect btn-label waves-light"><i class="fas fa-check label-icon"></i> Approve</button></a>
+                        <a href="javascript:void(0)"><button type="button" class="btn btn-danger reject-button waves-effect btn-label waves-light"><i class="fas fa-times label-icon"></i> Reject</button></a>';
+                        break;
+                    case '5':
+                    case '6':
+                    case '7':
+                    case '8':
+                    case '9':
+                    case '10':
+                        $action = '<a href="javascript:void(0)"><button type="button" class="btn btn-info reject-button waves-effect btn-label waves-light"><i class="fas fa-times label-icon"></i> Reply Confirmation</button></a>';
+                        break;
+                    case '11' :
+                    case '0' :
+                        $action ='';
+                        break;
+                    default :
+                        $action = '';
+                        break;
+                }
                 $response['data'][] = [
                     "id" => $row['helpdeskid'],
                     "tanggal" => date('d/m/Y H:i',strtotime($row['ticketdate'])),
@@ -393,8 +431,11 @@ class Ticketing extends BaseController
                     "attachment" => $row['attachment'], 
                     "level" => $row['level'], 
                     "reason" => $row['user_reason'], 
+                    "isfeedback" => $row['isfeedback'],
+                    "isconfirmation" => $row['isconfirmation'],
+                    "status" => $row['status'],
                     "detail" => '<a href="javascript:void(0)"><i class="fas fa-info btn btn-secondary rounded-circle"></i> Detail</a>',
-                    "action" => '<a href="javascript:void(0)"><button type="button" class="btn btn-light edit-button waves-effect btn-label waves-light"><i class="far fa-edit label-icon"></i> Edit</button></a> <a href="javascript:void(0)"><button type="button" class="btn btn-success approve-button waves-effect btn-label waves-light"><i class="fas fa-check label-icon"></i> Approve</button></a>'
+                    "action" => $action
                 ];
             }
             
@@ -408,12 +449,59 @@ class Ticketing extends BaseController
         header('Content-Type: application/json');
         if($this->request->getMethod()==='post')
         {
-            $id = $this->request->getVar('id');
-            $userid = user_id();
-            $data = ['id'=>$id,'userid'=>$userid];
-            $app = $this->approveHelpdesk($data)->getResult();
+            try {
+                $id = $this->request->getVar('id');
+                $userid = user_id();
+                $data = ['id'=>$id,'userid'=>$userid];
+                $app = $this->approveHelpdesk($data)->getResult();
+                $parentid = $this->ticketing->getParentLevel(user_id());
+                $userModel = new UserModel();
+                $user = $userModel->find($parentid->userid);
+                $mailhead = 'martoni.firman@wilianperkasa.com';
+                $name = $userModel->find(user_id())->getFullname();
+                // if($user) $mailhead=$user->getEmail();
+                $helpdesk = $this->ticketing->find($id);
+                $details = new HelpdeskDetailModel();
+                $detail = $details->where('helpdeskid',$id)->findAll();
+                $datas = [
+                    'nama' => $name,
+                    'issue' => $detail,
+                    'request' => $helpdesk->user_request,
+                    'reason' => $helpdesk->user_reason
+                ];
+                
+                $email = service('email');
+                $mailto = $mailhead;
+                $fromEmail = env('Email.fromEmail');
+                $fromName = env('Email.fromName');
+                $sent = $email->setFrom($fromEmail,$fromName)
+                    ->setTo($mailto)
+                    ->setSubject('Permohonan Bantuan IT')
+                    ->setMessage(view('email/create_ticket',['data' => $datas]))
+                    ->setMailType('html')
+                    ->send();
+                
+                $isemailcreate=0;
+                if($sent) $isemailcreate = 1;
+                $this->ticketing->update($id,['isemailcreate'=>$isemailcreate]);
+
+                $response = [
+                    'message' => 'Data Berhasil di Approve',
+                    'status' => 'success',
+                    'code' => 200
+                ];
+            }
+            catch(Exception $e)
+            {
+                $response = [
+                    'message' => $e->getMessage(),
+                    'status' => 'fail',
+                    'code' => 400
+                ];
+            }
             
         }
+        return json_encode($response);
     }
 
     private function approveHelpdesk($data)

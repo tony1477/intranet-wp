@@ -1,73 +1,81 @@
 <?php
 
-namespace App\Controllers\Master;
+namespace App\Controllers\Master\Auth;
 
 use App\Controllers\BaseController;
-use App\Models\UserModel;
+use App\Models\Auth\WfstructureModel;
 use Myth\Auth\Models\GroupModel;
 
-class GroupUser extends BaseController
+class Wfstructure extends BaseController
 {
-    public $model = null;
-    private $users;
+    private $model=null;
     public function __construct()
     {
-        $this->model = new \App\Models\GroupUserModel();
+        $this->model = new WfstructureModel();
     }
-
     public function index()
     {
         helper(['admin_helper']);
         helper(['master_helper']);
         $menu = getMenu($user='Admin');
-        $groupuser = $this->model->getData();
-        $this->users = new UserModel();
+        $wfstructure = $this->model->getData();
         $groupModel = new GroupModel();
         $groups = $groupModel->findAll();
-        $users = $this->users->findAll();
         $data = [
-			'title_meta' => view('partials/title-meta', ['title' => 'Group_User']),
+			'title_meta' => view('partials/title-meta', ['title' => 'Wf_Structure']),
 			'page_title' => view('partials/page-title', ['title' => 'master_data', 'li_1' => 'Intranet', 'li_2' => 'Group_User']),
 			'modules' => $menu,
-            'route' => 'user-group',
-            'menuname' => 'Group_User',
-            'data' => $groupuser,
-            'customsearch' => 'master/_partials/usergroup',
+            'route' => 'auth/wfstructure',
+            'menuname' => 'Wfstructure',
+            'data' => $wfstructure,
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
-            'columns' => array('Action','Id','User_Name','Group_Name','User_Created','User_Modified'),
+            'columns' => array('Action','Id','Group_Name','Parent_Name','Recstatus'),
+            'button' => array(
+                'Recstatus' => [
+                    'class' => 'btn-sm waves-effect waves-light',
+                    'text' => false,
+                ],
+            ),
             'forms' => [
                 # rule
                 # column_name => array(type,'name and id','class','style')
-                'idgroupuser' => array('type'=>'hidden','idform'=>'id','field'=>'usergroupid'), 
-                'userid' => array(
-                    'label'=>'User_Name',
-                    'field'=>'user_id',
-                    'type'=>'select',
-                    'idform'=>'id_user',
-                    'form-class'=>'form-select',
-                    'style' => 'col-md-8 col-xl-8',
-                    'options' => array(
-                        'list' => $users,
-                        'id' => 'id',
-                        'value' => 'Fullname',
-                    ),
-                ),
+                'wfstructureid' => array('type'=>'hidden','idform'=>'id','field'=>'wfstructureid'), 
                 'groupid' => array(
                     'label'=>'Group_Name',
-                    'field'=>'group_id',
+                    'field'=>'groupid',
                     'type'=>'select',
-                    'idform'=>'id_group',
+                    'idform'=>'group_id',
                     'form-class'=>'form-select',
                     'style' => 'col-md-8 col-xl-8',
                     'options' => array(
                         'list' => $groups,
                         'id' => 'id',
                         'value' => 'description',
-                    ),
+                    )
+                ),
+                'parentid' => array(
+                    'label'=>'Parent_Name',
+                    'field'=>'parentid',
+                    'type'=>'select',
+                    'idform'=>'parent_id',
+                    'form-class'=>'form-select',
+                    'style' => 'col-md-8 col-xl-8',
+                    'options' => array(
+                        'list' => $groups,
+                        'id' => 'id',
+                        'value' => 'description',
+                    )
+                ),
+                'status' => array(
+                    'label'=>'Recstatus',
+                    'field'=>'recordstatus',
+                    'type'=>'switch',
+                    'idform'=>'isaktif',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
                 ),
             ],
-            'additionalScript' => 'master/_partials/script/usergroup.js'
 		];
 		
 		return view('master/m_view', $data);
@@ -84,12 +92,12 @@ class GroupUser extends BaseController
         if($this->request->isAJAX()) {
             try {
                 $id = $this->request->getVar('id');
-                $this->model->where('usergroupid',$id)->delete();
+                $this->model->where('wfstructureid',$id)->delete();
                 if($this->model->find($id)) {
                     $arr = array(
                         'status' => 'warning',
                         'code' => 200,
-                        'message' => 'Terjadi kesalahan dalam menghapus data',
+                        'message' => lang('Files.Delete_Error'),
                         // 'data' => $this->model->findAll()
                     );
                     return json_encode($arr);
@@ -97,13 +105,13 @@ class GroupUser extends BaseController
                 $arr = array(
                     'status' => 'success',
                     'code' => 200,
-                    'message' => 'Data Berhasil di Hapus',
+                    'message' => lang('Files.Delete_Success'),
                     // 'data' =>  $this->model->findAll()
                 );
             }catch (\Exception $e) {
                 $arr = array(
                     'status' => $e->getMessage(),
-                    'code' => 400,
+                    'code' => 400
                 );
             }
         }
@@ -126,12 +134,15 @@ class GroupUser extends BaseController
                     $datas = (array) $datas;
                 }
                 $data = [
-                    'group_id' => $datas['id_group'],
-                    'user_id' => $datas['id_user'],
-                    'updater_id' => user()->username,
+                    'wfstructureid' => $datas['id'],
+                    'groupid' => $datas['group_id'],
+                    'parentid' => $datas['parent_id'],
+                    'recordstatus' => ($datas['isaktif']=='Y' ? 1 : 0),
+                    // 'user_m' => $this->session->user_kode,
                     // 'tgl_m'=>date('Y-m-d'),
                     // 'time_m'=>date("h:i:s a")
                 ];
+                
                 if($datas['id']!=='') {
                     $this->model->update($datas['id'],$data);
                     $message = lang('Files.Update_Success');
@@ -139,7 +150,7 @@ class GroupUser extends BaseController
                 
                 if($datas['id']==='') {
                     $newdata = [
-                        'creator_id' => user()->username,
+                        // 'user_c' => $this->session->user_kode,
                         // 'tgl_c'=>date('Y-m-d'),
                         // 'time_c'=>date("h:i:s a")
                     ];
@@ -156,7 +167,7 @@ class GroupUser extends BaseController
             }catch (\Exception $e) {
                 $arr = array(
                     'status' => $e->getMessage(),
-                    'code' => 400,
+                    'code' => 400
                 );
             }
         }

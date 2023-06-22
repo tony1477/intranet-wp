@@ -70,28 +70,41 @@ class ItHelpdeskModel extends Model
         return explode(',',$list['@list']);
     }
 
-    public function getSummStatusbyType(int $userid, ?string $status) 
+    public function getParentLevel(int $userid) :?object
     {
+        return $this->query("select getUserParentLevel({$userid}) as userid")->getRow();
+    }
+
+    public function getSummStatusbyType(int $userid, ?string $status, bool $addedCond) 
+    {
+        helper('helpdesk_helper');
         $usersid = $this->getUsersbyId($userid);
         $recordstatus = explode(',',$status);
         $this->select('ifnull(count(1),0) as total');
         $this->whereIn('recordstatus',$recordstatus);
         $this->whereIn('userid_req',$usersid);
+        // if($addedCond!==false) $this->whereIn('recordstatus',$this->getWfbyUserid($addedCond,user_id()));
         return $this->get();
     }
 
-    public function getDataFromDT(int $userid, ?string $status) 
+    public function getDataFromDT(int $userid, ?string $status, $addedCond) 
     {
+        helper('helpdesk_helper');
         $usersid = $this->getUsersbyId($userid);
         $recordstatus = explode(',',$status);
         $sql = $this->db->table('ithelpdesk a')
-            ->select('a.helpdeskid, a.ticketdate, ifnull(a.user_attachment,"") as attachment, a.user_reason, a.user_request, user_phone,(select b.categoryname from helpdesk_issue b
+            ->select('a.helpdeskid, a.ticketdate, ifnull(isfeedback,0) as isfeedback, ifnull(isconfirmation,0) as isconfirmation, ifnull(a.user_attachment,"") as attachment, a.user_reason, a.user_request, user_phone,(select b.categoryname from helpdesk_issue b
             join helpdesk_choice c on c.choiceid = b.categoryid
-            where b.helpdeskid = a.helpdeskid and c.parentid is null) as categoryname, (select group_concat(b.categoryname separator " > ") from helpdesk_issue b
+            where b.helpdeskid = a.helpdeskid and c.parentid is null) as categoryname, a.recordstatus, (select ws.wfstatususer from wfstatus ws where ws.wfstat = a.recordstatus) as status, (select group_concat(b.categoryname separator " > ") from helpdesk_issue b
             join helpdesk_choice c on c.choiceid = b.categoryid
-            where b.helpdeskid = a.helpdeskid ) as level, (select fullname from users u where u.id=a.userid_req) as user_fullname, (select fullname from users u where u.id=a.userid_head) as head_user, a.user_phone')
-            ->whereIn('a.recordstatus',$recordstatus)
-            ->whereIn('a.userid_req',$usersid);
+            where b.helpdeskid = a.helpdeskid ) as level, (select fullname from users u where u.id=a.userid_req) as user_fullname, (select fullname from users u where u.id=a.userid_head) as head_user, a.user_phone');
+            $sql->whereIn('a.recordstatus',$recordstatus);
+            $sql->whereIn('a.userid_req',$usersid);
+            // if($addedCond!==false) {
+            //     $lists = getWfbyUserid($addedCond,user_id());
+            //     $list = explode(',',$lists);
+            //     $sql->whereIn('a.recordstatus',$list);
+            // }
         return $sql->get();
     }
 
@@ -99,14 +112,16 @@ class ItHelpdeskModel extends Model
     {
         $usersid = $this->getUsersbyId($userid);
         $usersid = implode(',',$usersid);
-        return $this->query("select helpdeskid, sum(newticket) as newticket, sum(waiting) as waiting, sum(onprogress) as onprogress, sum(`close`) as `close`, sum(cancel) as cancel
+        return $this->query("select helpdeskid, sum(newticket) as newticket, sum(waiting) as waiting, sum(onprogress) as onprogress, sum(`close`) as `close`, sum(cancel) as cancel, sum(feedback) as isfeedback, sum(confirmation) as isconfirmation
         from (select z.*, 
-            (select if(recordstatus=1,1,0)) as newticket, 
-            (select if(recordstatus=2 or recordstatus=3,1,0)) as waiting,
-            (select if(recordstatus=4 or recordstatus=5 or recordstatus=6 or recordstatus=7 or recordstatus=8 or recordstatus=9,1,0)) as onprogress,
-            (select if(recordstatus=10,1,0)) as `close`,
-            (select if(recordstatus=0,1,0)) as cancel
-            from (select helpdeskid,ticketdate,recordstatus
+            if(recordstatus=1,1,0) as newticket, 
+            if(recordstatus=2 or recordstatus=3,1,0) as waiting,
+            if(recordstatus=4 or recordstatus=5 or recordstatus=6 or recordstatus=7 or recordstatus=8 or recordstatus=9,1,0) as onprogress,
+            if(recordstatus=10,1,0) as `close`,
+            if(recordstatus=0,1,0) as cancel,
+            if(isfeedback=1,1,0) as feedback,
+            if(isconfirmation=1,1,0) as confirmation
+            from (select helpdeskid,ticketdate,recordstatus,ifnull(isfeedback,0) as isfeedback,ifnull(isconfirmation,0) as isconfirmation
         from ithelpdesk i 
         where i.userid_req in({$usersid})) z ) zz")->getRow();
     }

@@ -1,73 +1,84 @@
 <?php
 
-namespace App\Controllers\Master;
+namespace App\Controllers\Master\Auth;
 
 use App\Controllers\BaseController;
-use App\Models\UserModel;
-use Myth\Auth\Models\GroupModel;
+use App\Models\Auth\WorkflowModel;
 
-class GroupUser extends BaseController
+class Workflow extends BaseController
 {
-    public $model = null;
-    private $users;
+    private $model=null;
     public function __construct()
     {
-        $this->model = new \App\Models\GroupUserModel();
+        $this->model = new WorkflowModel();
     }
-
     public function index()
     {
         helper(['admin_helper']);
         helper(['master_helper']);
         $menu = getMenu($user='Admin');
-        $groupuser = $this->model->getData();
-        $this->users = new UserModel();
-        $groupModel = new GroupModel();
-        $groups = $groupModel->findAll();
-        $users = $this->users->findAll();
+        $workflow = $this->model->findAll();
         $data = [
-			'title_meta' => view('partials/title-meta', ['title' => 'Group_User']),
+			'title_meta' => view('partials/title-meta', ['title' => 'Workflow']),
 			'page_title' => view('partials/page-title', ['title' => 'master_data', 'li_1' => 'Intranet', 'li_2' => 'Group_User']),
 			'modules' => $menu,
-            'route' => 'user-group',
-            'menuname' => 'Group_User',
-            'data' => $groupuser,
-            'customsearch' => 'master/_partials/usergroup',
+            'route' => 'auth/workflow',
+            'menuname' => 'Workflow',
+            'data' => $workflow,
             //'options' => array('option1' => $group),
             'columns_hidden' => array('Action'),
-            'columns' => array('Action','Id','User_Name','Group_Name','User_Created','User_Modified'),
+            'columns' => array('Action','Id','Wf_Name','Wf_Desc','Wf_Min_Status','Wf_Max_Status','Status'),
+            'button' => array(
+                'Status' => [
+                    'class' => 'btn-sm waves-effect waves-light',
+                    'text' => false,
+                ],
+            ),
             'forms' => [
                 # rule
                 # column_name => array(type,'name and id','class','style')
-                'idgroupuser' => array('type'=>'hidden','idform'=>'id','field'=>'usergroupid'), 
-                'userid' => array(
-                    'label'=>'User_Name',
-                    'field'=>'user_id',
-                    'type'=>'select',
-                    'idform'=>'id_user',
-                    'form-class'=>'form-select',
-                    'style' => 'col-md-8 col-xl-8',
-                    'options' => array(
-                        'list' => $users,
-                        'id' => 'id',
-                        'value' => 'Fullname',
-                    ),
+                'idgroupuser' => array('type'=>'hidden','idform'=>'id','field'=>'workflowid'), 
+                'wfname' => array(
+                    'label'=>'Wf_Name',
+                    'field'=>'wfname',
+                    'type'=>'text',
+                    'idform'=>'wf_name',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-8 col-xl-8'
                 ),
-                'groupid' => array(
-                    'label'=>'Group_Name',
-                    'field'=>'group_id',
-                    'type'=>'select',
-                    'idform'=>'id_group',
-                    'form-class'=>'form-select',
-                    'style' => 'col-md-8 col-xl-8',
-                    'options' => array(
-                        'list' => $groups,
-                        'id' => 'id',
-                        'value' => 'description',
-                    ),
+                'wfdesc' => array(
+                    'label'=>'Wf_Desc',
+                    'field'=>'wfdesc',
+                    'type'=>'text',
+                    'idform'=>'wf_desc',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-8 col-xl-8'
                 ),
-            ],
-            'additionalScript' => 'master/_partials/script/usergroup.js'
+                'wfminstat' => array(
+                    'label'=>'Wf_Min_Status',
+                    'field'=>'wfminstat',
+                    'type'=>'text',
+                    'idform'=>'wf_min',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-8 col-xl-8'
+                ),
+                'wfmaxstat' => array(
+                    'label'=>'Wf_Max_Status',
+                    'field'=>'wfmaxstat',
+                    'type'=>'text',
+                    'idform'=>'wf_max',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-8 col-xl-8'
+                ),
+                'status' => array(
+                    'label'=>'Status',
+                    'field'=>'recordstatus',
+                    'type'=>'switch',
+                    'idform'=>'isaktif',
+                    'form-class'=>'form-control',
+                    'style' => 'col-md-10 col-xl-10'
+                ),
+            ]
 		];
 		
 		return view('master/m_view', $data);
@@ -84,12 +95,12 @@ class GroupUser extends BaseController
         if($this->request->isAJAX()) {
             try {
                 $id = $this->request->getVar('id');
-                $this->model->where('usergroupid',$id)->delete();
+                $this->model->where('workflowid',$id)->delete();
                 if($this->model->find($id)) {
                     $arr = array(
                         'status' => 'warning',
                         'code' => 200,
-                        'message' => 'Terjadi kesalahan dalam menghapus data',
+                        'message' => lang('Files.Delete_Error'),
                         // 'data' => $this->model->findAll()
                     );
                     return json_encode($arr);
@@ -97,13 +108,13 @@ class GroupUser extends BaseController
                 $arr = array(
                     'status' => 'success',
                     'code' => 200,
-                    'message' => 'Data Berhasil di Hapus',
+                    'message' => lang('Files.Delete_Success'),
                     // 'data' =>  $this->model->findAll()
                 );
             }catch (\Exception $e) {
                 $arr = array(
                     'status' => $e->getMessage(),
-                    'code' => 400,
+                    'code' => 400
                 );
             }
         }
@@ -126,12 +137,17 @@ class GroupUser extends BaseController
                     $datas = (array) $datas;
                 }
                 $data = [
-                    'group_id' => $datas['id_group'],
-                    'user_id' => $datas['id_user'],
-                    'updater_id' => user()->username,
+                    'workflowid' => $datas['id'],
+                    'wfname' => $datas['wf_name'],
+                    'wfdesc' => $datas['wf_desc'],
+                    'wfminstat' => $datas['wf_min'],
+                    'wfmaxstat' => $datas['wf_max'],                    
+                    'recordstatus' => ($datas['isaktif']=='Y' ? 1 : 0),
+                    // 'user_m' => $this->session->user_kode,
                     // 'tgl_m'=>date('Y-m-d'),
                     // 'time_m'=>date("h:i:s a")
                 ];
+                
                 if($datas['id']!=='') {
                     $this->model->update($datas['id'],$data);
                     $message = lang('Files.Update_Success');
@@ -139,7 +155,7 @@ class GroupUser extends BaseController
                 
                 if($datas['id']==='') {
                     $newdata = [
-                        'creator_id' => user()->username,
+                        // 'user_c' => $this->session->user_kode,
                         // 'tgl_c'=>date('Y-m-d'),
                         // 'time_c'=>date("h:i:s a")
                     ];
@@ -156,7 +172,7 @@ class GroupUser extends BaseController
             }catch (\Exception $e) {
                 $arr = array(
                     'status' => $e->getMessage(),
-                    'code' => 400,
+                    'code' => 400
                 );
             }
         }

@@ -8,6 +8,7 @@
     <!-- Responsive datatable examples -->
     <link href="<?=base_url()?>/public/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     <?= $this->include('partials/head-css') ?>
+    <?= $this->include('partials/sweetalert-css') ?>
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>/public/assets/css/index.css" />
     <style>
         .accordion-button:not(.collapsed)::after {
@@ -51,6 +52,7 @@
                 <div class="accordion" id="accordionPanelsStayOpen">
                     <div class="accordion-item my-3">
                         <h2 class="accordion-header position-relative" id="panelsNewTicket">
+                            <div class="bg-primary rounded-3 infoReject position-absolute <?=$listticket->isfeedback>0 ? '' : 'd-none'?>" style="left: 50%;z-index: 4;color: var(--bs-white);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsNewTicket-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i> <?=$listticket->isfeedback?> Feedback<?=$listticket->isfeedback>1 ? 's' : ''?></div>
                             <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$listticket->newticket?> Ticket<?=($listticket->newticket>1 ? 's' : '')?></div>
                             <button class="accordion-button bg-secondary text-light fs-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#panelsNewTicket-collapse" aria-expanded="true" aria-controls="panelsNewTicket-collapse">
                             New Ticket
@@ -67,6 +69,7 @@
                                             <th width="35%">Permohonan</th>
                                             <th>Atasan Langsung</th>
                                             <th width="10%">Detail</th>
+                                            <th width="10%"></th>
                                             <th width="15%">Aksi</th>
                                         </tr>
                                     </thead>
@@ -97,6 +100,7 @@
                                             <th width="35%">Permohonan</th>
                                             <th>Atasan Langsung</th>
                                             <th width="10%">Detail</th>
+                                            <th>Status</th>
                                             <th width="15%">Aksi</th>
                                         </tr>
                                     </thead>
@@ -109,6 +113,7 @@
                     </div>
                     <div class="accordion-item my-3">
                         <h2 class="accordion-header position-relative" id="panelsOnProgress">
+                        <div class="bg-primary rounded-3 infoReject position-absolute <?=$listticket->isconfirmation>0 ? '' : 'd-none'?>" style="left: 50%;z-index: 4;color: var(--bs-white);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i> <?=$listticket->isconfirmation?> Need Confirmation<?=$listticket->isconfirmation>1 ? 's' : ''?></div>
                         <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$listticket->onprogress?> Ticket<?=($listticket->onprogress>1 ? 's' : '')?></div>
                         <button class="accordion-button bg-info text-white fs-3 fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false" aria-controls="panelsOnProgress-collapse">
                             On Progress IT
@@ -125,6 +130,7 @@
                                             <th width="35%">Permohonan</th>
                                             <th>Atasan Langsung</th>
                                             <th width="10%">Detail</th>
+                                            <th>Status</th>
                                             <th width="15%">Aksi</th>
                                         </tr>
                                     </thead>
@@ -153,6 +159,7 @@
                                             <th width="35%">Permohonan</th>
                                             <th>Atasan Langsung</th>
                                             <th width="10%">Detail</th>
+                                            <th></th>
                                             <th width="15%">Aksi</th>
                                         </tr>
                                     </thead>
@@ -181,6 +188,7 @@
                                             <th width="35%">Permohonan</th>
                                             <th>Atasan Langsung</th>
                                             <th width="10%">Detail</th>
+                                            <th></th>
                                             <th width="15%">Aksi</th>
                                         </tr>
                                     </thead>
@@ -206,6 +214,8 @@
 <!-- Required datatable js -->
 <script src="<?=base_url()?>/public/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?=base_url()?>/public/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<!-- SweetAlert -->
+<?= $this->include('partials/sweetalert') ?>
 <script src="<?=base_url()?>/public/assets/js/app.js"></script>
 <script src="<?=base_url()?>/public/assets/js/helpdesk/list-helpdesk.js"></script>
 <script>
@@ -218,8 +228,6 @@
         let accordionItemId = accordionItem.childNodes[1].getAttribute('id');        
         getDtTable(accordionItemId)
     });
-
-    
 </script>
 </body>
 </html>

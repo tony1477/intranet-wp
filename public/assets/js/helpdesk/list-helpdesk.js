@@ -92,6 +92,34 @@
 
   let dataTableInstances = {};
   const showDtTable = (accordionId,url) => {
+    const columns = [
+      { data: 'null', render: function(data,type,row,meta){
+        return meta.row+1;
+      }},
+      // { data: 'id', render:'display', visible:false},
+      { data: 'tanggal' },
+      { data: 'nama' },
+      { data: 'request' },
+      { data: 'atasan' },
+      { 
+        data: 'detail',
+        className: 'details-control',
+        orderable: false,
+        defaultContent: ''
+      },
+      { data: 'action' }
+    ]
+    if (accordionId === 'WaitingHead' || accordionId === 'OnProgress') {
+      // Tabel 'table-new' tanpa kolom 'Status'
+      columns.splice(-1, 0, { data: 'status' });
+    }
+    else {
+      columns.splice(-1, 0, { data: null, visible:false});
+    }
+    // else if (accordionId === 'table-progress') {
+    //   // Tabel 'table-progress' dengan kolom 'Status'
+    //   columns.splice(3, 0, { data: 'status' });
+    // }
     if ($.fn.DataTable.isDataTable('#datatable-'+accordionId)) {
       dataTableInstances[accordionId].destroy();
     }
@@ -102,28 +130,18 @@
         url: 'helpdesk/list-ticket/' + url,
         type: 'POST'
       },
-      columns: [
-        { data: 'null', render: function(data,type,row,meta){
-          return meta.row+1;
-        }},
-        // { data: 'id', render:'display', visible:false},
-        { data: 'tanggal' },
-        { data: 'nama' },
-        { data: 'request' },
-        { data: 'atasan' },
-        { 
-          data: 'detail',
-          className: 'details-control',
-          orderable: false,
-          defaultContent: ''
-        },
-        { data: 'action' }
-      ],
+      columns: columns,
       rowCallback: function(row, data, index) {
         const childRow = dataTableInstances[accordionId].row(index).child;
         if (childRow.isShown()) {
           childRow.hide();
           $(row).removeClass('shown');
+        }
+        if(data.isfeedback==1) {
+          $(row).addClass('bg-info text-white');
+        }
+        if(data.isconfirmation==1) {
+          $(row).addClass('bg-primary text-white');
         }
       },
       createdRow: function(row, data, index) {
@@ -169,7 +187,6 @@
 
   $('#datatable-' + accordionId + ' tbody').on('click', 'button.edit-button', function() {
     const rowData = dataTableInstances[accordionId].row($(this).closest('tr')).data();
-    
     // Mengirim data ke halaman edit menggunakan fetch
     fetch('edit-helpdesk', {
         method: 'POST',
@@ -190,25 +207,51 @@
 
   $('#datatable-' + accordionId + ' tbody').on('click', 'button.approve-button', function() {
     const rowData = dataTableInstances[accordionId].row($(this).closest('tr')).data();
-    
-    // Mengirim data ke halaman edit menggunakan fetch
-    fetch('approve-helpdesk', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        cache: 'no-cache',
-        body: JSON.stringify({ id: rowData.id})
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data)
-    })
-    .catch(error => {
-        console.error('Error:', error);
+        
+    Swal.fire({
+      title: 'Apakah Anda yakin?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Mengirim data ke halaman approve menggunakan fetch
+        fetch('approve-helpdesk', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          cache: 'no-cache',
+          body: JSON.stringify({ id: rowData.id})
+        })
+        .then(response => response.json())
+        .then(data => {
+          if(data.status==='success') {
+            Swal.fire(
+              'Success',
+              data.message,
+              'success'
+            ).
+            then((result) => {
+              if (result.isConfirmed) location.href='list-helpdesk'
+            })
+          }
+          else {
+            Swal.fire(
+              'Fail',
+              data.message,
+              'warning'
+            )
+          }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+      }
     });
   });
-}
+  }
 
   
   

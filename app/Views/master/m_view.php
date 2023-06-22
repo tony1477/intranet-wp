@@ -38,7 +38,9 @@
                                 <h4 class="card-title"><?= lang('Files.'.$menuname)?></h4>
                             </div>
                             <div class="card-body">
-
+                                <?php if(isset($customsearch) && $customsearch !==null):
+                                    echo view($customsearch);
+                                endif;?>
                                 <table id="datatable-buttons" class="table table-bordered dt-responsive w-100 <?=$menuname?>">
                                     <thead>
                                         <?php 

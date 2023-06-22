@@ -236,9 +236,9 @@ $routes->post('jabatan/delete', 'Master/Position::delete', ['filter' => 'permiss
 $routes->post('jabatan/post', 'Master/Position::save', ['filter' => 'permission:master-data']);
 
 ## GroupUser
-$routes->get('group-user', 'Master/GroupUser::index', ['filter' => 'permission:master-data']);
-$routes->post('group-user/delete', 'Master/GroupUser::delete', ['filter' => 'permission:master-data']);
-$routes->post('group-user/post', 'Master/GroupUser::save', ['filter' => 'permission:master-data']);
+$routes->get('user-group', 'Master/GroupUser::index', ['filter' => 'permission:master-data']);
+$routes->post('user-group/delete', 'Master/GroupUser::delete', ['filter' => 'permission:master-data']);
+$routes->post('user-group/post', 'Master/GroupUser::save', ['filter' => 'permission:master-data']);
 
 ## User
 $routes->get('users', 'Master/Users::index');
@@ -329,6 +329,20 @@ $routes->post('helpdesk/prevquestion','Helpdesk/Ticketing::prevquestion');
 $routes->post('helpdesk/list-ticket/(:alpha)','Helpdesk\Ticketing::listTicket/$1');
 $routes->post('approve-helpdesk','Helpdesk\Ticketing::approveTicket');
 // $routes->get('create-helpdesk/user/(:alpha)/(:segment)','Helpdesk\Ticketing::form/$1/$2');
+
+## Auth
+$routes->get('auth/workflow','Master/Auth/Workflow::index');
+$routes->post('auth/workflow/delete', 'Master/Auth/Workflow::delete', ['filter' => 'permission:master-data']);
+$routes->post('auth/workflow/post', 'Master/Auth/Workflow::save', ['filter' => 'permission:master-data']);
+$routes->get('auth/wfgroup','Master/Auth/Wfgroup::index');
+$routes->post('auth/wfgroup/delete', 'Master/Auth/Wfgroup::delete', ['filter' => 'permission:master-data']);
+$routes->post('auth/wfgroup/post', 'Master/Auth/Wfgroup::save', ['filter' => 'permission:master-data']);
+$routes->get('auth/wfstatus','Master/Auth/Wfstatus::index');
+$routes->post('auth/wfstatus/delete', 'Master/Auth/Wfstatus::delete', ['filter' => 'permission:master-data']);
+$routes->post('auth/wfstatus/post', 'Master/Auth/Wfstatus::save', ['filter' => 'permission:master-data']);
+$routes->get('auth/wfstructure','Master/Auth/Wfstructure::index');
+$routes->post('auth/wfstructure/delete', 'Master/Auth/Wfstructure::delete', ['filter' => 'permission:master-data']);
+$routes->post('auth/wfstructure/post', 'Master/Auth/Wfstructure::save', ['filter' => 'permission:master-data']);
 
 ## Website
 $routes->get('tentang/profil','Website/About/Profile::index');

@@ -287,4 +287,14 @@ class User extends \Myth\Auth\Entities\User
     {
         throw new RuntimeException('User entity does not support saving permissions directly.');
     }
+
+    public function getEmail()
+    {
+        return $this->attributes['email'];
+    }
+
+    public function getFullname()
+    {
+        return $this->attributes['fullname'];
+    }
 }

@@ -135,11 +135,12 @@ class MeetingSchedule extends BaseController
                     $this->model->insertPeserta($last_insert_id,$datapeserta);
                                     
                     // //send email to admin HRGA
-                    // $emailto = 'martoni.firman@wilianperkasa.com';
-                    $emailto = 'admin.hrga@wilianperkasa.com';
+                    $emailto = 'martoni.firman@wilianperkasa.com';
+                    // $emailto = 'admin.hrga@wilianperkasa.com';
                     $email  = service('email');
-                    $fromEmail = 'it@wilianperkasa.com';
-                    $fromName = 'Email Service Wilian Perkasa';
+                    // $fromEmail = 'it@wilianperkasa.com';
+                    $fromEmail = 'dont-reply@wilianperkasa.com';
+                    $fromName = 'Email Service Wilian Perkasa (local)';
 
                     $sent = $email->setFrom($fromEmail, $fromName)
                         ->setTo($emailto)
