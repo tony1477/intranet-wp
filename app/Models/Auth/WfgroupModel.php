@@ -46,16 +46,19 @@ class WfgroupModel extends Model
         where b.user_id = :userid: and w.wfname = :wfname:";
         $query = $this->query($sql,['userid'=>$userid, 'wfname'=>$wfname])->getRow();
         return $query->recstat;
+        
+        
     }
 
-    public function getWfAuthbyUserId(string $wfname, int $userid, int $recordstatus)
+    public function getWfAuth(string $wfname, int $userid, int $recordstatus)
     {
-        $sql = 'select b.wfgroupid
+        $sql = 'select b.wfgroupid as bacess
             from auth_groups_users a
             inner join users d on d.id = a.user_id
-            inner join wfgroup b on b.groupids = a.group_id
+            inner join wfgroup b on b.groupid = a.group_id
             inner join workflow c on c.workflowid = b.workflowid
             where d.id = :userid: and upper(c.wfname) = upper(:wfname:) and b.wfbefstat = :recstat: ';
-        return $this->query($sql,['userid' => $userid, 'wfname'=>$wfname, 'recstat' => $recordstatus]);
+        return $this->query($sql,['userid' => $userid, 'wfname'=>$wfname, 'recstat' => $recordstatus])->getRow();
+        // return 's';
     }
 }

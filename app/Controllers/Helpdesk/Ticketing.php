@@ -138,7 +138,14 @@ class Ticketing extends BaseController
 			'modules' => $menu,
             'route'=>'create-helpdesk',
             'menuname' => 'IT_Helpdesk',
-            'listticket' => $listticket
+            'listticket' => $listticket,
+            'summary_ticket' => [
+                'new' => $this->ticketing->getSummaryTicketbyType(user_id(),'new')->getRow(),
+                'waiting' => $this->ticketing->getSummaryTicketbyType(user_id())->getRow(),
+                'onprogress' => $this->ticketing->getSummaryTicketbyType(user_id(),'progress')->getRow(),
+                'done' => $this->ticketing->getSummaryTicketbyType(user_id(),'done')->getRow(),
+                'cancel' => $this->ticketing->getSummaryTicketbyType(user_id(),'cancel')->getRow(),
+            ],
 		];
         return view('helpdesk/list',$data);
     }
@@ -160,6 +167,37 @@ class Ticketing extends BaseController
 		return view('helpdesk/create', $data);
     }
 
+    public function editHelpdesk()
+    {
+        // return view('helpdesk/form');
+        echo 'a';
+    }
+    public function editTicket($id=0)
+    {
+        // $id = $this->request->getVar('id');       
+        if($recordstatus = $this->ticketing->find($id)->recordstatus):
+            $mayedit = [1,2,3];
+            
+            $_SESSION['edited_helpdesk'] = false;
+            if(!in_array($recordstatus,$mayedit)) return redirect()->to('list-helpdesk',301)->with('message',"Tiket tidak dapat di edit kembali");
+        
+            $_SESSION['edited_helpdesk'] = true;
+            $_SESSION['idhelpdesk'] = $id;
+            helper(['admin_helper','master_helper','form']);
+            $menu = getMenu($user='Admin');
+            $list = $this->listservice->getChoiceHelpdesk($id=null);
+            $data = [
+                'title_meta' => view('partials/title-meta', ['title' => 'Edit_Ticket']),
+                'page_title' => view('partials/page-title', ['title' => 'Helpdesk', 'li_1' => 'Intranet', 'li_2' => 'Ticketing']),
+                'modules' => $menu,
+                'route'=>'edit-helpdesk',
+                'menuname' => 'IT_Helpdesk',           
+                'listhelpdesk' => $list,
+            ];
+            return view('helpdesk/create',$data);
+        endif;
+        return redirect()->back(302)->with('message', "Data Tidak ditemukan");
+    }
     public function form($user)
     {
         if ($this->request->getMethod(true)!=='POST') return redirect()->to('create-helpdesk');
@@ -339,12 +377,12 @@ class Ticketing extends BaseController
                 break;
 
             case 'onprogress':
-                $stt='4,5,6,7,8,9';
-                $addedstatus = 'listhelpdesk';
+                $stt='4,5,6,7,8,9,10';
+                $addedstatus = false;
                 break;
 
             case 'close':
-                $stt = 10;
+                $stt = 11;
                 $addedstatus = false;
                 break;
 
@@ -374,7 +412,8 @@ class Ticketing extends BaseController
                 "draw" => intval($draw),
                 "recordsTotal" => intval($alldata->getRow()->total),
                 "recordsFiltered" => count($data->getResultArray()),
-                "data" => []
+                "data" => [],
+                // "list" => getWfbyUserid('listhelpdesk',user_id())
             ];
 
             if (!empty($searchValue)) {
@@ -391,19 +430,25 @@ class Ticketing extends BaseController
             $pagedData = array_slice($filteredData, $start, $length);
 
             // Loop through the sliced data and format it for the response
+            $canedit=true;
             foreach ($pagedData as $row) {
                 switch($row['recordstatus']){
                     case '1' :
-                        $action = '<a href="javascript:void(0)"><button type="button" class="btn btn-light edit-button waves-effect btn-label waves-light"><i class="far fa-edit label-icon"></i> Edit</button></a>
-                        <a href="javascript:void(0)"><button type="button" class="btn btn-success approve-button waves-effect btn-label waves-light"><i class="fas fa-check label-icon"></i> Approve</button></a>';
-                        break;
-                    
+                        if(getWfAuthByUserid('apphelpdesk',$row['recordstatus'])) {
+                            $action = '<a href="edit-helpdesk/'.$row['helpdeskid'].'"><button type="button" class="btn btn-light edit-button waves-effect btn-label waves-light"><i class="far fa-edit label-icon"></i> Edit</button></a>
+                            <a href="javascript:void(0)"><button type="button" class="btn btn-success approve-button waves-effect btn-label waves-light"><i class="fas fa-check label-icon"></i> Approve</button></a>';         
+                            break;
+                        }
                     case '2':
                     case '3':
                     case '4':
-                        $action = '<a href="javascript:void(0)"><button type="button" class="btn btn-light edit-button waves-effect btn-label waves-light"><i class="far fa-edit label-icon"></i> Edit</button></a>
-                        <a href="javascript:void(0)"><button type="button" class="btn btn-success approve-button waves-effect btn-label waves-light"><i class="fas fa-check label-icon"></i> Approve</button></a>
-                        <a href="javascript:void(0)"><button type="button" class="btn btn-danger reject-button waves-effect btn-label waves-light"><i class="fas fa-times label-icon"></i> Reject</button></a>';
+                        if(getWfAuthByUserid('apphelpdesk',$row['recordstatus'])) {
+                            $action = '<a href="edit-helpdesk/'.$row['helpdeskid'].'"><button type="button" class="btn btn-light edit-button waves-effect btn-label waves-light"><i class="far fa-edit label-icon"></i> Edit</button></a>
+                            <a href="javascript:void(0)"><button type="button" class="btn btn-success approve-button waves-effect btn-label waves-light"><i class="fas fa-check label-icon"></i> Approve</button></a>
+                            <a href="javascript:void(0)"><button type="button" class="btn btn-danger reject-button waves-effect btn-label waves-light"><i class="fas fa-times label-icon"></i> Reject</button></a>';
+                        }
+                        else $action = '';
+                        $canedit=false;
                         break;
                     case '5':
                     case '6':
@@ -433,9 +478,12 @@ class Ticketing extends BaseController
                     "reason" => $row['user_reason'], 
                     "isfeedback" => $row['isfeedback'],
                     "isconfirmation" => $row['isconfirmation'],
+                    "isrevisied" => $row['isrevisied'],
+                    "responsetext" => $row['responsetext'],
                     "status" => $row['status'],
                     "detail" => '<a href="javascript:void(0)"><i class="fas fa-info btn btn-secondary rounded-circle"></i> Detail</a>',
-                    "action" => $action
+                    "action" => $action,
+                    "canedit" => $canedit
                 ];
             }
             
@@ -456,7 +504,7 @@ class Ticketing extends BaseController
                 $app = $this->approveHelpdesk($data)->getResult();
                 $parentid = $this->ticketing->getParentLevel(user_id());
                 $userModel = new UserModel();
-                $user = $userModel->find($parentid->userid);
+                $user = $userModel->find($parentid);
                 $mailhead = 'martoni.firman@wilianperkasa.com';
                 $name = $userModel->find(user_id())->getFullname();
                 // if($user) $mailhead=$user->getEmail();
@@ -474,16 +522,16 @@ class Ticketing extends BaseController
                 $mailto = $mailhead;
                 $fromEmail = env('Email.fromEmail');
                 $fromName = env('Email.fromName');
-                $sent = $email->setFrom($fromEmail,$fromName)
-                    ->setTo($mailto)
-                    ->setSubject('Permohonan Bantuan IT')
-                    ->setMessage(view('email/create_ticket',['data' => $datas]))
-                    ->setMailType('html')
-                    ->send();
+                // $sent = $email->setFrom($fromEmail,$fromName)
+                //     ->setTo($mailto)
+                //     ->setSubject('Permohonan Bantuan IT')
+                //     ->setMessage(view('email/create_ticket',['data' => $datas]))
+                //     ->setMailType('html')
+                //     ->send();
                 
                 $isemailcreate=0;
-                if($sent) $isemailcreate = 1;
-                $this->ticketing->update($id,['isemailcreate'=>$isemailcreate]);
+                // if($sent) $isemailcreate = 1;
+                // $this->ticketing->update($id,['isemailcreate'=>$isemailcreate]);
 
                 $response = [
                     'message' => 'Data Berhasil di Approve',
@@ -507,5 +555,37 @@ class Ticketing extends BaseController
     private function approveHelpdesk($data)
     {
         return $this->ticketing->approveHelpdesk($data);
+    }
+
+    public function rejectTicket()
+    {
+        header('Content-Type: application/json');
+        if($this->request->getMethod()==='post')
+        {
+            try {
+                $id = $this->request->getVar('id');
+                $reason = $this->request->getVar('reason');
+                $userid = user_id();
+                $data = ['id'=>$id,'userid'=>$userid,'reason'=>$reason];
+                $this->ticketing->rejectHelpdesk($data);
+                
+                // if($user) $mailhead=$user->getEmail();
+                $response = [
+                    'message' => 'Simpan Data Berhasil',
+                    'status' => 'success',
+                    'code' => 200
+                ];
+            }
+            catch(Exception $e)
+            {
+                $response = [
+                    'message' => $e->getMessage(),
+                    'status' => 'fail',
+                    'code' => 400
+                ];
+            }
+            
+        }
+        return json_encode($response);
     }
 }

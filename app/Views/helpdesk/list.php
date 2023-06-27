@@ -28,6 +28,44 @@
         .accordion-item {
             border-radius: .5rem;
         }
+
+        .btn-feedback {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.3s ease;
+            overflow: hidden;
+        }
+
+        .btn-feedback:hover {
+            width: auto;
+        }
+
+        .btn-number {
+            margin-left:.5rem;
+        }
+
+        .btn-feedback-text {
+            display: none;
+            margin-left: .25rem;
+        }
+
+        .btn-feedback:hover .btn-feedback-text {
+            display: inline;
+            animation: expandText 0.3s forwards;
+            opacity: 1;
+        }
+
+        @keyframes expandText {
+            0% {
+            width: 0;
+            opacity: 0;
+            }
+            100% {
+            width: auto;
+            opacity: 1;
+            }
+        }
     </style>
 </head>
 <?= $this->include('partials/body') ?>
@@ -48,12 +86,23 @@
                         </div>
                     </div>
                 </div>
-                <!-- end row -->                
+                <!-- end row -->
+                <?php if(isset($_SESSION['message'])):?>
+                    <div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show" role="alert">
+                                    <i class="mdi mdi-alert-outline label-icon"></i><strong>Warning</strong> - <?=$_SESSION['message']?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                <?php endif;?>
                 <div class="accordion" id="accordionPanelsStayOpen">
                     <div class="accordion-item my-3">
                         <h2 class="accordion-header position-relative" id="panelsNewTicket">
-                            <div class="bg-primary rounded-3 infoReject position-absolute <?=$listticket->isfeedback>0 ? '' : 'd-none'?>" style="left: 50%;z-index: 4;color: var(--bs-white);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsNewTicket-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i> <?=$listticket->isfeedback?> Feedback<?=$listticket->isfeedback>1 ? 's' : ''?></div>
-                            <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$listticket->newticket?> Ticket<?=($listticket->newticket>1 ? 's' : '')?></div>
+                            <div class="bg-warning rounded-3 infoReject btn-feedback position-absolute <?=$listticket->isrevisied>0 ? '' : 'd-none'?>" style="left: 30%;z-index: 4;color: var(--bs-white);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsNewTicket-collapse" aria-expanded="false"><i class="mdi mdi-circle-edit-outline"></i> 
+                            <span class="btn-number"><?=$listticket->isrevisied?></span>
+                            <span class="btn-feedback-text"> Need Revisied<?=$listticket->isrevisied>1 ? 's' : ''?></span></div>
+                            <div class="bg-primary rounded-3 infoReject btn-feedback position-absolute <?=$listticket->isfeedback>0 ? '' : 'd-none'?>" style="left: 60%;z-index: 4;color: var(--bs-white);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsNewTicket-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i>
+                            <span class="btn-number"><?=$listticket->isfeedback?></span>
+                            <span class="btn-feedback-text"> Feedback<?=$listticket->isfeedback>1 ? 's' : ''?></span></div>
+                            <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$summary_ticket['new']->total?> Ticket<?=($summary_ticket['new']->total>1 ? 's' : '')?></div>
                             <button class="accordion-button bg-secondary text-light fs-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#panelsNewTicket-collapse" aria-expanded="true" aria-controls="panelsNewTicket-collapse">
                             New Ticket
                             </button>
@@ -70,11 +119,8 @@
                                             <th>Atasan Langsung</th>
                                             <th width="10%">Detail</th>
                                             <th width="10%"></th>
-                                            <th width="15%">Aksi</th>
                                         </tr>
                                     </thead>
-
-
                                     <tbody>
                                         
                                     </tbody>
@@ -84,7 +130,7 @@
                     </div>
                     <div class="accordion-item my-3">
                         <h2 class="accordion-header position-relative" id="panelsWaitingHead">
-                            <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$listticket->waiting?> Ticket<?=($listticket->waiting>1 ? 's' : '')?></div>
+                            <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$summary_ticket['waiting']->total?> Ticket<?=($summary_ticket['waiting']->total>1 ? 's' : '')?></div>
                             <button class="accordion-button bg-primary text-white fs-3 fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsWaitingHead-collapse" aria-expanded="false" aria-controls="panelsWaitingHead-collapse">
                             Waiting Approval
                             </button>
@@ -94,14 +140,14 @@
                                 <table id="datatable-WaitingHead" class="table table-bordered dt-responsive  w-100">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Tanggal Pembuatan</th>
-                                            <th>Nama Pemohon</th>
-                                            <th width="35%">Permohonan</th>
-                                            <th>Atasan Langsung</th>
-                                            <th width="10%">Detail</th>
-                                            <th>Status</th>
-                                            <th width="15%">Aksi</th>
+                                        <th>No</th>
+                                        <th>Tanggal Pembuatan</th>
+                                        <th>Nama Pemohon</th>
+                                        <th width="35%">Permohonan</th>
+                                        <th>Atasan Langsung</th>
+                                        <th width="10%">Detail</th>
+                                        <th></th>
+                                        <th width="15%"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -114,7 +160,7 @@
                     <div class="accordion-item my-3">
                         <h2 class="accordion-header position-relative" id="panelsOnProgress">
                         <div class="bg-primary rounded-3 infoReject position-absolute <?=$listticket->isconfirmation>0 ? '' : 'd-none'?>" style="left: 50%;z-index: 4;color: var(--bs-white);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i> <?=$listticket->isconfirmation?> Need Confirmation<?=$listticket->isconfirmation>1 ? 's' : ''?></div>
-                        <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$listticket->onprogress?> Ticket<?=($listticket->onprogress>1 ? 's' : '')?></div>
+                        <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$summary_ticket['onprogress']->total?> Ticket<?=($summary_ticket['onprogress']->total>1 ? 's' : '')?></div>
                         <button class="accordion-button bg-info text-white fs-3 fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false" aria-controls="panelsOnProgress-collapse">
                             On Progress IT
                         </button>
@@ -143,7 +189,7 @@
                     </div>
                     <div class="accordion-item my-3">
                         <h2 class="accordion-header position-relative" id="panelsSuccess">
-                        <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$listticket->close?> Ticket<?=($listticket->close>1 ? 's' : '')?></div>
+                        <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$summary_ticket['done']->total?> Ticket<?=($summary_ticket['done']->total>1 ? 's' : '')?></div>
                         <button class="accordion-button bg-success text-white fw-bold fs-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsSuccess-collapse" aria-expanded="false" aria-controls="panelsSuccess-collapse">
                             Ticket Closed
                         </button>
@@ -159,8 +205,6 @@
                                             <th width="35%">Permohonan</th>
                                             <th>Atasan Langsung</th>
                                             <th width="10%">Detail</th>
-                                            <th></th>
-                                            <th width="15%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -172,7 +216,7 @@
                     </div>
                     <div class="accordion-item my-3">
                         <h2 class="accordion-header position-relative" id="panelsCancel">
-                        <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$listticket->cancel?> Ticket<?=($listticket->cancel>1 ? 's' : '')?></div>
+                        <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$summary_ticket['cancel']->total?> Ticket<?=($summary_ticket['cancel']->total>1 ? 's' : '')?></div>
                         <button class="accordion-button bg-danger text-white fw-bold fs-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsCancel-collapse" aria-expanded="false" aria-controls="panelsCancel-collapse">
                             Ticket Reject/Cancel
                         </button>
@@ -188,8 +232,6 @@
                                             <th width="35%">Permohonan</th>
                                             <th>Atasan Langsung</th>
                                             <th width="10%">Detail</th>
-                                            <th></th>
-                                            <th width="15%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>

@@ -328,6 +328,9 @@ $routes->post('helpdesk/nextquestion','Helpdesk/Ticketing::nextquestion');
 $routes->post('helpdesk/prevquestion','Helpdesk/Ticketing::prevquestion');
 $routes->post('helpdesk/list-ticket/(:alpha)','Helpdesk\Ticketing::listTicket/$1');
 $routes->post('approve-helpdesk','Helpdesk\Ticketing::approveTicket');
+$routes->post('reject-helpdesk','Helpdesk\Ticketing::rejectTicket');
+$routes->get('edit-helpdesk/(:num)','Helpdesk\Ticketing::editTicket/$1');
+// $routes->post('edit-helpdesk','Helpdesk\Ticketing::editTicket');
 // $routes->get('create-helpdesk/user/(:alpha)/(:segment)','Helpdesk\Ticketing::form/$1/$2');
 
 ## Auth

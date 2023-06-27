@@ -26,16 +26,17 @@ if (! function_exists('getUsersbyId')) {
 if(!function_exists('getWfbyUserid')) :
     function getWfbyUserid(string $wfname, int $id): ?string
     {
-        $model = model('WfgroupModel');
+        $model = new WfgroupModel();
         return $model->getWfstatbyUserId($wfname, $id);
+        // return 3;
     }
 endif;
 
 if(!function_exists('getWfAuthByUserid')):
     function getWfAuthByUserid(string $wfname, int $recordstatus)
     {
-        $model = model('WfgroupModel');
-        return $model->getWfAuthbyUserId('apphelpdesk',6, 1);
-        // return 's';
+        $model = new WfgroupModel();
+        return $model->getWfAuth($wfname, user_id(), $recordstatus);
+        // return user_id();
     }
 endif;
