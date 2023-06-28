@@ -167,15 +167,37 @@ class Ticketing extends BaseController
 		return view('helpdesk/create', $data);
     }
 
-    public function editHelpdesk()
+    public function getFirstCategory()
     {
-        // return view('helpdesk/form');
-        echo 'a';
+        header("Content-Type: application/json");
+        $arr = array(
+            'fail' => 500,
+            'code' => 'FAILED',
+            'message'=>'NOT ALLOWED'
+        );
+        $list=[];
+        try {
+            $list = $this->listservice->getChoiceHelpdesk($id=null);
+            $message = lang('Files.Save_Success');
+            $arr = array(
+                'status' => 'success',
+                'code' => 200,
+                'message'=> $message,
+                'data' => $list
+            );
+        }
+        catch(Exception $e) {
+            $arr = array(
+                'code' => 400,
+                'message' => $e->getMessage()
+            );
+        }
+        return json_encode($arr);
     }
     public function editTicket($id=0)
     {
         // $id = $this->request->getVar('id');       
-        if($recordstatus = $this->ticketing->find($id)->recordstatus):
+        if($recordstatus=$this->ticketing->find($id)->recordstatus):
             $mayedit = [1,2,3];
             
             $_SESSION['edited_helpdesk'] = false;
@@ -183,8 +205,9 @@ class Ticketing extends BaseController
         
             $_SESSION['edited_helpdesk'] = true;
             $_SESSION['idhelpdesk'] = $id;
-            helper(['admin_helper','master_helper','form']);
+            helper(['admin_helper','master_helper','form','myth_auth_helper']);
             $menu = getMenu($user='Admin');
+            $data = $this->ticketing->find($id);
             $list = $this->listservice->getChoiceHelpdesk($id=null);
             $data = [
                 'title_meta' => view('partials/title-meta', ['title' => 'Edit_Ticket']),
@@ -193,8 +216,9 @@ class Ticketing extends BaseController
                 'route'=>'edit-helpdesk',
                 'menuname' => 'IT_Helpdesk',           
                 'listhelpdesk' => $list,
+                'data' => $data
             ];
-            return view('helpdesk/create',$data);
+            return view('helpdesk/edit',$data);
         endif;
         return redirect()->back(302)->with('message', "Data Tidak ditemukan");
     }
@@ -216,7 +240,10 @@ class Ticketing extends BaseController
         $reason = $datas['reasontext'];
         $dataid = $datas['data_id'];
         $datavalue = $datas['data_value'];
+        $action = $datas['action'];
         $send = service('email');
+        if(isset($datas['helpdeskid']) && $datas['helpdeskid']!='') $id = $datas['id'];
+        else $id = 0;
         /* 
         $type = $datas['type'];
         switch($type) {
@@ -263,29 +290,35 @@ class Ticketing extends BaseController
             'categoryid' => $dataid,
             'categoryname' => $datavalue,
             'user_request' => $req,
-            'user_reason' => $reason
+            'user_reason' => $reason,
+            'id' => $id
         ];
         if($attachment!==null) $data['user_attachment']=$attachment;
-        if(!$save=$this->ticketing->savedata($data)) {
-            $message = lang('Files.Save_Failed');
-            $arr = array(
-                'status' => 'error',
-                'code' => 400,
-                'message'=> $message,
-            );
-            return redirect()->to('salahurl');
+        if($action=='edit') {
+            $save = $this->ticketing->updatedata($data);
         }
+        else {
+            if(!$save=$this->ticketing->savedata($data)) {
+                $message = lang('Files.Save_Failed');
+                $arr = array(
+                    'status' => 'error',
+                    'code' => 400,
+                    'message'=> $message,
+                );
+                return redirect()->to('salahurl');
+            }
         
-        // send email to head_of_user
-        $send->setFrom('it@wilianperkasa.com','IT Helpdesk');
-        $send->setTo('martoni.firman@wilianperkasa.com');
-        $send->setSubject('Permohonan Bantuan IT Helpdesk');
-        $send->setMessage('Pesan dalam Email');
+            // send email to head_of_user
+            $send->setFrom('it@wilianperkasa.com','IT Helpdesk');
+            $send->setTo('martoni.firman@wilianperkasa.com');
+            $send->setSubject('Permohonan Bantuan IT Helpdesk');
+            $send->setMessage('Pesan dalam Email');
 
-        $email = $this->ticketing->find($save);
-        if($send->send()) $email->isemailcreate = 1;
-        else $email->isemailcreate=0;
-        $this->ticketing->save($email);        
+            $email = $this->ticketing->find($save);
+            if($send->send()) $email->isemailcreate = 1;
+            else $email->isemailcreate=0;
+            $this->ticketing->save($email);
+        }        
 
         $message = lang('Files.Save_Success');
         $arr = array(

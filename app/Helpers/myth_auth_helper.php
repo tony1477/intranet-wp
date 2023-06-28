@@ -2,7 +2,7 @@
 
 use Myth\Auth\Models\UserModel;
 
-if (! function_exists('getidfromname')) {
+if (! function_exists('get_id')) {
     /**
      * Get user ID from name using Myth-Auth library.
      *
@@ -16,6 +16,26 @@ if (! function_exists('getidfromname')) {
 
         if ($user) {
             return $user->id;
+        }
+
+        return null;
+    }
+}
+
+if (! function_exists('get_username')) {
+    /**
+     * Get user ID from name using Myth-Auth library.
+     *
+     * @param int $id
+     * @return string|null
+     */
+    function get_username(int $id): ?string
+    {
+        $userModel = new UserModel();
+        $user = $userModel->where('id', $id)->where('active',1)->first();
+
+        if ($user) {
+            return $user->username;
         }
 
         return null;

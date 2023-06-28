@@ -60,6 +60,20 @@ class ItHelpdeskModel extends Model
         }
         return $insertID;
     }
+
+    public function updatedata($data) :?bool
+    {
+        $this->db->transStart();
+        $attachment=null;
+        if(array_key_exists('user_attachment',$data)) $attachment = $data['user_attachment'];
+        $sql = 'call updateItHelpdesk(:vid:,:vcategoryid:,:vcategoryname:,:vuser_phone:,:vuser_request:,:vuser_reason:,:vuser_attachment:)';
+        $this->db->query($sql,['vid'=>$data['id'],'vcategoryid'=>$data['categoryid'], 'vcategoryname'=>$data['categoryname'],'vuser_phone'=>$data['user_phone'],'vuser_request'=>$data['user_request'],'vuser_reason'=>$data['user_reason'],'vuser_attachment'=>$attachment]);
+        $this->db->transComplete();
+        if ($this->db->transStatus() === false) {
+            return false;
+        }
+        return true;
+    }
     
     private function getUsersbyId(int $userid) :?array
     {
