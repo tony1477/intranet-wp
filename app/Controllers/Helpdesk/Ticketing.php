@@ -127,15 +127,38 @@ class Ticketing extends BaseController
 		return view('master/m_view', $data);
     }
 
-    public function listHelpdesk()
+    private function listallticket()
+    {
+        helper(['admin_helper','master_helper','form']);
+        $menu = getMenu($user='Admin');
+        $listticket = $this->ticketing->getAllDataListTicket();
+        $data = [
+            'title_meta' => view('partials/title-meta', ['title' => 'Create_Ticket']),
+            'page_title' => view('partials/page-title', ['title' => 'Helpdesk', 'li_1' => 'Intranet', 'li_2' => 'Ticketing']),
+            'modules' => $menu,
+            'route'=>'create-helpdesk',
+            'menuname' => 'IT_Helpdesk',
+            'listticket' => $listticket,
+            'summary_ticket' => [
+                'new' => $this->ticketing->getAllSummaryTicketbyType('new')->getRow(),
+                'waiting' => $this->ticketing->getAllSummaryTicketbyType('waiting')->getRow(),
+                'onprogress' => $this->ticketing->getAllSummaryTicketbyType('progress')->getRow(),
+                'done' => $this->ticketing->getAllSummaryTicketbyType('done')->getRow(),
+                'cancel' => $this->ticketing->getAllSummaryTicketbyType('cancel')->getRow(),
+            ],
+        ];
+        return view('helpdesk/list_to_it',$data);
+    }
+
+    private function listuserticket()
     {
         helper(['admin_helper','master_helper','form']);
         $menu = getMenu($user='Admin');
         $listticket = $this->ticketing->getDataListTicket(user_id());
-		$data = [
-			'title_meta' => view('partials/title-meta', ['title' => 'Create_Ticket']),
-			'page_title' => view('partials/page-title', ['title' => 'Helpdesk', 'li_1' => 'Intranet', 'li_2' => 'Ticketing']),
-			'modules' => $menu,
+        $data = [
+            'title_meta' => view('partials/title-meta', ['title' => 'Create_Ticket']),
+            'page_title' => view('partials/page-title', ['title' => 'Helpdesk', 'li_1' => 'Intranet', 'li_2' => 'Ticketing']),
+            'modules' => $menu,
             'route'=>'create-helpdesk',
             'menuname' => 'IT_Helpdesk',
             'listticket' => $listticket,
@@ -146,8 +169,13 @@ class Ticketing extends BaseController
                 'done' => $this->ticketing->getSummaryTicketbyType(user_id(),'done')->getRow(),
                 'cancel' => $this->ticketing->getSummaryTicketbyType(user_id(),'cancel')->getRow(),
             ],
-		];
+        ];
         return view('helpdesk/list',$data);
+    }
+    public function listHelpdesk()
+    {
+        if(has_permission('list-ithelpdesk')) return $this->listallticket();
+        return $this->listuserticket();
     }
 
     public function create()
@@ -233,99 +261,112 @@ class Ticketing extends BaseController
             'message'=>'NOT ALLOWED'
         );
 
-        $datas = $this->request->getPost();
-        $user = $datas['username'];
-        $phone = $datas['usertelp'];
-        $req = $datas['requesttext'];
-        $reason = $datas['reasontext'];
-        $dataid = $datas['data_id'];
-        $datavalue = $datas['data_value'];
-        $action = $datas['action'];
-        $send = service('email');
-        if(isset($datas['helpdeskid']) && $datas['helpdeskid']!='') $id = $datas['id'];
-        else $id = 0;
-        /* 
-        $type = $datas['type'];
-        switch($type) {
-            case 1:
-                $filename = 'hsm-4';
-                break;
+        try {
+            $datas = $this->request->getPost();
+            $user = $datas['username'];
+            $phone = $datas['usertelp'];
+            $req = $datas['requesttext'];
+            $reason = $datas['reasontext'];
+            $dataid = $datas['data_id'];
+            $datavalue = $datas['data_value'];
+            $action = $datas['action'];
+            $attach = $datas['user_attachment'];
+            $send = service('email');
+            if(isset($datas['helpdeskid']) && $datas['helpdeskid']!='') $id = $datas['helpdeskid'];
+            else $id = 0;
+            /* 
+            $type = $datas['type'];
+            switch($type) {
+                case 1:
+                    $filename = 'hsm-4';
+                    break;
 
-            case 2:
-                $filename = 'hsm-10';
-                break;
-            
-            case 3:
-                $filename = 'hsm-12';
-                break;
+                case 2:
+                    $filename = 'hsm-10';
+                    break;
+                
+                case 3:
+                    $filename = 'hsm-12';
+                    break;
 
-            case 4:
-                $filename = 'hsm-15';
-                break;
+                case 4:
+                    $filename = 'hsm-15';
+                    break;
 
-            case 5:
-                $filename = 'hsd-7';
-                break;
+                case 5:
+                    $filename = 'hsd-7';
+                    break;
 
-            default:
-                $filename = 'hsm-15';
-                break;
-        } 
-        */
-        helper(['admin_helper','master_helper','myth_auth_helper']);
-        $files = $this->request->getFiles('formFile');
-        $attachment=null;
-        if(!$files['formFile']->hasMoved() && $files['formFile']->isValid()) {
-            //$filepath = WRITEPATH . 'uploads/' . $files['formFile']->store();
-            $nameFile= strlen($files['formFile']->getName())<100 ? $files['formFile']->getName() : $files['formFile']->getRandomName();
-            $files['formFile']->move(ROOTPATH.'public/assets/protected/helpdesk',$nameFile);
-            $attachment=$files['formFile']->getName();
-        }
-        
-        // save to db
-        $data = [
-            'ticketdate' => date('Y-m-d H:i:s'),
-            'userid_req' => get_id($user),
-            'user_phone' => $phone,
-            'categoryid' => $dataid,
-            'categoryname' => $datavalue,
-            'user_request' => $req,
-            'user_reason' => $reason,
-            'id' => $id
-        ];
-        if($attachment!==null) $data['user_attachment']=$attachment;
-        if($action=='edit') {
-            $save = $this->ticketing->updatedata($data);
-        }
-        else {
-            if(!$save=$this->ticketing->savedata($data)) {
-                $message = lang('Files.Save_Failed');
-                $arr = array(
-                    'status' => 'error',
-                    'code' => 400,
-                    'message'=> $message,
-                );
-                return redirect()->to('salahurl');
+                default:
+                    $filename = 'hsm-15';
+                    break;
+            } 
+            */
+            helper(['admin_helper','master_helper','myth_auth_helper']);
+            $files = $this->request->getFiles('formFile');
+            $attachment=null;
+            if(!$files['formFile']->hasMoved() && $files['formFile']->isValid()) {
+                //$filepath = WRITEPATH . 'uploads/' . $files['formFile']->store();
+                $nameFile= strlen($files['formFile']->getName())<100 ? $files['formFile']->getName() : $files['formFile']->getRandomName();
+                $files['formFile']->move(ROOTPATH.'public/assets/protected/helpdesk',$nameFile);
+                $attachment=$files['formFile']->getName();
             }
-        
-            // send email to head_of_user
-            $send->setFrom('it@wilianperkasa.com','IT Helpdesk');
-            $send->setTo('martoni.firman@wilianperkasa.com');
-            $send->setSubject('Permohonan Bantuan IT Helpdesk');
-            $send->setMessage('Pesan dalam Email');
+            
+            // save to db
+            $data = [
+                'ticketdate' => date('Y-m-d H:i:s'),
+                'userid_req' => get_id($user),
+                'user_phone' => $phone,
+                'categoryid' => $dataid,
+                'categoryname' => $datavalue,
+                'user_request' => $req,
+                'user_reason' => $reason,
+                'id' => $id
+            ];
+            if($attachment!==null) $data['user_attachment']=$attachment;
+            else if($attach!='') $data['user_attachment'] = $attach;
+            
+            if($action=='edit') {
+                $save = $this->ticketing->updatedata($data);
+            }
+            else {
+                if(!$save=$this->ticketing->savedata($data)) {
+                    $message = lang('Files.Save_Failed');
+                    $arr = array(
+                        'status' => 'error',
+                        'code' => 400,
+                        'message'=> $message,
+                    );
+                    return redirect()->to('salahurl');
+                }
+            
+                // send email to head_of_user
+                $send->setFrom('it@wilianperkasa.com','IT Helpdesk');
+                $send->setTo('martoni.firman@wilianperkasa.com');
+                $send->setSubject('Permohonan Bantuan IT Helpdesk');
+                $send->setMessage('Pesan dalam Email');
 
-            $email = $this->ticketing->find($save);
-            if($send->send()) $email->isemailcreate = 1;
-            else $email->isemailcreate=0;
-            $this->ticketing->save($email);
-        }        
+                $email = $this->ticketing->find($save);
+                if($send->send()) $email->isemailcreate = 1;
+                else $email->isemailcreate=0;
+                $this->ticketing->save($email);
+            }        
 
-        $message = lang('Files.Save_Success');
-        $arr = array(
-            'status' => 'success',
-            'code' => 200,
-            'message'=> $message,
-        );
+            $message = lang('Files.Save_Success');
+            $arr = array(
+                'status' => 'success',
+                'code' => 200,
+                'message'=> $message,
+            );
+        }
+        catch(Exception $e) {
+            $arr = array(
+                'status' => 'error',
+                'code' => 400,
+                'message'=> $e->getMessage(),
+            );
+            // return redirect()->to('salahurl');
+        }
         return redirect()->to('list-helpdesk');
     }
 

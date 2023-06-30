@@ -54,7 +54,9 @@
                                     <?=csrf_field()?>
                                     <?=form_hidden('helpdeskid', $data->helpdeskid);?>
                                     <?=form_hidden('user_request', $data->user_request);?>
-                                    <?=form_hidden('user_reason', $data->user_reason);?>
+                                    <?=form_hidden('user_reason', $data->user_reason);?> 
+                                    <?=form_hidden('user_attachment', ($data->user_attachment!==null ? $data->user_attachment : ''));?> 
+                                    <?=form_hidden('action', 'edit');?>
                                         <div>
                                             <div class="mb-3">
                                                 <label for="input-username" class="form-label">Nama Pengguna</label>
@@ -93,9 +95,10 @@
                                                 <button type="button" class="btn btn-primary waves-effect waves-light btnNext mt-3" data-number="1">
                                                 <i class="bx bx-right-arrow-alt font-size-16 align-middle me-2"></i> Next</button>
                                             </div>
-                                            <div class="d-none justify-content-center submitForm">
-                                                <button type="submit" class="btn btn-lg btn-primary waves-effect waves-light btnSubmit mt-3">
-                                                <i data-feather="check-circle"></i> Submit</button>
+                                            <div class="d-none justify-content-center submitForm flex-column">
+                                                <div style="display:<?=$data->user_attachment!='' ? 'block' : 'none'?>"><a href="<?=base_url()?>/public/assets/protected/helpdesk/<?=$data->user_attachment?>" alt="Attachment" target="_blank"><button type="button" class="btn btn-light waves-effect btn-label waves-light"><i class="mdi mdi-download label-icon"></i> <?=$data->user_attachment?></button></a></div>
+                                                <div style="margin:0 auto"><button type="submit" class="btn btn-lg btn-primary waves-effect waves-light btnSubmit">
+                                                <i data-feather="check-circle"></i> Submit</button></div>
                                             </div>
                                         </div>
                                     <?=form_close()?>

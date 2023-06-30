@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\GalleryModel as Gallery;
 use App\Models\MeetingScheduleModel as Meeting;
 use App\Models\ArticleModel as Article;
+use Exception;
 
 class Home extends BaseController
 {
@@ -50,7 +51,8 @@ class Home extends BaseController
 		}
 		$status = [1,2];
 		$foto = $this->gallery->where(['ishighlight'=>1,'gallerytype'=>1])->findAll();
-		$meeting = $this->meeting->whereIn('status',$status)->orderBy('tgl_mulai', 'desc')->findAll(5,0);
+		$curdate = date('Y-m-d');
+		$meeting = $this->meeting->where("tgl_mulai >= ", "{$curdate}")->whereIn('status',$status)->orderBy('tgl_mulai', 'desc')->findAll(5,0);
 		$article = $this->article->where(['page'=>'F','publish'=>1,'status'=>1])->findAll(0,1);
         //$submenu = getSubmenu($moduleid=0);
 		$data = [

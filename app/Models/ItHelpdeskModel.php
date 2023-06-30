@@ -103,7 +103,7 @@ class ItHelpdeskModel extends Model
         $recordstatus = explode(',',$status);
         $this->select('ifnull(count(1),0) as total');
         $this->whereIn('recordstatus',$recordstatus);
-        $this->whereIn('userid_req',$usersid);
+        if(!has_permission('list-ithelpdesk')) $this->whereIn('userid_req',$usersid);
         // if($addedCond!==false) $this->whereIn('recordstatus',$this->getWfbyUserid($addedCond,user_id()));
         return $this->get();
     }
@@ -121,7 +121,7 @@ class ItHelpdeskModel extends Model
             join helpdesk_choice c on c.choiceid = b.categoryid
             where b.helpdeskid = a.helpdeskid ) as level, (select fullname from users u where u.id=a.userid_req) as user_fullname, (select fullname from users u where u.id=a.userid_head) as head_user, a.user_phone, (select ifnull(responsetext,"") from helpdeskdetail hd where hd.helpdeskid = a.helpdeskid order by helpdeskdetailid desc limit 1) as responsetext');
             $sql->whereIn('a.recordstatus',$recordstatus);
-            $sql->whereIn('a.userid_req',$usersid);
+            if(!has_permission('list-ithelpdesk')) $sql->whereIn('a.userid_req',$usersid);
             if($addedCond!==false) {
                 $lists = getWfbyUserid($addedCond,user_id());
                 $list = explode(',',$lists);
@@ -160,12 +160,48 @@ class ItHelpdeskModel extends Model
             default :
                 $list = getWfbyUserid($wfname,user_id());
                 $sql->whereIn('recordstatus',explode(',',$list));
+                $sql->whereNotIn('recordstatus',[1,5,10]);
                 break;
         }
         // if($wfname=='new') $sql->where('recordstatus',1);
         return $sql->get();
         // return $sql->getCompiledSelect();
     }
+
+    public function getAllSummaryTicketbyType(string $wfname)
+    {
+        $sql = $this->select('ifnull(count(1),0) as total');
+        switch($wfname) {
+            case 'new':
+                $sql->where('recordstatus',1);
+                break;
+
+            case 'waiting':
+                $sql->whereIn('recordstatus',[2,3]);
+                break;
+
+            case 'progress':
+                $sql->whereIn('recordstatus',[4,5,6,7,8,9,10]);
+                break;
+                
+            case 'done':
+                $sql->whereIn('recordstatus',[11]);
+                break;
+
+            case 'cancel':
+                $sql->where('recordstatus',0);
+                break;
+
+            default :
+                // $list = getWfbyUserid($wfname,user_id());
+                // $sql->whereIn('recordstatus',explode(',',$list));
+                break;
+        }
+        // if($wfname=='new') $sql->where('recordstatus',1);
+        return $sql->get();
+        // return $sql->getCompiledSelect();
+    }
+
     public function getDataListTicket(int $userid, string $wfname='listhelpdesk')
     {
         $usersid = $this->getUsersbyId($userid);
@@ -184,6 +220,23 @@ class ItHelpdeskModel extends Model
         from ithelpdesk i 
         where i.userid_req in($usersid)
         -- and i.recordstatus in(".getWfbyUserid($wfname,user_id()).")
+        ) z ) zz")->getRow();
+    }
+
+    public function getAllDataListTicket()
+    {
+        return $this->query("select helpdeskid, sum(newticket) as newticket, sum(waiting) as waiting, sum(onprogress) as onprogress, sum(`close`) as `close`, sum(cancel) as cancel, sum(feedback) as isfeedback, sum(confirmation) as isconfirmation, sum(revisied) as isrevisied
+        from (select z.*, 
+            if(recordstatus=1,1,0) as newticket, 
+            if(recordstatus=2 or recordstatus=3,1,0) as waiting,
+            if(recordstatus=4 or recordstatus=5 or recordstatus=6 or recordstatus=7 or recordstatus=8 or recordstatus=9 or recordstatus=9,1,0) as onprogress,
+            if(recordstatus=11,1,0) as `close`,
+            if(recordstatus=0,1,0) as cancel,
+            if(isfeedback=1,1,0) as feedback,
+            if(isconfirmation=1,1,0) as confirmation,
+            if(isrevisied=1,1,0) as revisied
+            from (select helpdeskid,ticketdate,recordstatus,ifnull(isfeedback,0) as isfeedback,ifnull(isconfirmation,0) as isconfirmation,isrevisied
+        from ithelpdesk i 
         ) z ) zz")->getRow();
     }
 
