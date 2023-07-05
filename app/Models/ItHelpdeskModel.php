@@ -251,4 +251,67 @@ class ItHelpdeskModel extends Model
         $sql = 'call rejectItHelpdesk(:vid:,:vuserid:,:vreason:)';
         return $this->db->query($sql,['vid'=>$data['id'],'vuserid'=>$data['userid'], 'vreason'=>$data['reason']]);
     }
+
+    public function getRespDT(string $status)
+    {
+        $exp_status = explode(',',$status);
+        $sql = $this->db->table('ithelpdesk a')
+        ->select("helpdeskid, ticketno, ticketopen, ticketclose, urgency as urgency, (select categoryname from helpdesk_issue b join helpdesk_choice c on c.choiceid = b.categoryid where b.helpdeskid = a.helpdeskid and c.parentid is null limit 1) as category, (select fullname from users u where u.id = a.userid_req) as fullname, (select wfstatusname from wfstatus d where d.workflowid=1 and d.wfstat=a.recordstatus) as status");
+        $sql->whereIn('recordstatus',$exp_status);
+        return $sql->get();
+    }
+
+    public function getSummResp(string $status)
+    {
+        $recordstatus = explode(',',$status);
+        $this->select('ifnull(count(1),0) as total');
+        $this->whereIn('recordstatus',$recordstatus);
+        return $this->get();
+    }
+
+    public function getDetailResp(int $id) :?object
+    {
+        $sql = $this->db->table('ithelpdesk a')
+        ->select("helpdeskid, ticketno, ticketdate, ticketopen, ticketclose, user_phone, user_request, user_reason, user_attachment, resp_text, resp_recommendation, urgency, recordstatus, (select wf.wfstatusname from wfstatus wf where wf.wfstat=a.recordstatus and workflowid=1) as status, (select ifnull(count(1),0) from helpdeskdetail hs where hs.helpdeskid={$id} and hs.status_responsded in(1,2,3)) as revisied,
+        (select ifnull(count(1),0) from helpdeskdetail hs where hs.helpdeskid={$id} and hs.status_responsded in(4,5,6)) as feedback,
+        (select ifnull(count(1),0) from helpdeskdetail hs where hs.helpdeskid={$id} and hs.status_responsded in(9,10)) as confirm, (select fullname from users u where u.id = a.userid_req) as fullname, (select group_concat(categoryname separator ' > ') from helpdesk_issue hi where hi.helpdeskid = a.helpdeskid) as category");
+        $sql->where('helpdeskid',$id);
+        return $sql->get();
+    }
+
+    public function getDataFeedbackResp(int $id, string $responstype) :?object
+    {
+        switch($responstype) {
+
+            case 'feedback':
+                $where = [4,5,6];
+                break;
+
+            case 'confirmation':
+                $where = [9,10];
+                break;
+            
+            default:
+                $where = [1,2,3];
+                break;
+        }
+        return $this->db->table('helpdeskdetail a')
+        ->select('a.responsetext, attachment, created_at, (select fullname from users u where u.id=a.creator_id) as fullname, b.description as responsetype')
+        ->join('responsetype b','b.respondtypeid = a.respondtypeid')
+        ->whereIn('a.status_responsded',$where)
+        ->where('a.helpdeskid',$id)
+        ->get();
+    }
+
+    public function submitFormReviewFeedback($data)
+    {
+        $this->db->transStart();
+        $sql = 'call submitformfeedback(:id:, :respondtypeid:, :responsetext:, :status:, :userid:)';
+        $this->query($sql,['id'=>$data['id'],'respondtypeid'=>$data['respondtypeid'],'responsetext'=>$data['responsetext'],'status'=>$data['status'], 'userid'=>$data['creator_id']]);
+        if ($this->db->transStatus() === false) {
+            return false;
+        }
+        $this->db->transComplete();
+        return true;        
+    }
 }

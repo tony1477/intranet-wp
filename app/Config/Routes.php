@@ -331,6 +331,11 @@ $routes->post('helpdesk/list-ticket/(:alpha)','Helpdesk\Ticketing::listTicket/$1
 $routes->post('approve-helpdesk','Helpdesk\Ticketing::approveTicket');
 $routes->post('reject-helpdesk','Helpdesk\Ticketing::rejectTicket');
 $routes->get('edit-helpdesk/(:num)','Helpdesk\Ticketing::editTicket/$1');
+$routes->get('resp-helpdesk','Helpdesk/Response::index');
+$routes->post('list-resp/(:alpha)','Helpdesk\Response::listResponse/$1');
+$routes->get('resp-helpdesk/detail/(:num)','Helpdesk\Response::detailResponse/$1');
+$routes->post('resp-helpdesk/submit/(:alpha)','Helpdesk\Response::submitForm/$1');
+$routes->post('resp-helpdesk/approve-helpdesk','Helpdesk\Response::approveHelpdesk');
 // $routes->post('edit-helpdesk','Helpdesk\Ticketing::editTicket');
 // $routes->get('create-helpdesk/user/(:alpha)/(:segment)','Helpdesk\Ticketing::form/$1/$2');
 
