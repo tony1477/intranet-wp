@@ -4,7 +4,8 @@ function getUrl() {
     // Periksa apakah hostname adalah "localhost" atau IP lokal
     if (hostname === 'localhost' || /^(\d{1,3}\.){3}\d{1,3}$/.test(hostname)) {
         // Jika sedang dalam mode pengembangan lokal, atur base URL ke localhost/subfolder
-        baseUrl = 'http://localhost/intranet/';
+        // baseUrl = 'http://localhost/intranet/';
+        baseUrl = 'http://192.168.5.82/intranet/';
     } else {
         // Jika dalam mode produksi, atur base URL ke domain produksi
         baseUrl = 'http://wilianperkasa.synology.me:88';
@@ -216,7 +217,7 @@ const gotoForm = () => {
         divCat.innerHTML += sessionStorage.getItem('question'+i+'value')
         if(i<number) divCat.innerHTML += `<i class="bx bx-caret-right"></i>`
     }
-    divCat.innerHTML += `<button type="button" class="btn btn-sm btn-danger text-white mx-2 btn-rounded btn-cancelCat"><i class="fas fa-times" onclick="cancelCat()"></i></button>`
+    divCat.innerHTML += `<button type="button" class="btn btn-sm btn-danger text-white mx-2 btn-rounded btn-cancelCat" onclick="cancelCat()"><i class="fas fa-times"></i> Pilih ulang kategori</button>`
     question.appendChild(divCat)
     const div1 = document.createElement('div')
     div1.className = 'mb-3'
@@ -236,8 +237,8 @@ const gotoForm = () => {
 
     const div3 = document.createElement('div')
     div3.className = 'mb-3'
-    div3.innerHTML = `<label for="formFile" class="form-label">Upload BA / Dokumen pendukung lainnya</label>
-    <input class="form-control fileRequest" type="file" id="formFile" name="formFile">`
+    div3.innerHTML = `<label for="formFile" class="form-label">Upload BA / Dokumen pendukung lainnya <span class="badge text-danger">* Only PDF File</span></label>
+    <input class="form-control fileRequest" type="file" id="formFile" name="formFile" accept="application/pdf">`
 
     const data = {
         id:[],
@@ -257,8 +258,8 @@ const gotoForm = () => {
     submitForm.classList.remove('d-none')
     submitForm.classList.add('d-flex')
 
-    if(req_txt!='') document.querySelector('textarea[name="requesttext"]').value = req_txt
-    if(rea_txt!='') document.querySelector('textarea[name="reasontext"]').value = rea_txt
+    if(req_txt!=undefined) document.querySelector('textarea[name="requesttext"]').value = req_txt
+    if(rea_txt!=undefined) document.querySelector('textarea[name="reasontext"]').value = rea_txt
 }
 const getData = (data) => {
     let number = sessionStorage.getItem('number')
@@ -332,7 +333,7 @@ const goToFirst = () => {
     })
 }
 
-const cancelCat = () => {
+function cancelCat()  {
     sessionStorage.clear()
     goToFirst()
 }

@@ -114,7 +114,7 @@ class ItHelpdeskModel extends Model
         $usersid = $this->getUsersbyId($userid);
         $recordstatus = explode(',',$status);
         $sql = $this->db->table('ithelpdesk a')
-            ->select('a.helpdeskid, a.ticketdate, ifnull(isfeedback,0) as isfeedback, ifnull(isconfirmation,0) as isconfirmation, ifnull(isrevisied,0) as isrevisied, ifnull(a.user_attachment,"") as attachment, a.user_reason, a.user_request, user_phone,(select b.categoryname from helpdesk_issue b
+            ->select('a.helpdeskid, a.ticketdate, ticketno, ifnull(isfeedback,0) as isfeedback, ifnull(isconfirmation,0) as isconfirmation, ifnull(isrevisied,0) as isrevisied, ifnull(a.user_attachment,"") as attachment, a.user_reason, a.user_request, user_phone,(select b.categoryname from helpdesk_issue b
             join helpdesk_choice c on c.choiceid = b.categoryid
             where b.helpdeskid = a.helpdeskid and c.parentid is null) as categoryname, a.recordstatus, (select ws.wfstatususer from wfstatus ws where ws.wfstat = a.recordstatus) as status, (select group_concat(b.categoryname separator " > ")
              from helpdesk_issue b
@@ -142,7 +142,7 @@ class ItHelpdeskModel extends Model
                 break;
 
             case 'close':
-                $sql->where('recordstatus',11);
+                $sql->where('recordstatus',12);
                 break;
 
             case 'cancel':
@@ -150,11 +150,11 @@ class ItHelpdeskModel extends Model
                 break;
 
             case 'progress':
-                $sql->whereIn('recordstatus',[4,5,6,7,8,9,10]);
+                $sql->whereIn('recordstatus',[4,5,6,7,8,9,10,11]);
                 break;
 
             case 'done':
-                $sql->whereIn('recordstatus',[11]);
+                $sql->whereIn('recordstatus',[12]);
                 break;
 
             default :
@@ -181,11 +181,11 @@ class ItHelpdeskModel extends Model
                 break;
 
             case 'progress':
-                $sql->whereIn('recordstatus',[4,5,6,7,8,9,10]);
+                $sql->whereIn('recordstatus',[4,5,6,7,8,9,10,11]);
                 break;
                 
             case 'done':
-                $sql->whereIn('recordstatus',[11]);
+                $sql->whereIn('recordstatus',[12]);
                 break;
 
             case 'cancel':
@@ -242,14 +242,38 @@ class ItHelpdeskModel extends Model
 
     public function approveHelpdesk($data)
     {
+        $this->db->transStart();
         $sql = 'call approveItHelpdesk(:vid:,:vuserid:)';
-        return $this->db->query($sql,['vid'=>$data['id'],'vuserid'=>$data['userid']]);
+        $this->db->query($sql,['vid'=>$data['id'],'vuserid'=>$data['userid']]);
+        $this->db->transComplete();
+        return true;
+        if ($this->db->transStatus() === false) {
+            return false;
+        }
+    }
+
+    public function doHelpdesk($data)
+    {
+        $this->db->transStart();
+        $sql = 'call doItHelpdesk(:vid:,:vpetugas:,:vurgency:,:vuserid:)';
+        $this->db->query($sql,['vid'=>$data['id'],'vpetugas'=>$data['petugas'],'vurgency'=>$data['urgency'],'vuserid'=>$data['userid']]);
+        $this->db->transComplete();
+        return true;
+        if ($this->db->transStatus() === false) {
+            return false;
+        }
     }
 
     public function rejectHelpdesk($data)
     {
+        $this->db->transStart();
         $sql = 'call rejectItHelpdesk(:vid:,:vuserid:,:vreason:)';
-        return $this->db->query($sql,['vid'=>$data['id'],'vuserid'=>$data['userid'], 'vreason'=>$data['reason']]);
+        $this->db->query($sql,['vid'=>$data['id'],'vuserid'=>$data['userid'], 'vreason'=>$data['reason']]);
+        $this->db->transComplete();
+        return true;
+        if ($this->db->transStatus() === false) {
+            return false;
+        }
     }
 
     public function getRespDT(string $status)
@@ -272,9 +296,9 @@ class ItHelpdeskModel extends Model
     public function getDetailResp(int $id) :?object
     {
         $sql = $this->db->table('ithelpdesk a')
-        ->select("helpdeskid, ticketno, ticketdate, ticketopen, ticketclose, user_phone, user_request, user_reason, user_attachment, resp_text, resp_recommendation, urgency, recordstatus, (select wf.wfstatusname from wfstatus wf where wf.wfstat=a.recordstatus and workflowid=1) as status, (select ifnull(count(1),0) from helpdeskdetail hs where hs.helpdeskid={$id} and hs.status_responsded in(1,2,3)) as revisied,
-        (select ifnull(count(1),0) from helpdeskdetail hs where hs.helpdeskid={$id} and hs.status_responsded in(4,5,6)) as feedback,
-        (select ifnull(count(1),0) from helpdeskdetail hs where hs.helpdeskid={$id} and hs.status_responsded in(9,10)) as confirm, (select fullname from users u where u.id = a.userid_req) as fullname, (select group_concat(categoryname separator ' > ') from helpdesk_issue hi where hi.helpdeskid = a.helpdeskid) as category");
+        ->select("helpdeskid, ticketno, ticketdate, ticketopen, ticketclose, user_phone, user_request, user_reason, user_attachment, resp_text, resp_recommendation, ifnull(urgency,0) as urgency, recordstatus, (select wf.wfstatusname from wfstatus wf where wf.wfstat=a.recordstatus and workflowid=1) as status, (select ifnull(count(1),0) from helpdeskdetail hs where hs.helpdeskid={$id} and hs.respondtypeid = 1) as revisied,
+        (select ifnull(count(1),0) from helpdeskdetail hs where hs.helpdeskid={$id} and hs.respondtypeid in (2,3)) as feedback,
+        (select ifnull(count(1),0) from helpdeskdetail hs where hs.helpdeskid={$id} and hs.respondtypeid in(4,5)) as confirm, (select fullname from users u where u.id = a.userid_req) as fullname, a.userid_itadmin, (select group_concat(categoryname separator ' > ') from helpdesk_issue hi where hi.helpdeskid = a.helpdeskid) as category");
         $sql->where('helpdeskid',$id);
         return $sql->get();
     }
@@ -284,22 +308,23 @@ class ItHelpdeskModel extends Model
         switch($responstype) {
 
             case 'feedback':
-                $where = [4,5,6];
+                $where = [2,3];
                 break;
 
             case 'confirmation':
-                $where = [9,10];
+                $where = [4,5];
                 break;
             
             default:
-                $where = [1,2,3];
+                $where = [1];
                 break;
         }
         return $this->db->table('helpdeskdetail a')
         ->select('a.responsetext, attachment, created_at, (select fullname from users u where u.id=a.creator_id) as fullname, b.description as responsetype')
         ->join('responsetype b','b.respondtypeid = a.respondtypeid')
-        ->whereIn('a.status_responsded',$where)
+        ->whereIn('a.respondtypeid',$where)
         ->where('a.helpdeskid',$id)
+        ->orderBy('created_at', 'asc')
         ->get();
     }
 

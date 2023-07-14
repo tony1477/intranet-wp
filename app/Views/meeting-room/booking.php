@@ -15,7 +15,16 @@
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>/public/assets/css/booking.css" />
     <!-- Sweet Alert-->
     <link href="<?=base_url()?>/public/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .choices__list--dropdown .choices__item--selectable {
+            padding-right: 0;
+        }
 
+        .choices__heading {
+            font-size: 16px;
+            color: var(--bs-primary);
+        }
+    </style>
 </head>
 
 <?= $this->include('partials/body') ?>

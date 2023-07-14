@@ -1,5 +1,14 @@
 <script>
 
+    function toTitleCase(str) {
+        return str.replace(
+            /\w\S*/g,
+            function(txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            }
+        );
+    }
+
     $(document).ready(function() {
         $('#basic-pills-wizard').bootstrapWizard({
             'tabClass': 'nav nav-pills nav-justified'
@@ -24,32 +33,60 @@
             document.querySelector('#participant').value = numberParticipant
             displayToTable()
         }
-        const namapeserta = new Choices(document.getElementById("namapeserta"), {removeItems: true})
-        .setChoices(function() {
-            return fetch('<?=base_url()?>/api/getKaryawan',{
-                method:'GET',
-                headers: {
-                    'Content-Type':'application/json',
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Authorization' : 'Bearer <?=hash('sha256',getenv('SECRET_KEY').date('Y-m-d'))?>',
-                },
-            })
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(datas) {
-                return datas.map(function(data) {
-                    return { value: data.id, label: data.fullname };
-                });
-                // console.log(data)
-            });
+        const namapeserta = new Choices(document.getElementById("namapeserta"), {removeItems: true,shouldSort:false,itemSelectText:''});
+        
+        fetch('<?=base_url()?>/api/getKaryawanwithExt',{
+            method:'GET',
+            headers: {
+                'Content-Type':'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization' : 'Bearer <?=hash('sha256',getenv('SECRET_KEY').date('Y-m-d'))?>',
+            },
         })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(datas) {
+            // return datas.map(function(data) {
+            //     return { value: data.id, label: data.fullname };
+            // });
+            const intGroup = []
+            const extGroup = []
+            datas.forEach(items => {
+                if(items.Internal!='Internal') {
+                    extGroup.push({value:items.id,label:items.fullname})
+                }
+                else {
+                    intGroup.push({value:items.id, label:items.fullname})
+                }
+            })
+            namapeserta.setChoices([
+                {
+                    label:'Internal',
+                    id:1,
+                    choices:intGroup
+                },
+                {
+                    label:'Eksternal',
+                    id:2,
+                    choices:extGroup
+                },
+            ],
+            'value',
+            'label',
+            false
+            )
+            // console.log(data)
+        });
 
         const element = document.getElementById('namapeserta');
         element.addEventListener(
         'change',
         function(event) {
-            fetch('<?=base_url()?>/api/getInfoKaryawanbyId/'+event.target.value,{
+            const value = event.target.value
+            const name = event.target.innerText.split(' ').join('_')
+            
+            fetch('<?=base_url()?>/api/getInfoKaryawanbyIdName/'+name+'/'+value,{
                 method:'GET',
                 headers:{
                     'Content-Type':'application/json',
@@ -59,7 +96,8 @@
             })
             .then(response => response.json())
             .then(data => {
-                bagian.value = data[0].dep_nama;
+                console.log(data)
+                bagian.value = toTitleCase(data[0].dep_nama);
                 emailpeserta.value = data[0].email;
             })
         },

@@ -141,6 +141,7 @@
                                     <thead>
                                         <tr>
                                         <th>No</th>
+                                        <th>No Tiket</th>
                                         <th>Tanggal Pembuatan</th>
                                         <th>Nama Pemohon</th>
                                         <th width="35%">Permohonan</th>
@@ -171,6 +172,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>No Tiket</th>
                                             <th>Tanggal Pembuatan</th>
                                             <th>Nama Pemohon</th>
                                             <th width="35%">Permohonan</th>
@@ -200,6 +202,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>No Tiket</th>
                                             <th>Tanggal Pembuatan</th>
                                             <th>Nama Pemohon</th>
                                             <th width="35%">Permohonan</th>
@@ -227,6 +230,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>No Tiket</th>
                                             <th>Tanggal Pembuatan</th>
                                             <th>Nama Pemohon</th>
                                             <th width="35%">Permohonan</th>

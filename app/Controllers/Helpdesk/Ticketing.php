@@ -269,8 +269,7 @@ class Ticketing extends BaseController
             $reason = $datas['reasontext'];
             $dataid = $datas['data_id'];
             $datavalue = $datas['data_value'];
-            $action = $datas['action'];
-            $attach = $datas['user_attachment'];
+            // $attach = $datas['user_attachment'];
             $send = service('email');
             if(isset($datas['helpdeskid']) && $datas['helpdeskid']!='') $id = $datas['helpdeskid'];
             else $id = 0;
@@ -324,9 +323,9 @@ class Ticketing extends BaseController
                 'id' => $id
             ];
             if($attachment!==null) $data['user_attachment']=$attachment;
-            else if($attach!='') $data['user_attachment'] = $attach;
+            else if(isset($datas['user_attachment']) && $datas['user_attachment']!='') $data['user_attachment'] = $datas['user_attachment'];
             
-            if($action=='edit') {
+            if(isset($datas['action']) && $datas['action']=='edit') {
                 $save = $this->ticketing->updatedata($data);
             }
             else {
@@ -337,7 +336,7 @@ class Ticketing extends BaseController
                         'code' => 400,
                         'message'=> $message,
                     );
-                    return redirect()->to('salahurl');
+                    return redirect()->to('salahurls');
                 }
             
                 // send email to head_of_user
@@ -351,13 +350,6 @@ class Ticketing extends BaseController
                 else $email->isemailcreate=0;
                 $this->ticketing->save($email);
             }        
-
-            $message = lang('Files.Save_Success');
-            $arr = array(
-                'status' => 'success',
-                'code' => 200,
-                'message'=> $message,
-            );
         }
         catch(Exception $e) {
             $arr = array(
@@ -365,7 +357,8 @@ class Ticketing extends BaseController
                 'code' => 400,
                 'message'=> $e->getMessage(),
             );
-            // return redirect()->to('salahurl');
+            return redirect()->to('salahurl');
+            // var_dump($arr);
         }
         return redirect()->to('list-helpdesk');
     }
@@ -441,22 +434,23 @@ class Ticketing extends BaseController
         $addedstatus = false;
         switch($type) {
             case 'new':
-                $stt = 1;
+                $stt = '1';
                 $addedstatus = false;
                 break;
 
             case 'waiting':
                 $stt = '2,3';
                 $addedstatus = 'listhelpdesk';
+                // $addedstatus = false;
                 break;
 
             case 'onprogress':
-                $stt='4,5,6,7,8,9,10';
+                $stt='4,5,6,7,8,9,10,11,';
                 $addedstatus = false;
                 break;
 
             case 'close':
-                $stt = 11;
+                $stt = '12,13';
                 $addedstatus = false;
                 break;
 
@@ -526,11 +520,13 @@ class Ticketing extends BaseController
                         break;
                     case '5':
                     case '6':
-                    case '7':
-                    case '8':
-                    case '9':
+                    // case '7':
+                    // case '8':
+                        $action = '<a href="javascript:void(0)"><button type="button" class="btn btn-light feedback-button waves-effect btn-label waves-light"><i class="mdi mdi-reply label-icon"></i> Reply</button></a>';
+                        break;
+                    // case '9':
                     case '10':
-                        $action = '<a href="javascript:void(0)"><button type="button" class="btn btn-info reject-button waves-effect btn-label waves-light"><i class="fas fa-times label-icon"></i> Reply Confirmation</button></a>';
+                        $action = '<a href="javascript:void(0)"><button type="button" class="btn btn-info confirm-button waves-effect btn-label waves-light"><i class="mdi mdi-reply label-icon"></i> Reply</button></a><a href="javascript:void(0)"><button type="button" class="btn btn-success done-button waves-effect btn-label waves-light"><i class="fas fa-check-double label-icon"></i> Done</button></a>';
                         break;
                     case '11' :
                     case '0' :
@@ -543,6 +539,7 @@ class Ticketing extends BaseController
                 $response['data'][] = [
                     "id" => $row['helpdeskid'],
                     "tanggal" => date('d/m/Y H:i',strtotime($row['ticketdate'])),
+                    "tiketno" => $row['ticketno'],
                     "phone" => $row['user_phone'],
                     "nama" => $row['user_fullname'],
                     "request" => $row['user_request'],
@@ -575,37 +572,72 @@ class Ticketing extends BaseController
                 $id = $this->request->getVar('id');
                 $userid = user_id();
                 $data = ['id'=>$id,'userid'=>$userid];
-                $app = $this->approveHelpdesk($data)->getResult();
+                $app = $this->approveHelpdesk($data);
                 $parentid = $this->ticketing->getParentLevel(user_id());
                 $userModel = new UserModel();
-                $user = $userModel->find($parentid);
-                $mailhead = 'martoni.firman@wilianperkasa.com';
+                $user = $userModel->find($parentid[0]);
+                $mailheads = 'martoni.firman@wilianperkasa.com';
                 $name = $userModel->find(user_id())->getFullname();
-                // if($user) $mailhead=$user->getEmail();
+                if($user) $mailhead=$user->getEmail();
                 $helpdesk = $this->ticketing->find($id);
                 $details = new HelpdeskDetailModel();
-                $detail = $details->where('helpdeskid',$id)->findAll();
+                // $detail = $details->where('helpdeskid',$id)->findAll();
                 $datas = [
                     'nama' => $name,
-                    'issue' => $detail,
+                    // 'issue' => $detail,
                     'request' => $helpdesk->user_request,
-                    'reason' => $helpdesk->user_reason
+                    'reason' => $helpdesk->user_reason,
+                    'ticketno' => $helpdesk->ticketno,
+                    'ticketdate' => $helpdesk->ticketdate,
+                    'email' => $mailhead,
                 ];
-                
                 $email = service('email');
-                $mailto = $mailhead;
-                $fromEmail = env('Email.fromEmail');
-                $fromName = env('Email.fromName');
-                // $sent = $email->setFrom($fromEmail,$fromName)
-                //     ->setTo($mailto)
-                //     ->setSubject('Permohonan Bantuan IT')
-                //     ->setMessage(view('email/create_ticket',['data' => $datas]))
-                //     ->setMailType('html')
-                //     ->send();
+                if($user && in_array($helpdesk->recordstatus,[2,3])) {
+                    $mailto = $mailheads;
+                    $fromEmail = env('Email.fromEmail');
+                    $fromName = env('Email.fromName');
+                    $sent = $email->setFrom($fromEmail,$fromName)
+                        ->setTo($mailto)
+                        ->setSubject('Permohonan Bantuan IT')
+                        ->setMessage(view('email/create_ticket',['data' => $datas]))
+                        ->setMailType('html')
+                        ->send();
                 
-                $isemailcreate=0;
-                // if($sent) $isemailcreate = 1;
-                // $this->ticketing->update($id,['isemailcreate'=>$isemailcreate]);
+                    $isemailcreate=0;
+                    if($sent) $isemailcreate = 1;
+                    $this->ticketing->update($id,['isemailcreate'=>$isemailcreate]);
+                }
+
+                if($helpdesk->recordstatus==12) {
+                    $userid = $helpdesk->userid_req;
+                    $quser = $userModel->find($userid);
+                    $user_email = $quser->getEmail();
+
+                    $spv = $this->ticketing->getParentLevel($userid);
+                    $qspv = $userModel->find($parentid[0]);
+                    $spv_email = $qspv->getEmail();
+
+                    $man = $this->ticketing->getParentLevel($qspv->id);
+                    $qman = $userModel->find($man[0]);
+                    $man_email = $qman->getEmail();
+
+                    $mailToUser = [$man_email,$spv_email,$user_email];
+                    $mailTo = 'martoni.firman@wilianperkasa.com';
+
+                    $datas = [
+                        'user_request' => $helpdesk->user_request,
+                        'mailtoUser' => $mailToUser,
+                    ];
+                    $fromEmail = env('Email.fromEmail');
+                    $fromName = env('Email.fromName');
+                    $sent = $email->setFrom($fromEmail,$fromName)
+                        ->setTo($mailTo)
+                        ->setSubject('Closed Ticket IT Helpdesk')
+                        // ->setCC(['purwantoro@wilianperkasa.com','marianto@wilianperkasa.com','it@wilianperkasa.com'])
+                        ->setMessage(view('email/close_ticket',['data' => $datas]))
+                        ->setMailType('html')
+                        ->send();
+                }
 
                 $response = [
                     'message' => 'Data Berhasil di Approve',
@@ -659,6 +691,109 @@ class Ticketing extends BaseController
                 ];
             }
             
+        }
+        return json_encode($response);
+    }
+
+    public function confirmTicket()
+    {
+        header('Content-Type: application/json');
+        if($this->request->getMethod()==='post')
+        {
+            try {
+                $id = $this->request->getVar('id');
+                $qstatus = $this->ticketing->find($id);
+                $status = $qstatus->recordstatus;
+                $reason = $this->request->getVar('text');
+                $userid = user_id();
+                $data = ['id'=>$id,'creator_id'=>$userid,'respondtypeid'=>5,'responsetext'=>$reason,'status'=>$status];
+                $this->ticketing->submitFormReviewFeedback($data);
+                
+                $email = service('email');
+
+                $helpdesk = $this->ticketing->find($id);
+                $emailTo = 'it@wilianperkasa.com';
+                $datas = [
+                    'name' => 'Team IT',
+                    'response' => $reason,
+                    'title' => $helpdesk->user_request,
+                ];
+                // $mailto = $mailheads;
+                $fromEmail = env('Email.fromEmail');
+                $fromName = env('Email.fromName');
+                $sent = $email->setFrom($fromEmail,$fromName)
+                    ->setTo($emailTo)
+                    ->setSubject('Reply Konfirmasi Ticket IT Helpdesk')
+                    ->setMessage(view('email/confirmation',['data' => $datas]))
+                    ->setMailType('html')
+                    ->send();
+                // if($user) $mailhead=$user->getEmail();
+                $response = [
+                    'message' => 'Simpan Data Berhasil',
+                    'status' => 'success',
+                    'code' => 200
+                ];
+            }
+            catch(Exception $e)
+            {
+                $response = [
+                    'message' => $e->getMessage(),
+                    'status' => 'fail',
+                    'code' => 400
+                ];
+            }
+        }
+        return json_encode($response);
+    }
+
+    public function feedbackTicket()
+    {
+        header('Content-Type: application/json');
+        if($this->request->getMethod()==='post')
+        {
+            try {
+                $id = $this->request->getVar('id');
+                $qstatus = $this->ticketing->find($id);
+                $status = $qstatus->recordstatus;
+                $reason = $this->request->getVar('text');
+                $userid = user_id();
+                $data = ['id'=>$id,'creator_id'=>$userid,'respondtypeid'=>3,'responsetext'=>$reason,'status'=>$status];
+                $this->ticketing->submitFormReviewFeedback($data);
+                
+                // if($user) $mailhead=$user->getEmail();
+                $email = service('email');
+
+                $helpdesk = $this->ticketing->find($id);
+                $emailTo = 'it@wilianperkasa.com';
+                $datas = [
+                    'name' => 'Team IT',
+                    'response' => $reason,
+                    'title' => $helpdesk->user_request,
+                ];
+                // $mailto = $mailheads;
+                $fromEmail = env('Email.fromEmail');
+                $fromName = env('Email.fromName');
+                $sent = $email->setFrom($fromEmail,$fromName)
+                    ->setTo($emailTo)
+                    ->setSubject('Reply Feedback Ticket IT Helpdesk')
+                    ->setMessage(view('email/feedback',['data' => $datas]))
+                    ->setMailType('html')
+                    ->send();
+
+                $response = [
+                    'message' => 'Simpan Data Berhasil',
+                    'status' => 'success',
+                    'code' => 200
+                ];
+            }
+            catch(Exception $e)
+            {
+                $response = [
+                    'message' => $e->getMessage(),
+                    'status' => 'fail',
+                    'code' => 400
+                ];
+            }
         }
         return json_encode($response);
     }

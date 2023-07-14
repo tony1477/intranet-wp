@@ -49,10 +49,12 @@
       case 'OnProgress':
         columns.push({ data: 'status', title: 'Status' });
         columns.push({ data: 'action', title: 'Aksi' });
+        columns.splice(1,0,{ data: 'tiketno'});
         break;
 
       case 'Success':
       case 'Cancel':
+        columns.splice(1,0,{ data: 'tiketno'});
         console.log('open')
         break;
 
@@ -83,10 +85,10 @@
           $(row).addClass('bg-warning text-white');
         }
         if(data.isfeedback==1) {
-          $(row).addClass('bg-info text-white');
+          $(row).addClass('bg-primary text-white');
         }
         if(data.isconfirmation==1) {
-          $(row).addClass('bg-primary text-white');
+          $(row).addClass('bg-info text-white');
         }
       },
       createdRow: function(row, data, index) {
@@ -108,9 +110,9 @@
           '<td>Phone:</td>' +
           '<td>' + data.phone + '</td>' +
           '</tr>' +
-          '<tr>' +
+          '<tr '+ (data.responsetext != null ? 'class = "bg-warning"' : '')+'>' +
           '<td>Reason:</td>' +
-          '<td>' + data.responsetext + '</td>' +
+          '<td>' + (data.responsetext!=null ? data.responsetext : '') + '</td>' +
           '</tr>' +
           '</table>';
         dataTableInstances[accordionId].row(index).child(detailHtml).show();
@@ -271,4 +273,151 @@
         }
       });
     });
-  }
+
+    $('#datatable-' + accordionId + ' tbody').on('click', 'button.feedback-button', function() {
+      const rowData = dataTableInstances[accordionId].row($(this).closest('tr')).data();
+      Swal.fire({
+        title: 'Reply Feedback',
+        html: `
+          <textarea class="form-control" id="reply-feedback" placeholder="Reply for Feedback to IT"></textarea>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Submit',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        // Jika tombol 'Submit' diklik
+        if (result.isConfirmed) {
+          // Mendapatkan nilai inputan dari form
+          const inputData = document.getElementById('reply-feedback').value;
+
+          // Mengirim data ke halaman approve menggunakan fetch
+          fetch('feedback-helpdesk', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            cache: 'no-cache',
+            body: JSON.stringify({ id: rowData.id, text:inputData})
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(data.status==='success') {
+              Swal.fire(
+                'Success',
+                data.message,
+                'success'
+              ).
+              then((result) => {
+                if (result.isConfirmed) location.href='list-helpdesk'
+              })
+            }
+            else {
+              Swal.fire(
+                'Fail',
+                data.message,
+                'warning'
+              )
+            }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+          });
+        }
+      })
+    });
+
+    $('#datatable-' + accordionId + ' tbody').on('click', 'button.confirm-button', function() {
+      const rowData = dataTableInstances[accordionId].row($(this).closest('tr')).data();
+      Swal.fire({
+        title: 'Konfirmasi ke IT',
+        html: `
+          <textarea class="form-control" id="reply-confirm" placeholder="Jika Permohonan bantuan belum sesuai"></textarea>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Submit',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const inputData = document.getElementById('reply-confirm').value;
+
+          fetch('confirm-helpdesk', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            cache: 'no-cache',
+            body: JSON.stringify({ id: rowData.id, text:inputData})
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(data.status==='success') {
+              Swal.fire(
+                'Success',
+                data.message,
+                'success'
+              ).
+              then((result) => {
+                if (result.isConfirmed) location.href='list-helpdesk'
+              })
+            }
+            else {
+              Swal.fire(
+                'Fail',
+                data.message,
+                'warning'
+              )
+            }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+          });
+        }
+      })
+    });
+
+    $('#datatable-' + accordionId + ' tbody').on('click', 'button.done-button', function() {
+      const rowData = dataTableInstances[accordionId].row($(this).closest('tr')).data();
+      Swal.fire({
+        title: 'Apakah Anda yakin menutup / menyelesaikan permohonan ini?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          fetch('approve-helpdesk', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            cache: 'no-cache',
+            body: JSON.stringify({ id: rowData.id})
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(data.status==='success') {
+              Swal.fire(
+                'Success',
+                data.message,
+                'success'
+              ).
+              then((result) => {
+                if (result.isConfirmed) location.href='list-helpdesk'
+              })
+            }
+            else {
+              Swal.fire(
+                'Fail',
+                data.message,
+                'warning'
+              )
+            }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+          });
+        }  
+      })
+    })
+  };

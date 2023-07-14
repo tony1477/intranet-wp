@@ -41,3 +41,23 @@ if (! function_exists('get_username')) {
         return null;
     }
 }
+
+if (! function_exists('get_fullname')) {
+    /**
+     * Get user ID from name using Myth-Auth library.
+     *
+     * @param int $id
+     * @return string|null
+     */
+    function get_fullname(int $id): ?string
+    {
+        $userModel = new UserModel();
+        $user = $userModel->where('id', $id)->where('active',1)->first();
+
+        if ($user) {
+            return $user->fullname;
+        }
+
+        return null;
+    }
+}

@@ -99,9 +99,6 @@
                             <div class="bg-warning rounded-3 infoReject btn-feedback position-absolute <?=$listticket->isrevisied>0 ? '' : 'd-none'?>" style="left: 30%;z-index: 4;color: var(--bs-white);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsNewTicket-collapse" aria-expanded="false"><i class="mdi mdi-circle-edit-outline"></i> 
                             <span class="btn-number"><?=$listticket->isrevisied?></span>
                             <span class="btn-feedback-text"> Need Revisied<?=$listticket->isrevisied>1 ? 's' : ''?></span></div>
-                            <div class="bg-primary rounded-3 infoReject btn-feedback position-absolute <?=$listticket->isfeedback>0 ? '' : 'd-none'?>" style="left: 60%;z-index: 4;color: var(--bs-white);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsNewTicket-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i>
-                            <span class="btn-number"><?=$listticket->isfeedback?></span>
-                            <span class="btn-feedback-text"> Feedback<?=$listticket->isfeedback>1 ? 's' : ''?></span></div>
                             <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$summary_ticket['new']->total?> Ticket<?=($summary_ticket['new']->total>1 ? 's' : '')?></div>
                             <button class="accordion-button bg-secondary text-light fs-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#panelsNewTicket-collapse" aria-expanded="true" aria-controls="panelsNewTicket-collapse">
                             New Ticket
@@ -141,6 +138,7 @@
                                     <thead>
                                         <tr>
                                         <th>No</th>
+                                        <th>No Tiket</th>
                                         <th>Tanggal Pembuatan</th>
                                         <th>Nama Pemohon</th>
                                         <th width="35%">Permohonan</th>
@@ -159,7 +157,12 @@
                     </div>
                     <div class="accordion-item my-3">
                         <h2 class="accordion-header position-relative" id="panelsOnProgress">
-                        <div class="bg-primary rounded-3 infoReject position-absolute <?=$listticket->isconfirmation>0 ? '' : 'd-none'?>" style="left: 50%;z-index: 4;color: var(--bs-white);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i> <?=$listticket->isconfirmation?> Need Confirmation<?=$listticket->isconfirmation>1 ? 's' : ''?></div>
+                        <div class="bg-primary rounded-3 infoReject btn-feedback position-absolute <?=$listticket->isfeedback>0 ? '' : 'd-none'?>" style="left: 30%;z-index: 4;color: var(--bs-white);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i>
+                            <span class="btn-number"><?=$listticket->isfeedback?></span>
+                            <span class="btn-feedback-text"> Feedback<?=$listticket->isfeedback>1 ? 's' : ''?></span></div>
+                        <div class="bg-white rounded-3 infoReject btn-feedback position-absolute <?=$listticket->isconfirmation>0 ? '' : 'd-none'?>" style="left: 60%;z-index: 4;color: var(--bs-dark);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i>
+                            <span class="btn-number"><?=$listticket->isconfirmation?></span>
+                            <span class="btn-feedback-text"> Confirmation<?=$listticket->isconfirmation>1 ? 's' : ''?></span></div>
                         <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$summary_ticket['onprogress']->total?> Ticket<?=($summary_ticket['onprogress']->total>1 ? 's' : '')?></div>
                         <button class="accordion-button bg-info text-white fs-3 fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false" aria-controls="panelsOnProgress-collapse">
                             On Progress IT
@@ -171,6 +174,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>No Tiket</th>
                                             <th>Tanggal Pembuatan</th>
                                             <th>Nama Pemohon</th>
                                             <th width="35%">Permohonan</th>
@@ -200,6 +204,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>No Tiket</th>
                                             <th>Tanggal Pembuatan</th>
                                             <th>Nama Pemohon</th>
                                             <th width="35%">Permohonan</th>
@@ -227,6 +232,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>No Tiket</th>
                                             <th>Tanggal Pembuatan</th>
                                             <th>Nama Pemohon</th>
                                             <th width="35%">Permohonan</th>

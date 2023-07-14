@@ -170,6 +170,9 @@ return [
     "Name_GroupUser2" => "User Group Name (ENG)",
     "Group_User" => "User Group",
 
+    // User Group
+    "User_Name" => "Username",
+
     // User
     "Code_User" => "User Code",
     "Name_User" => "User Name",
@@ -179,6 +182,35 @@ return [
     "Blokir_User" => "Suspend?",
     "Photo_User" => "Photo Profile",
     "User" => "User",
+
+    // Workflow
+    "Workflow" => "Wofkflow",
+    "Wf_Name" => "Workflow Name",
+    "Wf_Desc" => "Workflow Description",
+    "Wf_Min_Status" => "Minimum Status",
+    "Wf_Max_Status" => "Maximum Status",
+
+    // Wfgroup
+    "Wfgroup" => "Document Authorization",
+    "Wf_Bef_Status" => "Before Status",
+    "Wf_Rec_Status" => "Next Status",
+
+    // Wfstatus
+    "Wfstatus" => "Document Status",
+    "Wf_Stat" => "Workflow Status",
+    "Wf_Status_Name" => "Workflow Status Name",
+    "Wf_Status_User" => "Workflow Status User",
+
+    // Wfstructure
+    "Wfstructure" => "Approval Structure",
+    "Parent_Name" => "Parent Name",
+    "Recstatus" => "Status",
+
+    // Ext-participant
+    "External_Participant" => "External Participant",
+    "Name" => "Name",
+    "Description" => "Description",
+    "Requisite" => "Requisite",
     
     // Common
     "Intranet" => "Intranet",
@@ -333,6 +365,7 @@ return [
     "kategory" => "Category",
     "dokumen" => "Document",
     "group-user" => "User Group",
+    "user-group" => "User Group",
     "users" => "Users",
     "website" => "Website",
     "tentang" => "About",
@@ -349,6 +382,13 @@ return [
     "instruksi" => "Work Instruction",
     "others" => "Others",
     'lain' => "Others",
-    "master_data" => "Master Data"
+    "master_data" => "Master Data",
+    "authentication" => "Authentication & Authorization",
+    "workflow" => "Workflow",
+    "wfgroup" => "Document Authorization",
+    "wfstatus" => "Document Status",
+    "wfstructure" => "Approval Structure",
+    "helpdesk" => "Helpdesk",
+    "ext-participant" => "External Participant",
 
 ];

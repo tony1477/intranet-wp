@@ -52,7 +52,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="mb-1">No Ticket : <span class="fw-bold font-size-14"><?=$detail->ticketno?>ITHLP/IT-INF/23-06/0001</span></p>
+                                    <p class="mb-1">No Ticket : <span class="fw-bold font-size-14"><?=$detail->ticketno?></span></p>
                                     <p class="mb-1 fw-bold"><i class="mdi mdi-account-tie align-middle mr-1"></i> <?=$detail->fullname?></p>
                                     <p><i class="mdi mdi-phone align-middle mr-1"></i> <?=$detail->user_phone?></p>
                                 </div>
@@ -62,7 +62,7 @@
                                         <div>
                                             <div>
                                                 <h5 class="font-size-15">Detail Permohonan:</h5>
-                                                <p><?=$detail->user_reason?></p>
+                                                <p><?=$detail->user_request?></p>
                                             </div>
                                             
                                             <div class="mt-4">
@@ -75,7 +75,7 @@
                                         <div>
                                             <div>
                                                 <h5 class="font-size-15">Ticket Dibuat / Ticket Open:</h5>
-                                                <p><?=date('d M Y',strtotime($detail->ticketdate))?> / <?=date('d M Y',strtotime($detail->ticketopen))?></p>
+                                                <p><?=date('d M Y',strtotime($detail->ticketdate))?> / <?=$detail->ticketopen!='' ? date('d M Y',strtotime($detail->ticketopen)) : '-'?></p>
                                             </div>
 
                                             <div class="mt-4">
@@ -88,17 +88,15 @@
                                         <div>
                                             <div>
                                                 <h5 class="font-size-15">Lampiran:</h5>
-                                                <p><a href="<?=base_url()?>/public/assets/protected/helpdesk/<?=$detail->user_attachment?>" alt="Link Attachment"><?=$detail->user_attachment?></a></p>
+                                                <p><a href="<?=base_url()?>/public/assets/protected/helpdesk/<?=$detail->user_attachment?>" alt="Link Attachment" target="_blank"><?=$detail->user_attachment?></a></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <?php $sr = getWfAuthByUserid('apphelpdesk',$detail->recordstatus);
+                                        $display='disabled';
                                         if($sr) {
                                             if(($sr->bacess)-1 == 8) $display='';
-                                        }
-                                        else {
-                                            $display = 'disabled';
                                         }
                                         ?>
                                         <div>
@@ -110,7 +108,7 @@
                                                         <option>Select</option>
                                                         <?php $merge_arr = array_merge($list_itinfra,$list_itsystem);
                                                         foreach($merge_arr as $row):?>
-                                                        <option value="<?=$row['id']?>"><?php echo $row['fullname'];?></option>
+                                                        <option value="<?=$row['id']?>" <?=$detail->userid_itadmin == $row['id'] ? 'selected':''?>><?php echo $row['fullname'];?></option>
                                                     <?php endforeach;?>
                                                     </select>
                                                 </div>
@@ -118,8 +116,8 @@
                                                     <label class=" form-label" for="urgency">Status Pengerjaan</label>
                                                     <select id="urgency" class="w-50 form-select" <?=$display?>>
                                                         <option>Select</option>
-                                                        <option value="urgent">Urgent</option>
-                                                        <option value="normal">Normal</option>
+                                                        <option value="urgent" <?=$detail->urgency == 'urgent' ? 'selected':''?>>Urgent</option>
+                                                        <option value="normal" <?=$detail->urgency == 'normal' ? 'selected':''?>>Normal</option>
                                                     </select>
                                                 </div>
                                                 <div class="mb-3 <?=$display=='disabled' ? 'd-none' : ''?>">
@@ -132,12 +130,12 @@
                                     </div>
                                 </div>
 
-                                <?php $writereview = [4,5,6]; $writeconfirm=[9,10];
+                                <?php $writereview = [4,5,6]; $writeconfirm=[9,10,11];
                                 ?>
                                 <div class="mt-2 d-flex justify-content-end flex-column <?php if(!in_array($detail->recordstatus,$writereview)) echo 'd-none'?>">
                                     Write Review
                                     <?=form_open('resp-helpdesk/submit/review')?>
-                                    <textarea class="form-control" rows="3" cols="5" aria-label="Feedback" name="form_review" <?=$detail->recordstatus==5 ? 'readonly' : ''?>></textarea><button class="w-25 mt-2 btn-review btn btn-primary" role="button" <?=$detail->recordstatus==5 ? 'disabled' : ''?>>Submit Review</button>
+                                    <textarea class="form-control" rows="3" cols="5" aria-label="Feedback" name="form_review" <?=$detail->recordstatus==5 ? 'readonly' : ''?>></textarea><button type="submit" class="w-25 mt-2 btn-review btn btn-primary" role="button" <?=$detail->recordstatus==5 ? 'disabled' : ''?>>Submit Review</button>
                                     <?=form_hidden('helpdeskid',$detail->helpdeskid);?>
                                     <?=form_hidden('status',$detail->recordstatus);?>
                                     <?=form_close()?>
@@ -145,7 +143,7 @@
                                 <div class="mt-2 d-flex justify-content-end flex-column <?php if(!in_array($detail->recordstatus,$writeconfirm)) echo 'd-none'?>">
                                     Write Confirmation
                                     <?=form_open('resp-helpdesk/submit/confirm')?>
-                                    <textarea class="form-control" rows="3" cols="5" aria-label="Confirmation" name="form_confirm"></textarea><button class="w-25 mt-2 btn btn-primary" role="button">Submit Confirmation</button>
+                                    <textarea class="form-control" rows="3" cols="5" aria-label="Confirmation" name="form_confirm"></textarea><button type="submit" class="w-25 mt-2 btn btn-primary" role="button">Submit Confirmation</button>
                                     <?=form_hidden('helpdeskid',$detail->helpdeskid);?>
                                     <?=form_hidden('status',$detail->recordstatus);?>
                                     <?=form_close()?>
@@ -170,7 +168,7 @@
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1">
-                                                <h5 class="font-size-14 mb-1"><?=$row->fullname?> <small class="text-muted float-end"></small></h5>
+                                                <h5 class="font-size-14 mb-1"><?=$row->fullname?> <small class="text-muted float-end"><?=date('d/m/Y H:i',strtotime($row->created_at))?></small></h5>
                                                 <p class="text-muted"><?=$row->responsetext?></p>
                                             </div>
                                         </div>
@@ -197,7 +195,7 @@
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1">
-                                                <h5 class="font-size-14 mb-1"><?=$row->fullname?> <small class="text-muted float-end">1 hr Ago</small></h5>
+                                                <h5 class="font-size-14 mb-1"><?=$row->fullname?> <small class="text-muted float-end"><?=date('d/m/Y H:i',strtotime($row->created_at))?></small></h5>
                                                 <p class="text-muted"><?=$row->responsetext?></p>
                                                 
                                             </div>
@@ -210,9 +208,9 @@
                                 </div>
                                 <div class="d-print-none mt-3">
                                     <div class="float-end <?=$display!='disabled' ? 'd-none' : ''?>">
-                                        <button type="button" class="btn btn-success waves-effect waves-light mr-1" id="approveticket" <?=getWfAuthByUserid('apphelpdesk',$detail->recordstatus)!=NULL ? '' : 'disabled="disabled"' ?>><i class="fa fa-check"></i> Approve </button>
+                                        <button type="button" class="btn btn-success waves-effect waves-light mr-1 <?=$detail->recordstatus<9 ? '' : 'd-none'?>" id="approveticket" <?=getWfAuthByUserid('apphelpdesk',$detail->recordstatus)!=NULL ? '' : 'disabled="disabled"' ?>><i class="fa fa-check"></i> Approve </button>
 
-                                        <button type="button" class="btn btn-warning waves-effect waves-light mr-1" id="rejectticket" <?=getWfAuthByUserid('rejhelpdesk',$detail->recordstatus)!=NULL ? '' : 'disabled="disabled"' ?>><i class="fa fa-times"></i> Reject/ Cancel Ticket</button>
+                                        <button type="button" class="btn btn-warning waves-effect waves-light mr-1 <?=$detail->recordstatus<9 ? '' : 'd-none'?>" id="rejticket" <?=getWfAuthByUserid('rejhelpdesk',$detail->recordstatus)!=NULL ? '' : 'disabled="disabled"' ?>><i class="fa fa-times"></i> Reject/ Cancel Ticket</button>
                                     </div>
                                 </div>
                             </div>

@@ -171,6 +171,9 @@ return [
     "Name_GroupUser2" => "Nama Grup Pengguna (ENG)",
     "Group_User" => "Grup Pengguna",
 
+    // User Group
+    "User_Name" => "Nama Pengguna",
+
     // User
     "Code_User" => "Kode Pengguna",
     "Name_User" => "Nama Pengguna",
@@ -180,6 +183,35 @@ return [
     "Blokir_User" => "Blokir?",
     "Photo_User" => "Foto",
     "User" => "Pengguna",
+
+    // Workflow
+    "Workflow" => "Alur Dokumen",
+    "Wf_Name" => "Nama Workflow",
+    "Wf_Desc" => "Keterangan Workflow",
+    "Wf_Min_Status" => "Status Awal",
+    "Wf_Max_Status" => "Status Terakhir",
+
+    // Wfgroup
+    "Wfgroup" => "Otorisasi Dokumen",
+    "Wf_Bef_Status" => "Status Sebelum",
+    "Wf_Rec_Status" => "Status Sesudah",
+
+    // Wfstatus
+    "Wfstatus" => "Status Dokumen",
+    "Wf_Stat" => "Status Workflow",
+    "Wf_Status_Name" => "Nama Status Workflow",
+    "Wf_Status_User" => "User Status Workflow",
+
+    // Wfstructure
+    "Wfstructure" => "Struktur Approval",
+    "Parent_Name" => "Nama Atasan",
+    "Recstatus" => "Status",
+
+    // Ext-participant
+    "External_Participant" => "External Participant",
+    "Name" => "Nama",
+    "Description" => "Keterangan",
+    "Requisite" => "Keperluan",
 
     // Common
     "Intranet" => "Intranet",
@@ -342,6 +374,7 @@ return [
     "kategory" => "Kategori",
     "dokumen" => "Dokumen",
     "group-user" => "Grup Pengguna",
+    "user-group" => "Grup Pengguna",
     "users" => "Pengguna",
     "website" => "Website",
     "tentang" => "Tentang",
@@ -359,6 +392,12 @@ return [
     "others" => "Lain Lain",
     'lain' => "Lainnya",
     "master_data" => "Master Data",
-    "Helpdesk" => "Helpdesk",
+    "authentication" => "Otentikasi & Otorisasi",
+    "workflow" => "Alur Dokumen",
+    "wfgroup" => "Otorisasi Dokumen",
+    "wfstatus" => "Status Dokumen",
+    "wfstructure" => "Struktur Approval",
+    "helpdesk" => "Helpdesk",
+    "ext-participant" => "Peserta Luar",
 
 ];

@@ -65,31 +65,13 @@
         return $str;
     }
 ?>
-<p class="bold">Kepada Yth</p>
-<p class="bold">Bapak/ Ibu Kepala Divisi/Departemen</p>
+<p class="bold">Dear <?=$data['name']?></p>
 <p>di Tempat</p><br />
 
 <p>Dengan hormat,</p><br />
-<p>Bersama ini kami sampaikan bahwa dengan adanya permohonan bantuan kepada Dept. IT. Untuk itu kami informasikan kepada Bapak/Ibu Kepala Divisi/Departemen untuk melakukan review dan approval permohonan bantuannya. Dengan detail dibawah ini sebagai berikut : </p><br />
-<table>
-    <tbody>
-        <tr>
-            <td>Hari / Tanggal </td>
-            <td>: <span class="bold"><?=hariIndo(date('D',strtotime($data['ticketdate'])))?> / <?=date('d F Y',strtotime($data['ticketdate']))?></span></td>
-        </tr>
-        <tr>
-            <td>Permohonan</td>
-            <td>: <span class="bold"><?=$data['request']?></span></td>
-        </tr>
-        <tr>
-            <td>Alasan</td>
-            <td>: <span class="bold"><?=$data['reason']?></span></td>
-        </tr>
-    </tbody>
-</table><br />
-Untuk melakukan review / approval dapat mengunjungi link berikut : <a href="<?=base_url()?>/list-helpdesk" target="_blank" alt="Review dan Approval Helpdesk">Review & Approval IT Helpdesk</a>
-<p>Demikian hal ini disampaikan, atas perhatian dan kerjasama dari Bapak/Ibu saya ucapkan terimakasih.</p><br />
-
+<p>Bersama ini kami sampaikan bahwa adanya email konfirmasi penyelesaian IT Helpdesk pada permohonan : <strong><?=$data['title']?></strong></p><br />
+Dengan response sebagai berikut : <strong><?=$data['response']?></strong><br/><br />
+<?php //$data['emailto']?>
 <p class="italic">Regards,</p><br />
 
 <p>Intranet Service</p>

@@ -195,7 +195,9 @@ $routes->get('api/getDepartment','Api/CommonApi::getDepartment');
 $routes->get('api/getJabatan','Api/CommonApi::getJabatan');
 $routes->get('api/getDepartment/(:num)','Api\CommonApi::getDepartment/$1');
 $routes->get('api/getKaryawan','Api\CommonApi::getKaryawan');
+$routes->get('api/getKaryawanwithExt','Api\CommonApi::getKaryawanwithExt');
 $routes->get('api/getInfoKaryawanbyId/(:num)','Api\CommonApi::getInfoKaryawanbyId/$1');
+$routes->get('api/getInfoKaryawanbyIdName/(:segment)/(:num)','Api\CommonApi::getInfoKaryawanbyIdName/$1/$2');
 
 ## Department
 $routes->get('department', 'Master/Department::index', ['filter' => 'permission:master-data']);
@@ -330,12 +332,16 @@ $routes->post('helpdesk/prevquestion','Helpdesk/Ticketing::prevquestion');
 $routes->post('helpdesk/list-ticket/(:alpha)','Helpdesk\Ticketing::listTicket/$1');
 $routes->post('approve-helpdesk','Helpdesk\Ticketing::approveTicket');
 $routes->post('reject-helpdesk','Helpdesk\Ticketing::rejectTicket');
+$routes->post('confirm-helpdesk','Helpdesk\Ticketing::confirmTicket');
+$routes->post('feedback-helpdesk','Helpdesk\Ticketing::feedbackTicket');
 $routes->get('edit-helpdesk/(:num)','Helpdesk\Ticketing::editTicket/$1');
 $routes->get('resp-helpdesk','Helpdesk/Response::index');
 $routes->post('list-resp/(:alpha)','Helpdesk\Response::listResponse/$1');
 $routes->get('resp-helpdesk/detail/(:num)','Helpdesk\Response::detailResponse/$1');
 $routes->post('resp-helpdesk/submit/(:alpha)','Helpdesk\Response::submitForm/$1');
 $routes->post('resp-helpdesk/approve-helpdesk','Helpdesk\Response::approveHelpdesk');
+$routes->post('resp-helpdesk/dohelpdesk','Helpdesk\Response::doHelpdesk');
+$routes->post('resp-helpdesk/reject-helpdesk','Helpdesk\Response::rejectHelpdesk');
 // $routes->post('edit-helpdesk','Helpdesk\Ticketing::editTicket');
 // $routes->get('create-helpdesk/user/(:alpha)/(:segment)','Helpdesk\Ticketing::form/$1/$2');
 
@@ -352,6 +358,12 @@ $routes->post('auth/wfstatus/post', 'Master/Auth/Wfstatus::save', ['filter' => '
 $routes->get('auth/wfstructure','Master/Auth/Wfstructure::index');
 $routes->post('auth/wfstructure/delete', 'Master/Auth/Wfstructure::delete', ['filter' => 'permission:master-data']);
 $routes->post('auth/wfstructure/post', 'Master/Auth/Wfstructure::save', ['filter' => 'permission:master-data']);
+
+## External Participant
+$routes->get('ext-participant', 'Meeting/Extparticipant::index',['filter' => 'permission:master-data']);
+$routes->post('ext-participant/delete', 'Meeting/Extparticipant::delete', ['filter' => 'permission:master-data']);
+$routes->post('ext-participant/post', 'Meeting/Extparticipant::save', ['filter' => 'permission:master-data']);
+
 
 ## Website
 $routes->get('tentang/profil','Website/About/Profile::index');

@@ -60,11 +60,11 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="input-userdate" class="form-label">Tanggal Request</label>
-                                                <input class="form-control" type="date" value="<?=date('Y-m-d')?>" name="userdate" id="input-userdate" readonly>
+                                                <input class="form-control" type="datetime" value="<?=date('d-M-y H:i')?>" name="userdate" id="input-userdate" readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="input-usertelp" class="form-label">No Telepon</label>
-                                                <input class="form-control" type="tel" value="" name="usertelp" id="input-usertelp">
+                                                <input class="form-control" type="tel" value="<?=user()->phoneno?>" name="usertelp" id="input-usertelp">
                                             </div>
                                             <div class="d-flex align-items-center loadingQuestion flex-column d-none">
                                                 <div class="spinner-border text-primary mx-auto" role="status" aria-hidden="true"></div>
@@ -127,6 +127,10 @@
 <script src="<?=base_url()?>/public/assets/js/app.js"></script>
 <script src="<?=base_url()?>/public/assets/js/helpdesk/create-ticket.js"></script>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        sessionStorage.clear();
+    }, false);
+
     document.addEventListener('DOMContentLoaded', function() {
       const infoButtons = document.querySelectorAll('.info-btn');
 

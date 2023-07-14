@@ -13,6 +13,7 @@ class Response extends BaseController
     public function __construct()
     {
         $this->respModel = new ItHelpdeskModel();
+        helper('myth_auth_helper');
     }
     
     public function index()
@@ -37,11 +38,11 @@ class Response extends BaseController
         $addedstatus = false;
         switch($type) {
             case 'open':
-                $stt = '4,5,6,7,8,9,10';
+                $stt = '4,5,6,7,8,9,10,11';
                 break;
 
             case 'close':
-                $stt = '0,11';
+                $stt = '0,12';
                 break;
         }
         // Process the AJAX request
@@ -161,11 +162,15 @@ class Response extends BaseController
             case 'review':
                 $form='form_review';
                 $typeid=2;
+                $subjectEmail = 'Feedback Review Ticket IT Helpdesk';
+                $v_email = 'email/feedback';
                 break;
 
             case 'confirm':
                 $form='form_confirm';
-                $typeid=3;
+                $typeid=4;
+                $subjectEmail = 'Konfirmasi Penyelesaian Ticket IT Helpdesk';
+                $v_email = 'email/confirmation';
                 break;
         }
         if ($_SERVER['REQUEST_METHOD'] == 'POST'):
@@ -180,6 +185,30 @@ class Response extends BaseController
                 'status' => $status
             ];
             $this->respModel->submitFormReviewFeedback($data);
+            $email = service('email');
+
+            $helpdesk = $this->respModel->find($id);
+            $userid_req = $helpdesk->userid_req;
+            $userModel = new \App\Models\UserModel();
+            $user = $userModel->find($userid_req);
+            $emailTouser = $user->email;
+            $emailTo = 'martoni.firman@wilianperkasa.com';
+            $datas = [
+                'emailto' => $emailTouser,
+                'name' => get_fullname($userid_req),
+                'response' => $resp_text,
+                'title' => $helpdesk->user_request,
+            ];
+            // $mailto = $mailheads;
+            $fromEmail = env('Email.fromEmail');
+            $fromName = env('Email.fromName');
+            $sent = $email->setFrom($fromEmail,$fromName)
+                ->setTo($emailTo)
+                ->setSubject($subjectEmail)
+                ->setMessage(view($v_email,['data' => $datas]))
+                ->setMailType('html')
+                ->send();
+            
             return redirect()->to('resp-helpdesk/detail/'.$id)->with('success',lang('Files.Save_Success'));
         endif;
         return redirect()->back()->withInput();
@@ -198,6 +227,71 @@ class Response extends BaseController
                 $id = $this->request->getVar('id');
                 $data = ['id' => $id, 'userid'=>user_id()];
                 $this->respModel->approveHelpdesk($data);
+                $response = [
+                    'message' => 'Data Berhasil di Approve',
+                    'status' => 'success',
+                    'code' => 200
+                ];
+            }
+            catch(Exception $e) {
+                $response = [
+                    'message' => $e->getMessage(),
+                    'status' => 'fail',
+                    'code' => 400
+                ];
+            }
+        endif;
+        return json_encode($response);
+    }
+
+    public function doHelpdesk()
+    {
+        header('Content-Type: application/json');
+        $response = [
+            'message' => 'Not Allowed',
+            'status' => 'fail',
+            'code' => 400
+        ];
+        if($this->request->getMethod()==='post'):
+            try {
+                $id = $this->request->getVar('id');
+                $petugas = $this->request->getVar('petugas');
+                $urgency = $this->request->getVar('urgency');
+                $data = ['id' => $id, 'petugas' => $petugas, 'urgency' => $urgency,'userid'=>user_id()];
+                $this->respModel->doHelpdesk($data);
+                $response = [
+                    'message' => 'Data Berhasil di Approve',
+                    'status' => 'success',
+                    'code' => 200
+                ];
+            }
+            catch(Exception $e) {
+                $response = [
+                    'message' => $e->getMessage(),
+                    'status' => 'fail',
+                    'code' => 400
+                ];
+            }
+        endif;
+        return json_encode($response);
+        // var_dump($data);
+    }
+
+    public function rejectHelpdesk()
+    {
+        header('Content-Type: application/json');
+        $response = [
+            'message' => 'Not Allowed',
+            'status' => 'fail',
+            'code' => 400
+        ];
+        if($this->request->getMethod()==='post'):
+            try {
+                $id = $this->request->getVar('id');
+                $text='';
+                if($this->request->getVar('reason')) $text = $this->request->getVar('reason');
+                $data = ['id' => $id, 'userid'=>user_id(), 'reason' => $text];
+                $this->respModel->rejectHelpdesk($data);
                 $response = [
                     'message' => 'Data Berhasil di Approve',
                     'status' => 'success',
