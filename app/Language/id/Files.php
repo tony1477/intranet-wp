@@ -213,6 +213,11 @@ return [
     "Description" => "Keterangan",
     "Requisite" => "Keperluan",
 
+    // Helpdesk
+    "Helpdesk" => "IT Helpdesk",
+    "Ticketing" => "Tiket Helpdesk",
+    "Create_Ticket" => "Permohonan Tiket",
+
     // Common
     "Intranet" => "Intranet",
     "Action" => "Aksi",
@@ -399,5 +404,7 @@ return [
     "wfstructure" => "Struktur Approval",
     "helpdesk" => "Helpdesk",
     "ext-participant" => "Peserta Luar",
-
+    "create-helpdesk" => "Buat IT Helpdesk",
+    "list-helpdesk" => "Daftar Permohonan Helpdesk",
+    "resp-helpdesk" => "Response Helpdesk",
 ];

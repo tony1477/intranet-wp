@@ -16,15 +16,16 @@
 
         <?php if($edited===true):?>
             sessionStorage.clear();
-            let data=[
+            let data = [];
+            // let data=[
             <?php foreach($participant as $row):?>
-                {
+                data.push({
                     'nama':'<?=$row->nama_peserta?>',
                     'bagian':'<?=$row->bagian?>',
                     'email':'<?=$row->email?>'
-                },
+                })
         <?php endforeach;?>
-        ]
+        // ]
         sessionStorage.setItem('table',JSON.stringify(data))
         <?php endif;?>
         const dataTable = sessionStorage.getItem('table')

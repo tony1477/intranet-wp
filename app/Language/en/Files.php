@@ -211,6 +211,11 @@ return [
     "Name" => "Name",
     "Description" => "Description",
     "Requisite" => "Requisite",
+
+    // Helpdesk
+    "Helpdesk" => "IT Helpdesk",
+    "Ticketing" => "Ticketing",
+    "Create_Ticket" => "Create Ticket Helpdesk",
     
     // Common
     "Intranet" => "Intranet",
@@ -390,5 +395,7 @@ return [
     "wfstructure" => "Approval Structure",
     "helpdesk" => "Helpdesk",
     "ext-participant" => "External Participant",
-
+    "create-helpdesk" => "Create Helpdesk",
+    "list-helpdesk" => "List Helpdesk",
+    "resp-helpdesk" => "Response Helpdesk",
 ];
