@@ -358,6 +358,7 @@ return [
     "Send_Article" => "Kirim Blast Email",
     "Update" => "Update",
     "Type_Name" => "Type Name Here",
+    "Number" => "Number",
 
     // Menu
     "group-divisi" => 'Division Group',

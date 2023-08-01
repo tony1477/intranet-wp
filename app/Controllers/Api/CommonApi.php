@@ -103,11 +103,11 @@ class CommonApi extends ResourceController {
             $fullname = str_replace('_',' ',$name);
             $model = new \App\Models\UserModel();
             if($model->where('fullname',$fullname)->where('id',$id)->find()):
-                $data = $model->select('fullname,id,dep_nama,email')->join('tbl_ifmdepartemen a','a.iddepartment = users.iddepartment')->where('users.active',1)->where('id',$id)->orderBy('fullname','asc')->find();
+                $data = $model->select('fullname,id,dep_nama,email,0 as isexternal')->join('tbl_ifmdepartemen a','a.iddepartment = users.iddepartment')->where('users.active',1)->where('id',$id)->orderBy('fullname','asc')->find();
                 $data = array_merge(['status'=>'success'],$data);
             else:
                 $model = new \App\Models\ExtParticipantModel();
-                $data = $model->asObject()->select('name as fullname, description as dep_nama, email,recordstatus')->where('participantid',$id)->find();
+                $data = $model->asObject()->select('name as fullname, description as dep_nama, email,1 as isexternal')->where('participantid',$id)->find();
                 $data = array_merge(['status'=>'success'],$data);
             endif;
             return $this->respond($data,200);

@@ -97,9 +97,10 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 bagian.value = toTitleCase(data[0].dep_nama);
                 emailpeserta.value = data[0].email;
+                isexternal.value = data[0].isexternal;
             })
         },
         false);
@@ -147,10 +148,12 @@
         const nama = document.getElementById('namapeserta')
         const bagian = formParticipant.querySelector('.bagianpeserta')
         const email = formParticipant.querySelector('.emailpeserta')
+        const isexternal = formParticipant.querySelector('#isexternal')
         const data = {
-            'nama' : nama.selectedOptions[0].text,
+            'nama' : toTitleCase(nama.selectedOptions[0].text),
             'bagian': bagian.value,
             'email' : email.value,
+            'isexternal' : isexternal.value,
         }
         return data
     }

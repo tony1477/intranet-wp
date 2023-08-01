@@ -313,7 +313,7 @@ class Support extends BaseController
             // return view('master/bpo/viewpdf');
             $name = $row['dok_nmfile'.$urut];
             $this->model->UpdateDownForm($row['iddokumen'],$urut);
-            $loc = getcwd().'/assets/protected/dokumen-sop/form';
+            $loc = getcwd().'/public/assets/protected/dokumen-sop/form';
             $filename = $loc.'/'.$name;
             if(file_exists($filename)) {
 

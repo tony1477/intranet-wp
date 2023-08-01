@@ -229,6 +229,7 @@
                                                                     <div class="mb-3">
                                                                         <label class="form-label" for="email-peserta"><?=lang('Files.Email')?></label>
                                                                         <input type="email" class="form-control emailpeserta" id="emailpeserta" placeholder='Jika tidak ada email diisi "-"' disabled>
+                                                                        <input type="hidden" id="isexternal" value=""/>
                                                                     </div>
                                                                 </div>
                                                                 <div class="mt-4 d-flex justify-content-end">

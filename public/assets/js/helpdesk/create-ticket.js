@@ -8,7 +8,7 @@ function getUrl() {
         baseUrl = 'http://192.168.5.82/intranet/';
     } else {
         // Jika dalam mode produksi, atur base URL ke domain produksi
-        baseUrl = 'http://wilianperkasa.synology.me:88';
+        baseUrl = 'http://wilianperkasa.synology.me:88/intranet-wp/';
     }
     return baseUrl
 }
@@ -344,3 +344,12 @@ const btnSubmit = document.querySelector('.btnSubmit')
 
 btnNext.addEventListener('click', () => nextQuestion())
 btnPrev.addEventListener('click', () => prevQuestion())
+btnSubmit.addEventListener('click',() => {
+    Swal.fire({
+        icon:'info',
+        text:'Sedang dalam process',
+        title:'Info',
+        allowOutsideClick:false
+    })
+    return true;
+})

@@ -119,7 +119,7 @@ class Response extends BaseController
                 $response['data'][] = [
                     "id" => $row['helpdeskid'],
                     "ticketno" => $row['ticketno'],
-                    "ticketdate" => date('d/m/Y H:i',strtotime($row['ticketopen'])),
+                    "ticketdate" => ($row['ticketopen']!='' ? date('d/m/Y H:i',strtotime($row['ticketopen'])) : '-'),
                     "ticketclose" => date('d/m/Y H:i',strtotime($row['ticketclose'])),
                     "category" => $row['category'],
                     "urgencytype" => $row['urgency'],
@@ -192,7 +192,7 @@ class Response extends BaseController
             $userModel = new \App\Models\UserModel();
             $user = $userModel->find($userid_req);
             $emailTouser = $user->email;
-            $emailTo = 'martoni.firman@wilianperkasa.com';
+            $emailTo = ['martoni.firman@wilianperkasa.com','it@wilianperkasa.com'];
             $datas = [
                 'emailto' => $emailTouser,
                 'name' => get_fullname($userid_req),
@@ -203,7 +203,7 @@ class Response extends BaseController
             $fromEmail = env('Email.fromEmail');
             $fromName = env('Email.fromName');
             $sent = $email->setFrom($fromEmail,$fromName)
-                ->setTo($emailTo)
+                ->setTo($emailTouser)
                 ->setSubject($subjectEmail)
                 ->setMessage(view($v_email,['data' => $datas]))
                 ->setMailType('html')

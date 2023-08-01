@@ -367,6 +367,7 @@ return [
     "Amount" => "Jumlah",
     "Note" => "Catatan",
     "Submit" => "Submit",
+    "Number" => "Nomor",
 
     // Menu
     "group-divisi" => 'Grup Divisi',

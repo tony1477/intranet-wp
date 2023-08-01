@@ -135,12 +135,12 @@ class MeetingSchedule extends BaseController
                     $this->model->insertPeserta($last_insert_id,$datapeserta);
                                     
                     // //send email to admin HRGA
-                    $emailto = 'martoni.firman@wilianperkasa.com';
-                    // $emailto = 'admin.hrga@wilianperkasa.com';
+                    //$emailto = 'martoni.firman@wilianperkasa.com';
+                     $emailto = 'admin.hrga@wilianperkasa.com';
                     $email  = service('email');
                     // $fromEmail = 'it@wilianperkasa.com';
                     $fromEmail = 'dont-reply@wilianperkasa.com';
-                    $fromName = 'Email Service Wilian Perkasa (local)';
+                    $fromName = 'Email Service Wilian Perkasa';
 
                     $sent = $email->setFrom($fromEmail, $fromName)
                         ->setTo($emailto)
@@ -283,17 +283,23 @@ class MeetingSchedule extends BaseController
                 $fromName = 'Email Service Wilian Perkasa';
 
                 // $email->setFrom($fromEmail, $fromName)
-                $email->setFrom('it@wilianperkasa.com', 'Email Service Wilian Perkasa')
+                $send = $email->setFrom($fromEmail, $fromName)
                     ->setTo($listemail)
                     ->setCC($ccemail)
                     ->setSubject('Undangan Meeting ')
                     ->setMessage(view('email/approve_meeting',['data' => $data,'peserta'=>$peserta,'room'=>$room]))
-                    ->setMailType('html')
-                    ->send();
+                    ->setMailType('html');
+                    // ->send();
+					
+				$message = lang('Files.Save_Success');
+                if(!$send->send()) { 
+                    $send->send(false); 
+                    $message = $email->printDebugger(['headers']);
+                }
 
                 $this->action('approve',$idpeminjaman);
 
-                $message = lang('Files.Save_Success');
+                // $message = lang('Files.Save_Success');
                 $arr = array(
                     'status' => 'success',
                     'code' => 200,

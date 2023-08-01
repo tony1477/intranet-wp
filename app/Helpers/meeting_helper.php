@@ -46,6 +46,7 @@ function getListSchedule() {
     from peminjaman_ruangan a 
     join data_ruangan b on b.idruangan = a.idruangan
     join tbl_ifmdepartemen c on c.iddepartment = a.iddepartment
+    where a.status not in(0)
     order by FIELD(a.status,1,2,3,0) ,tgl_mulai desc")->getResult();
 }
 

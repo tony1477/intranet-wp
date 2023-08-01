@@ -75,6 +75,7 @@
                                         <label class="form-check-label" for="checkAll"></label>
                                     </div>
                                 </th>
+                                <th scope="col"><?=lang('Files.Number')?></th>
                                 <th scope="col"><?=lang('Files.Room_Name')?></th>
                                 <th scope="col"><?=lang('Files.Meeting_Date')?></th>
                                 <th scope="col"><?=lang('Files.Event')?></th>
@@ -86,13 +87,16 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <?php foreach($data as $list): ?>
+                                <?php 
+                                $number=1;
+                                foreach($data as $list):?>
                                 <th scope="row">
                                     <div class="form-check font-size-16">
                                         <input type="checkbox" class="form-check-input" id="contacusercheck2">
                                         <label class="form-check-label" for="contacusercheck2"></label>
                                     </div>
                                 </th>
+                                <td><?=$number?></td>
                                 <td>
                                     <img src="<?=base_url()?>/public/assets/images/meeting-rooms/<?=$list->foto_ruangan?>" alt="" class="avatar-sm rounded-circle me-2">
                                     <a href="<?=base_url()?>/meeting-schedule/detail/<?=$list->idpeminjaman?>" class="text-body"><?=$list->nama_ruangan?></a>
@@ -156,7 +160,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <?php endforeach;?>
+                            <?php $number++; endforeach;?>
                         </tbody>
                     </table>
                     <!-- end table -->

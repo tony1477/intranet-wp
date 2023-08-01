@@ -51,7 +51,7 @@
                             <div class="card-body p-4">
                                 <div class="row justify-content-center">
                                     <div class="col-lg-6 col-xl-6 col-12">
-                                    <?=form_open_multipart('create-helpdesk/user/'.user()->username.'/form');?>
+                                    <?=form_open_multipart('create-helpdesk/user/'.str_replace(' ','_',user()->username).'/form');?>
                                     <?=csrf_field()?>
                                         <div>
                                             <div class="mb-3">

@@ -28,6 +28,8 @@ class GroupUserModel extends Model
     {
         return $this->query('select usergroupid as Id, user_id as User_Id, group_id as Group_Id, (select fullname from users a where a.id = ug.user_id) as User_Name, (select `description` from auth_groups g where g.id = ug.group_id) as Group_Name, creator_id as User_Created, updater_id User_Modified 
         from auth_groups_users ug
+		join users u on u.id = ug.user_id
+		where u.active = 1
         order by ug.user_id asc')->getResult();
     }
 }

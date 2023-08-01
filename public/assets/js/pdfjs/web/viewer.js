@@ -68,7 +68,7 @@ const defaultOptions = {
   },
   defaultUrl: {
     // value: `../../protected/dokumen-sop/${filePdf}`,
-    value: `../../../assets/protected/dokumen-sop/${filePdf}`,
+    value: `../../../public/assets/protected/dokumen-sop/${filePdf}`,
     kind: OptionKind.VIEWER
   },
   defaultZoomValue: {
@@ -229,7 +229,7 @@ const defaultOptions = {
     kind: OptionKind.WORKER
   },
   workerSrc: {
-    value: "../../../assets/js/pdfjs/build/pdf.worker.js",
+    value: "../../../public/assets/js/pdfjs/build/pdf.worker.js",
     kind: OptionKind.WORKER
   }
 };
@@ -244,7 +244,7 @@ const defaultOptions = {
     kind: OptionKind.VIEWER
   };
   defaultOptions.sandboxBundleSrc = {
-    value: "../../../js/pdfjs/build//pdf.sandbox.js",
+    value: "../../../js/pdfjs/build/pdf.sandbox.js",
     kind: OptionKind.VIEWER
   };
   defaultOptions.renderer.kind += OptionKind.PREFERENCE;
@@ -3839,7 +3839,7 @@ let pdfjsLib;
 if (typeof window !== "undefined" && window["pdfjs-dist/build/pdf"]) {
   pdfjsLib = window["pdfjs-dist/build/pdf"];
 } else {
-  pdfjsLib = require("../../assets/js/pdfjs/build/build/pdf.js");
+  pdfjsLib = require("../../public/assets/js/pdfjs/build/build/pdf.js");
 }
 
 module.exports = pdfjsLib;

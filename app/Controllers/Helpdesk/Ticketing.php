@@ -226,7 +226,7 @@ class Ticketing extends BaseController
     {
         // $id = $this->request->getVar('id');       
         if($recordstatus=$this->ticketing->find($id)->recordstatus):
-            $mayedit = [1,2,3];
+            $mayedit = [1,2,3,5];
             
             $_SESSION['edited_helpdesk'] = false;
             if(!in_array($recordstatus,$mayedit)) return redirect()->to('list-helpdesk',301)->with('message',"Tiket tidak dapat di edit kembali");
@@ -357,7 +357,7 @@ class Ticketing extends BaseController
                 'code' => 400,
                 'message'=> $e->getMessage(),
             );
-            return redirect()->to('salahurl');
+            return redirect()->to('list-helpdesk')->with('message', $e->getMessage());
             // var_dump($arr);
         }
         return redirect()->to('list-helpdesk');
@@ -445,7 +445,7 @@ class Ticketing extends BaseController
                 break;
 
             case 'onprogress':
-                $stt='4,5,6,7,8,9,10,11,';
+                $stt='4,5,6,7,8,9,10,11';
                 $addedstatus = false;
                 break;
 
@@ -519,6 +519,9 @@ class Ticketing extends BaseController
                         $canedit=false;
                         break;
                     case '5':
+						$action = '<a href="edit-helpdesk/'.$row['helpdeskid'].'"><button type="button" class="btn btn-light edit-button waves-effect btn-label waves-light"><i class="far fa-edit label-icon"></i> Edit</button></a>
+						<a href="javascript:void(0)"><button type="button" class="btn btn-light feedback-button waves-effect btn-label waves-light"><i class="mdi mdi-reply label-icon"></i> Reply</button></a>';
+						break;
                     case '6':
                     // case '7':
                     // case '8':
@@ -576,7 +579,7 @@ class Ticketing extends BaseController
                 $parentid = $this->ticketing->getParentLevel(user_id());
                 $userModel = new UserModel();
                 $user = $userModel->find($parentid[0]);
-                $mailheads = 'martoni.firman@wilianperkasa.com';
+                $mailheads = ['martoni.firman@wilianperkasa.com','it@wilianperkasa.com'];
                 $name = $userModel->find(user_id())->getFullname();
                 if($user) $mailhead=$user->getEmail();
                 $helpdesk = $this->ticketing->find($id);
@@ -589,11 +592,11 @@ class Ticketing extends BaseController
                     'reason' => $helpdesk->user_reason,
                     'ticketno' => $helpdesk->ticketno,
                     'ticketdate' => $helpdesk->ticketdate,
-                    'email' => $mailhead,
+                    // 'email' => $mailhead,
                 ];
                 $email = service('email');
                 if($user && in_array($helpdesk->recordstatus,[2,3])) {
-                    $mailto = $mailheads;
+                    $mailto = $mailhead;
                     $fromEmail = env('Email.fromEmail');
                     $fromName = env('Email.fromName');
                     $sent = $email->setFrom($fromEmail,$fromName)
@@ -631,7 +634,7 @@ class Ticketing extends BaseController
                     $fromEmail = env('Email.fromEmail');
                     $fromName = env('Email.fromName');
                     $sent = $email->setFrom($fromEmail,$fromName)
-                        ->setTo($mailTo)
+                        ->setTo($mailToUser)
                         ->setSubject('Closed Ticket IT Helpdesk')
                         // ->setCC(['purwantoro@wilianperkasa.com','marianto@wilianperkasa.com','it@wilianperkasa.com'])
                         ->setMessage(view('email/close_ticket',['data' => $datas]))

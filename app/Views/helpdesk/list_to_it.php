@@ -107,7 +107,7 @@
                             New Ticket
                             </button>
                         </h2>
-                        <div id="panelsNewTicket-collapse" class="accordion-collapse collapse show" aria-labelledby="panelsNewTicket">
+                        <div id="panelsNewTicket-collapse" class="accordion-collapse collapse show table-responsive" aria-labelledby="panelsNewTicket">
                             <div class="accordion-body">
                                 <table id="datatable-NewTicket" class="table table-bordered dt-responsive w-100">
                                     <thead>
@@ -135,7 +135,7 @@
                             Waiting Approval
                             </button>
                         </h2>
-                        <div id="panelsWaitingHead-collapse" class="accordion-collapse collapse" aria-labelledby="panelsWaitingHead">
+                        <div id="panelsWaitingHead-collapse" class="accordion-collapse collapse table-responsive" aria-labelledby="panelsWaitingHead">
                             <div class="accordion-body">
                                 <table id="datatable-WaitingHead" class="table table-bordered dt-responsive  w-100">
                                     <thead>
@@ -166,7 +166,7 @@
                             On Progress IT
                         </button>
                         </h2>
-                        <div id="panelsOnProgress-collapse" class="accordion-collapse collapse" aria-labelledby="panelsOnProgress">
+                        <div id="panelsOnProgress-collapse" class="accordion-collapse collapse table-responsive" aria-labelledby="panelsOnProgress">
                             <div class="accordion-body">
                                 <table id="datatable-OnProgress" class="table table-bordered dt-responsive  w-100">
                                     <thead>
@@ -196,7 +196,7 @@
                             Ticket Closed
                         </button>
                         </h2>
-                        <div id="panelsSuccess-collapse" class="accordion-collapse collapse" aria-labelledby="panelsSuccess">
+                        <div id="panelsSuccess-collapse" class="accordion-collapse collapse table-responsive" aria-labelledby="panelsSuccess">
                             <div class="accordion-body">
                                 <table id="datatable-Success" class="table table-bordered dt-responsive  w-100">
                                     <thead>
@@ -224,7 +224,7 @@
                             Ticket Reject/Cancel
                         </button>
                         </h2>
-                        <div id="panelsCancel-collapse" class="accordion-collapse collapse" aria-labelledby="panelsCancel">
+                        <div id="panelsCancel-collapse" class="accordion-collapse collapse table-responsive" aria-labelledby="panelsCancel">
                             <div class="accordion-body">
                                 <table id="datatable-Cancel" class="table table-bordered dt-responsive  w-100">
                                     <thead>
