@@ -23,12 +23,12 @@
                 "X-Requested-With": "XMLHttpRequest"
             },
         })        
-        .then((response) => response.json())
+        .then(response => response.json())
         .then(data => {
             const headerid = document.querySelector('#headerid')
             headerid.value = id
-            let disabled=''
-            if(data.canedit==false) disabled='d-none disabled-link'
+            let disabled=undefined
+            if(data.canedit==false) disabled=true
             let table = $('#dt-detailNotulen').DataTable({
                 lengthChange:true,
                 destroy: true,
@@ -45,9 +45,13 @@
                     {
                         data:  null,
                         render: function(data, type, row) {
-                            return `<a class="btn btn-soft-secondary waves-effect waves-light btn-sm editNotulenDetail ${disabled}}" title="Edit" ><i class="fas fa-pencil-alt" title="Edit"></i></a>
-                            <a class="btn btn-soft-danger waves-effect waves-light btn-sm deleteNotulenDetail ${disabled}" title="Delete"}><i class="fas fa-times-circle" title="Delete"></i></a>
-                            <a class="btn btn-soft-primary waves-effect waves-light btn-sm d-none feedbackNotulenDetail" title="Feedback" data-bs-target="#feedbackModal" data-bs-toggle="modal" data-bs-dismiss="modal"><i class=" far fa-calendar-check" title="Feedback"></i></a>`;
+                            if(disabled!==true) {
+                                return `<a class="btn btn-soft-secondary waves-effect waves-light btn-sm editNotulenDetail" title="Edit" ><i class="fas fa-pencil-alt" title="Edit"></i></a>
+                                <a class="btn btn-soft-danger waves-effect waves-light btn-sm deleteNotulenDetail title="Delete"><i class="fas fa-times-circle" title="Delete"></i></a>`;
+                            }
+                            else {
+                                return `<a class="btn btn-soft-primary waves-effect waves-light btn-sm feedbackNotulenDetail" title="Feedback" data-bs-target="#feedbackModal" data-bs-toggle="modal" data-bs-dismiss="modal"><i class=" far fa-calendar-check" title="Feedback"></i></a>`
+                            }
                         }
                     },
                     { data: 'detailid', visible:false },
@@ -59,20 +63,7 @@
                     { data: 'description' },               
                 ]
             })
-            return data.canedit
-        })
-        .then(result => {
-            let forms = document.forms['detailnotulen'];
-            let elements = forms.elements;
-            elements.forEach(element => {
-                element.disabled = !result
-            });
-            if(result==false) {
-                let feedbackBtn = document.querySelectorAll('.feedbackNotulenDetail')
-                feedbackBtn.forEach(el => {
-                    el.classList.remove('d-none')
-                })
-            }
+            // return data.canedit
         })
     }
 
