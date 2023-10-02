@@ -113,7 +113,7 @@
         const headerid = rowData.notulenid
         const detailid = rowData.detailid
         Swal.fire({
-            title: 'Apakah anda yakin akan menghapus data?',
+            title: '<?=lang('Files.Deleted_Confirm')?>',
             text:'',
             icon: 'warning',
             showCancelButton:true,

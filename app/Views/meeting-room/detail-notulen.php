@@ -2,13 +2,13 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="detailNotulenLabel">Notulen Detail</h5>
+        <h5 class="modal-title" id="detailNotulenLabel"><?=lang('Files.Notulen_Detail')?></h5>
         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
       </div>
       <div class="modal-body">
         <form name="detailnotulen" onsubmit="return false;" >
             <div class="mb-3 row">
-                <label for="agendaInput" class="col-form-label col-sm-3">Agenda/Topik, Penjelasan dan Hasil Rapat, Sub Judul</label>
+                <label for="agendaInput" class="col-form-label col-sm-3"><?=lang('Files.Agenda_Topic_Others')?></label>
                 <div class="col-sm-9">
                     <textarea class="form-control" id="agendaInput" rows="3" name="agenda" required></textarea>
                     <input type="hidden" name="headerid" id="headerid" value="">
@@ -16,42 +16,42 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="" class="col-sm-3">Klasifikasi</label>
+                <label for="" class="col-sm-3"><?=lang('Files.Classification')?></label>
                 <div class="col-sm-9">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="klasifikasi" id="pk-choice" value="1" required>
-                        <label class="form-check-label" for="pk-choice">PK</label>
+                        <label class="form-check-label" for="pk-choice"><?=lang('Files.PK')?></label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="klasifikasi" id="utl-choice" value="2" required>
-                        <label class="form-check-label" for="utl-choice">UTL</label>
+                        <label class="form-check-label" for="utl-choice"><?=lang('Files.UTL')?></label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="klasifikasi" id="si-choice" value="3" required>
-                        <label class="form-check-label" for="si-choice">SI</label>
+                        <label class="form-check-label" for="si-choice"><?=lang('Files.SI')?></label>
                     </div>
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="dariInput" class="col-form-label col-sm-3">Dari</label>
+                <label for="dariInput" class="col-form-label col-sm-3"><?=lang('Files.From')?></label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control w-50" id="dariInput" name="pic_dari" required />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="untukInput" class="col-form-label col-sm-3">Untuk</label>
+                <label for="untukInput" class="col-form-label col-sm-3"><?=lang('Files.To')?></label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control w-50" id="untukInput" name="pic_untuk" required />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="untukTanggal" class="col-form-label col-sm-3">Tanggal FU</label>
+                <label for="untukTanggal" class="col-form-label col-sm-3"><?=lang('Files.Feedback_Date')?></label>
                 <div class="col-sm-9">
                     <input type="date" class="form-control w-50" id="untukTanggal" name="tanggal_fu" required />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="agendaKeterangan" class="col-form-label col-sm-3">Keterangan</label>
+                <label for="agendaKeterangan" class="col-form-label col-sm-3"><?=lang('Files.Description')?></label>
                 <div class="col-sm-9">
                     <textarea class="form-control" id="agendaKeterangan" rows="3" name="keterangan"></textarea>
                 </div>
@@ -95,15 +95,15 @@
         <table id="dt-detailNotulen" class="table table-bordered dt-responsive w-100">
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Aksi</th>
-                    <th>ID</th>
-                    <th>Agenda</th>
-                    <th>Klasifikasi</th>
-                    <th>Dari</th>
-                    <th>Untuk</th>
-                    <th>Tanggal</th>
-                    <th>Keterangan</th>
+                    <th><?=lang('Files.Number')?></th>
+                    <th><?=lang('Files.Action')?></th>
+                    <th><?=lang('Files.Id')?></th>
+                    <th><?=lang('Files.Agenda')?></th>
+                    <th><?=lang('Files.Classification')?></th>
+                    <th><?=lang('Files.From')?></th>
+                    <th><?=lang('Files.To')?></th>
+                    <th><?=lang('Files.Date')?></th>
+                    <th><?=lang('Files.Description')?></th>
                 </tr>
             </thead>
             <tbody>
@@ -112,7 +112,7 @@
       </div>
       <div class="modal-footer">
         <!-- <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-        <button class="btn btn-primary" data-bs-target="#editNotulen_Meeting" data-bs-toggle="modal" data-bs-dismiss="modal">Back to first</button>
+        <button class="btn btn-primary" data-bs-target="#editNotulen_Meeting" data-bs-toggle="modal" data-bs-dismiss="modal"><?=lang('Files.Back')?></button>
       </div>
     </div>
   </div>
@@ -123,18 +123,18 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="feedbackModalLabel">Feedback Detail</h5>
+        <h5 class="modal-title" id="feedbackModalLabel"><?=lang('Files.Feedback_Detail')?></h5>
       </div>
       <div class="modal-body">
         <form name="feedbackform" onsubmit="return false;">
             <div class="mb-3 row">
-                <label for="agendafeedback" class="col-form-label col-sm-3">Agenda/Topik</label>
+                <label for="agendafeedback" class="col-form-label col-sm-3"><?=lang('Files.Agenda_Topic_Others')?></label>
                 <div class="col-sm-9">
                     <textarea class="form-control" id="agendafeedback" rows="3" name="keteranganfeedback" disabled></textarea>
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="statusFeedback" class="col-form-label col-sm-3">Status</label>
+                <label for="statusFeedback" class="col-form-label col-sm-3"><?=lang('Files.Status')?></label>
                 <div class="col-sm-9">
                     <select class="form-select" aria-label=".form-select" id="statusFeedback">
                         <option value="1">Done</option>
@@ -145,7 +145,7 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="keteranganFeedback" class="col-form-label col-sm-3">Keterangan/Catatan</label>
+                <label for="keteranganFeedback" class="col-form-label col-sm-3"><?=lang('Files.Description').'/'.lang('Files.Note')?></label>
                 <div class="col-sm-9">
                     <textarea class="form-control" id="keteranganFeedback" rows="3" name="keteranganfeedback" required></textarea>
                 </div>
@@ -157,7 +157,7 @@
       </div>
       <div class="modal-footer">
 
-        <button class="btn btn-primary" data-bs-target="#detailnotulen" data-bs-toggle="modal" data-bs-dismiss="modal">Back to detail</button>
+        <button class="btn btn-primary" data-bs-target="#detailnotulen" data-bs-toggle="modal" data-bs-dismiss="modal"><?=lang('Files.Back')?></button>
       </div>
     </div>
   </div>

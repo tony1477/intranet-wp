@@ -36,7 +36,7 @@ class NotulenMeeting extends BaseController
             'dataSrc' => "master/_partials/script/notulen.js",
             "additionalScript" => "partials/script/notulendetail",
             'columns_hidden' => array('Action'),
-            'columns' => array('Action','Id','Agenda','Title','Start_time','End_time','Notulen','Head_Notulen','Key_Person','Status','Detail'),
+            'columns' => array('Action','Id','Agenda','Title','Start_Time','End_Time','Notulen','Head_Notulen','Key_Person','Status','Detail'),
             'button' => array(
                 'Status' => [
                     'class' => 'btn-sm waves-effect waves-light',
@@ -54,7 +54,7 @@ class NotulenMeeting extends BaseController
                 # column_name => array(type,'name and id','class','style')
                 'notulenid' => array('type'=>'hidden','idform'=>'id','field'=>'notulenid'),
                 'agenda' => array(
-                    'label'=>'Meeting_Title',
+                    'label'=>'Agenda',
                     'field'=>'idpeminjaman',
                     'type'=>'select',
                     'idform'=>'agenda',
@@ -75,7 +75,7 @@ class NotulenMeeting extends BaseController
                     'style' => 'col-md-8 col-xl-8',                    
                 ),
                 'starttime' => array(
-                    'label'=>'Start_time',
+                    'label'=>'Start_Time',
                     'field'=>'starttime',
                     'type'=>'datetime',
                     'idform'=>'mulai',
@@ -83,7 +83,7 @@ class NotulenMeeting extends BaseController
                     'style' => 'col-md-8 col-xl-8'
                 ),
                 'endtime' => array(
-                    'label'=>'End_time',
+                    'label'=>'End_Time',
                     'field'=>'endtime',
                     'type'=>'datetime',
                     'idform'=>'selesai',
@@ -99,7 +99,7 @@ class NotulenMeeting extends BaseController
                     'style' => 'col-md-8 col-xl-8',                    
                 ),
                 'notulen_head' => array(
-                    'label'=>'Notulen_Head',
+                    'label'=>'Head_Notulen',
                     'field'=>'head_notulen',
                     'type'=>'text',
                     'idform'=>'notulen2',

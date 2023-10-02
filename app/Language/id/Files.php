@@ -362,7 +362,7 @@ return [
     "IT_Form" => 'Formulir IT',
     "Form" => 'Formulir',
     "Add_Items" => "Tambah Item",
-    "Description" => "Uraian",
+    // "Description" => "Uraian",
     "Spesification" => "Spesifikasi",
     "Amount" => "Jumlah",
     "Note" => "Catatan",
@@ -370,6 +370,22 @@ return [
     "Number" => "Nomor",
     "Search_Result" => "Hasil Pencarian",
     "No_Find_Article" => "Tidak ditemukan berita tentang",
+    "Notulen_Meeting" => "Notulen Meeting",
+    "Title" => "Judul",
+    "Head_Notulen" => "TTD Notulen",
+    "Key_Person" => "Pembicara Meeting",
+    "Detail" => "Detail",
+    "Notulen_Detail" => "Detail Notulen",
+    "Agenda_Topic_Others" => "Agenda/Topik, Penjelasan dan Hasil Rapat, Sub Judul",
+    "Classification" => "Klasifikasi",
+    "PK" => "PK",
+    "UTL" => "UTL",
+    "SI" => "SI",
+    "From" => "Dari",
+    "To" => "Untuk",
+    "Feedback_Date" => "Tanggal FU",
+    "Feedback_Detail" => "Detail FU",
+
 
     // Menu
     "group-divisi" => 'Grup Divisi',
@@ -410,4 +426,6 @@ return [
     "create-helpdesk" => "Buat IT Helpdesk",
     "list-helpdesk" => "Daftar Permohonan Helpdesk",
     "resp-helpdesk" => "Response Helpdesk",
+    "notulen" => "Notulen Meeting",
+
 ];
