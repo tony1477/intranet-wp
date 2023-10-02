@@ -62,9 +62,9 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach($details as $row):?>
+            <?php $i=1;foreach($details as $row):?>
             <tr>
-                <td scope="row"></td>
+                <td scope="row"><?=$i?></td>
                 <td <?=$row['isheader']==1 ? 'style="font-weight:bold"' : ''?>><?=$row['content']?></td>
                 <td align="center"><?=($row['type']==1 ? "√" : '')?></td>
                 <td align="center"><?=($row['type']==2 ? '√' : '')?></td>
@@ -74,7 +74,7 @@
                 <td><?=$row['targetdate']?></td>
                 <td><?=$row['description']?></td>
             </tr>
-            <?php endforeach;?>
+            <?php  $i++; endforeach;?>
         </tbody>
     </table>
     <p>Peserta Hadir Rapat ;<br/>
