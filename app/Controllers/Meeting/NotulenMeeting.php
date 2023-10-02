@@ -29,7 +29,7 @@ class NotulenMeeting extends BaseController
         $peminjamanbyUser = $this->model->getMeetingbyUser(user_id())->getResult();
         $data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Notulen_Meeting']),
-			'page_title' => view('partials/page-title', ['title' => 'master_data', 'li_1' => 'Intranet', 'li_2' => 'Notulen_Meeting']),
+			'page_title' => view('partials/page-title', ['title' => '', 'li_1' => 'Intranet', 'li_2' => 'Notulen_Meeting']),
 			'modules' => $menu,
             'route' => 'notulen',
             'menuname' => 'Notulen_Meeting',
