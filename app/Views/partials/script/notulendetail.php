@@ -149,7 +149,8 @@
         storeData(url)
     })
 
-    submitFeed.addEventListener('click', () => {
+    submitFeed.addEventListener('click', function(e) {
+        e.preventDefault()
         const form = document.forms['feedbackform']
         const detail = form['detailid']
         const url =  `notulen/feedback/${detail.value}`
@@ -157,6 +158,8 @@
             'status' : form['statusFeedback'].value,
             'reason' : form['keteranganFeedback'].value
         }
+        const dataForm = Object.values(data).filter(value => value==='')
+        if(dataForm.length>0) return Swal.fire('Warning!','Harap lengkapi form!','warning')
         patchData(url,data)
         .then(data => {
             if(data.status=='success') {
