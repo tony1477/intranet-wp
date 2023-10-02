@@ -62,14 +62,18 @@ $(document).ready(function() {
     })
 
     table.on('click','tbody .editNotulen_Meeting', function() {
+        let tr = $(this).closest('tr');
+        let row = table.row(tr);
+        const status = row.data().status
         const saveBtn = document.querySelector('.save')
         const updateBtn = document.querySelector('.update')
         const closeBtn = document.querySelector('.close-btn')
         const detailBtn = document.querySelector('.detailnotulen')
         closeBtn.removeAttribute('disabled')
         saveBtn.classList.add('d-none')
-        updateBtn.classList.remove('d-none')
         detailBtn.classList.remove('d-none')
+        // check if status approve updatebtn missing
+        checkStatusForm(status,updateBtn)
     });
 
     const select = document.querySelector('#agenda')
@@ -109,6 +113,8 @@ $(document).ready(function() {
             })
         })
     }
+
+    const checkStatusForm = (status,btn) => status === 'Approved' ? btn.classList.add('d-none') : btn.classList.remove('d-none')
 
     let currentPage = 1;
     let totalRows = 0;
