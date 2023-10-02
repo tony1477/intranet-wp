@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use Config\Services as Config;
 use Config\Email;
 use CodeIgniter\API\ResponseTrait;
+use Exception;
 
 class MeetingSchedule extends BaseController
 {
@@ -90,6 +91,25 @@ class MeetingSchedule extends BaseController
         return view('meeting-room/detail-meeting',$data);
     }
 
+    public function getdata($id)
+    {
+        try {
+            $data = $this->model->find($id);
+            $code = 200;
+            $response = [
+                'status' => 'success',
+                'data' => $data
+            ];
+        }
+        catch(Exception $e) {
+            $code = 400;
+            $response = [
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ];
+        }
+        return $this->response->setJSON($response)->setStatusCode($code);
+    }
     public function requestRoom()
     {
         header("Content-Type: application/json");
@@ -135,8 +155,8 @@ class MeetingSchedule extends BaseController
                     $this->model->insertPeserta($last_insert_id,$datapeserta);
                                     
                     // //send email to admin HRGA
-                    //$emailto = 'martoni.firman@wilianperkasa.com';
-                     $emailto = 'admin.hrga@wilianperkasa.com';
+                    // $emailto = 'martoni.firman@wilianperkasa.com';
+                    $emailto = 'admin.hrga@wilianperkasa.com';
                     $email  = service('email');
                     // $fromEmail = 'it@wilianperkasa.com';
                     $fromEmail = 'dont-reply@wilianperkasa.com';
@@ -243,7 +263,7 @@ class MeetingSchedule extends BaseController
         $spakeremail = array($getSpeaker[0]->ccemail);
         if($mailtoIt==true) {
             if($spakeremail != null) array_push($spakeremail,'it@wilianperkasa.com');
-            $spakeremail = array('it@wilianperkasa.com');
+            else $spakeremail = array('it@wilianperkasa.com');
         }
         $mailcc = ['mailcc' => $spakeremail];
         $response = array_merge($mailto,$mailcc);
