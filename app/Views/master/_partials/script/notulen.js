@@ -26,9 +26,14 @@ $(document).ready(function() {
             { 
                 data:  null,
                 render: function(data, type, row) {
-                    return `<a class="btn btn-soft-secondary waves-effect waves-light btn-sm edit${menuname}" title="Edit" data-bs-toggle="modal" href="#edit${menuname}"><i class="fas fa-pencil-alt" title="Edit"></i></a>
-                    <a class="btn btn-soft-danger waves-effect waves-light btn-sm delete${menuname}" title="Delete"><i class="fas fa-times-circle" title="Delete"></i></a>
-                    <a class="btn btn-soft-success waves-effect waves-light btn-sm approve${menuname}" title="Approve"><i class="fas fa-check-circle" title="Approve"></i></a>`;
+                    if(data.status=='Input By User') {
+                        return `<a class="btn btn-soft-secondary waves-effect waves-light btn-sm edit${menuname}" title="Edit" data-bs-toggle="modal" href="#edit${menuname}"><i class="fas fa-pencil-alt" title="Edit"></i></a>
+                        <a class="btn btn-soft-danger waves-effect waves-light btn-sm delete${menuname}" title="Delete"><i class="fas fa-times-circle" title="Delete"></i></a>
+                        <a class="btn btn-soft-success waves-effect waves-light btn-sm approve${menuname}" title="Approve"><i class="fas fa-check-circle" title="Approve"></i></a>`;
+                    }
+                    else {
+                        return `<a class="btn btn-soft-secondary waves-effect waves-light btn-sm edit${menuname}" title="Follow Up" data-bs-toggle="modal" href="#edit${menuname}"><i class="far fa-calendar-check" title="Follow Up"></i></a>`;
+                    }
                 }
             },
             { data: 'id', visible:false },
