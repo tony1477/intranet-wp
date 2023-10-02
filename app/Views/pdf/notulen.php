@@ -33,12 +33,12 @@
         </tr>
     </table>
     <h4 style="text-decoration: underline; font-weight:bold">AGENDA RAPAT</h4>
-    <div class="agenda">Meeting kordinasi kinerja department</div>
+    <div class="agenda"><?=$data->title?></div>
 </div>
     <table class="table-no-border" style="margin-top:10px">
         <tr>
             <td style="font-weight: bold; text-decoration: underline">Pimpinan Rapat </td>
-            <td width="65%">: Purwantoro</td>
+            <td width="65%">: <?=$data->keyperson?></td>
         </tr>
     </table>
     <div style="margin-top:10px;"></div>
