@@ -160,7 +160,15 @@
                     </div>
                     <div class="accordion-item my-3">
                         <h2 class="accordion-header position-relative" id="panelsOnProgress">
-                        <div class="bg-primary rounded-3 infoReject position-absolute <?=$listticket->isconfirmation>0 ? '' : 'd-none'?>" style="left: 50%;z-index: 4;color: var(--bs-white);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i> <?=$listticket->isconfirmation?> Need Confirmation<?=$listticket->isconfirmation>1 ? 's' : ''?></div>
+                        <div class="bg-primary rounded-3 infoReject btn-feedback position-absolute <?=$listticket->isfeedback>0 ? '' : 'd-none'?>" style="left: 30%;z-index: 4;color: var(--bs-white);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i>
+                            <span class="btn-number"><?=$listticket->isfeedback?></span>
+                            <span class="btn-feedback-text"> Feedback<?=$listticket->isfeedback>1 ? 's' : ''?></span></div>
+                        <div class="bg-danger rounded-3 infoReject btn-feedback position-absolute <?=$listticket->iscancel>0 ? '' : 'd-none'?>" style="left: 45%;z-index: 4;color: var(--bs-white);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i>
+                            <span class="btn-number"><?=$listticket->iscancel?></span>
+                            <span class="btn-feedback-text"> Need to Cancel<?=$listticket->iscancel>1 ? 's' : ''?></span></div>
+                        <div class="bg-white rounded-3 infoReject btn-feedback position-absolute <?=$listticket->isconfirmation>0 ? '' : 'd-none'?>" style="left: 60%;z-index: 4;color: var(--bs-dark);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i>
+                            <span class="btn-number"><?=$listticket->isconfirmation?></span>
+                            <span class="btn-feedback-text"> Confirmation<?=$listticket->isconfirmation>1 ? 's' : ''?></span></div>
                         <div class="position-absolute" style="right: 5rem;z-index: 4;color: var(--bs-white);top: 1.25rem;font-size: 18px;"><i class="mdi mdi-ticket"></i> <?=$summary_ticket['onprogress']->total?> Ticket<?=($summary_ticket['onprogress']->total>1 ? 's' : '')?></div>
                         <button class="accordion-button bg-info text-white fs-3 fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false" aria-controls="panelsOnProgress-collapse">
                             On Progress IT

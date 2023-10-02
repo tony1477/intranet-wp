@@ -1,11 +1,14 @@
 <div class="col-xl-4">
     <div class="card">
         <div class="card-body">
-            <div class="search-box">
+            <div class="search-box position-relative">
                 <h5 class="mb-3"><?=lang('Files.Search')?></h5>
+                <span class="callout"><span class="blink-text">Gunakan fungsi  search</span></span>
                 <div class="position-relative px-2">
-                    <input type="text" class="form-control rounded bg-light border-light" placeholder="Search...">
+                    <?=form_open('article/search',['method'=>'get']);?>
+                    <input type="text" class="form-control rounded bg-light border-light search-article" name="s" placeholder="Search..." onclick="mouseIn(this)" onmouseout="mouseOut(this)">
                     <i class="mdi mdi-magnify search-icon"></i>
+                    <?=form_close()?>
                 </div>
             </div>
             <div class="mt-5">
@@ -59,7 +62,8 @@
                     <a href="<?=base_url()?>/article/read/<?=date('Y-m',strtotime($popular->posted_date)).'/'.str_replace(' ','-',$popular->title)?>" class="list-group-item text-muted pb-3 pt-0 px-2">
                         <div class="d-flex align-items-center">
                             <div class="flex-shrink-0 me-3">
-                                <img src="<?=base_url()?>/public/assets/images/gallery/article/<?=$popular->image?>" alt="Image's <?=$popular->title?>" class="avatar-xl h-auto d-block rounded">
+                                <?=$popular->image!='' ?
+                                '<img src="'.base_url().'/public/assets/images/gallery/article/'.$popular->image.'" alt="Image\'s '.$popular->title.'" class="avatar-xl h-auto d-block rounded">' : '<i class="fs-1 mdi mdi-file-document-multiple-outline" style="color: var(--bs-yellow)"></i>'?>
                             </div>
                             <div class="flex-grow-1 overflow-hidden">
                                 <h5 class="font-size-13 text-truncate"><?=$popular->title?></h5>

@@ -95,8 +95,8 @@
 
             <div class="dropdown d-none d-sm-inline-block">
                 <button type="button" class="btn header-item" id="mode-setting-btn">
-                    <i data-feather="moon" class="icon-lg layout-mode-dark"></i>
-                    <i data-feather="sun" class="icon-lg layout-mode-light"></i>
+                    <i data-feather="moon" class="icon-lg layout-mode-dark" data-layout="dark"></i>
+                    <i data-feather="sun" class="icon-lg layout-mode-light" data-layout="light"></i>
                 </button>
             </div>
 
@@ -106,7 +106,7 @@
             <!-- <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item noti-icon position-relative" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i data-feather="bell" class="icon-lg"></i>
-                    <span class="badge bg-danger rounded-pill">5</span>
+                    <span class="badge bg-danger rounded-pill notif-number"></span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
                     <div class="p-3">
@@ -119,20 +119,20 @@
                             </div>
                         </div>
                     </div>
-                    <div data-simplebar style="max-height: 230px;">
+                    <div data-simplebar style="max-height: 230px;" class="notif-container">
                         <a href="#!" class="text-reset notification-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <img src="<?=base_url()?>/public/assets/images/users/avatar-3.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                 </div>
                                 <div class="flex-grow-1">
-                                    <h6 class="mb-1"><?= lang('Files.James_Lemire') ?></h6>
+                                    <h6 class="mb-1"><?= lang('Files.Information') ?></h6>
                                     <div class="font-size-13 text-muted">
-                                        <p class="mb-1"><?= lang('Files.It_will_seem_like_simplified_English') ?>.</p>
-                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span><?= lang('Files.1_hours_ago') ?></span></p>
+                                        <p class="mb-1"><?= lang('Files.3_months_deleted') ?>.</p>
+                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>10 Agustus 2023</span></p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> 
                         </a>
                         <a href="#!" class="text-reset notification-item">
                             <div class="d-flex">
@@ -200,11 +200,12 @@
                 <button type="button" class="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="rounded-circle header-profile-user" src="<?=base_url()?>/public/assets/images/users/<?=user()->user_image?>" alt="Header Avatar">
                     <span class="d-none d-xl-inline-block ms-1 fw-medium"><?= (user()->fullname != '') ? user()->fullname : 'Isi Nama Anda';?></span>
+                    <span class="badge bg-danger rounded-pill"><?=(date('Y-m-d')<'2023-11-05' ? '!' : '')?></span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href="<?=base_url().'/'.user()->username.'/profile'?>"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> <?= lang('Files.Profile') ?></a>
+                    <a class="dropdown-item" href="<?=base_url().'/'.user()->username.'/profile'?>"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> <?= lang('Files.Profile') ?> <span class="badge bg-danger rounded-pill">News!</span></a>
                    <a class="dropdown-item" href="#"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> <?= lang('Files.Lock_screen') ?></a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?=base_url()?>/logout"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> <?= lang('Files.Logout') ?></a>

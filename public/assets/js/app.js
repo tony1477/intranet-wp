@@ -16,6 +16,9 @@ File: Main Js File
     // Default Language
     var default_lang = 'en';
 
+    var layout_mode = localStorage.getItem('layout-mode');
+    var default_mode = 'light';
+
     function setLanguage(lang) {
         if (document.getElementById("header-lang-img")) {
             if (lang == 'en') {
@@ -254,11 +257,28 @@ File: Main Js File
 
     function initLanguage() {
         // Auto Loader
+        console.log('init-lang')
         if (language && language != "null" && language !== default_lang)
             setLanguage(language);
         $('.language').on('click', function (e) {
             setLanguage($(this).attr('data-lang'));
         });
+    }
+
+    function initLayoutMode() {
+        // Auto Loader
+        if (layout_mode && layout_mode != "null" && layout_mode !== default_mode) {
+            setLayoutMode(layout_mode);
+        }
+        $('#mode-setting-btn').on('click', function (e) {
+            const layout = e.target.dataset.layout
+            setLayoutMode(layout);
+        });
+    }
+
+    function setLayoutMode(layout) {
+        localStorage.setItem('layout-mode',layout)
+        updateMode()
     }
 
     function initCheckAll() {
@@ -279,6 +299,15 @@ File: Main Js File
         
     }
 
+    function updateMode() {
+        // return localStorage.getItem('layout-mode')
+        // console.log(localStorage.getItem('layout-mode'))
+        const layout = localStorage.getItem('layout-mode')
+        const body = document.getElementsByTagName("body")[0]
+        body.setAttribute('data-layout-mode',layout)
+        body.setAttribute('data-topbar',layout)
+        body.setAttribute('data-sidebar',layout)
+    }
     function layoutSetting() {
         var body = document.getElementsByTagName("body")[0];
         // right side-bar toggle
@@ -288,17 +317,19 @@ File: Main Js File
 
         $('#mode-setting-btn').on('click', function (e) {
             if (body.hasAttribute("data-layout-mode") && body.getAttribute("data-layout-mode") == "dark") {
-                document.body.setAttribute('data-layout-mode', 'light');
-                document.body.setAttribute('data-topbar', 'light');
-                document.body.setAttribute('data-sidebar', 'light');
+                localStorage.setItem('layout-mode','light')
+                document.body.setAttribute('data-layout-mode', updateMode());
+                document.body.setAttribute('data-topbar', updateMode());
+                document.body.setAttribute('data-sidebar', updateMode());
                 (body.hasAttribute("data-layout") && body.getAttribute("data-layout") == "horizontal") ? '' : document.body.setAttribute('data-sidebar', 'light');
                 updateRadio('topbar-color-light')
                 updateRadio('sidebar-color-light')
                 updateRadio('topbar-color-light')
             } else {
-                document.body.setAttribute('data-layout-mode', 'dark');
-                document.body.setAttribute('data-topbar', 'dark');
-                document.body.setAttribute('data-sidebar', 'dark');
+                localStorage.setItem('layout-mode','dark')
+                document.body.setAttribute('data-layout-mode', updateMode());
+                document.body.setAttribute('data-topbar', updateMode());
+                document.body.setAttribute('data-sidebar', updateMode());
                 (body.hasAttribute("data-layout") && body.getAttribute("data-layout") == "horizontal") ? '' : document.body.setAttribute('data-sidebar', 'dark');
                 updateRadio('layout-mode-dark')
                 updateRadio('sidebar-color-dark')
@@ -336,17 +367,17 @@ File: Main Js File
         // on layout mode change
         $("input[name='layout-mode']").on('change', function () {
             if ($(this).val() == "light") {
-                document.body.setAttribute('data-layout-mode', 'light');
-                document.body.setAttribute('data-topbar', 'light');
-                document.body.setAttribute('data-sidebar', 'light');
-                (body.hasAttribute("data-layout") && body.getAttribute("data-layout") == "horizontal") ? '' : document.body.setAttribute('data-sidebar', 'light');
+                document.body.setAttribute('data-layout-mode', updateMode());
+                document.body.setAttribute('data-topbar', updateMode());
+                document.body.setAttribute('data-sidebar', updateMode());
+                (body.hasAttribute("data-layout") && body.getAttribute("data-layout") == "horizontal") ? '' : document.body.setAttribute('data-sidebar', updateMode());
                 updateRadio('topbar-color-light')
                 updateRadio('sidebar-color-light')
             } else {
-                document.body.setAttribute('data-layout-mode', 'dark');
-                document.body.setAttribute('data-topbar', 'dark');
-                document.body.setAttribute('data-sidebar', 'dark');
-                (body.hasAttribute("data-layout") && body.getAttribute("data-layout") == "horizontal") ? '' : document.body.setAttribute('data-sidebar', 'dark');
+                document.body.setAttribute('data-layout-mode', updateMode());
+                document.body.setAttribute('data-topbar', updateMode());
+                document.body.setAttribute('data-sidebar', updateMode());
+                (body.hasAttribute("data-layout") && body.getAttribute("data-layout") == "horizontal") ? '' : document.body.setAttribute('data-sidebar', updateMode());
                 updateRadio('topbar-color-dark')
                 updateRadio('sidebar-color-dark')
             }
@@ -366,6 +397,44 @@ File: Main Js File
         });
     }
 
+    const cobafunc = () => {
+        console.log('ada')
+        // Pusher.logToConsole = true;
+        const pusher = new Pusher('5484a2d917d249565526', {
+            cluster: 'ap1',
+            encrypted: true
+        });
+        
+        const channel = pusher.subscribe('my-channel');
+        
+        channel.bind('new-notifications', (data) => {
+            // Handle the new notification event
+            const notifContainer = document.querySelector('.simplebar-content');
+            const notifNumber = document.querySelector('.notif-number');
+            data.data.forEach((row) => {
+                const el = document.createElement('a')
+                el.className = 'text-reset notification-item'
+                el.innerHTML = `<div class="d-flex">
+                <div class="flex-shrink-0 me-3">
+                    <img src="public/assets/images/users/${row.img}" class="rounded-circle avatar-sm" alt="user-pic">
+                </div>
+                <div class="flex-grow-1">
+                    <h6 class="mb-1">${row.title}</h6>
+                    <div class="font-size-13 text-muted">
+                        <p class="mb-1">${row.content}</p>
+                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>${row.date}</span></p>
+                    </div>
+                </div>
+            </div>`
+            notifContainer.appendChild(el)
+            })
+            notifNumber.innerHTML = data.number 
+            alertify.set('notifier','position', 'top-right');
+            alertify.success('Current position : ' + alertify.get('notifier','position'));
+            // Update the user interface to show the new notification
+        });
+    }
+
     function init() {
         initMetisMenu();
         initCounterNumber();
@@ -377,11 +446,13 @@ File: Main Js File
         initDropdownMenu();
         initComponents();
         initSettings();
+        initLayoutMode();
         initLanguage();
         initPreloader();
         layoutSetting();
         Waves.init();
         initCheckAll();
+        cobafunc();
     }
 
     init();
@@ -390,3 +461,12 @@ File: Main Js File
 
 
 feather.replace()
+
+$('#mode-setting-btn').on('click',function(e){
+    const layout = e.target.dataset.layout
+    localStorage.setItem('layout-mode',layout)
+    const body = document.getElementsByTagName("body")[0]
+    body.setAttribute('data-layout-mode',layout)
+    body.setAttribute('data-topbar',layout)
+    body.setAttribute('data-sidebar',layout)
+})

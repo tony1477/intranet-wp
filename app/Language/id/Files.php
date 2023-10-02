@@ -368,6 +368,8 @@ return [
     "Note" => "Catatan",
     "Submit" => "Submit",
     "Number" => "Nomor",
+    "Search_Result" => "Hasil Pencarian",
+    "No_Find_Article" => "Tidak ditemukan berita tentang",
 
     // Menu
     "group-divisi" => 'Grup Divisi',

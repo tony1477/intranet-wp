@@ -90,6 +90,9 @@
         if(data.isconfirmation==1) {
           $(row).addClass('bg-info text-white');
         }
+        if(data.iscancel==1) {
+          $(row).addClass('bg-danger text-white');
+        }
       },
       createdRow: function(row, data, index) {
         $(row).addClass('details-row');
@@ -176,6 +179,15 @@
       }).then((result) => {
         if (result.isConfirmed) {
           // Mengirim data ke halaman approve menggunakan fetch
+          const Toast = Swal.fire({
+            icon:'info',
+            text:'Sedang dalam process! Tunggu hingga selesai',
+            title:'Info',
+            allowEscapeKey:false,
+            allowOutsideClick:false
+          })
+          Toast.disableButtons()
+
           fetch('approve-helpdesk', {
             method: 'POST',
             headers: {
@@ -236,6 +248,14 @@
               // Mendapatkan nilai inputan dari form
               const inputData = document.getElementById('reasonReject').value;
 
+              const Toast = Swal.fire({
+                icon:'info',
+                text:'Sedang dalam process! Tunggu hingga selesai',
+                title:'Info',
+                allowEscapeKey:false,
+                allowOutsideClick:false
+              })
+              Toast.disableButtons()
               // Mengirim data ke halaman approve menggunakan fetch
               fetch('reject-helpdesk', {
                 method: 'POST',
@@ -290,6 +310,14 @@
           // Mendapatkan nilai inputan dari form
           const inputData = document.getElementById('reply-feedback').value;
 
+          const Toast = Swal.fire({
+              icon:'info',
+              text:'Sedang dalam process! Tunggu hingga selesai',
+              title:'Info',
+              allowEscapeKey:false,
+              allowOutsideClick:false
+            })
+            Toast.disableButtons()
           // Mengirim data ke halaman approve menggunakan fetch
           fetch('feedback-helpdesk', {
             method: 'POST',
@@ -338,6 +366,14 @@
         cancelButtonText: 'Batal'
       }).then((result) => {
         if (result.isConfirmed) {
+          const Toast = Swal.fire({
+            icon:'info',
+            text:'Sedang dalam process! Tunggu hingga selesai',
+            title:'Info',
+            allowEscapeKey:false,
+            allowOutsideClick:false
+          })
+          Toast.disableButtons()
           const inputData = document.getElementById('reply-confirm').value;
 
           fetch('confirm-helpdesk', {
@@ -386,6 +422,16 @@
       })
       .then((result) => {
         if (result.isConfirmed) {
+
+          const Toast = Swal.fire({
+            icon:'info',
+            text:'Sedang dalam process! Tunggu hingga selesai',
+            title:'Info',
+            allowEscapeKey:false,
+            allowOutsideClick:false
+          })
+          Toast.disableButtons()
+          
           fetch('approve-helpdesk', {
             method: 'POST',
             headers: {
@@ -419,5 +465,49 @@
           });
         }  
       })
+    })
+
+    $('#datatable-' + accordionId + ' tbody').on('click', 'button.cancel-button', function() {
+      const rowData = dataTableInstances[accordionId].row($(this).closest('tr')).data();
+      const Toast = Swal.fire({
+        icon:'info',
+        text:'Sedang dalam process! Tunggu hingga selesai',
+        title:'Info',
+        allowEscapeKey:false,
+        allowOutsideClick:false
+      })
+      Toast.disableButtons()
+
+      fetch('reject-helpdesk', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        cache: 'no-cache',
+        body: JSON.stringify({ id: rowData.id})
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.status==='success') {
+          Swal.fire(
+            'Success',
+            data.message,
+            'success'
+          ).
+          then((result) => {
+            if (result.isConfirmed) location.href='list-helpdesk'
+          })
+        }
+        else {
+          Swal.fire(
+            'Fail',
+            data.message,
+            'warning'
+          )
+        }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
     })
   };

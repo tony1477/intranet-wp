@@ -1,5 +1,7 @@
 const appBtn = document.querySelector('#approveticket')
 const rejBtn = document.querySelector('#rejectticket')
+const btnConfirm = document.querySelector('.btnConfirm')
+const btnReview = document.querySelector('.btn-review')
 const rejHelpdesk = document.querySelector('#rejticket')
 const appHelpdesk = document.querySelector('#approvehelpdesk')
 
@@ -14,6 +16,14 @@ const approveHelpdesk = () => {
     }).then((result) => {
         if (result.isConfirmed) {
         // Mengirim data ke halaman approve menggunakan fetch
+        const Toast = Swal.fire({
+            icon:'info',
+            text:'Sedang dalam process! Tunggu hingga selesai',
+            title:'Info',
+            allowEscapeKey:false,
+            allowOutsideClick:false
+        })
+        setTimeout(Toast.disableButtons(),500);
         fetch('../approve-helpdesk', {
             method: 'POST',
             headers: {
@@ -52,7 +62,7 @@ const approveHelpdesk = () => {
 const rejectHelpdesk = () => {
     const id = document.querySelector('#idticket').innerText
     Swal.fire({
-        title: 'Apakah Anda yakin reject permohonan ini?',
+        title: 'Apakah Anda yakin reject/cancel permohonan ini?',
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'Yes',
@@ -62,7 +72,7 @@ const rejectHelpdesk = () => {
             Swal.fire({
             title: 'Reason for Reject',
             html: `
-                <textarea class="form-control" id="reasonReject" placeholder="Alasan di reject , minta di revisi (optional)"></textarea>
+                <textarea class="form-control" id="reasonReject" placeholder="Alasan di cancel ticket"></textarea>
             `,
             showCancelButton: true,
             confirmButtonText: 'Submit',
@@ -72,6 +82,15 @@ const rejectHelpdesk = () => {
             if (result.isConfirmed) {
                 // Mendapatkan nilai inputan dari form
                 const inputData = document.getElementById('reasonReject').value;
+
+                const Toast = Swal.fire({
+                    icon:'info',
+                    text:'Sedang dalam process! Tunggu hingga selesai',
+                    title:'Info',
+                    allowEscapeKey:false,
+                    allowOutsideClick:false
+                })
+                setTimeout(Toast.disableButtons(),500);
 
                 // Mengirim data ke halaman approve menggunakan fetch
                 fetch('../reject-helpdesk', {
@@ -124,6 +143,15 @@ const doHelpdesk = () => {
     }).then((result) => {
         if (result.isConfirmed) {
         // Mengirim data ke halaman approve menggunakan fetch
+        const Toast = Swal.fire({
+            icon:'info',
+            text:'Sedang dalam process! Tunggu hingga selesai',
+            title:'Info',
+            allowEscapeKey:false,
+            allowOutsideClick:false
+        })
+        setTimeout(Toast.disableButtons(),500);
+
         fetch('../dohelpdesk', {
             method: 'POST',
             headers: {
@@ -160,5 +188,29 @@ const doHelpdesk = () => {
 }
 
 appBtn.addEventListener('click', approveHelpdesk)
+btnReview.addEventListener('click', (e) => {
+    const Toast = Swal.fire({
+        icon:'info',
+        text:'Sedang dalam process! Tunggu hingga selesai',
+        title:'Info',
+        allowEscapeKey:false,
+        allowOutsideClick:false
+    })
+    setTimeout(Toast.disableButtons(),500);
+})
+btnConfirm.addEventListener('click', (e) => {
+    const radioOpt = document.querySelectorAll('input[name="helpdesktype"]:checked')
+    if(radioOpt.length == 0) 
+        return Swal.fire('Warning','Harap Pilih Jenis Helpdesk','warning');
+    
+    const Toast = Swal.fire({
+        icon:'info',
+        text:'Sedang dalam process! Tunggu hingga selesai',
+        title:'Info',
+        allowEscapeKey:false,
+        allowOutsideClick:false
+    })
+    setTimeout(Toast.disableButtons(),500);
+})
 rejHelpdesk.addEventListener('click', rejectHelpdesk)
 appHelpdesk.addEventListener('click',  doHelpdesk)

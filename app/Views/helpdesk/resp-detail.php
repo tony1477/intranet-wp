@@ -57,7 +57,7 @@
                                     <p><i class="mdi mdi-phone align-middle mr-1"></i> <?=$detail->user_phone?></p>
                                 </div>
                                 <hr class="my-4">
-                                <div class="row">
+                                <div class="row mb-5">
                                     <div class="col-sm-6">
                                         <div>
                                             <div>
@@ -140,10 +140,64 @@
                                     <?=form_hidden('status',$detail->recordstatus);?>
                                     <?=form_close()?>
                                 </div>
+                                <hr/>
                                 <div class="mt-2 d-flex justify-content-end flex-column <?php if(!in_array($detail->recordstatus,$writeconfirm)) echo 'd-none'?>">
-                                    Write Confirmation
                                     <?=form_open('resp-helpdesk/submit/confirm')?>
-                                    <textarea class="form-control" rows="3" cols="5" aria-label="Confirmation" name="form_confirm"></textarea><button type="submit" class="w-25 mt-2 btn btn-primary" role="button">Submit Confirmation</button>
+                                    <div class="row">          
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="form-confirm-input">Konfirmasi ke User :</label>
+                                                <textarea class="form-control" rows="3"  aria-label="Confirmation" id="form-confirm-input" name="form_confirm" placeholder="Teks konfirmasi pengerjaan IT"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="form-type-helpdesk">Jenis Helpdesk :</label>
+                                                <div class="form-group">
+                                                    <div class="form-check mb-3">
+                                                        <input class="form-check-input" type="radio" name="helpdesktype" id="system-error" value="system" <?=($detail->helpdesktype=='system' ? 'checked' : '')?> required>
+                                                        <label class="form-check-label" for="system-error">System Error</label>
+                                                    </div>
+                                                    <div class="form-check mb-3">
+                                                        <input class="form-check-input" type="radio" name="helpdesktype" id="hardware-error" value="hardware" <?=($detail->helpdesktype=='hardware' ? 'checked' : '')?> required>
+                                                        <label class="form-check-label" for="hardware-error">Hardware Error</label>
+                                                    </div>
+                                                    <div class="form-check mb-3">
+                                                        <input class="form-check-input" type="radio" name="helpdesktype" id="human-error" value="human" <?=($detail->helpdesktype=='human' ? 'checked' : '')?> required>
+                                                        <label class="form-check-label" for="human-error">Human Error</label>
+                                                    </div>
+                                                    <div class="form-check mb-3">
+                                                        <input class="form-check-input" type="radio" name="helpdesktype" id="human-error" value="service" <?=($detail->helpdesktype=='service' ? 'checked' : '')?> required>
+                                                        <label class="form-check-label" for="human-error">Service IT</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="helpdesktype" id="others" value="others" required>
+                                                        <label class="form-check-label" for="others">Others</label>
+                                                    </div>
+                                                </div>
+                                                <input class="mx-4 mt-3 form-control w-75 helpdesktype-input d-none" type="text" name="helpdesktype-input" aria-label="others-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">          
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="form-problem-input">Penjelasan Pengerjaan</label>
+                                                <textarea class="form-control" id="form-problem-input" placeholder="Penjelasan mengapa terjadi kesalahan / permintaan helpdesk [opsional]" rows="4" name="form-problem" <?=($detail->recordstatus==12 ? 'readonly':'')?>><?=$detail->resp_text?></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="form-reason-input">Alasan </label>
+                                                <textarea class="form-control" id="form-reason-input" placeholder="Alasan / penyebab terjadi kesalahan/bantuan [opsional]" rows="4" name="form-reason" <?=($detail->recordstatus==12 ? 'readonly':'')?>><?=$detail->resp_reason?></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="form-recommend-input">Rekomendasi / saran</label>
+                                        <textarea class="form-control" id="form-recommend-input" placeholder="Rekomendasi dari team IT [jika diperlukan]" rows="4" name="form-recommend" <?=($detail->recordstatus==12 ? 'readonly':'')?>><?=$detail->resp_recommendation?></textarea>
+                                    </div>
+                                    <button type="submit" class="w-25 mt-2 btn btn-primary btnConfirm" role="button">Submit Confirmation</button>
                                     <?=form_hidden('helpdeskid',$detail->helpdeskid);?>
                                     <?=form_hidden('status',$detail->recordstatus);?>
                                     <?=form_close()?>
@@ -206,6 +260,34 @@
                                         ?>
                                     </div>
                                 </div>
+                                
+                                <?php if(count($confirm)>0):?>
+                                <div class="mt-2 confirm-section <?=$detail->helpdesktype=='' ? 'd-none' : ''?>">
+                                    <h5 class="font-size-15"><i class="bx bx-message-dots text-muted align-middle me-1"></i> Notes from IT</h5>
+                                    <div>
+                                        <div class="d-flex py-3">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar-xs">
+                                                    <div class="avatar-title rounded-circle bg-light text-primary">
+                                                        <i class="bx bxs-user"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h5 class="font-size-14 mb-1"><?=$confirm[0]->fullname?><small class="text-muted float-end"><?=date('d/m/Y H:i',strtotime($confirm[0]->created_at))?></small></h5>
+                                                <strong>Penjelasan / Problem : </strong>
+                                                <p class="text-muted"><?=$detail->resp_text?></p>
+                                                <strong>Alasan / Penyebab: </strong>
+                                                <p class="text-muted"><?=$detail->resp_reason?></p>
+                                                <strong>Saran / Tindak Lanjut : </strong>
+                                                <p class="text-muted"><?=$detail->resp_recommendation?></p>
+                                                <strong>Jenis Kesalahan : </strong>
+                                                <p class="text-muted"><?=$detail->helpdesktype?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endif?>
                                 <div class="d-print-none mt-3">
                                     <div class="float-end <?=$display!='disabled' ? 'd-none' : ''?>">
                                         <button type="button" class="btn btn-success waves-effect waves-light mr-1 <?=$detail->recordstatus<9 ? '' : 'd-none'?>" id="approveticket" <?=getWfAuthByUserid('apphelpdesk',$detail->recordstatus)!=NULL ? '' : 'disabled="disabled"' ?>><i class="fa fa-check"></i> Approve </button>
@@ -243,6 +325,16 @@
 <script>
     const review = document.querySelector('textarea[name="form_review"]')
     const btnreview = document.querySelector('.btn-review')
+    const othersOpt = document.querySelector('input[id="others"]')
+    const handleRadio = () => {
+        if(othersOpt.checked) inputForm.classList.remove('d-none')
+        else inputForm.classList.add('d-none')
+    }
+    const radioOpt = document.querySelectorAll('input[name="helpdesktype"]')
+    radioOpt.forEach(btn => {
+        btn.addEventListener('change',handleRadio)
+    })
+    const inputForm = document.querySelector('.helpdesktype-input')
     
     if(review.hasAttribute('readonly'))  review.style.cursor = 'not-allowed'
     if(appBtn.hasAttribute('disabled'))  {

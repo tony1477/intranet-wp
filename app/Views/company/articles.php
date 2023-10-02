@@ -81,6 +81,7 @@
                             </div>
                         </div>
                         <?php endforeach;?>
+                        <?= $pager->links('article','custom_pager') ?>
                     </div>
                     <!--end col-->
 
@@ -143,6 +144,7 @@
 <!-- SweetAlert -->
 <?= $this->include('partials/sweetalert') ?>
 <?= $this->include('partials/_home-js') ?>
+<?= $this->include('partials/script/article')?>
 <script>
     const category = document.querySelectorAll('#category')
     for(let i of category) {

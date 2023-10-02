@@ -1,0 +1,1 @@
+<script src="<?=base_url()?>/public/assets/js/custom-function.js"></script>

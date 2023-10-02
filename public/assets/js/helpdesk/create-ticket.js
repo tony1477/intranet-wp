@@ -5,7 +5,7 @@ function getUrl() {
     if (hostname === 'localhost' || /^(\d{1,3}\.){3}\d{1,3}$/.test(hostname)) {
         // Jika sedang dalam mode pengembangan lokal, atur base URL ke localhost/subfolder
         // baseUrl = 'http://localhost/intranet/';
-        baseUrl = 'http://192.168.5.82/intranet/';
+        baseUrl = 'http://192.168.5.86/intranet/';
     } else {
         // Jika dalam mode produksi, atur base URL ke domain produksi
         baseUrl = 'http://wilianperkasa.synology.me:88/intranet-wp/';
@@ -345,11 +345,13 @@ const btnSubmit = document.querySelector('.btnSubmit')
 btnNext.addEventListener('click', () => nextQuestion())
 btnPrev.addEventListener('click', () => prevQuestion())
 btnSubmit.addEventListener('click',() => {
-    Swal.fire({
+    const Toast = Swal.fire({
         icon:'info',
-        text:'Sedang dalam process',
+        text:'Sedang dalam process! Tunggu hingga selesai',
         title:'Info',
+        allowEscapeKey:false,
         allowOutsideClick:false
     })
-    return true;
+    // Toast.disableButtons()
+    setTimeout(Toast.disableButtons(),500)
 })

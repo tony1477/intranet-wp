@@ -359,6 +359,8 @@ return [
     "Update" => "Update",
     "Type_Name" => "Type Name Here",
     "Number" => "Number",
+    "Search_Result" => "Search Result of",
+    "No_Find_Article" => "Not find article / content about",
 
     // Menu
     "group-divisi" => 'Division Group',

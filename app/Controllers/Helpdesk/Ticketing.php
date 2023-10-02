@@ -127,6 +127,21 @@ class Ticketing extends BaseController
 		return view('master/m_view', $data);
     }
 
+    private function notAllowed()
+    {
+        $menu = getMenu($user='Admin');
+        $data = [
+			'title_meta' => view('partials/title-meta', ['title' => 'Create_Ticket']),
+			'page_title' => view('partials/page-title', ['title' => 'Helpdesk', 'li_1' => 'Intranet', 'li_2' => 'Ticketing']),
+			'modules' => $menu,
+            'route'=>'create-helpdesk',
+            'menuname' => 'IT_Helpdesk',           
+		];
+        
+        $data['message'] = 'Not Allowed';
+        return view('helpdesk/create', $data);
+        
+    }
     private function listallticket()
     {
         helper(['admin_helper','master_helper','form']);
@@ -154,6 +169,7 @@ class Ticketing extends BaseController
     {
         helper(['admin_helper','master_helper','form']);
         $menu = getMenu($user='Admin');
+        if(getWfbyUserid('apphelpdesk',user_id())=='') return $this->notAllowed();
         $listticket = $this->ticketing->getDataListTicket(user_id());
         $data = [
             'title_meta' => view('partials/title-meta', ['title' => 'Create_Ticket']),
@@ -182,6 +198,7 @@ class Ticketing extends BaseController
     {
         helper(['admin_helper','master_helper','form']);
         $menu = getMenu($user='Admin');
+        if(getWfbyUserid('apphelpdesk',user_id())=='') return $this->notAllowed();
         $list = $this->listservice->getChoiceHelpdesk($id=null);
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Create_Ticket']),
@@ -191,7 +208,6 @@ class Ticketing extends BaseController
             'menuname' => 'IT_Helpdesk',           
             'listhelpdesk' => $list,
 		];
-		
 		return view('helpdesk/create', $data);
     }
 
@@ -340,15 +356,15 @@ class Ticketing extends BaseController
                 }
             
                 // send email to head_of_user
-                $send->setFrom('it@wilianperkasa.com','IT Helpdesk');
-                $send->setTo('martoni.firman@wilianperkasa.com');
-                $send->setSubject('Permohonan Bantuan IT Helpdesk');
-                $send->setMessage('Pesan dalam Email');
+                // $send->setFrom('it@wilianperkasa.com','IT Helpdesk');
+                // $send->setTo('martoni.firman@wilianperkasa.com');
+                // $send->setSubject('Permohonan Bantuan IT Helpdesk');
+                // $send->setMessage('Pesan dalam Email');
 
-                $email = $this->ticketing->find($save);
-                if($send->send()) $email->isemailcreate = 1;
-                else $email->isemailcreate=0;
-                $this->ticketing->save($email);
+                // $email = $this->ticketing->find($save);
+                // if($send->send()) $email->isemailcreate = 1;
+                // else $email->isemailcreate=0;
+                // $this->ticketing->save($email);
             }        
         }
         catch(Exception $e) {
@@ -445,7 +461,7 @@ class Ticketing extends BaseController
                 break;
 
             case 'onprogress':
-                $stt='4,5,6,7,8,9,10,11';
+                $stt='-1,4,5,6,7,8,9,10,11';
                 $addedstatus = false;
                 break;
 
@@ -501,6 +517,11 @@ class Ticketing extends BaseController
             $canedit=true;
             foreach ($pagedData as $row) {
                 switch($row['recordstatus']){
+                    case '-1':
+                        if(getWfAuthByUserid('rejhelpdesk',$row['recordstatus'])) {
+                            $action = '<a href="javascript:void(0)"><button type="button" class="btn btn-danger cancel-button waves-effect btn-label waves-light"><i class="fas fa-times label-icon"></i> Cancel Ticket</button></a>';         
+                            break;
+                        }
                     case '1' :
                         if(getWfAuthByUserid('apphelpdesk',$row['recordstatus'])) {
                             $action = '<a href="edit-helpdesk/'.$row['helpdeskid'].'"><button type="button" class="btn btn-light edit-button waves-effect btn-label waves-light"><i class="far fa-edit label-icon"></i> Edit</button></a>
@@ -557,7 +578,8 @@ class Ticketing extends BaseController
                     "status" => $row['status'],
                     "detail" => '<a href="javascript:void(0)"><i class="fas fa-info btn btn-secondary rounded-circle"></i> Detail</a>',
                     "action" => $action,
-                    "canedit" => $canedit
+                    "canedit" => $canedit,
+                    "iscancel" => $row['iscancel']
                 ];
             }
             

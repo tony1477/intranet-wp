@@ -160,6 +160,9 @@
                         <div class="bg-primary rounded-3 infoReject btn-feedback position-absolute <?=$listticket->isfeedback>0 ? '' : 'd-none'?>" style="left: 30%;z-index: 4;color: var(--bs-white);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i>
                             <span class="btn-number"><?=$listticket->isfeedback?></span>
                             <span class="btn-feedback-text"> Feedback<?=$listticket->isfeedback>1 ? 's' : ''?></span></div>
+                        <div class="bg-danger rounded-3 infoReject btn-feedback position-absolute <?=$listticket->iscancel>0 ? '' : 'd-none'?>" style="left: 45%;z-index: 4;color: var(--bs-dark);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i>
+                            <span class="btn-number"><?=$listticket->iscancel?></span>
+                            <span class="btn-feedback-text"> Need to Cancel<?=$listticket->iscancel>1 ? 's' : ''?></span></div>
                         <div class="bg-white rounded-3 infoReject btn-feedback position-absolute <?=$listticket->isconfirmation>0 ? '' : 'd-none'?>" style="left: 60%;z-index: 4;color: var(--bs-dark);top: .75rem;font-size: 18px;cursor: pointer;padding: .5rem;" data-bs-toggle="collapse" data-bs-target="#panelsOnProgress-collapse" aria-expanded="false"><i class="mdi mdi-information-variant"></i>
                             <span class="btn-number"><?=$listticket->isconfirmation?></span>
                             <span class="btn-feedback-text"> Confirmation<?=$listticket->isconfirmation>1 ? 's' : ''?></span></div>

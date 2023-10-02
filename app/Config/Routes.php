@@ -263,12 +263,34 @@ $routes->get('meeting-schedule/booking','Meeting/MeetingSchedule::booking');
 $routes->post('meeting-schedule/booking/request','Meeting/MeetingSchedule::requestRoom');
 $routes->get('meeting-schedule/booking/:any','Meeting/MeetingSchedule::booking');
 $routes->get('meeting-schedule/detail/:num','Meeting/MeetingSchedule::detail');
+$routes->get('meeting-schedule/(:num)','Meeting\MeetingSchedule::getdata/$1');
 $routes->post('meeting-schedule/sendmeeting','Meeting/MeetingSchedule::SendMeeting');
 $routes->get('meeting-schedule/edit/(:num)','Meeting/MeetingSchedule::edit');
 $routes->get('meeting-schedule/([a-z]+)/(:num)','Meeting\MeetingSchedule::action/$1/$2');
 $routes->get('meeting-schedule/email','Meeting/MeetingSchedule::emailservice');
 $routes->get('meeting-schedule/approveMeeting/(:num)','Meeting\MeetingSchedule::ApproveMeeting/$1');
 $routes->get('meeting-schedule/:any','Meeting/MeetingSchedule::schedule');
+
+
+## Notulen Meeting
+$routes->get('notulen','Meeting/NotulenMeeting::index');
+$routes->get('notulens','Meeting/NotulenMeeting::getdata');
+$routes->post('notulen','Meeting/NotulenMeeting::postdata');
+$routes->put('notulen/(:num)','Meeting\NotulenMeeting::updatedata/$1');
+/* Detail */
+$routes->get('notulen/(:num)/notes','Meeting\NotulenMeeting::getDetails/$1');
+$routes->post('notulen/(:num)/notes','Meeting\NotulenMeeting::postDetail/$1');
+$routes->put('notulen/(:num)/notes/(:num)','Meeting\NotulenMeeting::updateDetail/$1/$2');
+$routes->delete('notulen/(:num)/notes/(:num)','Meeting\NotulenMeeting::purgeDetail/$1/$2');
+$routes->get('notulen/feedback/(:num)','Meeting\NotulenMeeting::getFeedback/$1');
+$routes->patch('notulen/feedback/(:num)','Meeting\NotulenMeeting::updateFeedback/$1');
+/* Approve and Reject use PUT and DELETE instead of VERB
+    and add request in the end of segment URI
+*/
+$routes->put('notulen/(:num)/request','Meeting\NotulenMeeting::approve/$1');
+$routes->delete('notulen/(:num)/request','Meeting\NotulenMeeting::delete/$1');
+
+$routes->get('notulen/print/(:num)','Meeting\NotulenMeeting::print/$1');
 
 ## BPO - USER
 $routes->get('bpo/kebijakan','Bpo/Support::kebijakan');
@@ -315,7 +337,8 @@ $routes->post('article/upload_image','Company/Article::uploadImg');
 $routes->post('article/pojok-wp/upload_image','Company/Article::uploadImg');
 $routes->post('article/postComment','Company/Article::postComment');
 $routes->get('article/read/(:segment)/(:segment)','Company\Article::readArticle/$1/$2');
-$routes->get('article/(:alpha)','Company\Article::Category/$1');
+$routes->get('article/search','Company/Article::search');
+$routes->get('article/(:segment)','Company\Article::Category/$1');
 $routes->post('article/sendsubs','Company/Article::sendSubs');
 $routes->get('mailsubs','Master/Mailsubs::index');
 $routes->post('mailsubs/post','Master/Mailsubs::save');
@@ -364,6 +387,10 @@ $routes->get('ext-participant', 'Meeting/Extparticipant::index',['filter' => 'pe
 $routes->post('ext-participant/delete', 'Meeting/Extparticipant::delete', ['filter' => 'permission:master-data']);
 $routes->post('ext-participant/post', 'Meeting/Extparticipant::save', ['filter' => 'permission:master-data']);
 
+## Employee
+$routes->get('employee/points','Company/Employee::showPoints');
+$routes->get('employee/point/(:num)','Company\Employee::getPoint/$1');
+$routes->get('employee/point/(:num)/detail','Company\Employee::getDetailPoint/$1');
 
 ## Website
 $routes->get('tentang/profil','Website/About/Profile::index');

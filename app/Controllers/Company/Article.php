@@ -8,6 +8,7 @@ use App\Models\ArticleCatModel as CategoryModel;
 use App\Entities\Article as ArticleEntity;
 use App\Models\CommentModel;
 use CodeIgniter\API\ResponseTrait;
+use Exception;
 class Article extends BaseController
 {
     use ResponseTrait;
@@ -20,13 +21,15 @@ class Article extends BaseController
         $this->model = new ArticleModel();
         $this->category = new CategoryModel();
         $this->comment = new CommentModel();
+        helper('form');
     }
 
     public function index()
     {
         helper(['admin_helper']);
         $menu = getMenu($user='Admin');
-        $article = $this->model->where(['publish'=>1,'status'=>1])->orderBy('posted_date','desc')->findAll(3);
+        $model = $this->model;
+        $article = $model->where(['publish'=>1,'status'=>1])->orderBy('posted_date','desc')->asObject()->paginate(3,'article');
         $categories = $this->category->sumPerCategory();
         $upcoming = $this->model->where(['publish'=>0,'status'=>1])->findAll();
         $popular = $this->model->orderBy('sum_read','desc')->orderBy('posted_date','desc')->findAll(5);
@@ -46,6 +49,7 @@ class Article extends BaseController
                 'popular' => $popular,
                 'tags' => $tags,
             ],
+            'pager' => $this->model->pager,
 		];
         // $gallery = $this->model->where('gallerytype',1)->findAll($limit,$offset);
 
@@ -370,7 +374,7 @@ class Article extends BaseController
             'message' => 'Error'
         );
         
-        $loc = getcwd().'/assets/images/gallery/article';
+        $loc = getcwd().'/public/assets/images/gallery/article';
         $filename = $_FILES['file']['name'];
 
         /* Choose where to save the uploaded file */
@@ -408,7 +412,7 @@ class Article extends BaseController
             'message' => 'Error'
         );
         
-        $loc = getcwd().'/assets/protected/article';
+        $loc = getcwd().'/public/assets/protected/article';
         $filename = $_FILES['file']['name'];
 
         /* Choose where to save the uploaded file */
@@ -854,7 +858,7 @@ class Article extends BaseController
         helper(['admin_helper']);
         $menu = getMenu($user='Admin');
         $getData = $this->category->where('categoryname',$category)->find();
-        $article = $this->model->where(['publish'=>1,'status'=>1,'categoryid'=>2,'categoryid'=>$getData[0]->Id])->findAll(3);
+        $article = $this->model->where(['publish'=>1,'status'=>1,'categoryid'=>2,'categoryid'=>$getData[0]->Id])->asObject()->paginate(3,'category');
         if(count($article)<=0) return redirect()->to('/articles');
         $categories = $this->category->sumPerCategory();
         $upcoming = $this->model->where(['publish'=>0,'status'=>1])->findAll();
@@ -876,6 +880,7 @@ class Article extends BaseController
                 'tags' => $tags,
                 'judul' => $category
             ],
+            'pager' => $this->model->pager,
 		];
         // $gallery = $this->model->where('gallerytype',1)->findAll($limit,$offset);
 
@@ -967,5 +972,40 @@ class Article extends BaseController
         
         return $this->respond($arr,200);
         
+    }
+
+    public function search()
+    {
+        helper(['admin_helper']);
+        $menu = getMenu($user='Admin');
+        $q = $this->request->getGet('s');
+        $model = $this->model;
+        $find = $model->searchArticle($q,3,'search');
+       
+        $categories = $this->category->sumPerCategory();
+        $upcoming = $this->model->where(['publish'=>0,'status'=>1])->findAll();
+        $popular = $this->model->findAll(3);
+        $tags = $this->model->findAll();
+        // $articles = $this->model->getArticles()->getResult(ArticleEntity::class);
+        $data = [
+			'title_meta' => view('partials/title-meta', ['title' => 'Search']),
+			'page_title' => view('partials/page-title', ['title' => 'Search', 'li_1' => 'Article', 'li_2' => 'Search']),
+			'modules' => $menu,
+            'route'=>'article',
+            'menuname' => 'Articles',
+            'page'=>$q,
+            'data' => [
+                'article' => $find,
+                'category' => $categories,
+                'upcoming' => $upcoming,
+                'popular' => $popular,
+                'tags' => $tags,
+                'judul' => $q
+            ],
+            'pager' => $model->pager
+		];
+        // $gallery = $this->model->where('gallerytype',1)->findAll($limit,$offset);
+
+        return view('company/search',$data);
     }
 }

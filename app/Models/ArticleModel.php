@@ -44,7 +44,7 @@ class ArticleModel extends Model
 
     public function sumPerTag()
     {
-        return $this->db->select('slug')
+        return $this->select('slug')
         ->groupBy('slug')->get()->getResult();
     }
 
@@ -69,5 +69,15 @@ class ArticleModel extends Model
             return true;
         
         return false;
+    }
+
+    public function searchArticle(string $query, int $page, string $pagination)
+    {
+        return $this->select('title,content,image,posted_date,created_at')
+        ->like('title',$query)
+        ->orLike('content',$query)
+        ->where('status',1)
+        ->asObject()
+        ->paginate($page,$pagination);
     }
 }

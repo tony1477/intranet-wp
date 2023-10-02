@@ -4,6 +4,9 @@ namespace App\Controllers;
 use App\Models\GalleryModel as Gallery;
 use App\Models\MeetingScheduleModel as Meeting;
 use App\Models\ArticleModel as Article;
+use App\Models\EmployeeModel;
+#use Config\Pusher as PusherConfig;
+#use Pusher\Pusher as Pusher;
 use Exception;
 
 class Home extends BaseController
@@ -24,6 +27,7 @@ class Home extends BaseController
 	protected $session;
 	private $model;
 	private $meeting;
+	private $employee;
 
 	public function __construct()
     {
@@ -36,6 +40,7 @@ class Home extends BaseController
 		$this->gallery = new Gallery();
 		$this->meeting = new Meeting();
 		$this->article = new Article();
+		$this->employee = new EmployeeModel();
     }
 	
 	public function index()
@@ -46,6 +51,13 @@ class Home extends BaseController
         helper(['admin_helper']);
         $menu = getMenu($user='Admin');
 		$sess = $this->session;
+		// $pusherConfig = new PusherConfig();
+		$toppoint = $this->employee->getPointLevel()->getResult();
+		$lowpoint = $this->employee->getPointLevel('asc')->getResult();
+		// $pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->app_id, [
+        //     'cluster' => $pusherConfig->cluster,
+        //     // 'useTLS' => $pusherConfig->useTLS,
+        // ]);
 		if($sess->meeting_day == null) {
 			$sess->set(['meeting_day' => 'Today']);
 		}
@@ -54,7 +66,7 @@ class Home extends BaseController
 		$curdate = date('Y-m-d');
 		$meeting = $this->meeting->where("tgl_mulai >= ", "{$curdate}")->whereIn('status',$status)->orderBy('tgl_mulai', 'desc')->findAll(5,0);
 		$article = $this->article->where(['page'=>'F','publish'=>1,'status'=>1])->findAll(0,1);
-        //$submenu = getSubmenu($moduleid=0);
+        // //$submenu = getSubmenu($moduleid=0);
 		$data = [
 			'title_meta' => view('partials/title-meta', ['title' => 'Dashboard']),
 			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'li_1' => 'Intranet', 'li_2' => 'Dashboard']),
@@ -63,11 +75,24 @@ class Home extends BaseController
 				'foto' => $foto,
 				'meeting' => $meeting,
 				'article' => $article,
+				'toppoint' => $toppoint,
+				'lowpoint' => $lowpoint,
 			],
 			// 'data_meeting' => 
 			// 'session' => $sess
 		];
-		
+		// $pusher->trigger('my-channel', 'new-notifications', ['number' => 2, 'data' => [[
+		// 	'img' => 'avatar-3.jpg',
+		// 	'title' => 'Judul Notif',
+		// 	'content' => 'text goes here!',
+		// 	'date' => '1 hours ago'
+		// ],
+		// [
+		// 	'img' => 'avatar-3.jpg',
+		// 	'title' => 'Judul Notif 2',
+		// 	'content' => 'texts goes here!',
+		// 	'date' => '2 hours ago'
+		// ]]]);
 		return view('index', $data);
 	}
 

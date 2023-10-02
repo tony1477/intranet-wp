@@ -82,6 +82,7 @@ class ItHelpdeskModel extends Model
         $this->query($sql,[$userid,"list"]);
         $list = $this->query('select @list')->getRowArray();
         $exp = explode(',',$list['@list']);
+        array_push($exp,$userid);
         return array_unique($exp);
     }
 
@@ -114,7 +115,7 @@ class ItHelpdeskModel extends Model
         $usersid = $this->getUsersbyId($userid);
         $recordstatus = explode(',',$status);
         $sql = $this->db->table('ithelpdesk a')
-            ->select('a.helpdeskid, a.ticketdate, ticketno, ifnull(isfeedback,0) as isfeedback, ifnull(isconfirmation,0) as isconfirmation, ifnull(isrevisied,0) as isrevisied, ifnull(a.user_attachment,"") as attachment, a.user_reason, a.user_request, user_phone,(select b.categoryname from helpdesk_issue b
+            ->select('a.helpdeskid, a.ticketdate, ticketno, ifnull(isfeedback,0) as isfeedback, ifnull(isconfirmation,0) as isconfirmation, ifnull(isrevisied,0) as isrevisied, ifnull(a.user_attachment,"") as attachment, a.user_reason, if(recordstatus=-1,1,0) as iscancel, a.user_request, user_phone,(select b.categoryname from helpdesk_issue b
             join helpdesk_choice c on c.choiceid = b.categoryid
             where b.helpdeskid = a.helpdeskid and c.parentid is null) as categoryname, a.recordstatus, (select ws.wfstatususer from wfstatus ws where ws.wfstat = a.recordstatus) as status, (select group_concat(b.categoryname separator " > ")
              from helpdesk_issue b
@@ -150,7 +151,7 @@ class ItHelpdeskModel extends Model
                 break;
 
             case 'progress':
-                $sql->whereIn('recordstatus',[4,5,6,7,8,9,10,11]);
+                $sql->whereIn('recordstatus',[4,5,6,7,8,9,10,11,-1]);
                 break;
 
             case 'done':
@@ -206,7 +207,7 @@ class ItHelpdeskModel extends Model
     {
         $usersid = $this->getUsersbyId($userid);
         $usersid = implode(',',$usersid);
-        return $this->query("select helpdeskid, sum(newticket) as newticket, sum(waiting) as waiting, sum(onprogress) as onprogress, sum(`close`) as `close`, sum(cancel) as cancel, sum(feedback) as isfeedback, sum(confirmation) as isconfirmation, sum(revisied) as isrevisied
+        return $this->query("select helpdeskid, sum(newticket) as newticket, sum(waiting) as waiting, sum(onprogress) as onprogress, sum(`close`) as `close`, sum(cancel) as iscancel, sum(feedback) as isfeedback, sum(confirmation) as isconfirmation, sum(revisied) as isrevisied
         from (select z.*, 
             if(recordstatus=1,1,0) as newticket, 
             if(recordstatus=2 or recordstatus=3,1,0) as waiting,
@@ -225,13 +226,14 @@ class ItHelpdeskModel extends Model
 
     public function getAllDataListTicket()
     {
-        return $this->query("select helpdeskid, sum(newticket) as newticket, sum(waiting) as waiting, sum(onprogress) as onprogress, sum(`close`) as `close`, sum(cancel) as cancel, sum(feedback) as isfeedback, sum(confirmation) as isconfirmation, sum(revisied) as isrevisied
+        return $this->query("select helpdeskid, sum(newticket) as newticket, sum(waiting) as waiting, sum(onprogress) as onprogress, sum(`close`) as `close`, sum(cancel) as cancel, sum(feedback) as isfeedback, sum(confirmation) as isconfirmation, sum(revisied) as isrevisied, sum(iscancel) as iscancel
         from (select z.*, 
             if(recordstatus=1,1,0) as newticket, 
             if(recordstatus=2 or recordstatus=3,1,0) as waiting,
             if(recordstatus=4 or recordstatus=5 or recordstatus=6 or recordstatus=7 or recordstatus=8 or recordstatus=9 or recordstatus=9,1,0) as onprogress,
             if(recordstatus=11,1,0) as `close`,
             if(recordstatus=0,1,0) as cancel,
+            if(recordstatus=-1,1,0) as iscancel,
             if(isfeedback=1,1,0) as feedback,
             if(isconfirmation=1,1,0) as confirmation,
             if(isrevisied=1,1,0) as revisied
@@ -281,7 +283,8 @@ class ItHelpdeskModel extends Model
         $exp_status = explode(',',$status);
         $sql = $this->db->table('ithelpdesk a')
         ->select("helpdeskid, ticketno, ticketopen, ticketclose, urgency as urgency, (select categoryname from helpdesk_issue b join helpdesk_choice c on c.choiceid = b.categoryid where b.helpdeskid = a.helpdeskid and c.parentid is null limit 1) as category, (select fullname from users u where u.id = a.userid_req) as fullname, (select wfstatusname from wfstatus d where d.workflowid=1 and d.wfstat=a.recordstatus) as status");
-        $sql->whereIn('recordstatus',$exp_status);
+        $sql->whereIn('recordstatus',$exp_status)
+        ->orderBy('a.ticketno','desc');
         return $sql->get();
     }
 
@@ -296,7 +299,7 @@ class ItHelpdeskModel extends Model
     public function getDetailResp(int $id) :?object
     {
         $sql = $this->db->table('ithelpdesk a')
-        ->select("helpdeskid, ticketno, ticketdate, ticketopen, ticketclose, user_phone, user_request, user_reason, user_attachment, resp_text, resp_recommendation, ifnull(urgency,0) as urgency, recordstatus, (select wf.wfstatusname from wfstatus wf where wf.wfstat=a.recordstatus and workflowid=1) as status, (select ifnull(count(1),0) from helpdeskdetail hs where hs.helpdeskid={$id} and hs.respondtypeid = 1) as revisied,
+        ->select("helpdeskid, ticketno, ticketdate, ticketopen, ticketclose, user_phone, user_request, user_reason, user_attachment, resp_text, resp_recommendation, resp_reason, ifnull(helpdesktype,'') as helpdesktype, ifnull(urgency,0) as urgency, recordstatus, updated_at, (select wf.wfstatusname from wfstatus wf where wf.wfstat=a.recordstatus and workflowid=1) as status, (select ifnull(count(1),0) from helpdeskdetail hs where hs.helpdeskid={$id} and hs.respondtypeid = 1) as revisied,
         (select ifnull(count(1),0) from helpdeskdetail hs where hs.helpdeskid={$id} and hs.respondtypeid in (2,3)) as feedback,
         (select ifnull(count(1),0) from helpdeskdetail hs where hs.helpdeskid={$id} and hs.respondtypeid in(4,5)) as confirm, (select fullname from users u where u.id = a.userid_req) as fullname, a.userid_itadmin, (select group_concat(categoryname separator ' > ') from helpdesk_issue hi where hi.helpdeskid = a.helpdeskid) as category");
         $sql->where('helpdeskid',$id);
@@ -320,8 +323,9 @@ class ItHelpdeskModel extends Model
                 break;
         }
         return $this->db->table('helpdeskdetail a')
-        ->select('a.responsetext, attachment, created_at, (select fullname from users u where u.id=a.creator_id) as fullname, b.description as responsetype')
+        ->select('a.responsetext, attachment, a.created_at, (select fullname from users u where u.id=a.creator_id) as fullname, b.description as responsetype, c.resp_text, c.resp_reason, c.resp_recommendation, ifnull(c.helpdesktype,"") as helpdesktype')
         ->join('responsetype b','b.respondtypeid = a.respondtypeid')
+        ->join('ithelpdesk c','c.helpdeskid = a.helpdeskid')
         ->whereIn('a.respondtypeid',$where)
         ->where('a.helpdeskid',$id)
         ->orderBy('created_at', 'asc')
@@ -331,8 +335,14 @@ class ItHelpdeskModel extends Model
     public function submitFormReviewFeedback($data)
     {
         $this->db->transStart();
-        $sql = 'call submitformfeedback(:id:, :respondtypeid:, :responsetext:, :status:, :userid:)';
-        $this->query($sql,['id'=>$data['id'],'respondtypeid'=>$data['respondtypeid'],'responsetext'=>$data['responsetext'],'status'=>$data['status'], 'userid'=>$data['creator_id']]);
+        if(array_key_exists('helpdesktype',$data) || array_key_exists('resp_recommendation',$data) || array_key_exists('resp_reason',$data) || array_key_exists('resp_text',$data)) :
+            $sql = 'call submitformconfirm(:id:, :respondtypeid:, :responsetext:, :status:, :userid:,:resp_text:,:resp_reason:,:resp_recommendation:,:helpdesktype:)';
+            $this->query($sql,['id'=>$data['id'],'respondtypeid'=>$data['respondtypeid'],'responsetext'=>$data['responsetext'],'status'=>$data['status'], 'userid'=>$data['creator_id'],'resp_text'=>$data['resp_text'],'resp_reason'=>$data['resp_reason'],'resp_recommendation'=>$data['resp_recommendation'],'helpdesktype'=>$data['helpdesktype']]);
+        else :
+            $sql = 'call submitformfeedback(:id:, :respondtypeid:, :responsetext:, :status:, :userid:)';
+            $this->query($sql,['id'=>$data['id'],'respondtypeid'=>$data['respondtypeid'],'responsetext'=>$data['responsetext'],'status'=>$data['status'], 'userid'=>$data['creator_id']]);
+        endif;
+
         if ($this->db->transStatus() === false) {
             return false;
         }

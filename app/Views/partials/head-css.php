@@ -7,3 +7,5 @@
 <link href="<?=base_url()?>/public/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 <!-- App Css-->
 <link href="<?=base_url()?>/public/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+<!-- Alertify -->
+<link href="<?=base_url()?>/public/assets/libs/alertifyjs/build/css/alertify.min.css" rel="stylesheet" type="text/css" />

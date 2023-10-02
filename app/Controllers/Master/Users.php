@@ -353,7 +353,7 @@ class Users extends BaseController
         if($this->request->isAJAX()) {
             try {
 
-                $loc = getcwd().'/assets/images/users';
+                $loc = getcwd().'/public/assets/images/users';
                 // var_dump($_FILES);
                 $filename = $_FILES['file']['name'];
                 $newname = user()->username.'-'.$filename;
@@ -420,8 +420,16 @@ class Users extends BaseController
                     // 'tgl_m'=>date('Y-m-d'),
                     // 'time_m'=>date("h:i:s a")
                 ];
+                if(isset($datas['password']) && $datas['password'] !== ''):
+                    $user->setPassword($datas['password']);
+                    $hash = $user->password_hash;
+                else:
+                    $find = $this->model->find($datas['id']);
+                    $hash = $find->password_hash;
+                endif;
+                
                 if($datas['id']!=='') {
-                    $newdata = ['id' => $datas['id']]; 
+                    $newdata = ['id' => $datas['id'],'password_hash'=>$hash]; 
                     $data = array_merge($data,$newdata);
                     $this->model->save($data);
                     $message = lang('Files.Update_Success');

@@ -82,40 +82,6 @@ class Response extends BaseController
             // Loop through the sliced data and format it for the response
             $canedit=true;
             foreach ($pagedData as $row) {
-                // switch($row['recordstatus']){
-                //     case '1' :
-                //         if(getWfAuthByUserid('apphelpdesk',$row['recordstatus'])) {
-                //             $action = '<a href="edit-helpdesk/'.$row['helpdeskid'].'"><button type="button" class="btn btn-light edit-button waves-effect btn-label waves-light"><i class="far fa-edit label-icon"></i> Edit</button></a>
-                //             <a href="javascript:void(0)"><button type="button" class="btn btn-success approve-button waves-effect btn-label waves-light"><i class="fas fa-check label-icon"></i> Approve</button></a>';         
-                //             break;
-                //         }
-                //     case '2':
-                //     case '3':
-                //     case '4':
-                //         if(getWfAuthByUserid('apphelpdesk',$row['recordstatus'])) {
-                //             $action = '<a href="edit-helpdesk/'.$row['helpdeskid'].'"><button type="button" class="btn btn-light edit-button waves-effect btn-label waves-light"><i class="far fa-edit label-icon"></i> Edit</button></a>
-                //             <a href="javascript:void(0)"><button type="button" class="btn btn-success approve-button waves-effect btn-label waves-light"><i class="fas fa-check label-icon"></i> Approve</button></a>
-                //             <a href="javascript:void(0)"><button type="button" class="btn btn-danger reject-button waves-effect btn-label waves-light"><i class="fas fa-times label-icon"></i> Reject</button></a>';
-                //         }
-                //         else $action = '';
-                //         $canedit=false;
-                //         break;
-                //     case '5':
-                //     case '6':
-                //     case '7':
-                //     case '8':
-                //     case '9':
-                //     case '10':
-                //         $action = '<a href="javascript:void(0)"><button type="button" class="btn btn-info reject-button waves-effect btn-label waves-light"><i class="fas fa-times label-icon"></i> Reply Confirmation</button></a>';
-                //         break;
-                //     case '11' :
-                //     case '0' :
-                //         $action ='';
-                //         break;
-                //     default :
-                //         $action = '';
-                //         break;
-                // }
                 $response['data'][] = [
                     "id" => $row['helpdeskid'],
                     "ticketno" => $row['ticketno'],
@@ -182,8 +148,15 @@ class Response extends BaseController
                 'responsetext' => $resp_text,
                 'creator_id' => user_id(),
                 'respondtypeid' => $typeid,
-                'status' => $status
+                'status' => $status,
             ];
+            if($submit=='confirm') {
+                $data['resp_text'] = $_POST['form-problem'];
+                $data['resp_reason'] = $_POST['form-reason'];
+                $data['resp_recommendation'] = $_POST['form-recommend'];
+                $data['helpdesktype'] = $_POST['helpdesktype'];
+                if($data['helpdesktype']=='others') $data['helpdesktype'] = $_POST['helpdesktype-input'];
+            }
             $this->respModel->submitFormReviewFeedback($data);
             $email = service('email');
 
@@ -210,6 +183,7 @@ class Response extends BaseController
                 ->send();
             
             return redirect()->to('resp-helpdesk/detail/'.$id)->with('success',lang('Files.Save_Success'));
+            
         endif;
         return redirect()->back()->withInput();
     }
