@@ -69,7 +69,7 @@
                                         <p class="mb-0 font-size-15"><?=substr(strip_tags($article->content,['br','p']),0,100)?>...</p>
                                         <div class="mt-3">
                                             <p class="text-muted mb-2"><?=$article->created_at?></p>
-                                            <a href="<?=base_url()?>/article/read/<?=$periode.'/'.$title?>" class="align-middle font-size-15">Read more <i class="mdi mdi-chevron-right"></i></a>
+                                            <a href="<?=base_url()?>/article/read/<?=$article->articleid?>" class="align-middle font-size-15">Read more <i class="mdi mdi-chevron-right"></i></a>
                                         </div>
                                     </div>
                                 </div>
