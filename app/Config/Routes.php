@@ -336,6 +336,7 @@ $routes->get('article/getCommentbyArticle/(:num)','Company\Article::getCommentby
 $routes->post('article/upload_image','Company/Article::uploadImg');
 $routes->post('article/pojok-wp/upload_image','Company/Article::uploadImg');
 $routes->post('article/postComment','Company/Article::postComment');
+$routes->get('article/read/(:num)/','Company\Article::readArticlebyId/$1');
 $routes->get('article/read/(:segment)/(:segment)','Company\Article::readArticle/$1/$2');
 $routes->get('article/search','Company/Article::search');
 $routes->get('article/(:segment)','Company\Article::Category/$1');
