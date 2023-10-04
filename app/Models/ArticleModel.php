@@ -62,6 +62,15 @@ class ArticleModel extends Model
         where month(posted_date) = month('{$periode}') and year(posted_date) = year('{$periode}') and title = '{$title}'");
     }
 
+    public function getArticlebyId(int $id)
+    {       
+        return $this->db->query("select a.*, ifnull(fullname,username) as name, categoryname 
+        from article a
+        join users b on b.id = a.creatorid
+        left join article_category c on c.categoryid = a.categoryid
+        where a.articleid = {$id}");
+    }
+
     public function updateRead(int $id)
     {
         $query = 'call updateReadArticle(?)';

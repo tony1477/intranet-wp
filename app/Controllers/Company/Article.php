@@ -608,6 +608,39 @@ class Article extends BaseController
         return view('company/read_article',$data);  
     }
 
+    public function readArticlebyId(int $id)
+    {
+        //check article
+        if(!$article=$this->model->getArticlebyId($id)->getRow()) return redirect()->to('/articles');
+        
+        helper(['admin_helper']);
+        // update sum_read +1 when user access this page
+        $this->model->updateRead($article->articleid);
+        $menu = getMenu($user='Admin');
+        $categories = $this->category->sumPerCategory();
+        $upcoming = $this->model->where(['publish'=>0,'status'=>1])->findAll();
+        $popular = $this->model->orderBy('sum_read','desc')->orderBy('posted_date','desc')->findAll(5);
+        $tags = $this->model->findAll();
+        $data = [
+			'title_meta' => view('partials/title-meta', ['title' => 'Read_Article']),
+			'page_title' => view('partials/page-title', ['title' => 'Read_Articles', 'li_1' => 'Intranet', 'li_2' => 'Read_Articles']),
+			'modules' => $menu,
+            'route'=>'articles',
+            'menuname' => 'Read_Article',
+            'page'=>'',
+            'data' => [
+                'article' => $article,
+                'category' => $categories,
+                'upcoming' => $upcoming,
+                'popular' => $popular,
+                'tags' => $tags,
+                // 'title' => '$title',
+                // 'periode' => '$periode'
+            ],
+		];
+        return view('company/read_article',$data);  
+    }
+
     public function ManagePojokBerita()
     {
         if(!has_permission('article')) return redirect()->route('articles');

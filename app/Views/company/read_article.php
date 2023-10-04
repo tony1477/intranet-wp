@@ -213,8 +213,7 @@
                     <!--end col-->
 
                     <?= view('company/sidebar',
-                        ['data' =>$data,'periode'=>$data['periode'],'title'=>str_replace(' ','-',$data['title'])
-                        ]
+                        ['data' =>$data]
                     )?>
                 </div>
                 <!-- end row -->
