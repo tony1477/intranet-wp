@@ -103,7 +103,7 @@
             <div class="dropdown d-none d-lg-inline-block ms-1">
             </div>
 
-            <!-- <div class="dropdown d-inline-block">
+            <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item noti-icon position-relative" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i data-feather="bell" class="icon-lg"></i>
                     <span class="badge bg-danger rounded-pill notif-number"></span>
@@ -115,12 +115,12 @@
                                 <h6 class="m-0"> <?= lang('Files.Notifications') ?> </h6>
                             </div>
                             <div class="col-auto">
-                                <a href="#!" class="small text-reset text-decoration-underline"> <?= lang('Files.Unread') ?> (3)</a>
+                                <a href="#!" class="small text-reset text-decoration-underline"> </a>
                             </div>
                         </div>
                     </div>
                     <div data-simplebar style="max-height: 230px;" class="notif-container">
-                        <a href="#!" class="text-reset notification-item">
+                        <!-- <a href="#!" class="text-reset notification-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <img src="<?=base_url()?>/public/assets/images/users/avatar-3.jpg" class="rounded-circle avatar-sm" alt="user-pic">
@@ -133,8 +133,8 @@
                                     </div>
                                 </div>
                             </div> 
-                        </a>
-                        <a href="#!" class="text-reset notification-item">
+                        </a> -->
+                        <!-- <a href="#!" class="text-reset notification-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 avatar-sm me-3">
                                     <span class="avatar-title bg-primary rounded-circle font-size-16">
@@ -180,15 +180,15 @@
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                        </a> -->
                     </div>
                     <div class="p-2 border-top d-grid">
-                        <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
+                        <a class="btn btn-sm btn-link font-size-14 text-center" href="<?=base_url()?>/notification/view">
                             <i class="mdi mdi-arrow-right-circle me-1"></i> <span><?= lang('Files.View_More') ?>..</span>
                         </a>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
             <!-- <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item right-bar-toggle me-2">

@@ -104,7 +104,7 @@
                                 <?php
                                 if(!empty($custombutton)):
                                 foreach($custombutton as $button):
-                                if(isset($button['loadfile']) && $button['loadfile']!==null)
+                                if(isset($button['loadfile']) && $button['loadfile']!==null && $button['toggle'])
                                     $data['id'] = $button['id'];
                                     $data['title'] = $button['title'];
                                     echo view($button['loadfile'],$data);
@@ -174,6 +174,22 @@
                                                             </div>
                                                         </div>
                                                         <?php }
+                                                    if($form['type']=='date') { ?>
+                                                        <div class="<?=$form['style']?>">
+                                                            <div class="form-group mb-3">
+                                                                <label><?=lang('Files.'.$form['label'])?></label>
+                                                            <input type="date" name="<?=$form['idform']?>" id="<?=$form['idform']?>" class="<?=$form['form-class']?>" required value="" />
+                                                            </div>
+                                                        </div>
+                                                        <?php }
+                                                    if($form['type']=='datetime') { ?>
+                                                            <div class="<?=$form['style']?>">
+                                                                <div class="form-group mb-3">
+                                                                    <label><?=lang('Files.'.$form['label'])?></label>
+                                                                <input type="datetime-local" name="<?=$form['idform']?>" id="<?=$form['idform']?>" class="<?=$form['form-class']?>" required value="" />
+                                                                </div>
+                                                            </div>
+                                                            <?php }
                                                     if($form['type'] == 'option') { ?>
                                                     <div class="<?=$form['style']?>">
                                                         <div class="form-group mb-3">
@@ -630,7 +646,7 @@
     })
     <?php endif;?>
 </script>
-<?php if(isset($custombutton) && $custombutton!=='' ):
+<?php if(isset($custombutton) && $custombutton!==''):
     foreach($custombutton as $button):
         $data['class'] = $button['name'];
         echo view($button['scriptfile'],$data);

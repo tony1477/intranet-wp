@@ -393,6 +393,14 @@ $routes->get('employee/points','Company/Employee::showPoints');
 $routes->get('employee/point/(:num)','Company\Employee::getPoint/$1');
 $routes->get('employee/point/(:num)/detail','Company\Employee::getDetailPoint/$1');
 
+## Notif
+$routes->get('notification','NotificationController::index');
+$routes->post('notification/post','NotificationController::save');
+$routes->post('notification/send','NotificationController::sendNotif');
+$routes->get('notification/user','NotificationController::getNotifData');
+$routes->get('notification/user/total','NotificationController::getNotifNumber');
+$routes->get('notification/view','NotificationController::notifPage');
+
 ## Website
 $routes->get('tentang/profil','Website/About/Profile::index');
 $routes->post('tentang/profil/post', 'Website/About/Profile::save');
