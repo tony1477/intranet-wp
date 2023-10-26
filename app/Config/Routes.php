@@ -400,6 +400,7 @@ $routes->post('notification/send','NotificationController::sendNotif');
 $routes->get('notification/user','NotificationController::getNotifData');
 $routes->get('notification/user/total','NotificationController::getNotifNumber');
 $routes->get('notification/view','NotificationController::notifPage');
+$routes->get('notification/view/(:num)','NotificationController::viewNotif/$1');
 
 ## Website
 $routes->get('tentang/profil','Website/About/Profile::index');
