@@ -7,9 +7,9 @@ use CodeIgniter\Config\BaseConfig;
 class Pusher extends BaseConfig 
 {
    
-    public $app_id = '1648779';
-    public $key = '5484a2d917d249565526';
-    public $secret = '339f0bfa44aa1cbf75e2';
-    public $cluster = 'ap1';
+    public $app_id = '';
+    public $key = '';
+    public $secret = '';
+    public $cluster = '';
     public $useTLS = true;
 }
