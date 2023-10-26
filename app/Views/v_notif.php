@@ -95,11 +95,11 @@
                                         </div>
                                     </li> -->
                                     <?php foreach($data as $row):?>
-                                    <li>
+                                    <li <?=($row->recordstatus==1 ? 'class="bg-light"' : '')?> >
                                         <div class="col-mail col-mail-1">
                                             <div class="checkbox-wrapper-mail">
-                                                <input type="checkbox" id="chk<?=$row->notifuserid?>">
-                                                <label for="chk<?=$row->notifuserid?>" class="toggle"></label>
+                                                <input type="checkbox" id="chk<?=$row->notifid?>">
+                                                <label for="chk<?=$row->notifid?>" class="toggle"></label>
                                             </div>
                                             <a href="#" class="title"><?=$row->notiftitle?></a>
                                         </div>

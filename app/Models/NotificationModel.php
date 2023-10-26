@@ -49,4 +49,12 @@ class NotificationModel extends Model
 
         return $data;
     }
+
+    public function getNotificationbyUser()
+    {
+        return $this->db->table('notif a')->select('a.notifid, notiftitle, notificon, notiftext, url, notifdate, b.notifuserid, b.recordstatus')
+        ->join('notifuser b','a.notifid = b.notifid')
+        ->where('b.userid ='.user_id())
+        ->get();
+    }
 }

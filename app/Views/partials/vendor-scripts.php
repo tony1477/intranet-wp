@@ -10,3 +10,5 @@
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <!-- Alertify -->
 <script src="<?=base_url()?>/public/assets/libs/alertifyjs/build/alertify.min.js"></script>
+<!-- Custom Js -->
+<script src="<?=base_url()?>/public/assets/js/notification.js"></script>

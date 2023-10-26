@@ -247,3 +247,7 @@ body[data-layout-mode=dark] .container {
 .disabled-link {
   pointer-events: none;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}

@@ -213,6 +213,7 @@ class NotificationController extends BaseController
         if($model->addUserNotif($id,'all')):
             $pusher->trigger('my-channel','new-notifications',[
                 'data' => [
+                    'id' => $id,
                     'img' => $find->notificon,
                     'title' => $find->notiftitle,
                     'content' => $find->notiftext,
@@ -264,10 +265,29 @@ class NotificationController extends BaseController
             'route'=>'notification',
             'menuname' => 'View_Notif',
             'page'=>'',
-            'data' => $model->getNotif()->getResult()
+            'data' => $this->model->getNotificationbyUser()->getResult()
                 // 'title' => '$title',
                 // 'periode' => '$periode'
 		];
         return view('v_notif',$data);
+    }
+
+    public function viewNotif($id)
+    {
+        // set notif as view 
+        $code=400;
+        $arr = [
+            'status' => 'fail',
+            'message' => 'failed to Update Notification'
+        ];
+        $model = new UserNotifModel();
+        if($model->setView($id)) {
+            $arr = [
+                'status' => 'success',
+                'message' => lang('Files.Save_Success'),
+            ];
+            $code=200;
+        }
+        return $this->response->setJSON($arr)->setStatusCode($code);
     }
 }

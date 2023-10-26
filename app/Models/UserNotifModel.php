@@ -63,4 +63,11 @@ class UserNotifModel extends Model
         $sql = "select ifnull(count(1),0) as total from notifuser where userid = :id: and recordstatus=0";
         return $this->db->query($sql,['id'=>user_id()]);
     }
+
+    public function setView($id)
+    {
+        $sql = 'update notifuser set viewdate = now(), recordstatus=:status:
+            where notifid=:id: and userid=:userid:';
+        return (bool) $this->db->query($sql,['status'=>1,'id'=>$id,'userid'=>user_id()]);
+    }
 }
