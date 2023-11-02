@@ -20,3 +20,5 @@ application/logs/*
 public/assets/protected/*
 public/assets/images/*
 public/assets/videos/*
+
+app/Config/Pusher.php
