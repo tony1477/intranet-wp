@@ -4,6 +4,39 @@ function format_rupiah($angka){
   return $rupiah;
 }
 
+function getDayIndo(string $date) :string {
+  $str = '';
+  switch($date) {
+    case 'Mon':
+      $str = 'Senin';
+      break;
+
+    case 'Tue':
+      $str = 'Selasa';
+      break;
+    
+    case 'Wed':
+      $str = 'Rabu';
+      break;
+    
+    case 'Thu':
+      $str = 'Kamis';
+      break;
+
+    case 'Fri':
+      $str = 'Jumat';
+      break;
+
+    case 'Sat':
+      $str = 'Sabtu';
+      break;
+
+    default:
+      $str = 'Minggu';
+  }
+  return $str;
+}
+
 function getMenu($user) {
   // $user = $_SESSION['users'];
   $db = db_connect();

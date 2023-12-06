@@ -1,0 +1,134 @@
+.centerbar {
+  display: flex;
+  background: linear-gradient(54deg, black, #985a5a);
+  position: relative;
+  z-index: 2;
+  height: 630px;
+}
+
+.carousel-item {
+  /* Other Properties */
+  transition: transform 1.5s ease-out;
+}
+
+.card,
+.card-header {
+  border-radius: 0 !important;
+}
+
+.primary-bg {
+  background: #f1cf54;
+}
+
+.secondary-bg {
+  background: #e54c44;
+}
+
+.color-text {
+  color: #fffcef;
+}
+
+.auto-slider img {
+  display: block;
+}
+.auto-slider {
+  /* outline:1px solid red; */
+  /* width:720px; */
+  /* height:28vh; */
+  overflow-x: hidden;
+}
+
+.auto-slider__content {
+  list-style: none;
+  display: flex;
+  transition: transform 1s ease-in-out;
+  /* animation: transform 1s ease-in-out; */
+  /* animation-name: slide;
+    animation-duration:10s;
+    animation-iteration-count: infinite;
+    animation-timing-function:ease-in-out; */
+  /* animation: slide 10s ease-in-out infinite; */
+  /* animation-direction: alternate-reverse; */
+  flex-direction: row;
+}
+.auto-slider__content:hover {
+  animation-play-state: paused;
+}
+
+.display-none {
+  /* display: none; */
+  animation: scrollUpAnimation 1.5s ease-out;
+}
+
+.display-two {
+  animation: dnone 1.5 ease-out;
+}
+
+.display-three {
+  animation: scrollUp3 1.5 ease-out;
+}
+
+ul#ulMeeting {
+  transition: transform 1s ease-in-out;
+}
+
+#mainLayout .content {
+  max-height: 630px;
+}
+
+.card-employee {
+  max-height: 262px;
+  overflow: hidden;
+}
+
+.card-employee .list-group {
+  height: auto;
+  position: relative;
+  transition: transform 1s ease-in-out;
+}
+
+.centerbar #content {
+  max-height: 220px;
+  overflow: overlay;
+  text-align: justify;
+}
+
+.centerbar #content::-webkit-scrollbar {
+  display: none;
+}
+
+.centerbar #content {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+@keyframes slide {
+  10% {
+    transform: translateX(0);
+  }
+  15%,
+  30% {
+    transform: translateX(-442.25px);
+  }
+  35%,
+  50% {
+    transform: translateX(-884.5px);
+  }
+  55%,
+  70% {
+    transform: translateX(-1326.75px);
+  }
+  75%,
+  90% {
+    transform: translateX(-1769px);
+  }
+  95%,
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.footer-text {
+  /* display: flex; */
+  content: "";
+}
