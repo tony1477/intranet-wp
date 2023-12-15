@@ -43,7 +43,7 @@ class UserNotifModel extends Model
 
     public function addUserNotif($id,$type)
     {
-        $sql = "call notifUser(:id:,:type:)";
+        $sql = "call addNotifUser(:id:,:type:)";
         if($type==='all') $sql = "call addNotifUser(:id:,:type:)";
         return (bool) $this->db->query($sql,['id'=>$id,'type'=>$type]);
         // return true;
@@ -54,7 +54,7 @@ class UserNotifModel extends Model
         $sql = 'select a.notifid,b.notifuserid,a.notifdate,a.notiftitle,a.notificon,a.notiftext,a.url
                 from notif a
                 join notifuser b on b.notifid = a.notifid
-                where b.userid = :id: and b.recordstatus=:status: limit 3';
+                where b.userid = :id: and b.recordstatus=:status: order by notifid desc limit 3';
         return $this->db->query($sql,['id'=>user_id(),'status'=>0]);
     }
 
@@ -64,10 +64,12 @@ class UserNotifModel extends Model
         return $this->db->query($sql,['id'=>user_id()]);
     }
 
-    public function setView($id)
+    public function setView(array $arrayid)
     {
-        $sql = 'update notifuser set viewdate = now(), recordstatus=:status:
-            where notifid=:id: and userid=:userid:';
-        return (bool) $this->db->query($sql,['status'=>1,'id'=>$id,'userid'=>user_id()]);
+        // $id = implode(',',$arrayid);
+        // $sql = 'update notifuser set viewdate = now(), recordstatus=:status:
+        //     where notifuserid in (:id:) and userid=:userid:';
+        // return (bool) $this->db->query($sql,['status'=>1,'id'=>$id,'userid'=>user_id()]);
+        return (bool) $this->db->table('notifuser')->set('viewdate',date('Y-m-d H:i:s'))->set('recordstatus',1)->whereIn('notifuserid',$arrayid)->update();
     }
 }

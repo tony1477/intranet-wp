@@ -9,8 +9,12 @@ use App\Models\DepartmentModel;
 use App\Models\HelpdeskChoiceModel;
 use App\Models\HelpdeskDetailModel;
 use App\Models\ItHelpdeskModel;
+use App\Models\NotificationModel;
 use App\Models\UserModel;
+use App\Models\UserNotifModel;
 use CodeIgniter\Files\File;
+use Config\Pusher as PusherConfig;
+use Pusher\Pusher as Pusher;
 use Exception;
 
 class Ticketing extends BaseController
@@ -330,13 +334,15 @@ class Ticketing extends BaseController
             // save to db
             $data = [
                 'ticketdate' => date('Y-m-d H:i:s'),
+                'username' => $user,
                 'userid_req' => get_id($user),
                 'user_phone' => $phone,
                 'categoryid' => $dataid,
                 'categoryname' => $datavalue,
                 'user_request' => $req,
                 'user_reason' => $reason,
-                'id' => $id
+                'id' => $id,
+				'updater' => user_id(),
             ];
             if($attachment!==null) $data['user_attachment']=$attachment;
             else if(isset($datas['user_attachment']) && $datas['user_attachment']!='') $data['user_attachment'] = $datas['user_attachment'];
@@ -365,6 +371,39 @@ class Ticketing extends BaseController
                 // if($send->send()) $email->isemailcreate = 1;
                 // else $email->isemailcreate=0;
                 // $this->ticketing->save($email);
+
+                // send Notif
+                $savetoNotif = $this->ticketing->addToNotification($data);
+
+                if($savetoNotif->notifid>0):
+                    $notifmodel = new NotificationModel();
+                    $usernotif = new UserNotifModel();
+                    $usernotif->addUserNotif($savetoNotif->notifid,'ithelpdesk');
+                    $find = $notifmodel->find($savetoNotif->notifid);
+
+                    $pusherConfig = new PusherConfig();
+                    $pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->app_id, [
+                        'cluster' => $pusherConfig->cluster,
+                    ]);
+
+                    $pusher->trigger('my-channel','ithelpdesk',[
+                        'data' => [
+                            'id' => $savetoNotif->notifid,
+                            'img'=> $find->notificon,
+                            'title'=> $find->notiftitle,
+                            'content'=> $find->notiftext,
+                            'date'=> $find->notifdate,
+                            'url'=> $find->notifdate,
+                        ]
+                        ]);
+				else :
+                    $send = service('email');
+                    $send->setFrom('it@wilianperkasa.com','IT Helpdesk');
+                    $send->setTo('martoni.firman@wilianperkasa.com');
+                    $send->setSubject('Error save notification');
+                    $send->setMessage('Error when save notification. message :'.$savetoNotif);
+                    $send->send();
+                endif;
             }        
         }
         catch(Exception $e) {

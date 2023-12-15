@@ -302,27 +302,26 @@
                                                         endif;?>
                                                         <fieldset class="form-group border p-3">
                                                             <legend class="form-group px-2 " style="font-size:14px; font-weight:600">- <?=lang('Files.Needed_Item')?> - </legend>
-                                                            <div class="form-check">
+                                                            <!-- <div class="form-check">
                                                                 <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="zoom" value="Zoom" <?=($exp!=null && in_array('Zoom',$exp) ? 'checked' : '')?> >
                                                                 <label class="form-check-label" for="zoom">Zoom Meeting Lengkap (Kamera,Link Zoom, Speaker, Mic)</label>
-                                                            </div>
+                                                            </div> -->
                                                             <div class="form-check">
-                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="laptop" value="Laptop" <?=($exp!=null && in_array('Laptop',$exp) ? 'checked' : '')?> >
-                                                                <label class="form-check-label" for="laptop">Laptop</label>
+                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="laptop" value="Laptop IT" <?=($exp!=null && in_array('Laptop IT',$exp) ? 'checked' : '')?> >
+                                                                <label class="form-check-label" for="laptop">Laptop IT</label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="proyektor" value="Proyektor" <?=($exp!=null && in_array('Proyektor',$exp) ? 'checked' : '')?> >
                                                                 <label class="form-check-label" for="proyektor">Proyektor</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="link" value="Link Zoom" <?=($exp!=null && in_array('Link Zoom',$exp) ? 'checked' : '')?> >
-                                                                <label class="form-check-label" for="link">Link Zoom (Tanpa Ruangan)</label>
+                                                                <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="link" value="Laptop User" <?=($exp!=null && in_array('Laptop User',$exp) ? 'checked' : '')?> >
+                                                                <label class="form-check-label" for="link">Laptop User</label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input class="form-check-input requirement" type="checkbox" name="kebutuhan" id="others" value="others" <?=($exp!=null && in_array('others',$exp) ? 'checked' : '')?> >
                                                                 <label class="form-check-label" for="others">Lainnya</label> 
-                                                                <input type="text" class="form-control" name="notulen" id="notulen" style="border-top:0px;
-                                                                border-right:0px; border-left:0px; display:none">
+                                                                <input type="text" class="form-control d-none w-50" name="kebutuhan-input" id="others-input" style="border-top:0px;border-right:0px; border-left:0px;" aria-label="others-input" placeholder="Tulis kebutuhan lainnya">
                                                             </div>
                                                         </fieldset>
                                                         </div>
@@ -435,7 +434,16 @@
     const notulen = document.querySelector('#notulen')
     const submitted = document.querySelector('.submitted')
     // const el = new Choices(nameparti)
-    
+    const othersInput = document.querySelector('#others-input')
+    const others = document.querySelector('#others')
+    const handleSelect = () => {
+        if(others.checked) return othersInput.classList.remove('d-none')
+        return othersInput.classList.add('d-none')
+    }
+    const selectOpt = document.querySelectorAll('.requirement')
+    selectOpt.forEach(btn => {
+        btn.addEventListener('change',handleSelect)
+    })
     function nextTab1()
     {
         sessionStorage.setItem('fullname',fullname.value)
@@ -478,8 +486,8 @@
         reqcheckbox.forEach((item)=> {
             if(item.checked) requirement = (requirement != undefined ? requirement +','+item.value : item.value)
         })
+        if(others.checked) requirement = requirement+'('+othersInput.value+')'
         sessionStorage.setItem('requirement',requirement)
-        
         const items = { ...sessionStorage};        
         const loadingModal = new bootstrap.Modal(document.getElementById('myModal'), {
             keyboard: false

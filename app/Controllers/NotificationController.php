@@ -11,9 +11,11 @@ use Pusher\Pusher as Pusher;
 class NotificationController extends BaseController
 {
     private $model;
+    protected $notifuserid;
     public function __construct()
     {
         $this->model = new NotificationModel();
+        $this->notifuserid = null;
     }
 
     public function index()
@@ -265,7 +267,8 @@ class NotificationController extends BaseController
             'route'=>'notification',
             'menuname' => 'View_Notif',
             'page'=>'',
-            'data' => $this->model->getNotificationbyUser()->getResult()
+            'data' => $this->model->getNotificationbyUser()->getResult(),
+            'pager' => $this->model->pager,
                 // 'title' => '$title',
                 // 'periode' => '$periode'
 		];
@@ -280,11 +283,55 @@ class NotificationController extends BaseController
             'status' => 'fail',
             'message' => 'failed to Update Notification'
         ];
-        $model = new UserNotifModel();
-        if($model->setView($id)) {
+        // $model = new UserNotifModel();
+        if(!is_array($id)) $id = (array) $id;
+        $this->notifuserid = $id;
+        if($this->markReadNotif()) {
             $arr = [
                 'status' => 'success',
                 'message' => lang('Files.Save_Success'),
+            ];
+            $code=200;
+        }
+        return $this->response->setJSON($arr)->setStatusCode($code);
+    }
+
+    public function markReadNotif()
+    {
+        $id = $this->notifuserid;
+        if($this->request->getMethod()==='patch') $id = $this->request->getVar('id');
+        $code=400;
+        $arr = [
+            'status' => 'fail',
+            'message' => 'failed to Update Notification'
+        ];
+        $model = new UserNotifModel();
+        $update = (bool) ($model->setView($id));
+        if($update) {
+            $arr = [
+                'status' => 'success',
+                'message' => lang('Files.Update_Success'),
+            ];
+            $code=200;
+        }
+        return $this->response->setJSON($arr)->setStatusCode($code);
+    }
+
+    public function deleteNotif()
+    {
+        $id = $this->notifuserid;
+        if($this->request->getMethod()==='delete') $id = $this->request->getVar('id');
+        $code=400;
+        $arr = [
+            'status' => 'fail',
+            'message' => 'failed to Delete Notification'
+        ];
+        $model = new UserNotifModel();
+        $delete = (bool) $model->whereIn('notifuserid',$id)->delete();
+        if($delete) {
+            $arr = [
+                'status' => 'success',
+                'message' => lang('Files.Delete_Success'),
             ];
             $code=200;
         }

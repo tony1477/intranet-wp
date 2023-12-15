@@ -21,7 +21,7 @@ class DigitalInformation extends ResourceController
     protected $employeeModel;
     public function __construct()
     {
-        $this->model = new DigitalInformationModel();
+        // $this->model = new DigitalInformationModel();
         $this->eventsModel = new EventsModel();
         $this->galleriesModel = new GalleryModel();
         $this->quotesModel = new QutoesModel();
@@ -45,7 +45,7 @@ class DigitalInformation extends ResourceController
             'route' => 'digital-information',
             'menuname' => 'Digital Information',
             'columns_hidden' => array('Action'),
-            'data' => $this->model->findAll(),
+            // 'data' => $this->model->findAll(),
             'columns' => array('Action','Id','Title','Icon','Content','Url','Status'),
         ];
         return view('master/m_view',$data);
@@ -56,7 +56,7 @@ class DigitalInformation extends ResourceController
      *
      * @return mixed
      */
-    public function show($id = 'v1') :string
+    public function show($id = 'v2') :string
     {
         helper('admin_helper');
        
@@ -64,7 +64,7 @@ class DigitalInformation extends ResourceController
 		$data = [
 			'quotes' => $this->quotesModel->asArray()->where('recordstatus',1)->findAll(),
 			'galleries' => $this->galleriesModel->asArray()->where('recordstatus',1)->findAll(),
-			'videos' => $this->videosModel->asArray()->where('recordstatus',1)->findAll(),
+			'videos' => $this->videosModel->asArray()->where('recordstatus',1)->orderBy('orderAt','asc')->findAll(),
 			'runtext' => $this->runTextModel->asArray()->where('recordstatus',1)->findAll(),
 			'bestemployees' => $this->employeeModel->getPointLevel()->getResultArray(),
 			'events' => $this->eventsModel->asArray()->where('recordstatus',1)->findAll(),

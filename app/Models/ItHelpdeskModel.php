@@ -66,8 +66,8 @@ class ItHelpdeskModel extends Model
         $this->db->transStart();
         $attachment=null;
         if(array_key_exists('user_attachment',$data)) $attachment = $data['user_attachment'];
-        $sql = 'call updateItHelpdesk(:vid:,:vcategoryid:,:vcategoryname:,:vuser_phone:,:vuser_request:,:vuser_reason:,:vuser_attachment:)';
-        $this->db->query($sql,['vid'=>$data['id'],'vcategoryid'=>$data['categoryid'], 'vcategoryname'=>$data['categoryname'],'vuser_phone'=>$data['user_phone'],'vuser_request'=>$data['user_request'],'vuser_reason'=>$data['user_reason'],'vuser_attachment'=>$attachment]);
+        $sql = 'call updateItHelpdesk(:vid:,:vcategoryid:,:vcategoryname:,:vuser_phone:,:vuser_request:,:vuser_reason:,:vuser_attachment:,:vupdater:)';
+        $this->db->query($sql,['vid'=>$data['id'],'vcategoryid'=>$data['categoryid'], 'vcategoryname'=>$data['categoryname'],'vuser_phone'=>$data['user_phone'],'vuser_request'=>$data['user_request'],'vuser_reason'=>$data['user_reason'],'vuser_attachment'=>$attachment,'vupdater'=>$data['updater']]);
         $this->db->transComplete();
         if ($this->db->transStatus() === false) {
             return false;
@@ -348,5 +348,32 @@ class ItHelpdeskModel extends Model
         }
         $this->db->transComplete();
         return true;        
+    }
+	
+	public function addToNotification($data)
+    {
+        // $this->db->transStart();
+        $sql = 'call insertNotif(:notiftitle:,:notificon:,:notiftext:,:url:,:notiftype:)';
+
+        $notiftitle = 'Ticket IT Helpdesk';
+        $notificon = 'mdi mdi-clipboard-check';
+        $notiftext = 'Ada permintaan Ticketing IT Helpdesk yang diajukan oleh '.$data['username'].' pada tanggal '.date('d/M/Y').' dengan pesan sebagai berikut : '.$data['user_request'];
+        $url = 'http://wilianperkasa.synology.me:88/intranet-wp/list-helpdesk';
+        $notiftype = 'ithelpdesk';
+
+        $bool = (bool) $this->db->query($sql,[
+            'notiftitle'=>$notiftitle,
+            'notificon'=>$notificon,
+            'notiftext'=>$notiftext,
+            'url'=>$url,
+            'notiftype'=>$notiftype,
+        ]);
+        if($bool) $sql1 = $this->db->query("SELECT LAST_INSERT_ID() as notifid;")->getRow();
+
+        // if ($this->db->transStatus() === false) {
+            // return 0;
+        // }
+        // $this->db->transComplete();
+        return $sql1;
     }
 }

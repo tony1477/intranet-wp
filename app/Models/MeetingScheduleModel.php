@@ -55,7 +55,7 @@ class MeetingScheduleModel extends Model
 
     public function getPesertaMeeting($idpeminjaman)
     {
-        return $this->db->query("select nama_peserta,bagian,email from peserta_meeting where idpeminjaman = ".$idpeminjaman);
+        return $this->db->query("select nama_peserta,bagian,email from peserta_meeting where idpeminjaman = ".$idpeminjaman." order by id asc");
     }
 
     public function checkAvailableRoom($idroom,$startdate,$starttime,$endtime)

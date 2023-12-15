@@ -79,6 +79,15 @@
                                         </div>
                                     </div>
                                 </div> -->
+                                <div class="btn-toolbar p-3" role="toolbar">
+                                    <div class="btn-group me-2 mb-2 mb-sm-0">
+                                        <button type="button" class="btn btn-secondary waves-light waves-effect mark-read">Mark as Read <i class="fa fa-inbox"></i></button>
+                                    </div>
+                                    <div class="btn-group me-2 mb-2 mb-sm-0">
+                                        <button type="button" class="btn btn-danger waves-light waves-effect mark-delete">Delete Notification <i class="fa fa-trash"></i> 
+                                        </button>
+                                    </div>
+                                </div>
                                 <ul class="message-list">
                                     <!-- <li>
                                         <div class="col-mail col-mail-1">
@@ -98,13 +107,13 @@
                                     <li <?=($row->recordstatus==1 ? 'class="bg-light"' : '')?> >
                                         <div class="col-mail col-mail-1">
                                             <div class="checkbox-wrapper-mail">
-                                                <input type="checkbox" id="chk<?=$row->notifid?>">
+                                                <input type="checkbox" id="chk<?=$row->notifid?>" data-id="<?=$row->notifuserid?>">
                                                 <label for="chk<?=$row->notifid?>" class="toggle"></label>
                                             </div>
                                             <a href="#" class="title"><?=$row->notiftitle?></a>
                                         </div>
                                         <div class="col-mail col-mail-2">
-                                            <a href="#" class="subject"><span class="teaser"><?=$row->notiftext?></span>
+                                            <a href="#" class="subject" onclick="viewnotif(this)" data-id="<?=$row->notifuserid?>" data-href="<?=$row->url?>"><span class="teaser"><?=$row->notiftext?></span>
                                             </a>
                                             <div class="date"><?=date('d/M/Y',strtotime($row->notifdate))?></div>
                                         </div>
@@ -147,5 +156,63 @@
 <?= $this->include('partials/sweetalert') ?>
 
 <script src="<?=base_url()?>/public/assets/js/app.js"></script>
+<script>
+    const arr = []
+    // const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked')
+    const readBtn = document.querySelector('.mark-read')
+    const deleteBtn = document.querySelector('.mark-delete')
+
+    readBtn.addEventListener('click', function(){
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked')
+        let arr = [...checkboxes]
+        let id = arr.map(btn => {
+            return btn.dataset.id
+        })
+        markAsRead(id)
+    })
+
+    deleteBtn.addEventListener('click', function(){
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked')
+        let arr = [...checkboxes]
+        let id = arr.map(btn => {
+            return btn.dataset.id
+        })
+        deletedNotif(id)
+    })
+
+    let markAsRead = function(ids) {
+        fetch('reads',{
+            method:'PATCH',
+            mode:'cors',
+            cache:'no-cache',
+            headers: {
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify({'id':ids})
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if(data.status==='success') return location.reload()
+            return Swal.fire('Warning',data.message,'warning');
+        })
+    }
+
+    let deletedNotif = function(ids) {
+        fetch('deletes',{
+            method:'DELETE',
+            mode:'cors',
+            cache:'no-cache',
+            headers: {
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify({'id':ids})
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if(data.status==='success') return location.reload()
+            return Swal.fire('Warning',data.message,'warning');
+        })
+    }
+</script>
 </body>
 </html>

@@ -34,7 +34,7 @@ $(document).ready(function() {
                 const el = document.createElement('a')
                 el.className = 'text-reset notification-item cursor-pointer'
                 el.setAttribute('data-href',row.url)
-                el.setAttribute('data-id',row.notifid)
+                el.setAttribute('data-id',row.notifuserid)
                 el.setAttribute('onclick','viewnotif(this)')
                 el.innerHTML = `<div class="d-flex">
                     <div class="flex-shrink-0 avatar-sm me-3">
@@ -81,7 +81,7 @@ $(document).ready(function() {
         
         const channel = pusher.subscribe('my-channel');
         
-        channel.bind('dev-notif', (data) => {
+        channel.bind('new-notifications', (data) => {
             // Handle the new notification event
             // console.log(data)
             const notifContainer = document.querySelector('.simplebar-content');
@@ -90,7 +90,7 @@ $(document).ready(function() {
                 const el = document.createElement('a')
                 el.className = 'text-reset notification-item cursor-pointer'
                 el.setAttribute('data-href',row.url)
-                el.setAttribute('data-id',row.id)
+                el.setAttribute('data-id',row.notifuserid)
                 el.setAttribute('onclick','viewnotif(this)')
                 el.innerHTML = `<div class="d-flex">
                 <div class="flex-shrink-0 avatar-sm me-3">
@@ -105,7 +105,7 @@ $(document).ready(function() {
                     </div>
                 </div>
             </div>`
-            notifContainer.appendChild(el)
+            notifContainer.prepend(el)
             // })
             getNotification()
             alertify.set('notifier','position', 'top-right');

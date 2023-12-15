@@ -82,7 +82,7 @@ class ArticleModel extends Model
 
     public function searchArticle(string $query, int $page, string $pagination)
     {
-        return $this->select('title,content,image,posted_date,created_at')
+        return $this->select('articleid,title,content,image,posted_date,created_at')
         ->like('title',$query)
         ->orLike('content',$query)
         ->where('status',1)

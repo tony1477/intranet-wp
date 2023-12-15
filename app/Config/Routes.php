@@ -401,6 +401,8 @@ $routes->get('notification/user','NotificationController::getNotifData');
 $routes->get('notification/user/total','NotificationController::getNotifNumber');
 $routes->get('notification/view','NotificationController::notifPage');
 $routes->get('notification/view/(:num)','NotificationController::viewNotif/$1');
+$routes->patch('notification/reads','NotificationController::markReadNotif');
+$routes->delete('notification/deletes','NotificationController::deleteNotif');
 
 ## Website
 $routes->get('tentang/profil','Website/About/Profile::index');
@@ -459,6 +461,12 @@ $routes->post('informasi/karir/delete', 'Website/Info/Career::delete');
 $routes->get('informasi/lokasi','Website/Info/Location::index');
 $routes->post('informasi/lokasi/post', 'Website/Info/Location::save');
 $routes->post('informasi/lokasi/delete', 'Website/Info/Location::delete');
+
+## Display Informatiom
+$routes->get('display-information/','Master/DigitalInformation::show');
+$routes->get('display-information/settings','Master/DigitalInformation::index');
+$routes->get('display-information/(:segment)','Master\DigitalInformation::show/$1');
+
 // RESOURCE
 //$routes->resource('grupdivisi', ['controller' => 'Api\Grupdivisi']);
 

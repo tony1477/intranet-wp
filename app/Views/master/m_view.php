@@ -104,7 +104,7 @@
                                 <?php
                                 if(!empty($custombutton)):
                                 foreach($custombutton as $button):
-                                if(isset($button['loadfile']) && $button['loadfile']!==null && $button['toggle'])
+                                if(isset($button['loadfile']) && $button['loadfile']!==null)
                                     $data['id'] = $button['id'];
                                     $data['title'] = $button['title'];
                                     echo view($button['loadfile'],$data);

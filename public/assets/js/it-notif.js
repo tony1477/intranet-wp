@@ -4,8 +4,8 @@ $(document).ready(function() {
         const pusher = new Pusher('5484a2d917d249565526', {
             cluster: 'ap1',
             encrypted: true
-        });
-        
+        });       
+
         const channel = pusher.subscribe('my-channel');
         
         channel.bind('ithelpdesk', (data) => {
@@ -41,5 +41,38 @@ $(document).ready(function() {
         });
     }
 
+    function getUrl() {
+        const hostname = window.location.hostname;
+        let baseUrl='';
+        // Periksa apakah hostname adalah "localhost" atau IP lokal
+        if (hostname === 'localhost' || /^(\d{1,3}\.){3}\d{1,3}$/.test(hostname)) {
+            // Jika sedang dalam mode pengembangan lokal, atur base URL ke localhost/subfolder
+            // baseUrl = 'http://localhost/intranet/';
+            baseUrl = 'http://192.168.5.87/intranet/';
+        } else {
+            // Jika dalam mode produksi, atur base URL ke domain produksi
+            baseUrl = 'http://wilianperkasa.synology.me:88/intranet-wp/';
+        }
+        return baseUrl
+    }
+
+    function getNotification() {
+            const url = getUrl()+'notification/user/total'
+            fetch(url,{
+                method:'GET',
+                mode:'cors',
+                cache:'no-cache',
+                headers: {
+                    'Content-Type':'application/json',
+                    'X-Requested-With':'XMLHttpRequest'
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                // console.log(data)
+                const notifNumber = document.querySelector('.notif-number');
+                notifNumber.innerHTML = data.number
+            })
+    }
     ithelpdeskNotif();
 })

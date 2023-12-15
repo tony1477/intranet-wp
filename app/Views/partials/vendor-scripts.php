@@ -12,4 +12,4 @@
 <script src="<?=base_url()?>/public/assets/libs/alertifyjs/build/alertify.min.js"></script>
 <!-- Custom Js -->
 <script src="<?=base_url()?>/public/assets/js/notification.js"></script>
-<?=(in_groups('ithelpdesk') ? '<script src="'.base_url().'/public/assets/js/it-notif.js"></script>' : 'not in')?>
+<?=(in_groups('ithelpdesk') ? '<script src="'.base_url().'/public/assets/js/it-notif.js"></script>' : '')?>
