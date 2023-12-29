@@ -117,6 +117,7 @@
                                             <th>No</th>
                                             <th>Nomor Tiket</th>
                                             <th>Tanggal Open Tiket</th>
+                                            <th class="d-none">Tanggal Close Tiket</th>
                                             <th>Kategori</th>
                                             <th>Urgensi</th>
                                             <th>Diajukan Oleh</th>

@@ -278,13 +278,16 @@ class ItHelpdeskModel extends Model
         }
     }
 
-    public function getRespDT(string $status)
+    public function getRespDT(string $status, string ...$opts)
     {
         $exp_status = explode(',',$status);
         $sql = $this->db->table('ithelpdesk a')
         ->select("helpdeskid, ticketno, ticketopen, ticketclose, urgency as urgency, (select categoryname from helpdesk_issue b join helpdesk_choice c on c.choiceid = b.categoryid where b.helpdeskid = a.helpdeskid and c.parentid is null limit 1) as category, (select fullname from users u where u.id = a.userid_req) as fullname, (select wfstatusname from wfstatus d where d.workflowid=1 and d.wfstat=a.recordstatus) as status");
-        $sql->whereIn('recordstatus',$exp_status)
-        ->orderBy('a.ticketno','desc');
+        $sql->whereIn('recordstatus',$exp_status);
+        if($opts!='') {
+            $sql->limit($opts[0],$opts[1]);
+        }
+        $sql->orderBy($opts[2],$opts[3]);
         return $sql->get();
     }
 

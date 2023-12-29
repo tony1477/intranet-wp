@@ -45,23 +45,26 @@ class Response extends BaseController
                 $stt = '0,12';
                 break;
         }
+        $columns = array('helpdeskid','ticketno','ticketopen','ticketclose','category','fullname','urgency','status');
         // Process the AJAX request
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['draw'])) {
             $draw = $_POST['draw'];
             $start = $_POST['start'];
             $length = $_POST['length'];
             $searchValue = $_POST['search']['value'];
+            $orderColumn = $_POST['order'][0]['column'];
+            $orderDir = $_POST['order'][0]['dir'];
             $filteredData = [];
             
             // Apply any necessary filtering or searching to your data
-            $data = $this->respModel->getRespDT($stt); // Example: No filtering applied
+            $data = $this->respModel->getRespDT($stt,$length,$start,$columns[$orderColumn],$orderDir); // Example: No filtering applied
             $alldata = $this->respModel->getSummResp($stt);
 
             // Prepare the data to be sent as a response
             $response = [
                 "draw" => intval($draw),
                 "recordsTotal" => intval($alldata->getRow()->total),
-                "recordsFiltered" => count($data->getResultArray()),
+                "recordsFiltered" => intval($alldata->getRow()->total),
                 "data" => [],
                 // "list" => getWfbyUserid('listhelpdesk',user_id())
             ];
@@ -77,7 +80,8 @@ class Response extends BaseController
             }           
 
             // Slice the data based on the requested start and length
-            $pagedData = array_slice($filteredData, $start, $length);
+            // $pagedData = array_slice($filteredData, $start, $length);
+            $pagedData = $filteredData;
 
             // Loop through the sliced data and format it for the response
             $canedit=true;
@@ -86,7 +90,7 @@ class Response extends BaseController
                     "id" => $row['helpdeskid'],
                     "ticketno" => $row['ticketno'],
                     "ticketdate" => ($row['ticketopen']!='' ? date('d/m/Y H:i',strtotime($row['ticketopen'])) : '-'),
-                    "ticketclose" => date('d/m/Y H:i',strtotime($row['ticketclose'])),
+                    "ticketclose" => ($row['ticketclose']!==null ? date('d/m/Y H:i',strtotime($row['ticketclose'])) : '-'),
                     "category" => $row['category'],
                     "urgencytype" => $row['urgency'],
                     "userrequest" => $row['fullname'],
