@@ -93,7 +93,7 @@
                                             </thead>
                                             <tbody>
                                                 <?php 
-                                                $arr = explode(',',$row->nama_peserta);
+                                                // if($row->nama_peserta!=null) $arr = explode(',',$row->nama_peserta);
                                                 $i=1;
                                                 foreach($participant as $person) : ?>
                                                 <tr>

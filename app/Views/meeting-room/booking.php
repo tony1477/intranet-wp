@@ -95,6 +95,7 @@
                                                         <div class="mb-3">
                                                             <label for="basicpill-firstname-input" class="form-label"><?=lang('Files.Fullname')?></label>
                                                             <input type="text" class="form-control" name="fullname" id="fullname" value="<?=user()->fullname?>"  <?= (user()->fullname != '') ? 'readonly' : ''?>>
+                                                            <input type="hidden" class="form-control" name="idpeminjaman" id="idpeminjaman" value="<?=($edited==true ? $data[0]->idpeminjaman : '')?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
@@ -488,6 +489,12 @@
         })
         if(others.checked) requirement = requirement+'('+othersInput.value+')'
         sessionStorage.setItem('requirement',requirement)
+        <?php 
+            if($edited) { ?>
+            const idpeminjaman = document.querySelector('#idpeminjaman')
+            sessionStorage.setItem('idpeminjaman',idpeminjaman.value);
+            <?php }
+        ?>
         const items = { ...sessionStorage};        
         const loadingModal = new bootstrap.Modal(document.getElementById('myModal'), {
             keyboard: false

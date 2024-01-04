@@ -146,36 +146,45 @@ class MeetingSchedule extends BaseController
                     // 'tgl_m'=>date('Y-m-d'),
                     // 'time_m'=>date("h:i:s a")
                 ];
+                if(array_key_exists('idpeminjaman',$datas)) $data['idpeminjaman'] = $datas['idpeminjaman'];
+
                 // check ruangan dengan jam booking
-                $check = $this->model->checkAvailableRoom($datas['room'],$datas['startdate'],$datas['starttime'],$datas['endtime'])->getResult();
-                if($check[0]->status=='OK') {
-                    $datapeserta = json_decode($datas['table']);
+                if(!array_key_exists('idpeminjaman',$data)) {
+                    $check = $this->model->checkAvailableRoom($datas['room'],$datas['startdate'],$datas['starttime'],$datas['endtime'])->getResult();
+                    if($check[0]->status!='OK') throw new Exception("Jadwal ruangan yang anda pilih sudah di booking sebelumnya", 1);   
+                }
+                $datapeserta = json_decode($datas['table']);
+                if(!array_key_exists('idpeminjaman',$data)) {
                     $this->model->insert($data);
                     $last_insert_id = $this->model->getInsertID();
-                    $this->model->insertPeserta($last_insert_id,$datapeserta);
-                                    
-                    // //send email to admin HRGA
-                    // $emailto = 'martoni.firman@wilianperkasa.com';
-                    $emailto = 'admin.hrga@wilianperkasa.com';
-                    $email  = service('email');
-                    // $fromEmail = 'it@wilianperkasa.com';
-                    $fromEmail = 'dont-reply@wilianperkasa.com';
-                    $fromName = 'Email Service Wilian Perkasa';
-
-                    $sent = $email->setFrom($fromEmail, $fromName)
-                        ->setTo($emailto)
-                        ->setSubject('Info Peminjaman Ruangan')
-                        ->setMessage(view('email/booking_ruangan',['data'=>$datas]))
-                        ->setMailType('html')
-                        ->send();
-
-                    $message = lang('Files.Save_Success');
-                    $arr = array(
-                        'status' => 'success',
-                        'code' => 200,
-                        'message' => $message
-                    );
                 }
+                else {
+                    $this->model->update($data['idpeminjaman'],$data);
+                    $last_insert_id = $data['idpeminjaman'];
+                }
+                $this->model->insertPeserta($last_insert_id,$datapeserta);
+                                
+                // //send email to admin HRGA
+                // $emailto = 'martoni.firman@wilianperkasa.com';
+                $emailto = 'admin.hrga@wilianperkasa.com';
+                $email  = service('email');
+                // $fromEmail = 'it@wilianperkasa.com';
+                $fromEmail = 'dont-reply@wilianperkasa.com';
+                $fromName = 'Email Service Wilian Perkasa';
+
+                $sent = $email->setFrom($fromEmail, $fromName)
+                    ->setTo($emailto)
+                    ->setSubject('Info Peminjaman Ruangan')
+                    ->setMessage(view('email/booking_ruangan',['data'=>$datas]))
+                    ->setMailType('html')
+                    ->send();
+
+                $message = lang('Files.Save_Success');
+                $arr = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => $message
+                );
             }catch (\Exception $e) {
                 $arr = array(
                     'message' => $e->getMessage(),

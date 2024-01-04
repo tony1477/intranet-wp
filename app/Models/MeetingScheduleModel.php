@@ -43,14 +43,15 @@ class MeetingScheduleModel extends Model
 
     public function insertPeserta($id,$datas)
     {
+        $this->db->query('delete from peserta_meeting where idpeminjaman = :id:',['id'=>$id]);
         $sql='';
         foreach($datas as $data):
-            $sql = ($sql != '' ? $sql.",(".$id.",'".$data->nama."','".$data->bagian."','".$data->email."','".$data->isexternal."')" : "(".$id.",'".$data->nama."','".$data->bagian."','".$data->email."','".$data->isexternal."')");
+            $sql = ($sql != '' ? $sql.",(".$id.",'".$data->nama."','".$data->bagian."','".$data->email."')" : "(".$id.",'".$data->nama."','".$data->bagian."','".$data->email."')");
         endforeach;
 
         $values = "VALUES".$sql;
         // var_dump($values);
-        $this->db->query("insert into peserta_meeting(idpeminjaman,nama_peserta,bagian,email,isexternal) {$values}");
+        $this->db->query("insert into peserta_meeting(idpeminjaman,nama_peserta,bagian,email) {$values}");
     }
 
     public function getPesertaMeeting($idpeminjaman)
