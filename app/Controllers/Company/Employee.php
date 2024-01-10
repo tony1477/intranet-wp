@@ -39,16 +39,19 @@ class Employee extends BaseController
     public function getPoint($id)
     {
         try {
+            $start = $_REQUEST['start'];
+            $length = $_REQUEST['length'];
             $code = 200;
             $data = $this->model->getPointEmployee($id)->getResultArray();
             $response = [
-                'draw' => 1,
+                'draw' => $_REQUEST['draw'],
                 "recordsTotal" => intval(count($data)),
                 "recordsFiltered" => intval(count($data)),
                 'status' => 'success',
                 'data' => [],
             ];
-            foreach($data as $row):
+            $pagedata = array_slice($data, $start, $length);
+            foreach($pagedata as $row):
                 $response['data'][] = [
                     'monthlyid' => $row['monthlyabsid'],
                     'periode' => date('M Y',strtotime($row['periode'])),
