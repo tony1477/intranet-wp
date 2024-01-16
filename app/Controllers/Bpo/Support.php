@@ -296,8 +296,8 @@ class Support extends BaseController
             $_SESSION['filePdf'] = $row['dok_nmfile'];
             return view('master/bpo/viewpdf');
         }
-        $data = ['message'=>lang('Files.Sorry').' '.lang('Files.Data').' '.$file.' '.lang('Files.Not_Found')];
-        return view('pages-404',$data);
+        // $data = ['message'=>lang('Files.Sorry').' '.lang('Files.Data').' '.$file.' '.lang('Files.Not_Found')];
+        return view('pages-401.html');
     }
 
     public function downloadform($type,$file,$urut)

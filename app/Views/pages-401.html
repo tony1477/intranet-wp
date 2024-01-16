@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unauthorized | Wilian Perkasa</title>
+    <style>
+      * {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+
+      body {
+        text-align: center;
+        margin: 0;
+        background: linear-gradient(120deg, #6f1e51 0%, #ed4c67 100%);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        color: #fff;
+      }
+
+      img {
+        width: 250px;
+        margin: auto;
+        padding-top: 3em;
+      }
+
+      h1 {
+        font-weight: 200;
+        font-size: 4em;
+        margin: 1em;
+      }
+
+      p {
+        font-size: 1.2em;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <img id="imglock" alt="" />
+      <h1>401 Unauthorized</h1>
+      <p>Maaf, anda tidak berhak untuk akses halaman ini</p>
+    </div>
+  </body>
+  <script>
+    var url = window.location.origin;
+    var imglock = document.getElementById("imglock");
+    var path = "/intranet-wp/public/assets/images/lock-wp.png";
+    imglock.src = url + path;
+    // host.innerHTML = url + path;
+  </script>
+</html>
