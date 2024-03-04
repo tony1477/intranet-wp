@@ -29,10 +29,10 @@ class EmployeeModel extends Model
         (
             select z.name, sum(z.point1) as `point1`, sum(z.point2) as `point2`, employeeid, position, user_image, dep_kode from
             (
-                select (m.point) as `point1`, m.monthly, (select position from employee e where e.employeeid = m.employeeid) as position, (select fullname from employee e where e.employeeid = m.employeeid) as name, m2.description, ifnull(u.user_image,'default.png') as user_image,
-                ifnull(m2.`point`,0) as point2, m.employeeid, m.employeecode, f.dep_kode
+                select (m.point) as `point1`, m.monthly, (select position from employee e where e.employeeid = m.employeeid) as position, (select fullname from employee e where e.employeeid = m.employeeid) as name, ifnull(u.user_image,'default.png') as user_image,
+                (select ifnull(sum(point),0) from monthlyabsdetail m2 where m2.monthlyabsid = m.monthlyabsid) as point2, m.employeeid, m.employeecode, f.dep_kode
                 from monthlyabs m
-                left join monthlyabsdetail m2 on m2.monthlyabsid = m.monthlyabsid
+                -- left join monthlyabsdetail m2 on m2.monthlyabsid = m.monthlyabsid
                 left join users u on u.employeeid = m.employeeid
                 left join employee e on e.employeeid = m.employeeid
                 left join tbl_ifmdepartemen f on f.iddepartment = u.iddepartment
@@ -44,7 +44,8 @@ class EmployeeModel extends Model
         ) zz ) zzz
         join monthlyabs m3 on m3.employeeid = zzz.employeeid
         where m3.monthly=1
-        order by totalpoint {$sort} limit 3");
+        group by m3.employeeid
+        order by totalpoint {$sort}  limit 3");
     }
 
     public function getPoints()
