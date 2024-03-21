@@ -43,6 +43,7 @@ $routes->group('', ['namespace' => 'App\Controllers'], static function ($routes)
     $routes->post('forgot', 'AuthController::attemptForgot');
 });
 
+$routes->get('pages-401','Home::pages401');
 /*
  * --------------------------------------------------------------------
  * Route Definitions
@@ -467,8 +468,21 @@ $routes->get('display-information/','Master/DigitalInformation::show');
 $routes->get('display-information/settings','Master/DigitalInformation::index');
 $routes->get('display-information/(:segment)','Master\DigitalInformation::show/$1');
 
+## Recruitment
+$routes->get('e-recruitment','Recruitment/CandidateEmployee::index');
+$routes->get('e-recruitment/login','Recruitment/CandidateEmployee::login');
+$routes->get('e-recruitment/(:num)/detail','Recruitment\CandidateEmployee::detail/$1');
+$routes->post('e-recruitment/process','Recruitment\CandidateEmployee::process');
+$routes->post('e-recruitment/(:num)/consider','Recruitment\CandidateEmployee::consider/$1');
+$routes->post('e-recruitment/(:num)/notprocess','Recruitment\CandidateEmployee::notProcess/$1');
+$routes->post('e-recruitment/(:num)/addnotes','Recruitment\CandidateEmployee::addNotes/$1');
+$routes->post('e-recruitment/(:num)/blacklist','Recruitment\CandidateEmployee::blacklist/$1');
+// $routes->get('e-recruitment/home','Recruitment/CandidateEmployee::home');
 // RESOURCE
 //$routes->resource('grupdivisi', ['controller' => 'Api\Grupdivisi']);
+
+## Just Testing
+$routes->get('theme','Theme::index');
 
 /*
  * --------------------------------------------------------------------

@@ -1,29 +1,29 @@
 @font-face {
   font-family: "Apple Chancery";
-  src: url('../fonts/apple_chancery-webfont.woff2') format('woff2'),
-       url('../fonts/apple_chancery-webfont.woff') format('woff');
+  src: url("../fonts/apple_chancery-webfont.woff2") format("woff2"),
+    url("../fonts/apple_chancery-webfont.woff") format("woff");
   font-weight: normal;
-  font-style: normal ;
+  font-style: normal;
 }
 
 .logo-txt {
-    font-family: 'Times New Roman',Cinzel;
-    font-weight: 700;
-    /* color: rgba(173, 47, 47,9); */
-    letter-spacing: 1.5px;
-    font-size: 18px;
+  font-family: "Times New Roman", Cinzel;
+  font-weight: 700;
+  /* color: rgba(173, 47, 47,9); */
+  letter-spacing: 1.5px;
+  font-size: 18px;
 }
 
 ul.list-misi {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 ul.list-misi li::first-letter {
-    text-transform: uppercase;
-    font-size: 1.5em;
-    font-weight: 400;
-    color: rgba(173, 47, 47,9);
-    /* font-family: 'Roboto'; */
+  text-transform: uppercase;
+  font-size: 1.5em;
+  font-weight: 400;
+  color: rgba(173, 47, 47, 9);
+  /* font-family: 'Roboto'; */
 }
 
 .width-48 {
@@ -32,7 +32,7 @@ ul.list-misi li::first-letter {
 }
 
 .photo-profile img {
-  transition: transform .2s;
+  transition: transform 0.2s;
 }
 
 .photo-profile:hover img {
@@ -58,24 +58,26 @@ ul.list-misi li::first-letter {
   content: "\F01A5";
   color: rgba(255, 217, 3, 1);
   font-size: 25px;
-  font-family: 'Material Design Icons';
+  font-family: "Material Design Icons";
   position: absolute;
-  top: -.75rem;
+  top: -0.75rem;
 }
 
-
-.bg-silver {background: rgb(149 139 139 / 55%);}
+.bg-silver {
+  background: rgb(149 139 139 / 55%);
+}
 
 .bg-silver::before {
   content: "\F01A5";
-  color:silver;
+  color: silver;
   font-size: 25px;
-  font-family: 'Material Design Icons';
+  font-family: "Material Design Icons";
   position: absolute;
-  top: -.75rem;
+  top: -0.75rem;
 }
 
-.bg-bronze, .bg-bronze2 {
+.bg-bronze,
+.bg-bronze2 {
   background: rgb(205 127 50 / 55%);
 }
 
@@ -83,9 +85,9 @@ ul.list-misi li::first-letter {
   content: "\F01A5";
   color: rgb(205 140 76);
   font-size: 25px;
-  font-family: 'Material Design Icons';
+  font-family: "Material Design Icons";
   position: absolute;
-  top: -.75rem;
+  top: -0.75rem;
 }
 
 .star-level {
@@ -95,7 +97,13 @@ ul.list-misi li::first-letter {
 }
 
 .star-rising {
-  background: -webkit-gradient(linear, left bottom, left top, from(rgba(235, 201, 77, 1)), to(rgba(231, 154, 26, 1)));
+  background: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    from(rgba(235, 201, 77, 1)),
+    to(rgba(231, 154, 26, 1))
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -113,13 +121,14 @@ ul.list-misi li::first-letter {
 }
 
 ul.list-misi li {
-    font-size: 1.5em;
-    font-weight: 300;
-    font-style: oblique;
+  font-size: 1.5em;
+  font-weight: 300;
+  font-style: oblique;
 }
 
-.slider-front, .meeting-list {
-    min-height: 500px;
+.slider-front,
+.meeting-list {
+  min-height: 500px;
 }
 
 .point-level {
@@ -127,71 +136,79 @@ ul.list-misi li {
 }
 
 .vertical-menu {
-    top:130px;
+  top: 130px;
 }
 
 div.slogan {
-    background: 50% 100%/50% 50% no-repeat radial-gradient(ellipse at bottom, rgba(200,29,29,.9), transparent, transparent);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-family: "Apple Chancery";
-    letter-spacing: 1.2px;
-    font-size: 16px;    
-    -webkit-animation: reveal 3000ms ease-in-out forwards 200ms, glow 2500ms linear infinite 2000ms;
-            animation: reveal 3000ms ease-in-out forwards 200ms, glow 2500ms linear infinite 2000ms;
+  background: 50% 100%/50% 50% no-repeat
+    radial-gradient(
+      ellipse at bottom,
+      rgba(200, 29, 29, 0.9),
+      transparent,
+      transparent
+    );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-family: "Apple Chancery";
+  letter-spacing: 1.2px;
+  font-size: 16px;
+  -webkit-animation: reveal 3000ms ease-in-out forwards 200ms,
+    glow 2500ms linear infinite 2000ms;
+  animation: reveal 3000ms ease-in-out forwards 200ms,
+    glow 2500ms linear infinite 2000ms;
+}
+@-webkit-keyframes reveal {
+  80% {
+    letter-spacing: 1.5px;
   }
-  @-webkit-keyframes reveal {
-    80% {
-      letter-spacing: 1.5px;
-    }
-    100% {
-      background-size: 300% 300%;
-    }
+  100% {
+    background-size: 300% 300%;
   }
-  @keyframes reveal {
-    80% {
-      letter-spacing: 1.5px;
-    }
-    100% {
-      background-size: 300% 300%;
-    }
+}
+@keyframes reveal {
+  80% {
+    letter-spacing: 1.5px;
   }
-  @-webkit-keyframes glow {
-    40% {
-      text-shadow: 0 0 4px rgba(200,29,29,.9);
-    }
+  100% {
+    background-size: 300% 300%;
   }
-  @keyframes glow {
-    40% {
-      text-shadow: 0 0 4px rgba(200,29,29,.9);
-    }
+}
+@-webkit-keyframes glow {
+  40% {
+    text-shadow: 0 0 4px rgba(200, 29, 29, 0.9);
   }
+}
+@keyframes glow {
+  40% {
+    text-shadow: 0 0 4px rgba(200, 29, 29, 0.9);
+  }
+}
 
-  .form-check-input-helpdesk {
-    width: 1.35rem;
-    height: 1.35rem;
-    margin-right: 12px;
-  }
+.form-check-input-helpdesk {
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-right: 12px;
+}
 
-  .badge.info-btn {
-    background: var(--bs-secondary);
-  }
+.badge.info-btn {
+  background: var(--bs-secondary);
+}
 
-  .badge.info-btn:hover {
-    background: var(--bs-primary);
-  }
+.badge.info-btn:hover {
+  background: var(--bs-primary);
+}
 
-  .callout {
-    position: absolute;
-    background-color: #f0ad4e;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    display: inline-block;
-    margin-top: 10px;
-    top: -15px;
-    right: 0;
+.callout {
+  position: absolute;
+  background-color: #f0ad4e;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-top: 10px;
+  top: -15px;
+  right: 0;
 }
 
 .callout::before {
@@ -210,12 +227,13 @@ div.slogan {
 }
 
 .inputField {
-  border: .15rem solid var(--bs-primary);
+  border: 0.15rem solid var(--bs-primary);
   animation: blinkBorder 2.5s linear infinite;
 }
 
 @keyframes blinkText {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -224,7 +242,8 @@ div.slogan {
 }
 
 @keyframes blinkBorder {
-  0%, 100% {
+  0%,
+  100% {
     border-color: var(--bs-primary);
   }
   50% {
@@ -232,15 +251,15 @@ div.slogan {
   }
 }
 
-body[data-layout-mode=dark] .table {
+body[data-layout-mode="dark"] .table {
   color: #ccc;
 }
 
-body[data-layout-mode=dark] .text-visi {
+body[data-layout-mode="dark"] .text-visi {
   color: #ccc;
 }
 
-body[data-layout-mode=dark] .container {
+body[data-layout-mode="dark"] .container {
   background-color: transparent;
 }
 
@@ -250,4 +269,13 @@ body[data-layout-mode=dark] .container {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+a.note-badge:hover {
+  color: #fff;
+}
+
+ul.recruitment-list .dropdown-item.disabled,
+ul.recruitment-list .dropdown-item:disabled {
+  color: #e9e9ef !important;
 }

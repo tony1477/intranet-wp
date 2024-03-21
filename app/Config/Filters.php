@@ -41,7 +41,7 @@ class Filters extends BaseConfig
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
-            'login' => ['except' => ['api/*','display-information']],
+            'login' => ['except' => ['api/*','display-information','pages-401']],
         ],
         'after' => [
             // 'toolbar',

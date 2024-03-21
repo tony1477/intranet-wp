@@ -220,4 +220,8 @@ class Home extends BaseController
 		
 		return view('auth/register', $data);
 	}
+
+	public function pages401() {
+		return view('pages-401.html');
+	}
 }
