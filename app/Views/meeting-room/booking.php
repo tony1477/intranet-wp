@@ -481,6 +481,7 @@
         sessionStorage.setItem('notulen',notulen.value)
         let reqcheckbox = document.querySelectorAll('.requirement')
         let requirement;
+        if(!validateForm()) return Swal.fire('Info','Silahkan lengkapi semua data!','warning');
         if(speakeremail.value=='' || speakeremail.value == undefined) {
             return Swal.fire("Info",'Email Pemateri Harus diisi','warning');
         }
@@ -521,6 +522,27 @@
             }
         })
     })
+
+    const validateForm = () => {
+        if(checkInputForm(fullname) && checkInputForm(department) && checkInputForm(email) && checkInputForm(startdate) && checkInputForm(starttime) && checkInputForm(endtime) && checkInputForm(participant) && checkInputForm(speaker) && checkInputForm(speakeremail) && checkInputForm(agenda) && checkSelectForm(room,'- Pilih -') && checkInputForm(notulen)) return true;
+        return false;
+    }
+
+    const checkInputForm = (elm) => {
+        if(elm.value == '' || elm.value == undefined) {
+            console.log(elm)
+            return false;
+        }
+        return true;
+    }
+
+    const checkSelectForm = (elm,filterText) => {
+        if(elm.options[elm.selectedIndex].text == filterText) {
+            console.log(elm)
+            return false;  
+        }
+        return true;
+    }
 
     async function postData(url='',data={}) {
         const response = await fetch(url,{
