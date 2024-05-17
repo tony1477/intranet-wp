@@ -22,3 +22,4 @@ public/assets/images/*
 public/assets/videos/*
 
 app/Config/Pusher.php
+node_modules/
