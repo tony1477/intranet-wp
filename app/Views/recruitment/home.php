@@ -104,8 +104,10 @@
             url: '<?=API_WEBSITE?>/api/employee',
             type:'GET',
             "headers": {
-                "Authorization": `Bearer ${getCookie('X-WPG-Recruitment')}`
+                "Authorization": `Bearer ${getCookie('X-WPG-Recruitment')}`,
+
             },
+            crossDomain: true,
             "dataSrc": "data"
         },
         columns: [

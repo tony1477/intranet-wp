@@ -128,9 +128,14 @@
             password:form.querySelector('#password').value
         }
 
+        // var cspMetaTag = document.createElement('meta');
+        // cspMetaTag.setAttribute('http-equiv', 'Content-Security-Policy');
+        // cspMetaTag.setAttribute('content', "connect-src 'self';");
+        // document.querySelector('head').appendChild(cspMetaTag);
+
         fetch('<?=API_WEBSITE?>/auth',{
             method:'POST',
-            mode:'cors',
+            // mode:'no-cors',
             cache:'no-cache',
             headers:{
                 'Content-Type' : 'application/x-www-form-urlencoded',
@@ -152,7 +157,7 @@
             } 
         })
         .catch(error => {
-            Swal.fire('error','error',error.message)
+            Swal.fire('error',error.message,'error')
         })
     });
    
