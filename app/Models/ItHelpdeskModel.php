@@ -379,4 +379,38 @@ class ItHelpdeskModel extends Model
         // $this->db->transComplete();
         return $sql1;
     }
+
+    public function reportRincianItHelpdesk(array $param) :?array
+    {
+        $startdate = $param['startDate'];
+        $enddate = $param['endDate'];
+
+        $sql = $this->db->query("SELECT tanggal, date_format(tanggal,'%M') AS `Periode`, ticketno, lokasi, departemen, typehelpdesk, jenis AS Jenis, categoryname AS Kategori,helpdeskid,recordstatus,
+        (SELECT hc.choicename FROM helpdesk_choice hc WHERE hc.choiceid=parentdivisi) AS divisi,
+        `User`, (SELECT u.fullname FROM users u WHERE u.id = it) AS `PelaksanaIT`,
+        user_request AS `Permintaan`, user_reason AS `Alasan`, ifnull(resp_text,'') AS `RespIT`, ifnull(resp_reason,'') AS `Penyebab/Alasan`, ifnull(resp_recommendation,'') AS `RekomendasiIT`
+        FROM (
+            select hi.categoryname, i.helpdeskid,hi.categoryid,helpdesktype AS `typehelpdesk`, cast(i.ticketopen AS DATE) tanggal,i.ticketno,
+            user_request,user_reason,resp_text,resp_reason,resp_recommendation,
+            (select hc.parentid from helpdesk_choice hc where hc.choiceid=hi.categoryid) AS parentdivisi,
+            (SELECT fullname FROM users u WHERE u.id = i.userid_req) AS `User`,
+            (SELECT h.creator_id FROM users u 
+            left join helpdeskdetail h ON h.helpdeskid=i.helpdeskid
+            WHERE h.status_responsded = 9 AND h.creator_id is not null LIMIT 1) AS `it`,
+            case 
+            when helpdesktype = 'service' then 'Service'
+            when (helpdesktype = 'hardware' OR helpdesktype='system' OR helpdesktype='human') then 'Maintenance'
+            ELSE 'Service' END AS jenis,
+            (SELECT a.div_kode FROM tbl_ifmdivisi a WHERE a.iddivisi=u.iddivisi) AS lokasi, 
+            (SELECT b.dep_nama FROM tbl_ifmdepartemen b WHERE b.iddepartment=u.iddepartment) AS departemen, i.recordstatus
+            from helpdesk_issue hi
+            join ithelpdesk i ON i.helpdeskid = hi.helpdeskid
+            JOIN users u ON u.id = i.userid_req
+            where hi.categoryid in (select choiceid from helpdesk_choice hc where hc.parentid in(1,2))
+            and cast(i.ticketopen as DATE) between '{$startdate}' and '{$enddate}'
+            AND i.recordstatus NOT IN(0,-1)
+        ) z
+        ORDER BY tanggal asc");
+        return $sql->getResultArray();
+    }
 }

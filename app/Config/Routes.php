@@ -367,6 +367,9 @@ $routes->post('resp-helpdesk/submit/(:alpha)','Helpdesk\Response::submitForm/$1'
 $routes->post('resp-helpdesk/approve-helpdesk','Helpdesk\Response::approveHelpdesk');
 $routes->post('resp-helpdesk/dohelpdesk','Helpdesk\Response::doHelpdesk');
 $routes->post('resp-helpdesk/reject-helpdesk','Helpdesk\Response::rejectHelpdesk');
+$routes->get('report-helpdesk','Helpdesk\Report::index');
+$routes->get('report-helpdesk/generate','Helpdesk\Report::generate');
+// $routes->post('report-helpdesk/generate-report','Helpdesk\Report::generate');
 // $routes->post('edit-helpdesk','Helpdesk\Ticketing::editTicket');
 // $routes->get('create-helpdesk/user/(:alpha)/(:segment)','Helpdesk\Ticketing::form/$1/$2');
 
@@ -481,6 +484,9 @@ $routes->post('e-recruitment/(:num)/blacklist','Recruitment\CandidateEmployee::b
 // RESOURCE
 //$routes->resource('grupdivisi', ['controller' => 'Api\Grupdivisi']);
 
+## Backup App
+$routes->get('e-backup/master/show','Backup\MasterController::show');
+$routes->resource('e-backup/master',['namespace'=>'App\Controllers\Backup','controller'=>'MasterController']);
 ## Just Testing
 $routes->get('theme','Theme::index');
 

@@ -385,6 +385,8 @@ return [
     "To" => "Untuk",
     "Feedback_Date" => "Tanggal FU",
     "Feedback_Detail" => "Detail FU",
+    "Start_Date" => "Mulai dari",
+    "End_Date" => "Sampai Dengan",
 
 
     // Menu
